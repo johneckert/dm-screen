@@ -1,27 +1,36 @@
-# React + TypeScript + Vite
+# DM Screen
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an online tool for running 5th Edition Dungeons & Dragons games. 
 
-Currently, two official plugins are available:
+When I switched to running games online, I found myself constantly googling rules and other things that I would normally quickly reference from my DM's Screen. It slowed the game down! This project is an attempt to take the best parts of the OG DM's screen and combine it with the best parts of playing online and stick it all in a browser tab for easy access.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Getting Started
 
-## Expanding the ESLint configuration
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installing
 
-- Configure the top-level `parserOptions` property like this:
+Clone this repo to your local machine.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+Install dependencies.
+
+```
+yarn
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Start the dev server
+
+```
+yarn dev
+```
+
+## Built With
+
+* [React](https://react.dev//)
+* [Vite](https://vitejs.dev/)
+
+
+## Acknowledgments
+
+* Hat tip to the [D&D 5e API](https://www.dnd5eapi.co/)
+
