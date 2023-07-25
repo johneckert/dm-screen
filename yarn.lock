@@ -634,7 +634,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^18.2.15":
+"@types/react@npm:*, @types/react@npm:^18.2.16":
   version: 18.2.16
   resolution: "@types/react@npm:18.2.16"
   dependencies:
@@ -1278,7 +1278,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "dm-screen@workspace:."
   dependencies:
-    "@types/react": ^18.2.15
+    "@types/react": ^18.2.16
     "@types/react-dom": ^18.2.7
     "@typescript-eslint/eslint-plugin": ^6.0.0
     "@typescript-eslint/parser": ^6.0.0
