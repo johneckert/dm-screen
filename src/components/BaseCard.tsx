@@ -9,29 +9,27 @@ import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Theme } from '@mui/material/styles';
-import { StyledComponent } from '@emotion/styled';
 
-interface ExpandMoreProps extends IconButtonProps {
+interface ExpandButtonProps extends IconButtonProps {
   expand: boolean;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-const ExpandMore: StyledComponent<ExpandMoreProps> = styled((props: ExpandMoreProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { expand, ...rest } = props;
-  return <IconButton {...rest} />;
+interface BaseCardProps {
+    title: string;
+    subheader?: string
+}
+
+const ExpandButton = styled((props: ExpandButtonProps) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { expand, ...rest } = props;
+    return <IconButton {...rest} />;
 })(({ theme, expand }:{ theme: Theme; expand: boolean }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
     duration: theme.transitions.duration.shortest,
   }),
-}));
-
-interface BaseCardProps {
-    title: string;
-    subheader?: string
-}
+})) as React.ComponentType<ExpandButtonProps>;
 
 const BaseCard = ({ title, subheader = "" }: BaseCardProps) => {
   const [expanded, setExpanded] = useState(false);
@@ -50,14 +48,14 @@ const BaseCard = ({ title, subheader = "" }: BaseCardProps) => {
           </Avatar>
         }
         action={
-            <ExpandMore
+            <ExpandButton
             expand={expanded}
             onClick={toggleExpand}
             aria-expanded={expanded}
             aria-label="show more"
           >
             <ExpandMoreIcon />
-          </ExpandMore>
+          </ExpandButton>
         }
         title={title}
         subheader={subheader}
