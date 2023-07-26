@@ -1,4 +1,5 @@
 import Grid from '@mui/material/Unstable_Grid2';
+import BaseCard from './BaseCard';
 
 const ScreenArea = () => {
     return (
@@ -7,7 +8,9 @@ const ScreenArea = () => {
             <div>1</div>
         </Grid>
         <Grid xs={4} sm={2} md={1}>
-            <div>2</div>
+            <div>
+                <BaseCard title="Test"></BaseCard>
+            </div>
         </Grid>
         <Grid xs={4} sm={2} md={1}>
             <div>3</div>
