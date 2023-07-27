@@ -1,6 +1,6 @@
 # DM Screen
 
-This is an online tool for running 5th Edition Dungeons & Dragons games. 
+This is an online tool for running 5th Edition Dungeons & Dragons games.
 
 When I switched to running games online, I found myself constantly googling rules and other things that I would normally quickly reference from my DM's Screen. It slowed the game down! This project is an attempt to take the best parts of the OG DM's screen and combine it with the best parts of playing online and stick it all in a browser tab for easy access.
 
@@ -26,11 +26,13 @@ yarn dev
 
 ## Built With
 
-* [React](https://react.dev//)
-* [Vite](https://vitejs.dev/)
+- [React](https://react.dev//)
+- [Vite](https://vitejs.dev/)
 
+## Dependencies
+
+- [react-dnd](https://github.com/react-dnd/react-dnd)
 
 ## Acknowledgments
 
-* Hat tip to the [D&D 5e API](https://www.dnd5eapi.co/)
-
+- Hat tip to the [D&D 5e API](https://www.dnd5eapi.co/)

@@ -5,6 +5,7 @@ import '@fontsource/roboto/700.css';
 
 import Header from './components/Header';
 import ScreenArea from './components/ScreenArea';
+import { DragLayer } from './components/DragLayer';
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
     <>
       <Header/>
       <ScreenArea/>
+      <DragLayer/>
     </>
   )
 }
