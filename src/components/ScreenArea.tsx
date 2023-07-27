@@ -19,6 +19,7 @@ const ScreenArea = () => {
     return { width: window.innerWidth, height: window.innerHeight };
   };
   const [screenSize, setScreenSize] = useState(getScreenSize());
+  const [cards, setCards] = useState<CardMap>(DEMO_CARDS);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -31,8 +32,6 @@ const ScreenArea = () => {
       };
     }
   }, []);
-
-  const [cards, setCards] = useState<CardMap>(DEMO_CARDS);
 
   const moveCard = useCallback((id: string, left: number, top: number) => {
     setCards((prevCards) => ({
@@ -69,7 +68,7 @@ const ScreenArea = () => {
   };
 
   return (
-    <Container sx={{ background: 'pink', ...screenArea }} ref={drop}>
+    <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop}>
       {Object.keys(cards).map((key) => (
         <DraggableCard key={key} id={key} top={cards[key].top} left={cards[key].left} title={cards[key].title} />
       ))}
