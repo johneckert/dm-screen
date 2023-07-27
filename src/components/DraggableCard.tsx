@@ -1,7 +1,7 @@
 import { memo, useState, useEffect, CSSProperties, FC } from 'react';
-import type { DragSourceMonitor } from 'react-dnd'
-import { useDrag } from 'react-dnd'
-import { getEmptyImage } from 'react-dnd-html5-backend'
+import type { DragSourceMonitor } from 'react-dnd';
+import { useDrag } from 'react-dnd';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -24,39 +24,35 @@ interface BasicCard {
 }
 
 interface DraggableCardProps extends BasicCard {
-    id: string
-    left: number
-    top: number
+  id: string;
+  left: number;
+  top: number;
 }
 
 export interface BoxDragPreviewProps {
-  title: string
+  title: string;
 }
 
 export interface BoxDragPreviewState {
-  tickTock: unknown
+  tickTock: unknown;
 }
 
-function getStyles(
-  left: number,
-  top: number,
-  isDragging: boolean,
-): CSSProperties {
-  const transform = `translate3d(${left}px, ${top}px, 0)`
+function getStyles(left: number, top: number, isDragging: boolean): CSSProperties {
+  const transform = `translate3d(${left}px, ${top}px, 0)`;
   return {
     position: 'absolute',
     transform,
     WebkitTransform: transform,
-    opacity: isDragging ? 0 : 1,
+    opacity: isDragging ? 0.3 : 1,
     height: isDragging ? 0 : '',
-  }
+  };
 }
 
 const ExpandButton = styled((props: ExpandButtonProps) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { expand, ...rest } = props;
-    return <IconButton {...rest} />;
-})(({ theme, expand }:{ theme: Theme; expand: boolean }) => ({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { expand, ...rest } = props;
+  return <IconButton {...rest} />;
+})(({ theme, expand }: { theme: Theme; expand: boolean }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
   marginLeft: 'auto',
   transition: theme.transitions.create('transform', {
@@ -74,36 +70,30 @@ export const BasicCard = ({ title, preview }: BasicCard) => {
 
   return (
     <Card sx={{ maxWidth: 345 }} role={preview ? 'BoxPreview' : 'Box'}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="avatar">
-              { avatar }
-            </Avatar>
-          }
-          action={
-              <ExpandButton
-              expand={expanded}
-              onClick={toggleExpand}
-              aria-expanded={expanded}
-              aria-label="show more"
-            >
-              <ExpandMoreIcon />
-            </ExpandButton>
-          }
-          title={title}
-        />
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <Typography paragraph>
-              This is some test content.
-            </Typography>
-          </CardContent>
-        </Collapse>
-      </Card>
-  )
+      <CardHeader
+        avatar={<Avatar aria-label="avatar">{avatar}</Avatar>}
+        action={
+          <ExpandButton expand={expanded} onClick={toggleExpand} aria-expanded={expanded} aria-label="show more">
+            <ExpandMoreIcon />
+          </ExpandButton>
+        }
+        title={title}
+      />
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography paragraph>This is some test content.</Typography>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
 };
 
-const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({ id, title, left, top }: DraggableCardProps) {
+const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({
+  id,
+  title,
+  left,
+  top,
+}: DraggableCardProps) {
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.CARD,
@@ -113,11 +103,11 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({ id, 
       }),
     }),
     [id, left, top, title],
-  )
+  );
 
   useEffect(() => {
-    preview(getEmptyImage(), { captureDraggingState: true })
-  }, [preview])
+    preview(getEmptyImage(), { captureDraggingState: true });
+  }, [preview]);
 
   return (
     <div ref={drag} style={getStyles(left, top, isDragging)} role="DraggableCard">
@@ -128,20 +118,15 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({ id, 
 
 const previewStyles: CSSProperties = {
   display: 'inline-block',
-  transform: 'rotate(-7deg)',
-  WebkitTransform: 'rotate(-7deg)',
-}
+  opacity: 0.5,
+};
 
-export const CardDragPreview: FC<BoxDragPreviewProps> = memo(
-  function CardDragPreview({ title }: BasicCard ) {
-
-    return (
-      <div style={previewStyles}>
-        <BasicCard title={title} preview />
-      </div>
-    )
-  },
-)
-
+export const CardDragPreview: FC<BoxDragPreviewProps> = memo(function CardDragPreview({ title }: BasicCard) {
+  return (
+    <div style={previewStyles}>
+      <BasicCard title={title} preview />
+    </div>
+  );
+});
 
 export default DraggableCard;
