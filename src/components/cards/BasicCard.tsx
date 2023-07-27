@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -10,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Theme } from '@mui/material/styles';
 import { BasicCardProps, ExpandButtonProps } from '../../interfaces';
+import { getScreenSize } from '../../utils';
 
 const ExpandButton = styled((props: ExpandButtonProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -23,26 +23,36 @@ const ExpandButton = styled((props: ExpandButtonProps) => {
   }),
 })) as React.ComponentType<ExpandButtonProps>;
 
-const BasicCard = ({ title, preview }: BasicCardProps) => {
-  const [expanded, setExpanded] = useState(false);
+const BasicCard = ({ title, preview, isExpanded, setExpanded }: BasicCardProps) => {
+  const screenSize = getScreenSize();
   const avatar = title.charAt(0).toUpperCase();
 
   const toggleExpand = () => {
-    setExpanded(!expanded);
+    setExpanded(!isExpanded);
+  };
+
+  const getCardWith = () => {
+    if (screenSize.width > 1200) {
+      return screenSize.width / 4;
+    }
+    if (screenSize.width > 600) {
+      return screenSize.width / 2;
+    }
+    return screenSize.width;
   };
 
   return (
-    <Card sx={{ maxWidth: 345 }} role={preview ? 'BoxPreview' : 'Box'}>
+    <Card sx={{ width: getCardWith() }} role={preview ? 'CardPreview' : 'Card'}>
       <CardHeader
         avatar={<Avatar aria-label="avatar">{avatar}</Avatar>}
         action={
-          <ExpandButton expand={expanded} onClick={toggleExpand} aria-expanded={expanded} aria-label="show more">
+          <ExpandButton expand={isExpanded} onClick={toggleExpand} aria-expanded={isExpanded} aria-label="show more">
             <ExpandMoreIcon />
           </ExpandButton>
         }
         title={title}
       />
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={isExpanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>This is some test content.</Typography>
         </CardContent>

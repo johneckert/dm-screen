@@ -4,20 +4,18 @@ import Container from '@mui/material/Container';
 import { ItemTypes } from '../constants';
 import { DragItem } from '../interfaces';
 import DraggableCard from './DraggableCard';
+import { getScreenSize } from '../utils';
 
 interface CardMap {
-  [key: string]: { top: number; left: number; title: string };
+  [key: string]: { top: number; left: number; title: string; content: string };
 }
 
 const DEMO_CARDS = {
-  a: { top: 20, left: 80, title: 'A Test' },
-  b: { top: 180, left: 20, title: 'B Test' },
+  a: { top: 20, left: 80, title: 'A Test', content: 'Content A.' },
+  b: { top: 180, left: 20, title: 'B Test', content: 'Content B.' },
 };
 
 const ScreenArea = () => {
-  const getScreenSize = () => {
-    return { width: window.innerWidth, height: window.innerHeight };
-  };
   const [screenSize, setScreenSize] = useState(getScreenSize());
   const [cards, setCards] = useState<CardMap>(DEMO_CARDS);
 
@@ -70,7 +68,14 @@ const ScreenArea = () => {
   return (
     <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop}>
       {Object.keys(cards).map((key) => (
-        <DraggableCard key={key} id={key} top={cards[key].top} left={cards[key].left} title={cards[key].title} />
+        <DraggableCard
+          key={key}
+          id={key}
+          top={cards[key].top}
+          left={cards[key].left}
+          title={cards[key].title}
+          content={cards[key].content}
+        />
       ))}
     </Container>
   );
