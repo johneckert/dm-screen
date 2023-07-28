@@ -25,3 +25,7 @@ export interface DragItem {
 export interface ExpandButtonProps extends IconButtonProps {
   expand: boolean;
 }
+
+export interface EditButtonProps extends IconButtonProps {
+  edit: boolean;
+}
