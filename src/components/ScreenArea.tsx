@@ -66,7 +66,7 @@ const ScreenArea = () => {
   };
 
   return (
-    <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop}>
+    <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop} data-testid="screen-area">
       {Object.keys(cards).map((key) => (
         <DraggableCard
           key={key}
