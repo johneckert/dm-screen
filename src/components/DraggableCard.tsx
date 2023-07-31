@@ -3,16 +3,8 @@ import type { DragSourceMonitor } from 'react-dnd';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
 import { ItemTypes } from '../constants';
-import { BasicCardProps, BoxDragPreviewProps } from '../interfaces';
+import { BasicCardProps, BoxDragPreviewProps, DraggableCardProps } from '../interfaces';
 import BasicCard from './cards/BasicCard';
-
-interface DraggableCardProps {
-  id: string;
-  left: number;
-  top: number;
-  title: string;
-  content: string;
-}
 
 function getStyles(left: number, top: number, isDragging: boolean): CSSProperties {
   const transform = `translate3d(${left}px, ${top}px, 0)`;
@@ -31,6 +23,7 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({
   content,
   left,
   top,
+  updateCardData,
 }: DraggableCardProps) {
   const [expanded, setExpanded] = useState(false);
   const [{ isDragging }, drag, preview] = useDrag(
@@ -50,7 +43,14 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({
 
   return (
     <div ref={drag} style={getStyles(left, top, isDragging)} role="DraggableCard">
-      <BasicCard title={title} content={content} isExpanded={expanded} setExpanded={setExpanded} />
+      <BasicCard
+        id={id}
+        title={title}
+        content={content}
+        isExpanded={expanded}
+        setExpanded={setExpanded}
+        updateCardData={updateCardData}
+      />
     </div>
   );
 });
@@ -61,6 +61,7 @@ const previewStyles: CSSProperties = {
 };
 
 export const CardDragPreview: FC<BoxDragPreviewProps> = memo(function CardDragPreview({
+  id,
   title,
   content,
   isExpanded,
@@ -68,7 +69,15 @@ export const CardDragPreview: FC<BoxDragPreviewProps> = memo(function CardDragPr
 }: BasicCardProps) {
   return (
     <div style={previewStyles}>
-      <BasicCard title={title} content={content} preview isExpanded={isExpanded} setExpanded={setExpanded} />
+      <BasicCard
+        id={id}
+        title={title}
+        content={content}
+        preview
+        isExpanded={isExpanded}
+        setExpanded={setExpanded}
+        updateCardData={() => {}}
+      />
     </div>
   );
 });

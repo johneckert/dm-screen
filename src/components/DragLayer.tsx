@@ -46,10 +46,12 @@ export const DragLayer: FC = () => {
         console.log(item);
         return (
           <CardDragPreview
+            id={item.id}
             title={item.title}
             content={item.content}
             isExpanded={item.expanded}
             setExpanded={item.setExpanded}
+            updateCardData={item.updateCardData}
           />
         );
       default:

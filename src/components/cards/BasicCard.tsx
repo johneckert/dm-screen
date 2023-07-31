@@ -39,11 +39,11 @@ const EditButton = styled(({ edit, ...rest }: EditButtonProps) => {
   }),
 })) as React.ComponentType<EditButtonProps>;
 
-const BasicCard = ({ title, preview, isExpanded, setExpanded }: BasicCardProps) => {
+const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updateCardData }: BasicCardProps) => {
   const screenSize = getScreenSize();
   const [isEditing, setEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(title);
-  const [cardContent, setCardContent] = useState('This is some test content.');
+  const [cardContent, setCardContent] = useState(content);
 
   const avatar = cardTitle.charAt(0).toUpperCase();
 
@@ -53,6 +53,16 @@ const BasicCard = ({ title, preview, isExpanded, setExpanded }: BasicCardProps) 
 
   const toggleEdit = () => {
     setEditing(!isEditing);
+  };
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCardTitle(event.target.value);
+    updateCardData(id, event.target.value, cardContent);
+  };
+
+  const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCardContent(event.target.value);
+    updateCardData(id, cardTitle, event.target.value);
   };
 
   const getCardWith = () => {
@@ -73,9 +83,7 @@ const BasicCard = ({ title, preview, isExpanded, setExpanded }: BasicCardProps) 
           value={cardTitle}
           variant="standard"
           sx={{ width: '100%' }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setCardTitle(event.target.value);
-          }}
+          onChange={handleTitleChange}
         />
       );
     }
@@ -90,9 +98,7 @@ const BasicCard = ({ title, preview, isExpanded, setExpanded }: BasicCardProps) 
           value={cardContent}
           multiline
           sx={{ width: '100%' }}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-            setCardContent(event.target.value);
-          }}
+          onChange={handleContentChange}
         />
       );
     }

@@ -1,23 +1,37 @@
 import { useState, useCallback, CSSProperties, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
 import Container from '@mui/material/Container';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
 import { ItemTypes } from '../constants';
-import { DragItem } from '../interfaces';
+import { DragItem, CardData } from '../interfaces';
 import DraggableCard from './DraggableCard';
 import { getScreenSize } from '../utils';
+import { useLocalStorage } from 'usehooks-ts';
+import { v4 as uuidv4 } from 'uuid';
 
-interface CardMap {
-  [key: string]: { top: number; left: number; title: string; content: string };
-}
-
-const DEMO_CARDS = {
-  a: { top: 20, left: 80, title: 'A Test', content: 'Content A.' },
-  b: { top: 180, left: 20, title: 'B Test', content: 'Content B.' },
-};
+const DEMO_CARDS: CardData[] = [
+  { id: uuidv4(), top: 20, left: 80, title: 'A Test', content: 'Content A.' },
+  { id: uuidv4(), top: 180, left: 20, title: 'B Test', content: 'Content B.' },
+];
 
 const ScreenArea = () => {
+  const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS || ([] as CardData[]));
   const [screenSize, setScreenSize] = useState(getScreenSize());
-  const [cards, setCards] = useState<CardMap>(DEMO_CARDS);
+
+  const createCard = () => {
+    const id = uuidv4();
+    setCards([...cards, { id, top: 20, left: 20, title: 'New Card', content: 'Content' }]);
+  };
+
+  const updateCardData = (id: string, title: string, content: string): void => {
+    const targetCard = cards.find((card) => card.id === id);
+    if (targetCard) {
+      targetCard.title = title;
+      targetCard.content = content;
+      setCards(cards);
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -32,14 +46,13 @@ const ScreenArea = () => {
   }, []);
 
   const moveCard = useCallback((id: string, left: number, top: number) => {
-    setCards((prevCards) => ({
-      ...prevCards,
-      [id]: {
-        ...prevCards[id],
-        left,
-        top,
-      },
-    }));
+    const targetCard = cards.find((card) => card.id === id);
+    if (!targetCard) {
+      return;
+    }
+    targetCard.left = left;
+    targetCard.top = top;
+    setCards(cards);
   }, []);
 
   const [, drop] = useDrop(
@@ -65,18 +78,29 @@ const ScreenArea = () => {
     height: screenSize.height,
   };
 
+  console.log('cards', cards);
+
   return (
     <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop} data-testid="screen-area">
-      {Object.keys(cards).map((key) => (
+      {cards.map((card) => (
         <DraggableCard
-          key={key}
-          id={key}
-          top={cards[key].top}
-          left={cards[key].left}
-          title={cards[key].title}
-          content={cards[key].content}
+          key={card.id}
+          id={card.id}
+          top={card.top}
+          left={card.left}
+          title={card.title}
+          content={card.content}
+          updateCardData={updateCardData}
         />
       ))}
+      <Fab
+        color="primary"
+        aria-label="add-card"
+        onClick={createCard}
+        sx={{ position: 'absolute', bottom: '1em', right: '1em' }}
+      >
+        <AddIcon />
+      </Fab>
     </Container>
   );
 };

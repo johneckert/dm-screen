@@ -1,18 +1,27 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 
 export interface BasicCardProps {
+  id: string;
   title: string;
   content: string;
   preview?: boolean;
   isExpanded: boolean;
   setExpanded: (value: boolean) => void;
+  updateCardData: (id: string, title: string, content: string) => void;
 }
 
-export interface BoxDragPreviewProps {
+export interface BoxDragPreviewProps extends BasicCardProps {}
+
+export interface CardData {
+  id: string;
+  left: number;
+  top: number;
   title: string;
   content: string;
-  isExpanded: boolean;
-  setExpanded: (expanded: boolean) => void;
+}
+
+export interface DraggableCardProps extends CardData {
+  updateCardData: (id: string, title: string, content: string) => void;
 }
 
 export interface DragItem {
