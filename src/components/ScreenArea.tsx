@@ -21,7 +21,10 @@ const ScreenArea = () => {
 
   const createCard = () => {
     const id = uuidv4();
-    setCards([...cards, { id, top: 20, left: 20, title: 'New Card', content: 'Content' }]);
+    setCards((prevCards: CardData[]) => [
+      ...prevCards,
+      { id, top: 20, left: 20, title: 'New Card', content: 'Content' },
+    ]);
   };
 
   const updateCardData = (id: string, title: string, content: string): void => {
@@ -45,15 +48,19 @@ const ScreenArea = () => {
     }
   }, []);
 
-  const moveCard = useCallback((id: string, left: number, top: number) => {
-    const targetCard = cards.find((card) => card.id === id);
-    if (!targetCard) {
-      return;
-    }
-    targetCard.left = left;
-    targetCard.top = top;
-    setCards(cards);
-  }, []);
+  const moveCard = useCallback(
+    (id: string, left: number, top: number) => {
+      console.log('moveCard', cards.length);
+      const targetCard = cards.find((card) => card.id === id);
+      if (!targetCard) {
+        return;
+      }
+      targetCard.left = left;
+      targetCard.top = top;
+      setCards(cards);
+    },
+    [cards],
+  );
 
   const [, drop] = useDrop(
     () => ({
