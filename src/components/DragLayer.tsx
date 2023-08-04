@@ -43,7 +43,6 @@ export const DragLayer: FC = () => {
   function renderItem() {
     switch (itemType) {
       case ItemTypes.CARD:
-        console.log(item);
         return (
           <CardDragPreview
             id={item.id}
