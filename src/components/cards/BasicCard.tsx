@@ -67,10 +67,10 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
 
   const getCardWith = () => {
     if (screenSize.width > 1200) {
-      return screenSize.width / 4;
+      return screenSize.width / 4 - 16;
     }
     if (screenSize.width > 600) {
-      return screenSize.width / 2;
+      return screenSize.width / 2 - 16;
     }
     return screenSize.width;
   };
@@ -80,6 +80,7 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
       return (
         <TextField
           id="title-input"
+          role="text-field"
           value={cardTitle}
           variant="standard"
           sx={{ width: '100%' }}
@@ -95,6 +96,7 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
       return (
         <TextField
           id="content-input"
+          role="text-field"
           value={cardContent}
           multiline
           sx={{ width: '100%' }}
@@ -106,7 +108,11 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
   };
 
   return (
-    <Card sx={{ width: getCardWith(), zIndex: isEditing ? '50' : '0' }} role={preview ? 'CardPreview' : 'Card'}>
+    <Card
+      sx={{ width: getCardWith(), zIndex: isEditing ? '50' : '0' }}
+      role={preview ? 'CardPreview' : 'Card'}
+      data-testid="basic-card"
+    >
       <CardHeader
         avatar={<Avatar aria-label="avatar">{avatar}</Avatar>}
         action={
@@ -121,7 +127,7 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
           <Container>{contentComponent()}</Container>
         </CardContent>
         <CardActions disableSpacing>
-          <EditButton edit={isEditing} onClick={toggleEdit} aria-expanded={isExpanded} aria-label="show more">
+          <EditButton edit={isEditing} onClick={toggleEdit} aria-expanded={isExpanded} aria-label="edit">
             <EditIcon sx={{ color: isEditing ? PINK[100] : 'primary' }} />
           </EditButton>
         </CardActions>

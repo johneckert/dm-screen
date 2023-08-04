@@ -50,7 +50,6 @@ const ScreenArea = () => {
 
   const moveCard = useCallback(
     (id: string, left: number, top: number) => {
-      console.log('moveCard', cards.length);
       const targetCard = cards.find((card) => card.id === id);
       if (!targetCard) {
         return;
@@ -84,8 +83,6 @@ const ScreenArea = () => {
     width: screenSize.width,
     height: screenSize.height,
   };
-
-  console.log('cards', cards);
 
   return (
     <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop} data-testid="screen-area">

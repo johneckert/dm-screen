@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import ScreenArea from './ScreenArea';
 
 jest.mock('react-dnd', () => ({
@@ -18,15 +18,18 @@ describe('ScreenArea', () => {
     expect(screen.getAllByTestId('draggable-card')).toHaveLength(2);
   });
 
-  it('resizes the screen area when the window is resized', async () => {
+  it('resizes the screen area when the window is resized', () => {
     render(<ScreenArea />);
     const screenArea = screen.getByTestId('screen-area');
-    const resizeEvent = new Event('resize');
-    window.innerWidth = 1000;
-    window.innerHeight = 1000;
-    window.dispatchEvent(resizeEvent);
 
-    await waitFor(() => {
+    act(() => {
+      const resizeEvent = new Event('resize');
+      window.innerWidth = 1000;
+      window.innerHeight = 1000;
+      window.dispatchEvent(resizeEvent);
+    });
+
+    waitFor(() => {
       expect(screenArea).toHaveStyle('width: 1000px');
       expect(screenArea).toHaveStyle('height: 1000px');
     });
