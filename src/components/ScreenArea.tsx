@@ -6,9 +6,10 @@ import AddIcon from '@mui/icons-material/Add';
 import { ItemTypes } from '../constants';
 import { DragItem, CardData } from '../interfaces';
 import DraggableCard from './DraggableCard';
-import { getScreenSize } from '../utils';
+import { getScreenSize, getGrid, snapToGrid } from '../utils';
 import { useLocalStorage } from 'usehooks-ts';
 import { v4 as uuidv4 } from 'uuid';
+import { grid } from '@mui/system';
 
 const DEMO_CARDS: CardData[] = [
   { id: uuidv4(), top: 20, left: 80, title: 'A Test', content: 'Content A.' },
@@ -18,6 +19,7 @@ const DEMO_CARDS: CardData[] = [
 const ScreenArea = () => {
   const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS || ([] as CardData[]));
   const [screenSize, setScreenSize] = useState(getScreenSize());
+  const [gridSize, setGridSize] = useState(getGrid(screenSize));
 
   const createCard = () => {
     const id = uuidv4();
@@ -40,6 +42,7 @@ const ScreenArea = () => {
     if (typeof window !== 'undefined') {
       const handleResize = () => {
         setScreenSize(getScreenSize());
+        setGridSize(getGrid(screenSize));
       };
       window.addEventListener('resize', handleResize);
       return () => {
@@ -70,8 +73,10 @@ const ScreenArea = () => {
           y: number;
         };
 
-        const left = Math.round(item.left + delta.x);
-        const top = Math.round(item.top + delta.y);
+        const rawLeft = Math.round(item.left + delta.x);
+        const rawTop = Math.round(item.top + delta.y);
+
+        const [left, top] = snapToGrid(rawLeft, rawTop, gridSize);
         moveCard(item.id, left, top);
         return undefined;
       },
