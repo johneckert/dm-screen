@@ -25,7 +25,7 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({
   top,
   updateCardData,
 }: DraggableCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.CARD,

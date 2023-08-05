@@ -3,13 +3,12 @@ import { useDrop } from 'react-dnd';
 import Container from '@mui/material/Container';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import { ItemTypes } from '../constants';
+import { HEADER_HEIGHT, ItemTypes } from '../constants';
 import { DragItem, CardData } from '../interfaces';
 import DraggableCard from './DraggableCard';
 import { getScreenSize, getGrid, snapToGrid } from '../utils';
 import { useLocalStorage } from 'usehooks-ts';
 import { v4 as uuidv4 } from 'uuid';
-import { grid } from '@mui/system';
 
 const DEMO_CARDS: CardData[] = [
   { id: uuidv4(), top: 20, left: 80, title: 'A Test', content: 'Content A.' },
@@ -86,11 +85,13 @@ const ScreenArea = () => {
 
   const screenArea: CSSProperties = {
     width: screenSize.width,
-    height: screenSize.height,
+    height: screenSize.height - HEADER_HEIGHT,
+    paddingLeft: '12px',
+    paddingRight: '12px',
   };
 
   return (
-    <Container maxWidth={false} sx={{ px: 0, ...screenArea }} ref={drop} data-testid="screen-area">
+    <Container maxWidth={false} disableGutters sx={screenArea} ref={drop} data-testid="screen-area">
       {cards.map((card) => (
         <DraggableCard
           key={card.id}
