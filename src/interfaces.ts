@@ -43,3 +43,13 @@ export interface Grid {
   rows: number;
   columns: number;
 }
+
+export interface GridTemplate {
+  rowsDef: string;
+  colsDef: string;
+}
+
+export interface ScreenSize {
+  width: number;
+  height: number;
+}
