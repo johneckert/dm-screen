@@ -26,22 +26,22 @@ export const getGrid = (screenSize: ScreenSize): Grid => {
 export const getGridTemplate = (screenSize: ScreenSize): GridTemplate => {
   let colDef;
   if (screenSize.width > BREAKPOINTS.xl) {
-    colDef = `[col-1 start] 16.667% [col-1 end col-2 start] 16.667% [col-2 end col-3 start] 16.667% [col-3 end col-4 start] 16.667% [col-4 end col-5 start] 16.667% [col-5 end col-6 start] 16.667% [col-6 end]`;
+    colDef = `repeat(${NUMBER_OF_COLUMNS.xl}, 1fr)`;
   } else if (screenSize.width > BREAKPOINTS.lg) {
-    colDef = `[col-1 start] 25% [col-1 end col-2 start] 25% [col-2 end col-3 start] 25% [col-3 end col-4 start] 25% [col-4 end]`;
+    colDef = `repeat(${NUMBER_OF_COLUMNS.lg}, 1fr)`;
   } else if (screenSize.width > BREAKPOINTS.md) {
-    colDef = `[col-1 start] 50% [col-1 end col-2 start] 50% [col-2 end]`;
+    colDef = `repeat(${NUMBER_OF_COLUMNS.md}, 1fr)`;
   } else {
-    colDef = `[col-1 start] 100% [col-1 end]`;
+    colDef = `repeat(${NUMBER_OF_COLUMNS.sm}, 1fr)`;
   }
+
   return {
-    rowsDef: `[row-1 start] 25% [row-1 end row-2 start] 25% [row-2 end row-3 start] 25% [row-3 end row-4 start] 25% [row-4 end]`,
-    colsDef: colDef,
+    rowDefinition: `repeat(${NUMBER_OF_ROWS}, 1fr)`,
+    columnDefinition: colDef,
   };
 };
 
 export const snapToGrid = (x: number, y: number, grid: Grid): [number, number] => {
-  console.log('snapToGrid', x, y, grid);
   const snappedX = Math.round(x / grid.columns) * grid.columns;
   const snappedY = Math.round(y / grid.rows) * grid.rows;
   return [snappedX, snappedY];

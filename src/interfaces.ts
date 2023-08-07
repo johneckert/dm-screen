@@ -45,8 +45,8 @@ export interface Grid {
 }
 
 export interface GridTemplate {
-  rowsDef: string;
-  colsDef: string;
+  rowDefinition: string;
+  columnDefinition: string;
 }
 
 export interface ScreenSize {

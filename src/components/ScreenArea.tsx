@@ -4,7 +4,6 @@ import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
-import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { HEADER_HEIGHT, ItemTypes } from '../constants';
 import { DragItem, CardData, ScreenSize, Grid, GridTemplate } from '../interfaces';
@@ -35,8 +34,8 @@ const useStyles = makeStyles((theme) => ({
     display: 'grid',
     width: '100%',
     height: '100%',
-    gridTemplateColumns: (props: StyleProps) => props.gridTemplate.colsDef,
-    gridTemplateRows: (props: StyleProps) => props.gridTemplate.rowsDef,
+    gridTemplateColumns: (props: StyleProps) => props.gridTemplate.columnDefinition,
+    gridTemplateRows: (props: StyleProps) => props.gridTemplate.rowDefinition,
   },
 }));
 
@@ -69,7 +68,6 @@ const ScreenArea = () => {
     if (typeof window !== 'undefined') {
       const handleResize = () => {
         setScreenSize(getScreenSize());
-        setGridSize(getGrid(screenSize));
       };
       window.addEventListener('resize', handleResize);
       return () => {
@@ -77,6 +75,11 @@ const ScreenArea = () => {
       };
     }
   }, []);
+
+  useEffect(() => {
+    setGridSize(getGrid(screenSize));
+    setGridTemplate(getGridTemplate(screenSize));
+  }, [screenSize]);
 
   const moveCard = useCallback(
     (id: string, left: number, top: number) => {
