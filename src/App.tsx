@@ -1,3 +1,5 @@
+import React from 'react';
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -8,14 +10,13 @@ import ScreenArea from './components/ScreenArea';
 import { DragLayer } from './components/DragLayer';
 
 function App() {
-
   return (
     <>
-      <Header/>
-      <ScreenArea/>
-      <DragLayer/>
+      <Header />
+      <ScreenArea />
+      <DragLayer />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

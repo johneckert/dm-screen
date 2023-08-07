@@ -1,4 +1,4 @@
-import { memo, useEffect, useState, CSSProperties, FC } from 'react';
+import React, { memo, useEffect, useState, CSSProperties, FC } from 'react';
 import type { DragSourceMonitor } from 'react-dnd';
 import { useDrag } from 'react-dnd';
 import { getEmptyImage } from 'react-dnd-html5-backend';
@@ -25,7 +25,7 @@ const DraggableCard: FC<DraggableCardProps> = memo(function DraggableCard({
   top,
   updateCardData,
 }: DraggableCardProps) {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
   const [{ isDragging }, drag, preview] = useDrag(
     () => ({
       type: ItemTypes.CARD,

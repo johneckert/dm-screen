@@ -16,6 +16,7 @@ import { Theme } from '@mui/material/styles';
 import { PINK } from '../../colors';
 import { BasicCardProps, ExpandButtonProps, EditButtonProps } from '../../interfaces';
 import { getScreenSize } from '../../utils';
+import { BREAKPOINTS, HEADER_HEIGHT, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from '../../constants';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ExpandButton = styled(({ expand, ...rest }: ExpandButtonProps) => {
@@ -66,13 +67,20 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
   };
 
   const getCardWith = () => {
-    if (screenSize.width > 1200) {
-      return screenSize.width / 4 - 16;
+    if (screenSize.width > BREAKPOINTS.xl) {
+      return screenSize.width / NUMBER_OF_COLUMNS.xl - 16;
     }
-    if (screenSize.width > 600) {
-      return screenSize.width / 2 - 16;
+    if (screenSize.width > BREAKPOINTS.lg) {
+      return screenSize.width / NUMBER_OF_COLUMNS.lg - 16;
     }
-    return screenSize.width;
+    if (screenSize.width > BREAKPOINTS.md) {
+      return screenSize.width / NUMBER_OF_COLUMNS.md - 16;
+    }
+    return screenSize.width - 16;
+  };
+
+  const getCardHeight = () => {
+    return (screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16;
   };
 
   const titleComponent = () => {
@@ -109,7 +117,12 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
 
   return (
     <Card
-      sx={{ width: getCardWith(), zIndex: isEditing ? '50' : '0' }}
+      sx={{
+        width: getCardWith(),
+        zIndex: isEditing ? '50' : '0',
+        margin: '8px 0',
+        maxHeight: getCardHeight(),
+      }}
       role={preview ? 'CardPreview' : 'Card'}
       data-testid="basic-card"
     >
