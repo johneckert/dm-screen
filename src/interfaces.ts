@@ -38,3 +38,8 @@ export interface ExpandButtonProps extends IconButtonProps {
 export interface EditButtonProps extends IconButtonProps {
   edit: boolean;
 }
+
+export interface Grid {
+  rows: number;
+  columns: number;
+}
