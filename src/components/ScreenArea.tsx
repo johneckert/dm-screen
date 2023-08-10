@@ -1,21 +1,20 @@
-import React, { useState, useCallback, CSSProperties, useEffect } from 'react';
-import { useDrop } from 'react-dnd';
+import React, { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import makeStyles from '@mui/styles/makeStyles';
 import { HEADER_HEIGHT, ItemTypes } from '../constants';
-import { DragItem, CardData, ScreenSize, Grid, GridTemplate } from '../interfaces';
-import DraggableCard from './DraggableCard';
-import { getScreenSize, getGrid, getGridTemplate, snapToGrid } from '../utils';
+import { CardData, ScreenSize, GridSize, GridTemplate } from '../interfaces';
+import { getScreenSize, getGridSize, getGridTemplate } from '../utils';
 import { useLocalStorage } from 'usehooks-ts';
 import theme from '../theme';
 import { v4 as uuidv4 } from 'uuid';
+import { remove } from 'lodash';
 
 const DEMO_CARDS: CardData[] = [
-  { id: uuidv4(), top: 20, left: 80, title: 'A Test', content: 'Content A.' },
-  { id: uuidv4(), top: 180, left: 20, title: 'B Test', content: 'Content B.' },
+  { id: uuidv4(), column: 1, row: 1, title: 'A Test', content: 'Content A.' },
+  { id: uuidv4(), column: 3, row: 2, title: 'B Test', content: 'Content B.' },
 ];
 
 interface StyleProps {
@@ -37,21 +36,35 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: (props: StyleProps) => props.gridTemplate.columnDefinition,
     gridTemplateRows: (props: StyleProps) => props.gridTemplate.rowDefinition,
   },
+  gridItem: {},
 }));
 
 const ScreenArea = () => {
   const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS || ([] as CardData[]));
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const [gridSize, setGridSize] = useState<Grid>(getGrid(screenSize));
+  const [gridSize, setGridSize] = useState<GridSize>(getGridSize(screenSize));
   const [GridTemplate, setGridTemplate] = useState<GridTemplate>(getGridTemplate(screenSize));
   const styleProps: StyleProps = { screenSize: screenSize, gridTemplate: GridTemplate };
   const classes = useStyles(styleProps);
 
+  const findFirstEmptySpace = (): [row: number, column: number] => {
+    //TODO: fix this!
+    let columns = [1, 2, 3, 4];
+    let rows = [1, 2, 3, 4];
+    cards.forEach((card) => {
+      remove(columns, (column: number) => column === card.column);
+      remove(rows, (row: number) => row === card.row && card.column === columns[0]);
+    });
+    return [rows[0], columns[0]];
+  };
+
+  console.log('gridSize', gridSize);
   const createCard = () => {
     const id = uuidv4();
+    const [row, column] = findFirstEmptySpace();
     setCards((prevCards: CardData[]) => [
       ...prevCards,
-      { id, top: 20, left: 20, title: 'New Card', content: 'Content' },
+      { id, column: column, row: row, title: 'New Card', content: 'Content' },
     ]);
   };
 
@@ -62,6 +75,19 @@ const ScreenArea = () => {
       targetCard.content = content;
       setCards(cards);
     }
+  };
+
+  const onDragStart = (e: Event) => {
+    console.log('onDragStart', e);
+    //change styles?
+  };
+
+  const onDrop = (e: Event) => {
+    console.log('onDrop', e);
+    // calculate new row
+    // calculate new column
+    // if new space is occupied, swap cards
+    // else update card
   };
 
   useEffect(() => {
@@ -77,68 +103,49 @@ const ScreenArea = () => {
   }, []);
 
   useEffect(() => {
-    setGridSize(getGrid(screenSize));
+    setGridSize(getGridSize(screenSize));
     setGridTemplate(getGridTemplate(screenSize));
   }, [screenSize]);
 
-  const moveCard = useCallback(
-    (id: string, left: number, top: number) => {
-      const targetCard = cards.find((card) => card.id === id);
-      if (!targetCard) {
-        return;
-      }
-      targetCard.left = left;
-      targetCard.top = top;
-      setCards(cards);
-    },
-    [cards],
-  );
-
-  const [, drop] = useDrop(
-    () => ({
-      accept: ItemTypes.CARD,
-      drop(item: DragItem, monitor) {
-        const delta = monitor.getDifferenceFromInitialOffset() as {
-          x: number;
-          y: number;
-        };
-
-        const rawLeft = Math.round(item.left + delta.x);
-        const rawTop = Math.round(item.top + delta.y);
-
-        const [left, top] = snapToGrid(rawLeft, rawTop, gridSize);
-        moveCard(item.id, left, top);
-        return undefined;
-      },
-    }),
-    [moveCard],
-  );
-
   return (
-    <Container maxWidth={false} disableGutters className={classes.screenArea} ref={drop} data-testid="screen-area">
-      <Box className={classes.gridContainer} ref={drop} data-testid="screen-area">
-        {cards.map((card) => (
-          <DraggableCard
-            key={card.id}
-            id={card.id}
-            top={card.top}
-            left={card.left}
-            title={card.title}
-            content={card.content}
-            updateCardData={updateCardData}
-          />
-        ))}
-        <Fab
-          color="primary"
-          aria-label="add-card"
-          onClick={createCard}
-          sx={{ position: 'absolute', bottom: '1em', right: '1em' }}
-        >
-          <AddIcon />
-        </Fab>
-      </Box>
+    <Container maxWidth={false} disableGutters className={classes.screenArea} data-testid="screen-area">
+      <Box className={classes.gridContainer} data-testid="screen-area"></Box>
     </Container>
   );
+
+  // return (
+  //   <Container maxWidth={false} disableGutters className={classes.screenArea} data-testid="screen-area">
+  //     <Box className={classes.gridContainer} data-testid="screen-area">
+  //       {cards.map((card) => (
+  //         <div
+  //           key={card.id}
+  //           draggable="true"
+  //           onDragStart={onDragStart}
+  //           onDrop={onDrop}
+  //           style={{
+  //             gridColumnStart: card.column,
+  //             gridColumnEnd: card.column + 1,
+  //             gridRowStart: card.row,
+  //             gridRowEnd: card.row + 1,
+  //           }}
+  //         >
+  //           <span>{card.title}</span>
+  //           <span>{card.content}</span>
+  //         </div>
+  //       ))}
+  //     </Box>
+  //     {cards.length < 1 && (
+  //       <Fab
+  //         color="primary"
+  //         aria-label="add-card"
+  //         onClick={createCard}
+  //         sx={{ position: 'absolute', bottom: '1em', right: '1em' }}
+  //       >
+  //         <AddIcon />
+  //       </Fab>
+  //     )}
+  //   </Container>
+  // );
 };
 
 export default ScreenArea;

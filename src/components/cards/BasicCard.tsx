@@ -40,11 +40,12 @@ const EditButton = styled(({ edit, ...rest }: EditButtonProps) => {
   }),
 })) as React.ComponentType<EditButtonProps>;
 
-const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updateCardData }: BasicCardProps) => {
+const BasicCard = ({ id, title, preview, content, updateCardData }: BasicCardProps) => {
   const screenSize = getScreenSize();
   const [isEditing, setEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(title);
   const [cardContent, setCardContent] = useState(content);
+  const [isExpanded, setExpanded] = useState(true);
 
   const avatar = cardTitle.charAt(0).toUpperCase();
 
@@ -67,9 +68,6 @@ const BasicCard = ({ id, title, preview, content, isExpanded, setExpanded, updat
   };
 
   const getCardWith = () => {
-    if (screenSize.width > BREAKPOINTS.xl) {
-      return screenSize.width / NUMBER_OF_COLUMNS.xl - 16;
-    }
     if (screenSize.width > BREAKPOINTS.lg) {
       return screenSize.width / NUMBER_OF_COLUMNS.lg - 16;
     }
