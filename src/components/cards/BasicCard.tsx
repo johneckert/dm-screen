@@ -40,7 +40,7 @@ const EditButton = styled(({ edit, ...rest }: EditButtonProps) => {
   }),
 })) as React.ComponentType<EditButtonProps>;
 
-const BasicCard = ({ id, title, preview, content, updateCardData }: BasicCardProps) => {
+const BasicCard = ({ id, title, preview, content, updateCardData = () => {} }: BasicCardProps) => {
   const screenSize = getScreenSize();
   const [isEditing, setEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(title);

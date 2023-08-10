@@ -5,19 +5,16 @@ export interface BasicCardProps {
   title: string;
   content: string;
   preview?: boolean;
-  updateCardData: (id: string, title: string, content: string) => void;
+  updateCardData?: (id: string, title: string, content: string) => void;
 }
 
 export interface BoxDragPreviewProps extends BasicCardProps {}
 
 export interface CardData {
   id: string;
-  left?: number;
-  top?: number;
   title: string;
   content: string;
   column: number;
-  row: number;
 }
 
 export interface DraggableCardProps extends CardData {
