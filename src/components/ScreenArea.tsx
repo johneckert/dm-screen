@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Fab from '@mui/material/Fab';
-import AddIcon from '@mui/icons-material/Add';
-import makeStyles from '@mui/styles/makeStyles';
-import { HEADER_HEIGHT, ItemTypes } from '../constants';
-import { CardData, ScreenSize, GridSize, GridTemplate } from '../interfaces';
-import { getScreenSize, getGridSize, getGridTemplate } from '../utils';
-import { useLocalStorage } from 'usehooks-ts';
-import theme from '../theme';
 import { v4 as uuidv4 } from 'uuid';
-import { remove } from 'lodash';
+import { DragDropContext } from 'react-beautiful-dnd';
+import { CardData, ScreenSize, GridTemplate } from '../interfaces';
+import Column from './layout/Column';
+import makeStyles from '@mui/styles/makeStyles';
+import { HEADER_HEIGHT } from '../constants';
+import { getScreenSize, getGridTemplate } from '../utils';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 
-const DEMO_CARDS: CardData[] = [
-  { id: uuidv4(), column: 1, row: 1, title: 'A Test', content: 'Content A.' },
-  { id: uuidv4(), column: 3, row: 2, title: 'B Test', content: 'Content B.' },
-];
+const DEMO_CARDS = Array.from({ length: 10 }, () => {
+  const id = uuidv4();
+  return {
+    id: id,
+    title: `Item ${id}`,
+    content: `Content ${id}`,
+    column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
+  };
+});
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -28,67 +29,46 @@ const useStyles = makeStyles((theme) => ({
     height: props.screenSize.height - HEADER_HEIGHT,
     paddingLeft: '8px',
     paddingRight: '8px',
+    display: 'flex',
   }),
-  gridContainer: {
-    display: 'grid',
-    width: '100%',
-    height: '100%',
-    gridTemplateColumns: (props: StyleProps) => props.gridTemplate.columnDefinition,
-    gridTemplateRows: (props: StyleProps) => props.gridTemplate.rowDefinition,
-  },
-  gridItem: {},
 }));
 
-const ScreenArea = () => {
-  const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS || ([] as CardData[]));
+const ScreenArea: React.FC = () => {
+  const savedCards = useReadLocalStorage('cards');
+  const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS);
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const [gridSize, setGridSize] = useState<GridSize>(getGridSize(screenSize));
   const [GridTemplate, setGridTemplate] = useState<GridTemplate>(getGridTemplate(screenSize));
   const styleProps: StyleProps = { screenSize: screenSize, gridTemplate: GridTemplate };
   const classes = useStyles(styleProps);
+  const reorder = (list: CardData[], startIndex: number, endIndex: number) => {
+    const result = Array.from(list);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
 
-  const findFirstEmptySpace = (): [row: number, column: number] => {
-    //TODO: fix this!
-    let columns = [1, 2, 3, 4];
-    let rows = [1, 2, 3, 4];
-    cards.forEach((card) => {
-      remove(columns, (column: number) => column === card.column);
-      remove(rows, (row: number) => row === card.row && card.column === columns[0]);
-    });
-    return [rows[0], columns[0]];
+    return result;
   };
+  // const createCard = () => {
+  //   const id = uuidv4();
+  //   const [row, column] = findFirstEmptySpace();
+  //   setCards((prevCards: CardData[]) => [
+  //     ...prevCards,
+  //     { id, column: column, row: row, title: 'New Card', content: 'Content' },
+  //   ]);
+  // };
+  // const updateCardData = (id: string, title: string, content: string): void => {
+  //   const targetCard = cards.find((card) => card.id === id);
+  //   if (targetCard) {
+  //     targetCard.title = title;
+  //     targetCard.content = content;
+  //     setCards(cards);
+  //   }
+  // };
 
-  console.log('gridSize', gridSize);
-  const createCard = () => {
-    const id = uuidv4();
-    const [row, column] = findFirstEmptySpace();
-    setCards((prevCards: CardData[]) => [
-      ...prevCards,
-      { id, column: column, row: row, title: 'New Card', content: 'Content' },
-    ]);
-  };
-
-  const updateCardData = (id: string, title: string, content: string): void => {
-    const targetCard = cards.find((card) => card.id === id);
-    if (targetCard) {
-      targetCard.title = title;
-      targetCard.content = content;
-      setCards(cards);
+  useEffect(() => {
+    if (!savedCards) {
+      setCards(DEMO_CARDS);
     }
-  };
-
-  const onDragStart = (e: Event) => {
-    console.log('onDragStart', e);
-    //change styles?
-  };
-
-  const onDrop = (e: Event) => {
-    console.log('onDrop', e);
-    // calculate new row
-    // calculate new column
-    // if new space is occupied, swap cards
-    // else update card
-  };
+  }, []);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -103,49 +83,36 @@ const ScreenArea = () => {
   }, []);
 
   useEffect(() => {
-    setGridSize(getGridSize(screenSize));
     setGridTemplate(getGridTemplate(screenSize));
   }, [screenSize]);
 
-  return (
-    <Container maxWidth={false} disableGutters className={classes.screenArea} data-testid="screen-area">
-      <Box className={classes.gridContainer} data-testid="screen-area"></Box>
-    </Container>
-  );
+  //@ts-ignore no-implicit-any
+  const onDragEnd = (result) => {
+    // dropped outside the list
+    if (!result.destination) {
+      return;
+    }
+    const cardId = result.draggableId;
+    const targetCard = cards.find((card) => card.id === cardId);
+    if (targetCard) {
+      targetCard.column = result.destination.droppableId;
+      setCards(cards);
+    }
+    const updatedList = reorder(cards, result.source.index, result.destination.index);
 
-  // return (
-  //   <Container maxWidth={false} disableGutters className={classes.screenArea} data-testid="screen-area">
-  //     <Box className={classes.gridContainer} data-testid="screen-area">
-  //       {cards.map((card) => (
-  //         <div
-  //           key={card.id}
-  //           draggable="true"
-  //           onDragStart={onDragStart}
-  //           onDrop={onDrop}
-  //           style={{
-  //             gridColumnStart: card.column,
-  //             gridColumnEnd: card.column + 1,
-  //             gridRowStart: card.row,
-  //             gridRowEnd: card.row + 1,
-  //           }}
-  //         >
-  //           <span>{card.title}</span>
-  //           <span>{card.content}</span>
-  //         </div>
-  //       ))}
-  //     </Box>
-  //     {cards.length < 1 && (
-  //       <Fab
-  //         color="primary"
-  //         aria-label="add-card"
-  //         onClick={createCard}
-  //         sx={{ position: 'absolute', bottom: '1em', right: '1em' }}
-  //       >
-  //         <AddIcon />
-  //       </Fab>
-  //     )}
-  //   </Container>
-  // );
+    setCards(updatedList);
+  };
+
+  return (
+    <DragDropContext onDragEnd={onDragEnd}>
+      <div className={classes.screenArea} data-testid="screen-area">
+        <Column columnId={1} cards={cards.filter((card) => card.column === 'droppable-1')} />
+        <Column columnId={2} cards={cards.filter((card) => card.column === 'droppable-2')} />
+        <Column columnId={3} cards={cards.filter((card) => card.column === 'droppable-3')} />
+        <Column columnId={4} cards={cards.filter((card) => card.column === 'droppable-4')} />
+      </div>
+    </DragDropContext>
+  );
 };
 
 export default ScreenArea;

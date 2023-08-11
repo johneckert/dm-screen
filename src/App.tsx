@@ -6,13 +6,13 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import Header from './components/Header';
-// import ScreenArea from './components/ScreenArea';
-import QuoteApp from './components/NewScreenArea';
+import ScreenArea from './components/ScreenArea';
 
 function App() {
   return (
     <>
-      <QuoteApp />
+      <Header />
+      <ScreenArea />
     </>
   );
 }

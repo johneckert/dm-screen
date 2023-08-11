@@ -14,7 +14,7 @@ export interface CardData {
   id: string;
   title: string;
   content: string;
-  column: number;
+  column: string;
 }
 
 export interface DraggableCardProps extends CardData {
