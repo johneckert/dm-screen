@@ -2,9 +2,7 @@ import React from 'react';
 import { render, screen, act } from '@testing-library/react';
 import BasicCard from './BasicCard';
 
-const mockCardData = { id: 'ABC-123', top: 40, left: 80, title: 'Pikachu', content: 'I am Pikachu' };
-let isPreview = true;
-let isExpanded = true;
+const mockCardData = { id: 'ABC-123', title: 'Pikachu', content: 'I am Pikachu' };
 
 const mockSetExpanded = jest.fn();
 const mockUpdateCardData = jest.fn();
@@ -15,10 +13,7 @@ describe('BasicCard', () => {
       <BasicCard
         id={mockCardData.id}
         title={mockCardData.title}
-        preview={isPreview}
         content={mockCardData.content}
-        isExpanded={isExpanded}
-        setExpanded={mockSetExpanded}
         updateCardData={mockUpdateCardData}
       />,
     );
@@ -30,10 +25,7 @@ describe('BasicCard', () => {
       <BasicCard
         id={mockCardData.id}
         title={mockCardData.title}
-        preview={isPreview}
         content={mockCardData.content}
-        isExpanded={isExpanded}
-        setExpanded={mockSetExpanded}
         updateCardData={mockUpdateCardData}
       />,
     );
@@ -45,10 +37,7 @@ describe('BasicCard', () => {
       <BasicCard
         id={mockCardData.id}
         title={mockCardData.title}
-        preview={isPreview}
         content={mockCardData.content}
-        isExpanded={isExpanded}
-        setExpanded={mockSetExpanded}
         updateCardData={mockUpdateCardData}
       />,
     );
@@ -60,10 +49,7 @@ describe('BasicCard', () => {
       <BasicCard
         id={mockCardData.id}
         title={mockCardData.title}
-        preview={isPreview}
         content={mockCardData.content}
-        isExpanded={isExpanded}
-        setExpanded={mockSetExpanded}
         updateCardData={mockUpdateCardData}
       />,
     );
@@ -82,10 +68,7 @@ describe('BasicCard', () => {
       <BasicCard
         id={mockCardData.id}
         title={mockCardData.title}
-        preview={isPreview}
         content={mockCardData.content}
-        isExpanded={isExpanded}
-        setExpanded={mockSetExpanded}
         updateCardData={mockUpdateCardData}
       />,
     );

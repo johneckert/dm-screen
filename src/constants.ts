@@ -7,10 +7,6 @@ export const BREAKPOINTS = {
 
 export const HEADER_HEIGHT = 64;
 
-export const ItemTypes = {
-  CARD: 'card',
-};
-
 export const NUMBER_OF_ROWS = 4;
 
 export const NUMBER_OF_COLUMNS = {

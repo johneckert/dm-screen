@@ -5,8 +5,8 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import Header from './components/Header';
-import ScreenArea from './components/ScreenArea';
+import Header from './components/layout/Header';
+import ScreenArea from './components/layout/ScreenArea';
 
 function App() {
   return (

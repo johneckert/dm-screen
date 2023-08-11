@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CardData, ScreenSize, GridTemplate } from '../interfaces';
-import Column from './layout/Column';
+import { CardData, ScreenSize } from '../../interfaces';
+import Column from './Column';
 import makeStyles from '@mui/styles/makeStyles';
-import { HEADER_HEIGHT } from '../constants';
-import { getScreenSize, getGridTemplate } from '../utils';
+import { HEADER_HEIGHT } from '../../constants';
+import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 
 const DEMO_CARDS = Array.from({ length: 10 }, () => {
@@ -20,7 +20,6 @@ const DEMO_CARDS = Array.from({ length: 10 }, () => {
 
 interface StyleProps {
   screenSize: ScreenSize;
-  gridTemplate: GridTemplate;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -37,8 +36,7 @@ const ScreenArea: React.FC = () => {
   const savedCards = useReadLocalStorage('cards');
   const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS);
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const [GridTemplate, setGridTemplate] = useState<GridTemplate>(getGridTemplate(screenSize));
-  const styleProps: StyleProps = { screenSize: screenSize, gridTemplate: GridTemplate };
+  const styleProps: StyleProps = { screenSize: screenSize };
   const classes = useStyles(styleProps);
   const reorder = (list: CardData[], startIndex: number, endIndex: number) => {
     const result = Array.from(list);
@@ -82,13 +80,8 @@ const ScreenArea: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    setGridTemplate(getGridTemplate(screenSize));
-  }, [screenSize]);
-
   //@ts-ignore no-implicit-any
   const onDragEnd = (result) => {
-    // dropped outside the list
     if (!result.destination) {
       return;
     }

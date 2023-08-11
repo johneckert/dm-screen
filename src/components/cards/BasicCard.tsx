@@ -40,7 +40,7 @@ const EditButton = styled(({ edit, ...rest }: EditButtonProps) => {
   }),
 })) as React.ComponentType<EditButtonProps>;
 
-const BasicCard = ({ id, title, preview, content, updateCardData = () => {} }: BasicCardProps) => {
+const BasicCard = ({ id, title, content, updateCardData = () => {} }: BasicCardProps) => {
   const screenSize = getScreenSize();
   const [isEditing, setEditing] = useState(false);
   const [cardTitle, setCardTitle] = useState(title);
@@ -121,7 +121,6 @@ const BasicCard = ({ id, title, preview, content, updateCardData = () => {} }: B
         margin: '8px 0',
         maxHeight: getCardHeight(),
       }}
-      role={preview ? 'CardPreview' : 'Card'}
       data-testid="basic-card"
     >
       <CardHeader

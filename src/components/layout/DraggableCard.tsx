@@ -1,7 +1,7 @@
 import React from 'react';
-import { CardData } from '../interfaces';
+import { CardData } from '../../interfaces';
 import makeStyles from '@mui/styles/makeStyles';
-import BasicCard from './cards/BasicCard';
+import BasicCard from '../cards/BasicCard';
 import { Draggable } from 'react-beautiful-dnd';
 
 interface StyleProps {
