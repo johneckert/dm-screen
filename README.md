@@ -31,8 +31,10 @@ yarn dev
 
 ## Dependencies
 
-- [react-dnd](https://github.com/react-dnd/react-dnd)
+- [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+- [Material UI](https://material-ui.com/)
+- [usehooks-ts](https://github.com/juliencrn/usehooks-ts)
 
 ## Acknowledgments
 
-- Hat tip to the [D&D 5e API](https://www.dnd5eapi.co/)
+- Shout otu to the [D&D 5e API](https://www.dnd5eapi.co/) where I'm pulling all the data from!
