@@ -122,7 +122,6 @@ const ScreenArea: React.FC = () => {
     const dropIndex = result.destination.index;
     const cardId = result.draggableId;
     const targetCard = cards[sourceColumnId].find((card) => card.id === cardId);
-    console.log('onDragEnd', result);
     if (!targetCard) {
       console.error('targetCard not found');
       return;
