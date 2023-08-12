@@ -8,15 +8,28 @@ import { HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 
-const DEMO_CARDS = Array.from({ length: 10 }, () => {
-  const id = uuidv4();
-  return {
-    id: id,
-    title: `Item ${id}`,
-    content: `Content ${id}`,
-    column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
-  };
-});
+interface CardDataMap {
+  [key: string]: CardData[];
+}
+
+const createDemoCards = () => {
+  const cards = Array.from({ length: 10 }, () => {
+    const id = uuidv4();
+    return {
+      id: id,
+      title: `Item ${id}`,
+      content: `Content ${id}`,
+      column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
+    };
+  });
+  const cardDataMap: CardDataMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] };
+  cards.forEach((card) => {
+    cardDataMap[card.column].push(card);
+  });
+  return cardDataMap;
+};
+
+const DEMO_CARDS = createDemoCards();
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -38,13 +51,30 @@ const ScreenArea: React.FC = () => {
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
   const styleProps: StyleProps = { screenSize: screenSize };
   const classes = useStyles(styleProps);
-  const reorder = (list: CardData[], startIndex: number, endIndex: number) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
 
-    return result;
+  const reorder = (
+    targetCard: CardData,
+    sourceColumnId: string,
+    dropColumnId: string,
+    sourceIndex: number,
+    dropIndex: number,
+  ) => {
+    const updatedList = Object.assign({}, cards);
+    const fromColumn = updatedList[sourceColumnId];
+    const targetColumn = updatedList[dropColumnId];
+    if (dropColumnId == targetCard?.column) {
+      const [removed] = targetColumn.splice(sourceIndex, 1);
+      targetColumn.splice(dropIndex, 0, removed);
+    } else {
+      const [movedCard] = fromColumn.splice(sourceIndex, 1);
+      movedCard.column = dropColumnId;
+
+      targetColumn.splice(dropIndex, 0, movedCard);
+      updatedList[dropColumnId] = targetColumn;
+    }
+    return updatedList;
   };
+
   // const createCard = () => {
   //   const id = uuidv4();
   //   const [row, column] = findFirstEmptySpace();
@@ -83,26 +113,31 @@ const ScreenArea: React.FC = () => {
   //@ts-ignore no-implicit-any
   const onDragEnd = (result) => {
     if (!result.destination) {
+      console.error('outside of droppable area');
       return;
     }
+    const sourceColumnId = result.source.droppableId;
+    const dropColumnId = result.destination.droppableId;
+    const sourceIndex = result.source.index;
+    const dropIndex = result.destination.index;
     const cardId = result.draggableId;
-    const targetCard = cards.find((card) => card.id === cardId);
-    if (targetCard) {
-      targetCard.column = result.destination.droppableId;
-      setCards(cards);
+    const targetCard = cards[sourceColumnId].find((card) => card.id === cardId);
+    console.log('onDragEnd', result);
+    if (!targetCard) {
+      console.error('targetCard not found');
+      return;
     }
-    const updatedList = reorder(cards, result.source.index, result.destination.index);
-
+    const updatedList = reorder(targetCard, sourceColumnId, dropColumnId, sourceIndex, dropIndex);
     setCards(updatedList);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={classes.screenArea} data-testid="screen-area">
-        <Column columnId={1} cards={cards.filter((card) => card.column === 'droppable-1')} />
-        <Column columnId={2} cards={cards.filter((card) => card.column === 'droppable-2')} />
-        <Column columnId={3} cards={cards.filter((card) => card.column === 'droppable-3')} />
-        <Column columnId={4} cards={cards.filter((card) => card.column === 'droppable-4')} />
+        <Column columnId={1} cards={cards['droppable-1']} />
+        <Column columnId={2} cards={cards['droppable-2']} />
+        <Column columnId={3} cards={cards['droppable-3']} />
+        <Column columnId={4} cards={cards['droppable-4']} />
       </div>
     </DragDropContext>
   );

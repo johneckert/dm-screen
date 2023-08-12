@@ -27,7 +27,6 @@ const Column: React.FC<{ cards: CardData[]; columnId: number }> = ({ cards, colu
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
   const styleProps: StyleProps = { screenSize, numberOfColumns };
   const classes = useStyles(styleProps);
-  console.log(`list ${columnId}`, cards);
   return (
     <div className={classes.column}>
       <Droppable droppableId={`droppable-${columnId}`}>
