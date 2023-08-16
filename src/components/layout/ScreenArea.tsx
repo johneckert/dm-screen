@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CardData, ScreenSize } from '../../interfaces';
+import { CardData, CardType, ScreenSize } from '../../interfaces';
 import Column from './Column';
 import makeStyles from '@mui/styles/makeStyles';
 import { HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import ExpandedCard from './ExpandedCard';
 
 interface CardDataMap {
   [key: string]: CardData[];
@@ -20,6 +21,7 @@ const createDemoCards = () => {
       title: `Item ${id}`,
       content: `Content ${id}`,
       column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
+      type: CardType.Note,
     };
   });
   const cardDataMap: CardDataMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] };
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: '8px',
     paddingRight: '8px',
     display: 'flex',
+    flexWrap: 'wrap',
   }),
 }));
 
@@ -51,6 +54,23 @@ const ScreenArea: React.FC = () => {
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
   const styleProps: StyleProps = { screenSize: screenSize };
   const classes = useStyles(styleProps);
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+  const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
+
+  console.log('expandedCardId', expandedCardId);
+
+  useEffect(() => {
+    if (expandedCardId) {
+      const allCards = Object.values(cards).flat();
+      const expandedCard = allCards.find((card) => card.id === expandedCardId) ?? null;
+      setExpandedCardData(expandedCard);
+    }
+  }, [expandedCardId]);
+
+  const closeExpandedCard = () => {
+    setExpandedCardId(null);
+    setExpandedCardData(null);
+  };
 
   const reorder = (
     targetCard: CardData,
@@ -131,14 +151,17 @@ const ScreenArea: React.FC = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className={classes.screenArea} data-testid="screen-area">
-        <Column columnId={1} cards={cards['droppable-1']} />
-        <Column columnId={2} cards={cards['droppable-2']} />
-        <Column columnId={3} cards={cards['droppable-3']} />
-        <Column columnId={4} cards={cards['droppable-4']} />
-      </div>
-    </DragDropContext>
+    <>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className={classes.screenArea} data-testid="screen-area">
+          <Column columnId={1} cards={cards['droppable-1']} expandCard={setExpandedCardId} />
+          <Column columnId={2} cards={cards['droppable-2']} expandCard={setExpandedCardId} />
+          <Column columnId={3} cards={cards['droppable-3']} expandCard={setExpandedCardId} />
+          <Column columnId={4} cards={cards['droppable-4']} expandCard={setExpandedCardId} />
+        </div>
+      </DragDropContext>
+      {expandedCardData && <ExpandedCard closeExpandedCard={closeExpandedCard} expandedCardData={expandedCardData} />}
+    </>
   );
 };
 

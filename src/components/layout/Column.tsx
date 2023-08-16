@@ -14,14 +14,18 @@ interface StyleProps {
 
 const useStyles = makeStyles((theme) => ({
   column: (props: StyleProps) => ({
-    width: props.screenSize.width / props.numberOfColumns,
+    width: (props.screenSize.width - 16) / props.numberOfColumns,
     height: props.screenSize.height - HEADER_HEIGHT,
-    paddingLeft: '8px',
-    paddingRight: '8px',
+    paddingLeft: '4px',
+    paddingRight: '4px',
   }),
 }));
 
-const Column: React.FC<{ cards: CardData[]; columnId: number }> = ({ cards, columnId }) => {
+const Column: React.FC<{ cards: CardData[]; columnId: number; expandCard: (id: string) => void }> = ({
+  cards,
+  columnId,
+  expandCard,
+}) => {
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
@@ -33,7 +37,7 @@ const Column: React.FC<{ cards: CardData[]; columnId: number }> = ({ cards, colu
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {cards.map((card, index) => (
-              <DraggableCard key={card.id} card={card} index={index} />
+              <DraggableCard key={card.id} card={card} index={index} expandCard={expandCard} />
             ))}
             {provided.placeholder}
           </div>
