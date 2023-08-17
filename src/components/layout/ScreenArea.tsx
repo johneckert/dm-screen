@@ -3,8 +3,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CardData, CardType, ScreenSize } from '../../interfaces';
 import Column from './Column';
+import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
-import { HEADER_HEIGHT } from '../../constants';
+import { Theme } from '@mui/material/styles';
+import { BREAKPOINTS, HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import ExpandedCard from './ExpandedCard';
@@ -37,23 +39,22 @@ interface StyleProps {
   screenSize: ScreenSize;
 }
 
-const useStyles = makeStyles((theme) => ({
-  screenArea: (props: StyleProps) => ({
-    width: props.screenSize.width,
-    height: props.screenSize.height - HEADER_HEIGHT,
-    paddingLeft: '8px',
-    paddingRight: '8px',
+export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+  screenArea: {
+    width: ({ screenSize }) => screenSize.width,
+    height: ({ screenSize }) => screenSize.height - HEADER_HEIGHT,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     display: 'flex',
     flexWrap: 'wrap',
-  }),
+  },
 }));
 
 const ScreenArea: React.FC = () => {
   const savedCards = useReadLocalStorage('cards');
   const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS);
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const styleProps: StyleProps = { screenSize: screenSize };
-  const classes = useStyles(styleProps);
+  const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
 
