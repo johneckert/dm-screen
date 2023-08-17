@@ -19,4 +19,8 @@ describe('NoteCard', () => {
     render(<NoteCard title={mockCardData.title} content={mockCardData.content} />);
     expect(screen.getByText(mockCardData.title)).toBeInTheDocument();
   });
+  it('renders the content', () => {
+    render(<NoteCard title={mockCardData.title} content={mockCardData.content} />);
+    expect(screen.getByText(mockCardData.content)).toBeInTheDocument();
+  });
 });

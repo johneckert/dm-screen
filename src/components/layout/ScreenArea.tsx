@@ -57,8 +57,6 @@ const ScreenArea: React.FC = () => {
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
 
-  console.log('expandedCardId', expandedCardId);
-
   useEffect(() => {
     if (expandedCardId) {
       const allCards = Object.values(cards).flat();

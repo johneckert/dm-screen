@@ -30,12 +30,11 @@ const Column: React.FC<{ cards: CardData[]; columnId: number; expandCard: (id: s
 }) => {
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
-  console.log(breakPoint);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
   const styleProps: StyleProps = { screenSize, numberOfColumns };
   const classes = useStyles(styleProps);
   return (
-    <div className={classes.column}>
+    <div className={classes.column} data-testid="column">
       <Droppable droppableId={`droppable-${columnId}`}>
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>

@@ -18,6 +18,7 @@ const theme = createTheme({
       paper: '#fff',
     },
   },
+  spacing: 8,
   breakpoints: {
     values: {
       xs: 0,

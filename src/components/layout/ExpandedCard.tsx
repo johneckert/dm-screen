@@ -2,8 +2,9 @@ import React from 'react';
 import { CardData } from '../../interfaces';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+import ExpandedNoteCard from '../cards/ExpandedNoteCard';
+import { CardType } from '../../interfaces';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -36,12 +37,9 @@ const ExpandedCard: React.FC<{ closeExpandedCard: () => void; expandedCardData: 
       aria-describedby="modal-modal-description"
     >
       <Box className={classes.modal}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          {expandedCardData?.title}
-        </Typography>
-        <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-          {expandedCardData?.content}
-        </Typography>
+        {expandedCardData.type === CardType.Note && (
+          <ExpandedNoteCard title={expandedCardData.title} content={expandedCardData.content} />
+        )}
       </Box>
     </Modal>
   );
