@@ -2,7 +2,7 @@ import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { CardData, ScreenSize } from '../../interfaces';
 import DraggableCard from './DraggableCard';
-import { NUMBER_OF_COLUMNS, HEADER_HEIGHT, BREAKPOINTS } from '../../constants';
+import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import makeStyles from '@mui/styles/makeStyles';
 import { getScreenSize, getBreakPoint } from '../../utils';
 import { Theme } from '@mui/material/styles';
