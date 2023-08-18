@@ -1,26 +1,36 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ScreenArea from './ScreenArea';
-
-jest.mock('react-dnd', () => ({
-  useDrop: () => [[], jest.fn()],
-}));
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../theme';
 
 jest.mock('./DraggableCard.tsx', () => () => <div data-testid="draggable-card" />);
 
 describe('ScreenArea', () => {
   it('renders', () => {
-    render(<ScreenArea />);
+    render(
+      <ThemeProvider theme={theme}>
+        <ScreenArea />
+      </ThemeProvider>,
+    );
     expect(screen.getByTestId('screen-area')).toBeInTheDocument();
   });
 
   it('renders the correct number of draggable cards', () => {
-    render(<ScreenArea />);
-    expect(screen.getAllByTestId('draggable-card')).toHaveLength(2);
+    render(
+      <ThemeProvider theme={theme}>
+        <ScreenArea />
+      </ThemeProvider>,
+    );
+    expect(screen.getAllByTestId('draggable-card')).toHaveLength(10);
   });
 
   it('resizes the screen area when the window is resized', () => {
-    render(<ScreenArea />);
+    render(
+      <ThemeProvider theme={theme}>
+        <ScreenArea />
+      </ThemeProvider>,
+    );
     const screenArea = screen.getByTestId('screen-area');
 
     act(() => {

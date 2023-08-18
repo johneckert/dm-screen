@@ -1,10 +1,15 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 
-export interface BasicCardProps {
-  id: string;
+export interface NoteCardProps {
   title: string;
   content: string;
-  updateCardData?: (id: string, title: string, content: string) => void;
+}
+
+export enum CardType {
+  Note = 'note',
+  PC = 'pc',
+  Rule = 'rule',
+  Monster = 'monster',
 }
 
 export interface CardData {
@@ -12,6 +17,7 @@ export interface CardData {
   title: string;
   content: string;
   column: string;
+  type: CardType;
 }
 
 export interface DraggableCardProps extends CardData {

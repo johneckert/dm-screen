@@ -1568,7 +1568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/preset-typescript@npm:^7.21.0":
+"@babel/preset-typescript@npm:^7.21.0, @babel/preset-typescript@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/preset-typescript@npm:7.22.5"
   dependencies:
@@ -4235,6 +4235,7 @@ __metadata:
     "@babel/core": ^7.22.10
     "@babel/preset-env": ^7.22.9
     "@babel/preset-react": ^7.22.5
+    "@babel/preset-typescript": ^7.22.5
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
     "@fontsource/roboto": ^5.0.5
