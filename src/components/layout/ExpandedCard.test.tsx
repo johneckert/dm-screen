@@ -40,13 +40,13 @@ describe('ExpandedCard', () => {
           />
         </ThemeProvider>,
       );
-      const editButton = screen.getByText('Edit');
+      const editButton = screen.getByTestId('edit-button');
       act(() => {
         editButton.click();
       });
 
       waitFor(() => {
-        const saveButton = screen.getByText('Save');
+        const saveButton = screen.getByTestId('save-button');
         expect(saveButton).toBeInTheDocument();
       });
     });
@@ -62,13 +62,13 @@ describe('ExpandedCard', () => {
         </ThemeProvider>,
       );
 
-      const editButton = screen.getByText('Edit');
+      const editButton = screen.getByTestId('edit-button');
       act(() => {
         editButton.click();
       });
 
-      expect(screen.getByLabelText('title')).toBeInTheDocument();
-      expect(screen.getByLabelText('content')).toBeInTheDocument();
+      expect(screen.getByTestId('title-input')).toBeInTheDocument();
+      expect(screen.getByTestId('content-input')).toBeInTheDocument();
     });
 
     it('calls updateCard when save button is clicked', () => {
@@ -82,12 +82,12 @@ describe('ExpandedCard', () => {
         </ThemeProvider>,
       );
 
-      const editButton = screen.getByText('Edit');
+      const editButton = screen.getByTestId('edit-button');
       act(() => {
         editButton.click();
       });
 
-      const saveButton = screen.getByText('Save');
+      const saveButton = screen.getByTestId('save-button');
       act(() => {
         saveButton.click();
       });
@@ -125,7 +125,7 @@ describe('ExpandedCard', () => {
       );
 
       waitFor(() => {
-        const editButton = screen.getByText('Edit');
+        const editButton = screen.getByTestId('edit-button');
         expect(editButton).toBeInTheDocument();
       });
     });

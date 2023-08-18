@@ -108,8 +108,14 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
                 variant="standard"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
+                data-testid="title-input"
               />
-              <IconButton className={classes.editButton} aria-label="edit-save-button" onClick={handleEdit}>
+              <IconButton
+                className={classes.editButton}
+                aria-label="edit-save-button"
+                data-testid="save-button"
+                onClick={handleEdit}
+              >
                 <CheckIcon />
               </IconButton>
             </Box>
@@ -121,6 +127,7 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
                 rows={18}
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
+                data-testid="content-input"
               />
             </Box>
           </>
@@ -130,7 +137,12 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
               <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
                 {title}
               </Typography>
-              <IconButton className={classes.editButton} aria-label="edit-save-button" onClick={handleEdit}>
+              <IconButton
+                className={classes.editButton}
+                aria-label="edit-save-button"
+                data-testid="edit-button"
+                onClick={handleEdit}
+              >
                 <EditIcon />
               </IconButton>
             </Box>
