@@ -1,6 +1,6 @@
 import { IconButtonProps } from '@mui/material/IconButton';
 
-export interface NoteCardProps {
+export interface SmallCardProps {
   title: string;
   content: string;
 }

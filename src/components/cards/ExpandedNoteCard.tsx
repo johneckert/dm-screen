@@ -68,13 +68,13 @@ export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-interface ExpandedCardProps {
+interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
 }
 
-const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(expandedCardData.content);
@@ -158,4 +158,4 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
   );
 };
 
-export default ExpandedCard;
+export default ExpandedNoteCard;

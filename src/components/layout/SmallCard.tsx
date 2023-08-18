@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import OpenWithIcon from '@mui/icons-material/OpenWith';
 import { Theme } from '@mui/material/styles';
-import { NoteCardProps, ExpandButtonProps } from '../../interfaces';
+import { SmallCardProps, ExpandButtonProps } from '../../interfaces';
 import { getScreenSize } from '../../utils';
 import { BREAKPOINTS, HEADER_HEIGHT, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from '../../constants';
 
@@ -24,7 +24,7 @@ const ExpandButton = styled(({ expand, ...rest }: ExpandButtonProps) => {
   }),
 })) as React.ComponentType<ExpandButtonProps>;
 
-const NoteCard = ({ title, content }: NoteCardProps) => {
+const SmallCard = ({ title, content }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const [isExpanded, setExpanded] = useState(true);
 
@@ -76,4 +76,4 @@ const NoteCard = ({ title, content }: NoteCardProps) => {
   );
 };
 
-export default NoteCard;
+export default SmallCard;

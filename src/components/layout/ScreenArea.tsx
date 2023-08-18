@@ -8,7 +8,7 @@ import { Theme } from '@mui/material/styles';
 import { HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
-import ExpandedCard from './ExpandedCard';
+import ExpandedCard from '../cards/ExpandedNoteCard';
 
 interface CardDataMap {
   [key: string]: CardData[];
