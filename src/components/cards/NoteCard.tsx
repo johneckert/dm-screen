@@ -54,7 +54,7 @@ const NoteCard = ({ title, content }: NoteCardProps) => {
         width: getCardWith(),
         zIndex: '0',
         margin: '8px 0',
-        maxHeight: getCardHeight(),
+        height: getCardHeight(),
       }}
       data-testid="basic-card"
     >

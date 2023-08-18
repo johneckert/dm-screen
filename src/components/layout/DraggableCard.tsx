@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { CardData, CardType } from '../../interfaces';
 import makeStyles from '@mui/styles/makeStyles';
 import NoteCard from '../cards/NoteCard';
