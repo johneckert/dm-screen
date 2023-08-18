@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CardData, ScreenSize } from '../../interfaces';
+import { CardData, CardType, ScreenSize } from '../../interfaces';
 import Column from './Column';
 import makeStyles from '@mui/styles/makeStyles';
+import { Theme } from '@mui/material/styles';
 import { HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import ExpandedCard from './ExpandedCard';
 
 interface CardDataMap {
   [key: string]: CardData[];
@@ -20,6 +22,7 @@ const createDemoCards = () => {
       title: `Item ${id}`,
       content: `Content ${id}`,
       column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
+      type: CardType.Note,
     };
   });
   const cardDataMap: CardDataMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] };
@@ -35,22 +38,37 @@ interface StyleProps {
   screenSize: ScreenSize;
 }
 
-const useStyles = makeStyles((theme) => ({
-  screenArea: (props: StyleProps) => ({
-    width: props.screenSize.width,
-    height: props.screenSize.height - HEADER_HEIGHT,
-    paddingLeft: '8px',
-    paddingRight: '8px',
+export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+  screenArea: {
+    width: ({ screenSize }) => screenSize.width,
+    height: ({ screenSize }) => screenSize.height - HEADER_HEIGHT,
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     display: 'flex',
-  }),
+    flexWrap: 'wrap',
+  },
 }));
 
 const ScreenArea: React.FC = () => {
   const savedCards = useReadLocalStorage('cards');
   const [cards, setCards] = useLocalStorage('cards', DEMO_CARDS);
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const styleProps: StyleProps = { screenSize: screenSize };
-  const classes = useStyles(styleProps);
+  const classes = useStyles({ screenSize: screenSize });
+  const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
+  const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
+
+  useEffect(() => {
+    if (expandedCardId) {
+      const allCards = Object.values(cards).flat();
+      const expandedCard = allCards.find((card) => card.id === expandedCardId) ?? null;
+      setExpandedCardData(expandedCard);
+    }
+  }, [expandedCardId]);
+
+  const closeExpandedCard = () => {
+    setExpandedCardId(null);
+    setExpandedCardData(null);
+  };
 
   const reorder = (
     targetCard: CardData,
@@ -83,14 +101,15 @@ const ScreenArea: React.FC = () => {
   //     { id, column: column, row: row, title: 'New Card', content: 'Content' },
   //   ]);
   // };
-  // const updateCardData = (id: string, title: string, content: string): void => {
-  //   const targetCard = cards.find((card) => card.id === id);
-  //   if (targetCard) {
-  //     targetCard.title = title;
-  //     targetCard.content = content;
-  //     setCards(cards);
-  //   }
-  // };
+
+  const updateCard = (cardData: CardData): void => {
+    const targetCard = cards[cardData.column].find((card) => card.id === cardData.id);
+    if (targetCard) {
+      targetCard.title = cardData.title;
+      targetCard.content = cardData.content;
+      setCards(cards);
+    }
+  };
 
   useEffect(() => {
     if (!savedCards) {
@@ -131,14 +150,23 @@ const ScreenArea: React.FC = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className={classes.screenArea} data-testid="screen-area">
-        <Column columnId={1} cards={cards['droppable-1']} />
-        <Column columnId={2} cards={cards['droppable-2']} />
-        <Column columnId={3} cards={cards['droppable-3']} />
-        <Column columnId={4} cards={cards['droppable-4']} />
-      </div>
-    </DragDropContext>
+    <>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className={classes.screenArea} data-testid="screen-area">
+          <Column columnId={1} cards={cards['droppable-1']} expandCard={setExpandedCardId} />
+          <Column columnId={2} cards={cards['droppable-2']} expandCard={setExpandedCardId} />
+          <Column columnId={3} cards={cards['droppable-3']} expandCard={setExpandedCardId} />
+          <Column columnId={4} cards={cards['droppable-4']} expandCard={setExpandedCardId} />
+        </div>
+      </DragDropContext>
+      {expandedCardData && (
+        <ExpandedCard
+          closeExpandedCard={closeExpandedCard}
+          expandedCardData={expandedCardData}
+          updateCard={updateCard}
+        />
+      )}
+    </>
   );
 };
 

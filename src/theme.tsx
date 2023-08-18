@@ -1,5 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import { red } from '@mui/material/colors';
+import { BREAKPOINTS } from './constants';
 
 // A custom theme for this app
 const theme = createTheme({
@@ -12,6 +13,19 @@ const theme = createTheme({
     },
     error: {
       main: red.A400,
+    },
+    background: {
+      paper: '#fff',
+    },
+  },
+  spacing: 8,
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: BREAKPOINTS.sm,
+      md: BREAKPOINTS.md,
+      lg: BREAKPOINTS.lg,
+      xl: BREAKPOINTS.xl,
     },
   },
 });
