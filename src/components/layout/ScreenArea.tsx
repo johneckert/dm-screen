@@ -101,14 +101,15 @@ const ScreenArea: React.FC = () => {
   //     { id, column: column, row: row, title: 'New Card', content: 'Content' },
   //   ]);
   // };
-  // const updateCardData = (id: string, title: string, content: string): void => {
-  //   const targetCard = cards.find((card) => card.id === id);
-  //   if (targetCard) {
-  //     targetCard.title = title;
-  //     targetCard.content = content;
-  //     setCards(cards);
-  //   }
-  // };
+
+  const updateCard = (cardData: CardData): void => {
+    const targetCard = cards[cardData.column].find((card) => card.id === cardData.id);
+    if (targetCard) {
+      targetCard.title = cardData.title;
+      targetCard.content = cardData.content;
+      setCards(cards);
+    }
+  };
 
   useEffect(() => {
     if (!savedCards) {
@@ -158,7 +159,13 @@ const ScreenArea: React.FC = () => {
           <Column columnId={4} cards={cards['droppable-4']} expandCard={setExpandedCardId} />
         </div>
       </DragDropContext>
-      {expandedCardData && <ExpandedCard closeExpandedCard={closeExpandedCard} expandedCardData={expandedCardData} />}
+      {expandedCardData && (
+        <ExpandedCard
+          closeExpandedCard={closeExpandedCard}
+          expandedCardData={expandedCardData}
+          updateCard={updateCard}
+        />
+      )}
     </>
   );
 };
