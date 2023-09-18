@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData } from '../../interfaces';
+import { CardData, NoteContent } from '../../interfaces';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -75,16 +75,17 @@ interface ExpandedNoteCardProps {
 }
 
 const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+  const cardContent = expandedCardData.content as NoteContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
-  const [content, setContent] = useState(expandedCardData.content);
+  const [content, setContent] = useState(cardContent.content);
   const classes = useStyles({ isEditing });
   const handleClose = () => {
     closeExpandedCard();
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: content });
+      updateCard({ ...expandedCardData, title: title, content: { content } });
     }
     setIsEditing(!isEditing);
   };

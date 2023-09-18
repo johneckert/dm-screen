@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
+import { CardType, MapContent } from '../../interfaces';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -24,11 +25,28 @@ const ExpandButton = styled(({ expand, ...rest }: ExpandButtonProps) => {
   }),
 })) as React.ComponentType<ExpandButtonProps>;
 
-const SmallCard = ({ title, content }: SmallCardProps) => {
+const SmallCard = ({ title, content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const [isExpanded, setExpanded] = useState(true);
+  const mapContent = content as MapContent;
 
-  const avatar = title.charAt(0).toUpperCase();
+  const avatar = () => {
+    switch (type) {
+      case CardType.Map:
+        return mapContent?.roomNumber;
+      default:
+        title.charAt(0).toUpperCase();
+    }
+  };
+
+  const detailText = () => {
+    switch (type) {
+      case CardType.Map:
+        return '';
+      default:
+        return content.content;
+    }
+  };
 
   const toggleExpand = () => {
     setExpanded(!isExpanded);
@@ -59,7 +77,7 @@ const SmallCard = ({ title, content }: SmallCardProps) => {
       data-testid="basic-card"
     >
       <CardHeader
-        avatar={<Avatar aria-label="avatar">{avatar}</Avatar>}
+        avatar={<Avatar aria-label="avatar">{avatar()}</Avatar>}
         action={
           <ExpandButton expand={isExpanded} onClick={toggleExpand} aria-expanded={isExpanded} aria-label="show more">
             <OpenWithIcon />
@@ -69,7 +87,7 @@ const SmallCard = ({ title, content }: SmallCardProps) => {
       />
       <CardContent>
         <Container>
-          <Typography>{content}</Typography>
+          <Typography>{detailText()}</Typography>
         </Container>
       </CardContent>
     </Card>
