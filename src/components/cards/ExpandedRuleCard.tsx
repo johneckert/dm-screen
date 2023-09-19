@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData } from '../../interfaces';
+import { CardData, RuleContent } from '../../interfaces';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -68,23 +68,24 @@ export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-interface ExpandedCardProps {
+interface ExpandedRuleCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
 }
 
-const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+  const cardContent = expandedCardData.content as RuleContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
-  const [content, setContent] = useState(expandedCardData.content);
+  const [content, setContent] = useState(cardContent.content);
   const classes = useStyles({ isEditing });
   const handleClose = () => {
     closeExpandedCard();
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: content });
+      updateCard({ ...expandedCardData, title: title, content: { content } });
     }
     setIsEditing(!isEditing);
   };
@@ -119,17 +120,7 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
                 <CheckIcon />
               </IconButton>
             </Box>
-            <Box className={classes.body}>
-              <TextField
-                id="modal-content"
-                fullWidth
-                multiline
-                rows={18}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                data-testid="content-input"
-              />
-            </Box>
+            <Box className={classes.body}>{content}</Box>
           </>
         ) : (
           <>
@@ -158,4 +149,4 @@ const ExpandedCard: React.FC<ExpandedCardProps> = ({ closeExpandedCard, expanded
   );
 };
 
-export default ExpandedCard;
+export default ExpandedRuleCard;
