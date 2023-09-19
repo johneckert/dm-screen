@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardData, CardType } from '../../interfaces';
 import makeStyles from '@mui/styles/makeStyles';
-import NoteCard from '../cards/NoteCard';
+import SmallCard from './SmallCard';
 import { Draggable } from 'react-beautiful-dnd';
 
 interface StyleProps {
@@ -37,7 +37,7 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
     <Draggable key={card.id} draggableId={card.id} index={index}>
       {(provided, snapshot) => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={handleClick}>
-          {card.type === CardType.Note && <NoteCard key={card.id} title={card.title} content={card.content} />}
+          <SmallCard key={card.id} type={card.type} title={card.title} content={card.content} />
         </div>
       )}
     </Draggable>

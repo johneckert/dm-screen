@@ -8,7 +8,8 @@ import { Theme } from '@mui/material/styles';
 import { HEADER_HEIGHT } from '../../constants';
 import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
-import ExpandedCard from './ExpandedCard';
+import ExpandedNoteCard from '../cards/ExpandedNoteCard';
+import ExpandedMapCard from '../cards/ExpandedMapCard';
 
 interface CardDataMap {
   [key: string]: CardData[];
@@ -19,10 +20,16 @@ const createDemoCards = () => {
     const id = uuidv4();
     return {
       id: id,
-      title: `Item ${id}`,
-      content: `Content ${id}`,
+      title: `Performers’ Quarters`,
+      content: {
+        roomNumber: 'M6',
+        description:
+          'The walls of this gloomy chamber are lined with black-veiled compartments that contain makeshift beds. The furniture is sparse: a few wooden tables and chairs, a box of junk in one corner, and flickering lanterns resting here and there. Five performers occupy the room. Two of them pace nervously while the others weep.',
+        content:
+          'The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows: The actors here perform their roles reluctantly and are eager to leave, but cannot do so yet; each either has an unfulfilled bargain with the hag or has displeased her somehow and is working to win back her favor. All five performers are unarmed commoners (neutral), and the nonhuman ones have darkvision out to a range of 60 feet. They are as follows:',
+      },
       column: `droppable-${Math.floor(Math.random() * 4 + 1)}`,
-      type: CardType.Note,
+      type: CardType.Map,
     };
   });
   const cardDataMap: CardDataMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] };
@@ -149,6 +156,31 @@ const ScreenArea: React.FC = () => {
     setCards(updatedList);
   };
 
+  const renderCard = () => {
+    if (expandedCardData) {
+      switch (expandedCardData.type) {
+        case CardType.Note:
+          return (
+            <ExpandedNoteCard
+              closeExpandedCard={closeExpandedCard}
+              expandedCardData={expandedCardData}
+              updateCard={updateCard}
+            />
+          );
+        case CardType.Map:
+          return (
+            <ExpandedMapCard
+              closeExpandedCard={closeExpandedCard}
+              expandedCardData={expandedCardData}
+              updateCard={updateCard}
+            />
+          );
+        default:
+          return null;
+      }
+    }
+  };
+
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
@@ -159,13 +191,7 @@ const ScreenArea: React.FC = () => {
           <Column columnId={4} cards={cards['droppable-4']} expandCard={setExpandedCardId} />
         </div>
       </DragDropContext>
-      {expandedCardData && (
-        <ExpandedCard
-          closeExpandedCard={closeExpandedCard}
-          expandedCardData={expandedCardData}
-          updateCard={updateCard}
-        />
-      )}
+      {renderCard()}
     </>
   );
 };

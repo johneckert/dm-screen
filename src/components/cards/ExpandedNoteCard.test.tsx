@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import ExpandedCard from './ExpandedCard';
+import ExpandedNoteCard from './ExpandedNoteCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { CardType } from '../../interfaces';
@@ -19,7 +19,7 @@ describe('ExpandedCard', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ExpandedCard
+        <ExpandedNoteCard
           closeExpandedCard={mockCloseExpandedCard}
           expandedCardData={expandedNoteCardData}
           updateCard={mockUpdateCard}
@@ -30,10 +30,10 @@ describe('ExpandedCard', () => {
   });
 
   describe('Edit Mode', () => {
-    it('shows button text as "Save"', () => {
+    it('shows button with check mark icon', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedCard
+          <ExpandedNoteCard
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
@@ -54,7 +54,7 @@ describe('ExpandedCard', () => {
     it('renders text fields when isEditing is true', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedCard
+          <ExpandedNoteCard
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
@@ -74,7 +74,7 @@ describe('ExpandedCard', () => {
     it('calls updateCard when save button is clicked', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedCard
+          <ExpandedNoteCard
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
@@ -102,7 +102,7 @@ describe('ExpandedCard', () => {
     it('does not render text fields when isEditing is false', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedCard
+          <ExpandedNoteCard
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
@@ -113,10 +113,10 @@ describe('ExpandedCard', () => {
       expect(screen.queryByLabelText('content')).not.toBeInTheDocument();
     });
 
-    it('shows button text as "Edit"', () => {
+    it('shows button with pencil icon', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedCard
+          <ExpandedNoteCard
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
