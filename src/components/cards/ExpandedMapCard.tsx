@@ -6,9 +6,11 @@ import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import { Avatar } from '@mui/material';
 
 interface StyleProps {
   isEditing: boolean;
@@ -42,17 +44,22 @@ export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
+    overflowY: 'scroll',
+  },
+  editView: {
+    display: 'flex',
+    flexDirection: 'column',
+    padding: theme.spacing(2),
+    overflowY: 'scroll',
+    fontSize: theme.spacing(6),
+    fontWeight: 400,
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
   },
   modalTitle: {
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
-  },
-  titleInput: {
-    '& input': {
-      fontSize: theme.spacing(6),
-      fontWeight: 400,
-    },
   },
   modalDescription: {
     margin: theme.spacing(4),
@@ -90,6 +97,12 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, ex
   const handleClose = () => {
     closeExpandedCard();
   };
+
+  const handleCahnge = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(content);
+    console.log(e.target.value);
+    setContent({ ...content, description: e.target.value });
+  };
   const handleEdit = () => {
     if (isEditing) {
       updateCard({ ...expandedCardData, title: title, content: content });
@@ -108,49 +121,80 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, ex
       <Box className={classes.modal}>
         {isEditing ? (
           <>
-            <Box className={classes.header}>
+            <Typography
+              id="modal-title"
+              sx={{ alignSelf: 'center' }}
+              className={classes.modalTitle}
+              variant="h3"
+              component="h3"
+            >
+              Editing
+            </Typography>
+            <Box className={classes.editView}>
+              <TextField
+                id="modal-room-number"
+                label="Room Number"
+                className={classes.modalInput}
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.roomNumber}
+                onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
+              />
               <TextField
                 id="modal-title"
-                className={classes.titleInput}
+                label="Title"
+                className={classes.modalInput}
+                sx={{ paddingBottom: 2 }}
                 fullWidth
-                variant="standard"
+                variant="outlined"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 data-testid="title-input"
               />
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="save-button"
-                onClick={handleEdit}
-              >
-                <CheckIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
               <TextField
                 id="modal-description"
+                label="Read Out Loud"
                 fullWidth
+                className={classes.modalInput}
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
                 multiline
                 rows={18}
-                value={content}
+                value={content.description}
                 onChange={(e) => setContent({ ...content, description: e.target.value })}
                 data-testid="content-input"
               />
               <TextField
                 id="modal-content"
+                label="DM Info"
                 fullWidth
+                variant="outlined"
+                className={classes.modalInput}
+                sx={{ paddingBottom: 2 }}
                 multiline
                 rows={18}
-                value={content}
+                value={content.content}
                 onChange={(e) => setContent({ ...content, content: e.target.value })}
                 data-testid="content-input"
               />
+              <Button
+                variant="contained"
+                className={classes.editButton}
+                aria-label="edit-save-button"
+                data-testid="save-button"
+                onClick={handleEdit}
+              >
+                Save
+                <CheckIcon />
+              </Button>
             </Box>
           </>
         ) : (
           <>
             <Box className={classes.header}>
+              <Avatar aria-label="avatar" sx={{ width: 60, height: 60 }}>
+                {content.roomNumber}
+              </Avatar>
               <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
                 {title}
               </Typography>

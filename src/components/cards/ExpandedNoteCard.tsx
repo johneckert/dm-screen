@@ -42,6 +42,7 @@ export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
+    overflowY: 'scroll',
   },
   modalTitle: {
     margin: theme.spacing(4),
