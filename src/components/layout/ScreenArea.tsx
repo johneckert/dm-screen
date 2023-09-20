@@ -10,11 +10,13 @@ import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import ExpandedNoteCard from '../cards/ExpandedNoteCard';
 import ExpandedMapCard from '../cards/ExpandedMapCard';
+import NewCardModal from '../cards/NewCardModal';
 
 interface CardDataMap {
   [key: string]: CardData[];
 }
 
+// this can be removed once  all the basic CRUD functionality is implemented
 const createDemoCards = () => {
   const cards = Array.from({ length: 10 }, () => {
     const id = uuidv4();
@@ -63,6 +65,12 @@ const ScreenArea: React.FC = () => {
   const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
+  const [newCardColumnId, setNewCardColumnId] = useState<number | null>(null);
+  const [showNewCard, setShowNewCard] = useState<boolean>(false);
+  const openCreateCard = (columnId: number) => {
+    setNewCardColumnId(columnId);
+    setShowNewCard(true);
+  };
 
   useEffect(() => {
     if (expandedCardId) {
@@ -100,14 +108,20 @@ const ScreenArea: React.FC = () => {
     return updatedList;
   };
 
-  // const createCard = () => {
-  //   const id = uuidv4();
-  //   const [row, column] = findFirstEmptySpace();
-  //   setCards((prevCards: CardData[]) => [
-  //     ...prevCards,
-  //     { id, column: column, row: row, title: 'New Card', content: 'Content' },
-  //   ]);
-  // };
+  const closeNewCardModal = () => {
+    setShowNewCard(false);
+  };
+
+  const createCard = (cardData: CardData) => {
+    const columnKey = cardData.column;
+    const targetColumn = cards[`${columnKey}`];
+    targetColumn.push(cardData);
+    setCards({
+      ...cards,
+      [`${columnKey}`]: targetColumn,
+    });
+    setShowNewCard(false);
+  };
 
   const updateCard = (cardData: CardData): void => {
     const targetCard = cards[cardData.column].find((card) => card.id === cardData.id);
@@ -185,13 +199,41 @@ const ScreenArea: React.FC = () => {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={classes.screenArea} data-testid="screen-area">
-          <Column columnId={1} cards={cards['droppable-1']} expandCard={setExpandedCardId} />
-          <Column columnId={2} cards={cards['droppable-2']} expandCard={setExpandedCardId} />
-          <Column columnId={3} cards={cards['droppable-3']} expandCard={setExpandedCardId} />
-          <Column columnId={4} cards={cards['droppable-4']} expandCard={setExpandedCardId} />
+          <Column
+            columnId={1}
+            cards={cards['droppable-1']}
+            expandCard={setExpandedCardId}
+            openCreateCard={openCreateCard}
+          />
+          <Column
+            columnId={2}
+            cards={cards['droppable-2']}
+            expandCard={setExpandedCardId}
+            openCreateCard={openCreateCard}
+          />
+          <Column
+            columnId={3}
+            cards={cards['droppable-3']}
+            expandCard={setExpandedCardId}
+            openCreateCard={openCreateCard}
+          />
+          <Column
+            columnId={4}
+            cards={cards['droppable-4']}
+            expandCard={setExpandedCardId}
+            openCreateCard={openCreateCard}
+          />
         </div>
       </DragDropContext>
       {renderCard()}
+      {
+        <NewCardModal
+          showNewCard={showNewCard}
+          columnId={`droppable-${newCardColumnId}`}
+          createCard={createCard}
+          closeNewCardModal={closeNewCardModal}
+        />
+      }
     </>
   );
 };

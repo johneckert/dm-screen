@@ -1,11 +1,12 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { CardData, ScreenSize } from '../../interfaces';
+import { CardData, ScreenSize, CardType } from '../../interfaces';
 import DraggableCard from './DraggableCard';
 import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import makeStyles from '@mui/styles/makeStyles';
 import { getScreenSize, getBreakPoint } from '../../utils';
 import { Theme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -23,11 +24,12 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-const Column: React.FC<{ cards: CardData[]; columnId: number; expandCard: (id: string) => void }> = ({
-  cards,
-  columnId,
-  expandCard,
-}) => {
+const Column: React.FC<{
+  cards: CardData[];
+  columnId: number;
+  expandCard: (id: string) => void;
+  openCreateCard: (columnId: number) => void;
+}> = ({ cards, columnId, expandCard, openCreateCard }) => {
   console.log('row: ', columnId, 'cards: ', cards);
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
@@ -36,6 +38,9 @@ const Column: React.FC<{ cards: CardData[]; columnId: number; expandCard: (id: s
   const classes = useStyles(styleProps);
   return (
     <div className={classes.column} data-testid="column">
+      <Button sx={{ margin: 1, width: '100%' }} variant="contained" onClick={() => openCreateCard(columnId)}>
+        New Card
+      </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
