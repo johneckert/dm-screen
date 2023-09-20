@@ -1,4 +1,3 @@
-import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import { CardData, ScreenSize } from '../../interfaces';
 import DraggableCard from './DraggableCard';
@@ -42,14 +41,19 @@ const Column: React.FC<{
         New Card
       </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
-        {(provided, _snapshot) => (
-          <div {...provided.droppableProps} ref={provided.innerRef}>
-            {cards.map((card, index) => (
-              <DraggableCard key={card.id} card={card} index={index} expandCard={expandCard} />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
+        {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore-next-line
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          (provided, snapshot) => (
+            <div {...provided.droppableProps} ref={provided.innerRef}>
+              {cards.map((card, index) => (
+                <DraggableCard key={card.id} card={card} index={index} expandCard={expandCard} />
+              ))}
+              {provided.placeholder}
+            </div>
+          )
+        }
       </Droppable>
     </div>
   );
