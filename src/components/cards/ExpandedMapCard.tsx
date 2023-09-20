@@ -98,11 +98,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, ex
     closeExpandedCard();
   };
 
-  const handleCahnge = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(content);
-    console.log(e.target.value);
-    setContent({ ...content, description: e.target.value });
-  };
   const handleEdit = () => {
     if (isEditing) {
       updateCard({ ...expandedCardData, title: title, content: content });

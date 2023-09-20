@@ -1,6 +1,6 @@
 import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
-import { CardData, ScreenSize, CardType } from '../../interfaces';
+import { CardData, ScreenSize } from '../../interfaces';
 import DraggableCard from './DraggableCard';
 import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import makeStyles from '@mui/styles/makeStyles';
@@ -42,7 +42,7 @@ const Column: React.FC<{
         New Card
       </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
-        {(provided, snapshot) => (
+        {(provided, _snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>
             {cards.map((card, index) => (
               <DraggableCard key={card.id} card={card} index={index} expandCard={expandCard} />

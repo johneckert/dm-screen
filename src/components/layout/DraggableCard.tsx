@@ -1,28 +1,7 @@
 import React from 'react';
-import { CardData, CardType } from '../../interfaces';
-import makeStyles from '@mui/styles/makeStyles';
+import { CardData } from '../../interfaces';
 import SmallCard from './SmallCard';
 import { Draggable } from 'react-beautiful-dnd';
-
-interface StyleProps {
-  left: number;
-  top: number;
-  column: number;
-  row: number;
-  isDragging: boolean;
-}
-
-const useStyles = makeStyles((theme) => ({
-  draggableCard: {
-    // position: 'absolute',
-    transform: (props: StyleProps) => `translate3d(${props.left}px, ${props.top}px, 0)`,
-    WebkitTransform: (props: StyleProps) => `translate3d(${props.left}px, ${props.top}px, 0)`,
-    opacity: (props: StyleProps) => (props.isDragging ? 0.3 : 1),
-    height: (props: StyleProps) => (props.isDragging ? 0 : ''),
-    gridColumnStart: (props: StyleProps) => props.column,
-    gridRowStart: (props: StyleProps) => props.row,
-  },
-}));
 
 const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: string) => void }> = ({
   card,
@@ -35,7 +14,7 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
 
   return (
     <Draggable key={card.id} draggableId={card.id} index={index}>
-      {(provided, snapshot) => (
+      {(provided, _snapshot) => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={handleClick}>
           <SmallCard key={card.id} type={card.type} title={card.title} content={card.content} />
         </div>

@@ -1,5 +1,5 @@
-import { GridSize, GridTemplate, ScreenSize } from './interfaces';
-import { BREAKPOINTS, HEADER_HEIGHT, NUMBER_OF_ROWS, NUMBER_OF_COLUMNS } from './constants';
+import { ScreenSize } from './interfaces';
+import { BREAKPOINTS } from './constants';
 
 export const getScreenSize = () => {
   return { width: window.innerWidth, height: window.innerHeight };

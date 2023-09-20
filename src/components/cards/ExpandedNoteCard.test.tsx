@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ExpandedNoteCard from './ExpandedNoteCard';
 import { ThemeProvider } from '@mui/material/styles';
@@ -12,7 +11,7 @@ const expandedNoteCardData = {
   type: CardType.Note,
   column: 'column-1',
   title: 'Pikachu',
-  content: 'I am Pikachu',
+  content: { content: 'I am Pikachu' },
 };
 
 describe('ExpandedCard', () => {

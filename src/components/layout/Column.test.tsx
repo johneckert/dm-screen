@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { mockCardData } from '../../mockData';
 import Column from './Column';
@@ -9,6 +8,7 @@ const mockColumnData = {
   columnId: 1,
   cards: mockCardData.filter((card) => card.column === 'droppable-1'),
   expandCard: jest.fn(),
+  openCreateCard: jest.fn(),
 };
 
 jest.mock('react-beautiful-dnd', () => ({
@@ -28,6 +28,7 @@ describe('Column', () => {
           cards={mockColumnData.cards}
           columnId={mockColumnData.columnId}
           expandCard={mockColumnData.expandCard}
+          openCreateCard={mockColumnData.openCreateCard}
         />
       </ThemeProvider>,
     );
@@ -41,6 +42,7 @@ describe('Column', () => {
           cards={mockColumnData.cards}
           columnId={mockColumnData.columnId}
           expandCard={mockColumnData.expandCard}
+          openCreateCard={mockColumnData.openCreateCard}
         />
       </ThemeProvider>,
     );
