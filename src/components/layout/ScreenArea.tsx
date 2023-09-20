@@ -16,6 +16,7 @@ interface CardDataMap {
   [key: string]: CardData[];
 }
 
+// this can be removed once  all the basic CRUD functionality is implemented
 const createDemoCards = () => {
   const cards = Array.from({ length: 10 }, () => {
     const id = uuidv4();
@@ -105,6 +106,10 @@ const ScreenArea: React.FC = () => {
       updatedList[dropColumnId] = targetColumn;
     }
     return updatedList;
+  };
+
+  const closeNewCardModal = () => {
+    setShowNewCard(false);
   };
 
   const createCard = (cardData: CardData) => {
@@ -221,7 +226,14 @@ const ScreenArea: React.FC = () => {
         </div>
       </DragDropContext>
       {renderCard()}
-      {<NewCardModal showNewCard={showNewCard} columnId={`droppable-${newCardColumnId}`} createCard={createCard} />}
+      {
+        <NewCardModal
+          showNewCard={showNewCard}
+          columnId={`droppable-${newCardColumnId}`}
+          createCard={createCard}
+          closeNewCardModal={closeNewCardModal}
+        />
+      }
     </>
   );
 };

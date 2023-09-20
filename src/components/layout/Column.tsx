@@ -38,7 +38,9 @@ const Column: React.FC<{
   const classes = useStyles(styleProps);
   return (
     <div className={classes.column} data-testid="column">
-      <Button onClick={() => openCreateCard(columnId)}>New Card</Button>
+      <Button sx={{ margin: 1, width: '100%' }} variant="contained" onClick={() => openCreateCard(columnId)}>
+        New Card
+      </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
         {(provided, snapshot) => (
           <div {...provided.droppableProps} ref={provided.innerRef}>

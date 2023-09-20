@@ -65,12 +65,22 @@ export const useStyles = makeStyles<Theme>((theme) => ({
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(3),
   },
-  editButton: {
+  cancelButton: {
     alignSelf: 'center',
     justifyContent: 'center',
     width: 'fit-content',
     padding: theme.spacing(1),
     marginLeft: 'auto',
+  },
+  saveButton: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 'fit-content',
+    padding: theme.spacing(1),
+    marginLeft: 'auto',
+    '& svg': {
+      marginRight: theme.spacing(1),
+    },
   },
   avatar: {
     color: 'rgb(85, 47, 77)',
@@ -80,8 +90,9 @@ export const useStyles = makeStyles<Theme>((theme) => ({
 const NewCardModal: React.FC<{
   showNewCard: boolean;
   columnId: string;
+  closeNewCardModal: () => void;
   createCard: (cardData: CardData) => void;
-}> = ({ showNewCard, columnId, createCard }) => {
+}> = ({ showNewCard, columnId, createCard, closeNewCardModal }) => {
   const classes = useStyles();
   const [title, setTitle] = React.useState('');
   const [content, setContent] = useState({} as MapContent);
@@ -93,9 +104,16 @@ const NewCardModal: React.FC<{
     setContent({} as MapContent);
   };
 
+  const handleCancel = () => {
+    setTitle('');
+    setContent({} as MapContent);
+    closeNewCardModal();
+  };
+
   return (
     <Modal
       open={showNewCard}
+      onClose={handleCancel}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
       data-testid="expanded-card"
@@ -157,16 +175,27 @@ const NewCardModal: React.FC<{
             onChange={(e) => setContent({ ...content, content: e.target.value })}
             data-testid="content-input"
           />
-          <Button
-            variant="contained"
-            className={classes.editButton}
-            aria-label="edit-save-button"
-            data-testid="save-button"
-            onClick={handleSave}
-          >
-            Save
-            <CheckIcon />
-          </Button>
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
+            <Button
+              variant="outlined"
+              className={classes.cancelButton}
+              aria-label="cancel-button"
+              data-testid="cancel-button"
+              onClick={handleCancel}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.saveButton}
+              aria-label="save-button"
+              data-testid="save-button"
+              onClick={handleSave}
+            >
+              <CheckIcon />
+              Save
+            </Button>
+          </Box>
         </Box>
       </Box>
     </Modal>
