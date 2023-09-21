@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, NoteContent } from '../../interfaces';
+import { CardData, GenericCardContent } from '../../interfaces';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -14,7 +14,7 @@ interface StyleProps {
   isEditing: boolean;
 }
 
-export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   modal: {
     position: 'absolute',
     top: '50%',
@@ -76,7 +76,7 @@ interface ExpandedNoteCardProps {
 }
 
 const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
-  const cardContent = expandedCardData.content as NoteContent;
+  const cardContent = expandedCardData.content as GenericCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(cardContent.content);
