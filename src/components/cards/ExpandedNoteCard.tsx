@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 interface StyleProps {
   isEditing: boolean;
@@ -73,9 +74,15 @@ interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
+  deleteCard: (cardData: CardData) => void;
 }
 
-const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
+  closeExpandedCard,
+  expandedCardData,
+  updateCard,
+  deleteCard,
+}) => {
   const cardContent = expandedCardData.content as GenericCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
@@ -155,6 +162,15 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, 
             </Box>
           </>
         )}
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <IconButton
+            onClick={() => {
+              deleteCard(expandedCardData);
+            }}
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Modal>
   );

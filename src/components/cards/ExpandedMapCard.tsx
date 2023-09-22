@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Avatar } from '@mui/material';
 
 interface StyleProps {
@@ -87,9 +88,15 @@ interface ExpandedMapCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
+  deleteCard: (cardData: CardData) => void;
 }
 
-const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
+const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
+  closeExpandedCard,
+  expandedCardData,
+  updateCard,
+  deleteCard,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(expandedCardData.content as GenericCardContent);
@@ -103,6 +110,11 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, ex
       updateCard({ ...expandedCardData, title: title, content: content });
     }
     setIsEditing(!isEditing);
+  };
+
+  const handleDelete = () => {
+    deleteCard(expandedCardData);
+    closeExpandedCard();
   };
 
   return (
@@ -212,6 +224,11 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({ closeExpandedCard, ex
             </Box>
           </>
         )}
+        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <IconButton onClick={handleDelete}>
+            <DeleteIcon />
+          </IconButton>
+        </Box>
       </Box>
     </Modal>
   );
