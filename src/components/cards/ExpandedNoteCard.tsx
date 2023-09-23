@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardData, GenericCardContent } from '../../interfaces';
-import Modal from '@mui/material/Modal';
+import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 interface StyleProps {
   isEditing: boolean;
@@ -88,9 +87,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(cardContent.content);
   const classes = useStyles({ isEditing });
-  const handleClose = () => {
-    closeExpandedCard();
-  };
   const handleEdit = () => {
     if (isEditing) {
       updateCard({ ...expandedCardData, title: title, content: { content } });
@@ -99,80 +95,68 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   };
 
   return (
-    <Modal
-      open={expandedCardData.id !== null}
-      onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-      data-testid="expanded-card"
+    <ExpandedCardLayout
+      cardData={expandedCardData}
+      closeExpandedCard={closeExpandedCard}
+      deleteCard={deleteCard}
+      isEditing={isEditing}
     >
-      <Box className={classes.modal}>
-        {isEditing ? (
-          <>
-            <Box className={classes.header}>
-              <TextField
-                id="modal-title"
-                className={classes.titleInput}
-                fullWidth
-                variant="standard"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                data-testid="title-input"
-              />
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="save-button"
-                onClick={handleEdit}
-              >
-                <CheckIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
-              <TextField
-                id="modal-content"
-                fullWidth
-                multiline
-                rows={18}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                data-testid="content-input"
-              />
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box className={classes.header}>
-              <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
-                {title}
-              </Typography>
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="edit-button"
-                onClick={handleEdit}
-              >
-                <EditIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
-              <Typography id="modal-content" className={classes.modalContent}>
-                {content}
-              </Typography>
-            </Box>
-          </>
-        )}
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <IconButton
-            onClick={() => {
-              deleteCard(expandedCardData);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      </Box>
-    </Modal>
+      {isEditing ? (
+        <>
+          <Box className={classes.header}>
+            <TextField
+              id="modal-title"
+              className={classes.titleInput}
+              fullWidth
+              variant="standard"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              data-testid="title-input"
+            />
+            <IconButton
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="save-button"
+              onClick={handleEdit}
+            >
+              <CheckIcon />
+            </IconButton>
+          </Box>
+          <Box className={classes.body}>
+            <TextField
+              id="modal-content"
+              fullWidth
+              multiline
+              rows={18}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              data-testid="content-input"
+            />
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box className={classes.header}>
+            <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
+              {title}
+            </Typography>
+            <IconButton
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="edit-button"
+              onClick={handleEdit}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box className={classes.body}>
+            <Typography id="modal-content" className={classes.modalContent}>
+              {content}
+            </Typography>
+          </Box>
+        </>
+      )}
+    </ExpandedCardLayout>
   );
 };
 

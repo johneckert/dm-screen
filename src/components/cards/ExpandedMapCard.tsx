@@ -11,6 +11,7 @@ import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandedCardLayout from './ExpandedCardLayout';
 import { Avatar } from '@mui/material';
 
 interface StyleProps {
@@ -101,9 +102,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(expandedCardData.content as GenericCardContent);
   const classes = useStyles({ isEditing });
-  const handleClose = () => {
-    closeExpandedCard();
-  };
 
   const handleEdit = () => {
     if (isEditing) {
@@ -112,125 +110,112 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     setIsEditing(!isEditing);
   };
 
-  const handleDelete = () => {
-    deleteCard(expandedCardData);
-    closeExpandedCard();
-  };
-
   return (
-    <Modal
-      open={expandedCardData.id !== null}
-      onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-      data-testid="expanded-card"
+    <ExpandedCardLayout
+      cardData={expandedCardData}
+      closeExpandedCard={closeExpandedCard}
+      deleteCard={deleteCard}
+      isEditing={isEditing}
     >
-      <Box className={classes.modal}>
-        {isEditing ? (
-          <>
-            <Typography
+      {isEditing ? (
+        <>
+          <Typography
+            id="modal-title"
+            sx={{ alignSelf: 'center' }}
+            className={classes.modalTitle}
+            variant="h3"
+            component="h3"
+          >
+            Editing
+          </Typography>
+          <Box className={classes.editView}>
+            <TextField
+              id="modal-room-number"
+              label="Room Number"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.roomNumber}
+              onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
+            />
+            <TextField
               id="modal-title"
-              sx={{ alignSelf: 'center' }}
-              className={classes.modalTitle}
-              variant="h3"
-              component="h3"
+              label="Title"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              fullWidth
+              variant="outlined"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              data-testid="title-input"
+            />
+            <TextField
+              id="modal-description"
+              label="Read Out Loud"
+              fullWidth
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              multiline
+              rows={18}
+              value={content.description}
+              onChange={(e) => setContent({ ...content, description: e.target.value })}
+              data-testid="content-input"
+            />
+            <TextField
+              id="modal-content"
+              label="DM Info"
+              fullWidth
+              variant="outlined"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.content}
+              onChange={(e) => setContent({ ...content, content: e.target.value })}
+              data-testid="content-input"
+            />
+            <Button
+              variant="contained"
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="save-button"
+              onClick={handleEdit}
             >
-              Editing
+              Save
+              <CheckIcon />
+            </Button>
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box className={classes.header}>
+            <Avatar aria-label="avatar" sx={{ width: 60, height: 60 }}>
+              {content.roomNumber}
+            </Avatar>
+            <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
+              {title}
             </Typography>
-            <Box className={classes.editView}>
-              <TextField
-                id="modal-room-number"
-                label="Room Number"
-                className={classes.modalInput}
-                sx={{ paddingBottom: 2 }}
-                variant="outlined"
-                value={content.roomNumber}
-                onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
-              />
-              <TextField
-                id="modal-title"
-                label="Title"
-                className={classes.modalInput}
-                sx={{ paddingBottom: 2 }}
-                fullWidth
-                variant="outlined"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                data-testid="title-input"
-              />
-              <TextField
-                id="modal-description"
-                label="Read Out Loud"
-                fullWidth
-                className={classes.modalInput}
-                sx={{ paddingBottom: 2 }}
-                variant="outlined"
-                multiline
-                rows={18}
-                value={content.description}
-                onChange={(e) => setContent({ ...content, description: e.target.value })}
-                data-testid="content-input"
-              />
-              <TextField
-                id="modal-content"
-                label="DM Info"
-                fullWidth
-                variant="outlined"
-                className={classes.modalInput}
-                sx={{ paddingBottom: 2 }}
-                multiline
-                rows={18}
-                value={content.content}
-                onChange={(e) => setContent({ ...content, content: e.target.value })}
-                data-testid="content-input"
-              />
-              <Button
-                variant="contained"
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="save-button"
-                onClick={handleEdit}
-              >
-                Save
-                <CheckIcon />
-              </Button>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box className={classes.header}>
-              <Avatar aria-label="avatar" sx={{ width: 60, height: 60 }}>
-                {content.roomNumber}
-              </Avatar>
-              <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
-                {title}
-              </Typography>
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="edit-button"
-                onClick={handleEdit}
-              >
-                <EditIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
-              <Typography id="modal-description" className={classes.modalDescription} sx={{ boxShadow: 3 }}>
-                {content.description}
-              </Typography>
-              <Typography id="modal-content" className={classes.modalContent}>
-                {content.content}
-              </Typography>
-            </Box>
-          </>
-        )}
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-          <IconButton onClick={handleDelete}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      </Box>
-    </Modal>
+            <IconButton
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="edit-button"
+              onClick={handleEdit}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box className={classes.body}>
+            <Typography id="modal-description" className={classes.modalDescription} sx={{ boxShadow: 3 }}>
+              {content.description}
+            </Typography>
+            <Typography id="modal-content" className={classes.modalContent}>
+              {content.content}
+            </Typography>
+          </Box>
+        </>
+      )}
+    </ExpandedCardLayout>
   );
 };
 
