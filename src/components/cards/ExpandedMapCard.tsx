@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, GenericCardContent } from '../../interfaces';
+import { CardData, CardType, GenericCardContent } from '../../interfaces';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -10,6 +10,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import ReactMarkdown from 'react-markdown';
 import { Avatar } from '@mui/material';
+import { avatarColor } from '../../utils';
+import { PURPLE } from '../../colors';
 
 interface StyleProps {
   isEditing: boolean;
@@ -48,15 +50,12 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   modalDescription: {
     margin: theme.spacing(4),
     padding: theme.spacing(2),
-    background: 'rgb(223, 200, 221)',
+    background: PURPLE[200],
   },
   modalContent: {
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(3),
-  },
-  avatar: {
-    color: 'rgb(85, 47, 77)',
   },
 }));
 
@@ -156,7 +155,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <Avatar aria-label="avatar" sx={{ width: 60, height: 60 }}>
+            <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}>
               {content.roomNumber}
             </Avatar>
             <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
