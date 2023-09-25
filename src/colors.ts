@@ -1,31 +1,27 @@
-export const BLUE = {
-  100: '#ffbaba',
-  200: '#ff7b7b',
-  300: '#ff5252',
-  400: '#ff0000',
-  500: '#a70000',
-};
-
 export const RED = {
   100: '#ffbaba',
-  200: '#ff7b7b',
   300: '#ff5252',
-  400: '#ff0000',
-  500: '#a70000',
+  500: '#ff0000',
 };
 
 export const TEAL = {
   100: '#b2d8d8',
-  200: '#66b2b2',
-  300: '#008080',
-  400: '#006666',
-  500: '#004c4c',
+  300: '#66b2b2',
+  500: '#19857b',
 };
 
-export const PINK = {
-  100: '#ff0081',
-  200: '#ff48a5',
-  300: '#ff77bc',
-  400: '#ffaed7',
-  500: '#ffcae5',
+export const PURPLE = {
+  100: '#f5dff3',
+  200: '#dfc8dd',
+  300: '#c9b1c4',
+  500: '#856798',
 };
+
+export const GREY = {
+  100: '#DBDBDB',
+  300: '#959595',
+  500: '#595959',
+};
+
+export const BLACK = '#000000';
+export const WHITE = '#FFFFFF';
