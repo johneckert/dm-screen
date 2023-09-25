@@ -130,6 +130,16 @@ const ScreenArea: React.FC = () => {
     }
   };
 
+  const deleteCard = (cardData: CardData): void => {
+    const targetColumn = cards[cardData.column];
+    const targetCard = targetColumn.find((card) => card.id === cardData.id);
+    if (targetCard) {
+      const targetIndex = targetColumn.indexOf(targetCard);
+      targetColumn.splice(targetIndex, 1);
+      setCards(cards);
+    }
+  };
+
   useEffect(() => {
     if (!savedCards) {
       setCards(DEMO_CARDS);
@@ -178,6 +188,7 @@ const ScreenArea: React.FC = () => {
               closeExpandedCard={closeExpandedCard}
               expandedCardData={expandedCardData}
               updateCard={updateCard}
+              deleteCard={deleteCard}
             />
           );
         case CardType.Map:
@@ -186,6 +197,7 @@ const ScreenArea: React.FC = () => {
               closeExpandedCard={closeExpandedCard}
               expandedCardData={expandedCardData}
               updateCard={updateCard}
+              deleteCard={deleteCard}
             />
           );
         default:
