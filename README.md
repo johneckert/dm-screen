@@ -34,6 +34,7 @@ yarn dev
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
 - [Material UI](https://material-ui.com/)
 - [usehooks-ts](https://github.com/juliencrn/usehooks-ts)
+- [react-markdown](https://github.com/remarkjs/react-markdown)
 
 ## Acknowledgments
 

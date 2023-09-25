@@ -7,6 +7,11 @@ import { CardType } from '../../interfaces';
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
 const mockDeleteCard = jest.fn();
+
+jest.mock('react-markdown', () => (props: { children: string }) => (
+  <div data-testid="react-markdown">{props.children}</div>
+));
+
 const expandedNoteCardData = {
   id: '1',
   type: CardType.Note,
