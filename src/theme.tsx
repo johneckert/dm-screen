@@ -1,18 +1,18 @@
 import { createTheme } from '@mui/material/styles';
-import { red } from '@mui/material/colors';
+import { PURPLE, RED, TEAL } from './colors';
 import { BREAKPOINTS } from './constants';
 
 // A custom theme for this app
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#556cd6',
+      main: PURPLE[500],
     },
     secondary: {
-      main: '#19857b',
+      main: TEAL[500],
     },
     error: {
-      main: red.A400,
+      main: RED[500],
     },
     background: {
       paper: '#fff',
