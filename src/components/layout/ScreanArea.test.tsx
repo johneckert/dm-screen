@@ -4,6 +4,9 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 
 jest.mock('./DraggableCard.tsx', () => () => <div data-testid="draggable-card" />);
+jest.mock('react-markdown', () => (props: { children: string }) => (
+  <div data-testid="react-markdown">{props.children}</div>
+));
 
 describe('ScreenArea', () => {
   it('renders', () => {

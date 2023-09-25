@@ -8,6 +8,7 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
+import ReactMarkdown from 'react-markdown';
 
 interface StyleProps {
   isEditing: boolean;
@@ -141,7 +142,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
           </Box>
           <Box className={classes.body}>
             <Typography id="modal-content" className={classes.modalContent}>
-              {content}
+              <ReactMarkdown>{content}</ReactMarkdown>
             </Typography>
           </Box>
         </>

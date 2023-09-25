@@ -40,12 +40,15 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
   };
 
   const detailText = () => {
+    let detailText = '';
     switch (type) {
       case CardType.Map:
-        return '';
+        detailText = content.description ?? '';
+        break;
       default:
-        return content.content;
+        detailText = content.content;
     }
+    return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
   };
 
   const toggleExpand = () => {
