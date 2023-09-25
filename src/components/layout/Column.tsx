@@ -29,7 +29,6 @@ const Column: React.FC<{
   expandCard: (id: string) => void;
   openCreateCard: (columnId: number) => void;
 }> = ({ cards, columnId, expandCard, openCreateCard }) => {
-  console.log('row: ', columnId, 'cards: ', cards);
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
