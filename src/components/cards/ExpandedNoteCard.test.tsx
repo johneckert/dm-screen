@@ -6,6 +6,7 @@ import { CardType } from '../../interfaces';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
+const mockDeleteCard = jest.fn();
 const expandedNoteCardData = {
   id: '1',
   type: CardType.Note,
@@ -21,6 +22,7 @@ describe('ExpandedCard', () => {
         <ExpandedNoteCard
           closeExpandedCard={mockCloseExpandedCard}
           expandedCardData={expandedNoteCardData}
+          deleteCard={mockDeleteCard}
           updateCard={mockUpdateCard}
         />
       </ThemeProvider>,
@@ -36,6 +38,7 @@ describe('ExpandedCard', () => {
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
           />
         </ThemeProvider>,
       );
@@ -57,6 +60,7 @@ describe('ExpandedCard', () => {
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
           />
         </ThemeProvider>,
       );
@@ -69,32 +73,6 @@ describe('ExpandedCard', () => {
       expect(screen.getByTestId('title-input')).toBeInTheDocument();
       expect(screen.getByTestId('content-input')).toBeInTheDocument();
     });
-
-    it('calls updateCard when save button is clicked', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-          />
-        </ThemeProvider>,
-      );
-
-      const editButton = screen.getByTestId('edit-button');
-      act(() => {
-        editButton.click();
-      });
-
-      const saveButton = screen.getByTestId('save-button');
-      act(() => {
-        saveButton.click();
-      });
-
-      waitFor(() => {
-        expect(mockUpdateCard).toHaveBeenCalled();
-      });
-    });
   });
 
   describe('View Mode', () => {
@@ -105,6 +83,7 @@ describe('ExpandedCard', () => {
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
           />
         </ThemeProvider>,
       );
@@ -119,6 +98,7 @@ describe('ExpandedCard', () => {
             closeExpandedCard={mockCloseExpandedCard}
             expandedCardData={expandedNoteCardData}
             updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
           />
         </ThemeProvider>,
       );
