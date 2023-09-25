@@ -8,6 +8,7 @@ import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import ExpandedCardLayout from './ExpandedCardLayout';
+import ReactMarkdown from 'react-markdown';
 import { Avatar } from '@mui/material';
 
 interface StyleProps {
@@ -172,10 +173,10 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           </Box>
           <Box className={classes.body}>
             <Typography id="modal-description" className={classes.modalDescription} sx={{ boxShadow: 3 }}>
-              {content.description}
+              <ReactMarkdown>{content.description as string}</ReactMarkdown>
             </Typography>
             <Typography id="modal-content" className={classes.modalContent}>
-              {content.content}
+              <ReactMarkdown>{content.content}</ReactMarkdown>
             </Typography>
           </Box>
         </>
