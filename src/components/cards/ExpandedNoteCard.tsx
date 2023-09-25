@@ -88,21 +88,34 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Box className={classes.header}>
+          <Typography
+            id="modal-title"
+            sx={{ alignSelf: 'center' }}
+            className={classes.modalTitle}
+            variant="h3"
+            component="h3"
+          >
+            Editing
+          </Typography>
+          <Box className={classes.editView}>
             <TextField
               id="modal-title"
-              className={classes.titleInput}
+              label="Title"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
               fullWidth
-              variant="standard"
+              variant="outlined"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               data-testid="title-input"
             />
-          </Box>
-          <Box className={classes.body}>
             <TextField
               id="modal-content"
+              label="DM Info"
               fullWidth
+              variant="outlined"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
               multiline
               rows={18}
               value={content}

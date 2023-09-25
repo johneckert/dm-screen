@@ -30,21 +30,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  body: {
+  form: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2),
+    justifyContent: 'space-between',
+    width: '100%',
     overflowY: 'scroll',
   },
-  editView: {
+  content: {
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
@@ -58,16 +51,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
-  },
-  modalDescription: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(2),
-    background: 'rgb(223, 200, 221)',
-  },
-  modalContent: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(3),
   },
   cancelButton: {
     alignSelf: 'center',
@@ -86,9 +69,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
-  avatar: {
-    color: 'rgb(85, 47, 77)',
-  },
 }));
 
 const NewCardModal: React.FC<{
@@ -98,12 +78,12 @@ const NewCardModal: React.FC<{
   createCard: (cardData: CardData) => void;
 }> = ({ showNewCard, columnId, createCard, closeNewCardModal }) => {
   const classes = useStyles();
+  const id = uuidv4();
   const [title, setTitle] = React.useState('');
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = React.useState<CardType>(CardType.Note);
 
   const handleSave = () => {
-    const id = uuidv4();
     createCard({ id, title, content, type: cardType, column: columnId });
     setTitle('');
     setContent({} as GenericCardContent);
@@ -144,23 +124,25 @@ const NewCardModal: React.FC<{
         >
           Create Card
         </Typography>
-        <Box className={classes.editView}>
-          <InputLabel id="card-type-select-label">Type</InputLabel>
-          <Select
-            labelId="card-type-select-label"
-            sx={{ marginBottom: 2 }}
-            id="card-type-select"
-            value={cardType}
-            label="Type"
-            onChange={(e) => setCardType(e.target.value as CardType)}
-          >
-            {Object.values(CardType).map((value) => (
-              <MenuItem key={value} value={value}>
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
-          {renderForm()}
+        <Box className={classes.content}>
+          <Box className={classes.form}>
+            <InputLabel id="card-type-select-label">Type</InputLabel>
+            <Select
+              labelId="card-type-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-type-select"
+              value={cardType}
+              label="Type"
+              onChange={(e) => setCardType(e.target.value as CardType)}
+            >
+              {Object.values(CardType).map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+            {renderForm()}
+          </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <Button
               variant="outlined"
