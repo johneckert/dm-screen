@@ -8,28 +8,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
 
 interface StyleProps {
   isEditing: boolean;
 }
 
 const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: '80%',
-    backgroundColor: '#ffffff',
-    border: 'none',
-    borderRadius: theme.spacing(1.5),
-    boxShadow: '24px',
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
   header: {
     display: 'flex',
     flexDirection: 'row',
