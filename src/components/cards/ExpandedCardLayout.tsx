@@ -3,7 +3,8 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import theme from '../../theme';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@mui/material/styles';
 import { CardData } from '../../interfaces';
@@ -31,6 +32,15 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
     width: '100%',
     height: ({ isEditing }) => (isEditing ? '92%' : '100%'),
   },
+  editButton: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: theme.spacing(15),
+    marginLeft: 'auto',
+    '& svg': {
+      marginLeft: theme.spacing(1),
+    },
+  },
 }));
 
 const ExpandedCardLayout: React.FC<{
@@ -38,8 +48,9 @@ const ExpandedCardLayout: React.FC<{
   closeExpandedCard: () => void;
   deleteCard: (cardData: CardData) => void;
   isEditing: boolean;
+  handleEdit: () => void;
   children: ReactNode;
-}> = ({ cardData, closeExpandedCard, deleteCard, isEditing, children }) => {
+}> = ({ cardData, closeExpandedCard, deleteCard, isEditing, handleEdit, children }) => {
   const classes = useStyles({ isEditing: isEditing });
   const handleDelete = () => {
     deleteCard(cardData);
@@ -65,13 +76,31 @@ const ExpandedCardLayout: React.FC<{
               width: '100%',
               display: 'flex',
               alignSelf: 'flex-end',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               alignItems: 'center',
+              padding: theme.spacing(2),
             }}
           >
-            <IconButton sx={{ bottom: 0 }} onClick={handleDelete}>
+            <Button
+              variant="outlined"
+              className={classes.editButton}
+              aria-label="delete-button"
+              data-testid="save-button"
+              onClick={handleDelete}
+            >
+              Delete
               <DeleteIcon />
-            </IconButton>
+            </Button>
+            <Button
+              variant="contained"
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="save-button"
+              onClick={handleEdit}
+            >
+              Save
+              <CheckIcon />
+            </Button>
           </Box>
         )}
       </Box>

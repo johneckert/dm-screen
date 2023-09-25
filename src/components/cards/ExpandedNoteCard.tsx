@@ -100,6 +100,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
       closeExpandedCard={closeExpandedCard}
       deleteCard={deleteCard}
       isEditing={isEditing}
+      handleEdit={handleEdit}
     >
       {isEditing ? (
         <>
@@ -113,14 +114,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
               onChange={(e) => setTitle(e.target.value)}
               data-testid="title-input"
             />
-            <IconButton
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="save-button"
-              onClick={handleEdit}
-            >
-              <CheckIcon />
-            </IconButton>
           </Box>
           <Box className={classes.body}>
             <TextField

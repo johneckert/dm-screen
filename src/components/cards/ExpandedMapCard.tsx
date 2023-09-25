@@ -73,13 +73,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(3),
   },
-  editButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    padding: theme.spacing(1),
-    marginLeft: 'auto',
-  },
   avatar: {
     color: 'rgb(85, 47, 77)',
   },
@@ -116,6 +109,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
       closeExpandedCard={closeExpandedCard}
       deleteCard={deleteCard}
       isEditing={isEditing}
+      handleEdit={handleEdit}
     >
       {isEditing ? (
         <>
@@ -175,16 +169,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               onChange={(e) => setContent({ ...content, content: e.target.value })}
               data-testid="content-input"
             />
-            <Button
-              variant="contained"
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="save-button"
-              onClick={handleEdit}
-            >
-              Save
-              <CheckIcon />
-            </Button>
           </Box>
         </>
       ) : (
