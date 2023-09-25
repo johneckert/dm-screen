@@ -3,14 +3,18 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
-import { MapContent, CardData, CardType } from '../../interfaces';
+import { GenericCardContent, CardData, CardType } from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import InputLabel from '@mui/material/InputLabel';
+import MapCardform from './newCardForms/MapCardForm';
+import NoteCardForm from './newCardForms/NoteCardForm';
 
-export const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
     position: 'absolute',
     top: '50%',
@@ -26,21 +30,14 @@ export const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  body: {
+  form: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2),
+    justifyContent: 'space-between',
+    width: '100%',
     overflowY: 'scroll',
   },
-  editView: {
+  content: {
     display: 'flex',
     flexDirection: 'column',
     padding: theme.spacing(2),
@@ -54,16 +51,6 @@ export const useStyles = makeStyles<Theme>((theme) => ({
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
-  },
-  modalDescription: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(2),
-    background: 'rgb(223, 200, 221)',
-  },
-  modalContent: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(3),
   },
   cancelButton: {
     alignSelf: 'center',
@@ -82,9 +69,6 @@ export const useStyles = makeStyles<Theme>((theme) => ({
       marginRight: theme.spacing(1),
     },
   },
-  avatar: {
-    color: 'rgb(85, 47, 77)',
-  },
 }));
 
 const NewCardModal: React.FC<{
@@ -94,20 +78,32 @@ const NewCardModal: React.FC<{
   createCard: (cardData: CardData) => void;
 }> = ({ showNewCard, columnId, createCard, closeNewCardModal }) => {
   const classes = useStyles();
+  const id = uuidv4();
   const [title, setTitle] = React.useState('');
-  const [content, setContent] = useState({} as MapContent);
+  const [content, setContent] = useState({} as GenericCardContent);
+  const [cardType, setCardType] = React.useState<CardType>(CardType.Note);
 
   const handleSave = () => {
-    const id = uuidv4();
-    createCard({ id, title, content, type: CardType.Map, column: columnId });
+    createCard({ id, title, content, type: cardType, column: columnId });
     setTitle('');
-    setContent({} as MapContent);
+    setContent({} as GenericCardContent);
   };
 
   const handleCancel = () => {
     setTitle('');
-    setContent({} as MapContent);
+    setContent({} as GenericCardContent);
     closeNewCardModal();
+  };
+
+  const renderForm = () => {
+    switch (cardType) {
+      case CardType.Map:
+        return <MapCardform title={title} content={content} setTitle={setTitle} setContent={setContent} />;
+      case CardType.Note:
+        return <NoteCardForm title={title} content={content} setTitle={setTitle} setContent={setContent} />;
+      default:
+        return <div>default</div>;
+    }
   };
 
   return (
@@ -128,53 +124,25 @@ const NewCardModal: React.FC<{
         >
           Create Card
         </Typography>
-        <Box className={classes.editView}>
-          <TextField
-            id="modal-room-number"
-            label="Room Number"
-            className={classes.modalInput}
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.roomNumber}
-            onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
-          />
-          <TextField
-            id="modal-title"
-            label="Title"
-            className={classes.modalInput}
-            sx={{ paddingBottom: 2 }}
-            fullWidth
-            variant="outlined"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            data-testid="title-input"
-          />
-          <TextField
-            id="modal-description"
-            label="Read Out Loud"
-            fullWidth
-            className={classes.modalInput}
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            multiline
-            rows={18}
-            value={content.description}
-            onChange={(e) => setContent({ ...content, description: e.target.value })}
-            data-testid="content-input"
-          />
-          <TextField
-            id="modal-content"
-            label="DM Info"
-            fullWidth
-            variant="outlined"
-            className={classes.modalInput}
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.content}
-            onChange={(e) => setContent({ ...content, content: e.target.value })}
-            data-testid="content-input"
-          />
+        <Box className={classes.content}>
+          <Box className={classes.form}>
+            <InputLabel id="card-type-select-label">Type</InputLabel>
+            <Select
+              labelId="card-type-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-type-select"
+              value={cardType}
+              label="Type"
+              onChange={(e) => setCardType(e.target.value as CardType)}
+            >
+              {Object.values(CardType).map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+            {renderForm()}
+          </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <Button
               variant="outlined"

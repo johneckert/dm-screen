@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CardData, NoteContent } from '../../interfaces';
-import Modal from '@mui/material/Modal';
+import { CardData, GenericCardContent } from '../../interfaces';
+import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -8,28 +8,12 @@ import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
-import CheckIcon from '@mui/icons-material/Check';
 
 interface StyleProps {
   isEditing: boolean;
 }
 
-export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: '80%',
-    backgroundColor: '#ffffff',
-    border: 'none',
-    borderRadius: theme.spacing(1.5),
-    boxShadow: '24px',
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
+const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'row',
@@ -73,17 +57,20 @@ interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
+  deleteCard: (cardData: CardData) => void;
 }
 
-const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, expandedCardData, updateCard }) => {
-  const cardContent = expandedCardData.content as NoteContent;
+const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
+  closeExpandedCard,
+  expandedCardData,
+  updateCard,
+  deleteCard,
+}) => {
+  const cardContent = expandedCardData.content as GenericCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(cardContent.content);
   const classes = useStyles({ isEditing });
-  const handleClose = () => {
-    closeExpandedCard();
-  };
   const handleEdit = () => {
     if (isEditing) {
       updateCard({ ...expandedCardData, title: title, content: { content } });
@@ -92,71 +79,74 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({ closeExpandedCard, 
   };
 
   return (
-    <Modal
-      open={expandedCardData.id !== null}
-      onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-      data-testid="expanded-card"
+    <ExpandedCardLayout
+      cardData={expandedCardData}
+      closeExpandedCard={closeExpandedCard}
+      deleteCard={deleteCard}
+      isEditing={isEditing}
+      handleEdit={handleEdit}
     >
-      <Box className={classes.modal}>
-        {isEditing ? (
-          <>
-            <Box className={classes.header}>
-              <TextField
-                id="modal-title"
-                className={classes.titleInput}
-                fullWidth
-                variant="standard"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                data-testid="title-input"
-              />
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="save-button"
-                onClick={handleEdit}
-              >
-                <CheckIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
-              <TextField
-                id="modal-content"
-                fullWidth
-                multiline
-                rows={18}
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
-                data-testid="content-input"
-              />
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box className={classes.header}>
-              <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
-                {title}
-              </Typography>
-              <IconButton
-                className={classes.editButton}
-                aria-label="edit-save-button"
-                data-testid="edit-button"
-                onClick={handleEdit}
-              >
-                <EditIcon />
-              </IconButton>
-            </Box>
-            <Box className={classes.body}>
-              <Typography id="modal-content" className={classes.modalContent}>
-                {content}
-              </Typography>
-            </Box>
-          </>
-        )}
-      </Box>
-    </Modal>
+      {isEditing ? (
+        <>
+          <Typography
+            id="modal-title"
+            sx={{ alignSelf: 'center' }}
+            className={classes.modalTitle}
+            variant="h3"
+            component="h3"
+          >
+            Editing
+          </Typography>
+          <Box className={classes.editView}>
+            <TextField
+              id="modal-title"
+              label="Title"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              fullWidth
+              variant="outlined"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              data-testid="title-input"
+            />
+            <TextField
+              id="modal-content"
+              label="DM Info"
+              fullWidth
+              variant="outlined"
+              className={classes.modalInput}
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              data-testid="content-input"
+            />
+          </Box>
+        </>
+      ) : (
+        <>
+          <Box className={classes.header}>
+            <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
+              {title}
+            </Typography>
+            <IconButton
+              className={classes.editButton}
+              aria-label="edit-save-button"
+              data-testid="edit-button"
+              onClick={handleEdit}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box className={classes.body}>
+            <Typography id="modal-content" className={classes.modalContent}>
+              {content}
+            </Typography>
+          </Box>
+        </>
+      )}
+    </ExpandedCardLayout>
   );
 };
 

@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import { CardType, MapContent } from '../../interfaces';
+import { CardType, GenericCardContent } from '../../interfaces';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
@@ -12,7 +12,7 @@ import OpenWithIcon from '@mui/icons-material/OpenWith';
 import { Theme } from '@mui/material/styles';
 import { SmallCardProps, ExpandButtonProps } from '../../interfaces';
 import { getScreenSize } from '../../utils';
-import { BREAKPOINTS, HEADER_HEIGHT, NUMBER_OF_COLUMNS, NUMBER_OF_ROWS } from '../../constants';
+import { HEADER_HEIGHT, NUMBER_OF_ROWS } from '../../constants';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ExpandButton = styled(({ expand, ...rest }: ExpandButtonProps) => {
@@ -28,7 +28,7 @@ const ExpandButton = styled(({ expand, ...rest }: ExpandButtonProps) => {
 const SmallCard = ({ title, content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const [isExpanded, setExpanded] = useState(true);
-  const mapContent = content as MapContent;
+  const mapContent = content as GenericCardContent;
 
   const avatar = () => {
     switch (type) {
@@ -52,16 +52,6 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
     setExpanded(!isExpanded);
   };
 
-  const getCardWith = () => {
-    if (screenSize.width > BREAKPOINTS.lg) {
-      return screenSize.width / NUMBER_OF_COLUMNS.lg - 16;
-    }
-    if (screenSize.width > BREAKPOINTS.md) {
-      return screenSize.width / NUMBER_OF_COLUMNS.md - 16;
-    }
-    return screenSize.width - 16;
-  };
-
   const getCardHeight = () => {
     return (screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16;
   };
@@ -69,7 +59,7 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
   return (
     <Card
       sx={{
-        width: getCardWith(),
+        width: '100%',
         zIndex: '0',
         margin: '8px 0',
         height: getCardHeight(),

@@ -3,44 +3,28 @@ import { IconButtonProps } from '@mui/material/IconButton';
 export interface SmallCardProps {
   title: string;
   type: CardType;
-  content: NoteContent | PCContent | RuleContent | MapContent | MonsterContent;
+  content: GenericCardContent;
 }
 
 export enum CardType {
-  Note = 'note',
-  PC = 'pc',
-  Rule = 'rule',
-  Map = 'map',
-  Monster = 'monster',
+  Note = 'Note',
+  // PC = 'PC',
+  // Rule = 'Rule',
+  Map = 'Map',
+  // Monster = 'Monster',
 }
 
 export interface CardData {
   id: string;
   title: string;
-  content: NoteContent | PCContent | RuleContent | MapContent | MonsterContent;
+  content: GenericCardContent;
   column: string;
   type: CardType;
 }
 
-export interface NoteContent {
-  content: string;
-}
-
-export interface PCContent {
-  content: string;
-}
-
-export interface RuleContent {
-  content: string;
-}
-
-export interface MapContent {
-  roomNumber: string;
-  description: string;
-  content: string;
-}
-
-export interface MonsterContent {
+export interface GenericCardContent {
+  roomNumber?: string;
+  description?: string;
   content: string;
 }
 

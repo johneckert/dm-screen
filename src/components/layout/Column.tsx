@@ -37,7 +37,7 @@ const Column: React.FC<{
   const classes = useStyles(styleProps);
   return (
     <div className={classes.column} data-testid="column">
-      <Button sx={{ margin: 1, width: '100%' }} variant="contained" onClick={() => openCreateCard(columnId)}>
+      <Button sx={{ marginY: 1, width: '100%' }} variant="contained" onClick={() => openCreateCard(columnId)}>
         New Card
       </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
