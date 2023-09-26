@@ -8,7 +8,7 @@ const NoteCardForm: React.FC<{
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
 }> = ({ title, content, setTitle, setContent }) => {
   return (
-    <>
+    <div data-testid="note-form">
       <TextField
         id="modal-title"
         label="Title"
@@ -31,7 +31,7 @@ const NoteCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, content: e.target.value })}
         data-testid="content-input"
       />
-    </>
+    </div>
   );
 };
 
