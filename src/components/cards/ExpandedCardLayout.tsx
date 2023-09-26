@@ -32,6 +32,14 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
     width: '100%',
     height: ({ isEditing }) => (isEditing ? '92%' : '100%'),
   },
+  buttonArea: {
+    width: '100%',
+    display: 'flex',
+    alignSelf: 'flex-end',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: theme.spacing(2),
+  },
   editButton: {
     alignSelf: 'center',
     justifyContent: 'center',
@@ -48,9 +56,9 @@ const ExpandedCardLayout: React.FC<{
   closeExpandedCard: () => void;
   deleteCard: (cardData: CardData) => void;
   isEditing: boolean;
-  handleEdit: () => void;
+  saveCard: () => void;
   children: ReactNode;
-}> = ({ cardData, closeExpandedCard, deleteCard, isEditing, handleEdit, children }) => {
+}> = ({ cardData, closeExpandedCard, deleteCard, isEditing, saveCard, children }) => {
   const classes = useStyles({ isEditing: isEditing });
   const handleDelete = () => {
     deleteCard(cardData);
@@ -71,22 +79,13 @@ const ExpandedCardLayout: React.FC<{
       <Box className={classes.modal}>
         <Box className={classes.body}>{children}</Box>
         {isEditing && (
-          <Box
-            sx={{
-              width: '100%',
-              display: 'flex',
-              alignSelf: 'flex-end',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: theme.spacing(2),
-            }}
-          >
+          <Box className={classes.buttonArea}>
             <Button
               variant="outlined"
               className={classes.editButton}
               aria-label="delete-button"
-              data-testid="save-button"
               onClick={handleDelete}
+              data-testid="delete-button"
             >
               Delete
               <DeleteIcon />
@@ -95,8 +94,8 @@ const ExpandedCardLayout: React.FC<{
               variant="contained"
               className={classes.editButton}
               aria-label="edit-save-button"
+              onClick={saveCard}
               data-testid="save-button"
-              onClick={handleEdit}
             >
               Save
               <CheckIcon />

@@ -90,7 +90,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
       closeExpandedCard={closeExpandedCard}
       deleteCard={deleteCard}
       isEditing={isEditing}
-      handleEdit={handleEdit}
+      saveCard={handleEdit}
     >
       {isEditing ? (
         <>
