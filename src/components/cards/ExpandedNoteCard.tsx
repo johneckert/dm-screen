@@ -26,7 +26,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   body: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2),
     overflowY: 'scroll',
   },
   modalTitle: {
@@ -85,7 +84,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
       closeExpandedCard={closeExpandedCard}
       deleteCard={deleteCard}
       isEditing={isEditing}
-      handleEdit={handleEdit}
+      saveCard={handleEdit}
     >
       {isEditing ? (
         <>
@@ -147,9 +146,9 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             </IconButton>
           </Box>
           <Box className={classes.body}>
-            <Typography id="note-card-content" className={classes.modalContent} data-testid="content-view">
+            <Box id="note-card-content" className={classes.modalContent} data-testid="content-view">
               <ReactMarkdown>{content}</ReactMarkdown>
-            </Typography>
+            </Box>
           </Box>
         </>
       )}

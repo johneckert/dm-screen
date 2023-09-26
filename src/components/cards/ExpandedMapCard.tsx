@@ -29,7 +29,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   body: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2),
     overflowY: 'scroll',
   },
   editView: {
@@ -182,17 +181,17 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             </IconButton>
           </Box>
           <Box className={classes.body}>
-            <Typography
+            <Box
               id="map-card-description"
               className={classes.modalDescription}
               sx={{ boxShadow: 3 }}
               data-testid="description-view"
             >
               <ReactMarkdown>{content.description as string}</ReactMarkdown>
-            </Typography>
-            <Typography id="map-card-content" className={classes.modalContent} data-testid="content-view">
+            </Box>
+            <Box id="map-card-content" className={classes.modalContent} data-testid="content-view">
               <ReactMarkdown>{content.content}</ReactMarkdown>
-            </Typography>
+            </Box>
           </Box>
         </>
       )}
