@@ -95,7 +95,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
       {isEditing ? (
         <>
           <Typography
-            id="modal-title"
+            id="map-card-title"
             sx={{ alignSelf: 'center' }}
             className={classes.modalTitle}
             variant="h3"
@@ -105,16 +105,17 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           </Typography>
           <Box className={classes.editView}>
             <TextField
-              id="modal-room-number"
+              id="map-card-room-number"
               label="Room Number"
               className={classes.modalInput}
               sx={{ paddingBottom: 2 }}
               variant="outlined"
               value={content.roomNumber}
               onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
+              data-testid="room-number-input"
             />
             <TextField
-              id="modal-title"
+              id="map-card-title"
               label="Title"
               className={classes.modalInput}
               sx={{ paddingBottom: 2 }}
@@ -125,7 +126,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               data-testid="title-input"
             />
             <TextField
-              id="modal-description"
+              id="map-card-description"
               label="Read Out Loud"
               fullWidth
               className={classes.modalInput}
@@ -135,10 +136,10 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               rows={18}
               value={content.description}
               onChange={(e) => setContent({ ...content, description: e.target.value })}
-              data-testid="content-input"
+              data-testid="description-input"
             />
             <TextField
-              id="modal-content"
+              id="map-card-content"
               label="DM Info"
               fullWidth
               variant="outlined"
@@ -155,10 +156,20 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}>
+            <Avatar
+              aria-label="avatar"
+              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+              data-testid="room-number-view"
+            >
               {content.roomNumber}
             </Avatar>
-            <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
+            <Typography
+              id="map-card-title"
+              className={classes.modalTitle}
+              variant="h3"
+              component="h3"
+              data-testid="title-view"
+            >
               {title}
             </Typography>
             <IconButton
@@ -171,10 +182,15 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             </IconButton>
           </Box>
           <Box className={classes.body}>
-            <Typography id="modal-description" className={classes.modalDescription} sx={{ boxShadow: 3 }}>
+            <Typography
+              id="map-card-description"
+              className={classes.modalDescription}
+              sx={{ boxShadow: 3 }}
+              data-testid="description-view"
+            >
               <ReactMarkdown>{content.description as string}</ReactMarkdown>
             </Typography>
-            <Typography id="modal-content" className={classes.modalContent}>
+            <Typography id="map-card-content" className={classes.modalContent} data-testid="content-view">
               <ReactMarkdown>{content.content}</ReactMarkdown>
             </Typography>
           </Box>

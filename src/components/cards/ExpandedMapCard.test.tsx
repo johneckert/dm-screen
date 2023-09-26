@@ -1,5 +1,5 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
-import ExpandedNoteCard from './ExpandedNoteCard';
+import ExpandedMapCard from './ExpandedMapCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { CardType } from '../../interfaces';
@@ -10,21 +10,25 @@ const mockDeleteCard = jest.fn();
 
 jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
 
-const expandedNoteCardData = {
+const expandedMapCardData = {
   id: '1',
-  type: CardType.Note,
+  type: CardType.Map,
   column: 'column-1',
-  title: 'Pikachu',
-  content: { content: 'I am Pikachu' },
+  title: 'Charazard',
+  content: {
+    roomNumber: 'C1',
+    description: 'I am Charazard',
+    content: 'Charazard is a fire pokemon',
+  },
 };
 
 describe('ExpandedCard', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ExpandedNoteCard
+        <ExpandedMapCard
           closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={expandedNoteCardData}
+          expandedCardData={expandedMapCardData}
           deleteCard={mockDeleteCard}
           updateCard={mockUpdateCard}
         />
@@ -37,9 +41,9 @@ describe('ExpandedCard', () => {
     it('renders input for title', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
+          <ExpandedMapCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
+            expandedCardData={expandedMapCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -55,12 +59,52 @@ describe('ExpandedCard', () => {
     });
   });
 
+  it('renders input for room number', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <ExpandedMapCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedMapCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />
+      </ThemeProvider>,
+    );
+
+    const editButton = screen.getByTestId('edit-button');
+    act(() => {
+      editButton.click();
+    });
+
+    expect(screen.getByTestId('room-number-input')).toBeInTheDocument();
+  });
+
+  it('renders input for description', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <ExpandedMapCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedMapCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />
+      </ThemeProvider>,
+    );
+
+    const editButton = screen.getByTestId('edit-button');
+    act(() => {
+      editButton.click();
+    });
+
+    expect(screen.getByTestId('description-input')).toBeInTheDocument();
+  });
+
   it('renders input for content', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ExpandedNoteCard
+        <ExpandedMapCard
           closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={expandedNoteCardData}
+          expandedCardData={expandedMapCardData}
           updateCard={mockUpdateCard}
           deleteCard={mockDeleteCard}
         />
@@ -79,9 +123,9 @@ describe('ExpandedCard', () => {
     it('renders edit button', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
+          <ExpandedMapCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
+            expandedCardData={expandedMapCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -97,9 +141,9 @@ describe('ExpandedCard', () => {
     it('renders title', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
+          <ExpandedMapCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
+            expandedCardData={expandedMapCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -111,12 +155,49 @@ describe('ExpandedCard', () => {
         expect(titleComponent).toBeInTheDocument();
       });
     });
+
+    it('renders room number', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedMapCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={expandedMapCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      waitFor(() => {
+        const contentComponenet = screen.getByTestId('room-number-view');
+        expect(contentComponenet).toBeInTheDocument();
+      });
+    });
+
+    it('renders description', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedMapCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={expandedMapCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      waitFor(() => {
+        const contentComponenet = screen.getByTestId('description-view');
+        expect(contentComponenet).toBeInTheDocument();
+      });
+    });
+
     it('renders content', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
+          <ExpandedMapCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
+            expandedCardData={expandedMapCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />

@@ -90,7 +90,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
       {isEditing ? (
         <>
           <Typography
-            id="modal-title"
+            id="note-card-title"
             sx={{ alignSelf: 'center' }}
             className={classes.modalTitle}
             variant="h3"
@@ -100,7 +100,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
           </Typography>
           <Box className={classes.editView}>
             <TextField
-              id="modal-title"
+              id="note-card-title"
               label="Title"
               className={classes.modalInput}
               sx={{ paddingBottom: 2 }}
@@ -111,7 +111,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
               data-testid="title-input"
             />
             <TextField
-              id="modal-content"
+              id="note-card-content"
               label="DM Info"
               fullWidth
               variant="outlined"
@@ -128,7 +128,13 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <Typography id="modal-title" className={classes.modalTitle} variant="h3" component="h3">
+            <Typography
+              id="note-card-title"
+              className={classes.modalTitle}
+              variant="h3"
+              component="h3"
+              data-testid="title-view"
+            >
               {title}
             </Typography>
             <IconButton
@@ -141,7 +147,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             </IconButton>
           </Box>
           <Box className={classes.body}>
-            <Typography id="modal-content" className={classes.modalContent}>
+            <Typography id="note-card-content" className={classes.modalContent} data-testid="content-view">
               <ReactMarkdown>{content}</ReactMarkdown>
             </Typography>
           </Box>
