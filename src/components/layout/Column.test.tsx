@@ -48,4 +48,35 @@ describe('Column', () => {
     );
     expect(screen.queryAllByTestId('draggable-card')).toHaveLength(1);
   });
+
+  describe('new card button', () => {
+    it('renders a button to create a new card.', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <Column
+            cards={mockColumnData.cards}
+            columnId={mockColumnData.columnId}
+            expandCard={mockColumnData.expandCard}
+            openCreateCard={mockColumnData.openCreateCard}
+          />
+        </ThemeProvider>,
+      );
+      expect(screen.getByText('New Card')).toBeInTheDocument();
+    });
+
+    it('calls openCreateCard with correct column name when the button is clicked.', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <Column
+            cards={mockColumnData.cards}
+            columnId={mockColumnData.columnId}
+            expandCard={mockColumnData.expandCard}
+            openCreateCard={mockColumnData.openCreateCard}
+          />
+        </ThemeProvider>,
+      );
+      screen.getByText('New Card').click();
+      expect(mockColumnData.openCreateCard).toHaveBeenCalledWith(mockColumnData.columnId);
+    });
+  });
 });
