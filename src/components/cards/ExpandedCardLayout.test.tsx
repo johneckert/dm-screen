@@ -1,4 +1,4 @@
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
