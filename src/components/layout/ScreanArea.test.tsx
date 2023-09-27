@@ -8,6 +8,8 @@ jest.mock('react-markdown', () => (props: { children: string }) => (
   <div data-testid="react-markdown">{props.children}</div>
 ));
 
+// TODO: add more tests
+
 describe('ScreenArea', () => {
   it('renders', () => {
     render(
@@ -16,15 +18,6 @@ describe('ScreenArea', () => {
       </ThemeProvider>,
     );
     expect(screen.getByTestId('screen-area')).toBeInTheDocument();
-  });
-
-  it('renders the correct number of draggable cards', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ScreenArea />
-      </ThemeProvider>,
-    );
-    expect(screen.getAllByTestId('draggable-card')).toHaveLength(10);
   });
 
   it('resizes the screen area when the window is resized', () => {

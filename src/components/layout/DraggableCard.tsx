@@ -20,7 +20,13 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
         // @ts-ignore-next-line
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (provided, snapshot) => (
-          <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} onClick={handleClick}>
+          <div
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            onClick={handleClick}
+            data-testid="draggable-card"
+          >
             <SmallCard key={card.id} type={card.type} title={card.title} content={card.content} />
           </div>
         )

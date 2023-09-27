@@ -8,7 +8,7 @@ const MapCardForm: React.FC<{
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
 }> = ({ title, content, setTitle, setContent }) => {
   return (
-    <>
+    <div data-testid="map-form">
       <TextField
         id="modal-room-number"
         label="Room Number"
@@ -51,7 +51,7 @@ const MapCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, content: e.target.value })}
         data-testid="content-input"
       />
-    </>
+    </div>
   );
 };
 
