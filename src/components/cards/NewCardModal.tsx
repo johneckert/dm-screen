@@ -98,9 +98,25 @@ const NewCardModal: React.FC<{
   const renderForm = () => {
     switch (cardType) {
       case CardType.Map:
-        return <MapCardform title={title} content={content} setTitle={setTitle} setContent={setContent} />;
+        return (
+          <MapCardform
+            title={title}
+            content={content}
+            setTitle={setTitle}
+            setContent={setContent}
+            data-testid="map-form"
+          />
+        );
       case CardType.Note:
-        return <NoteCardForm title={title} content={content} setTitle={setTitle} setContent={setContent} />;
+        return (
+          <NoteCardForm
+            title={title}
+            content={content}
+            setTitle={setTitle}
+            setContent={setContent}
+            data-testid="note-form"
+          />
+        );
       default:
         return <div>default</div>;
     }
@@ -133,10 +149,11 @@ const NewCardModal: React.FC<{
               id="card-type-select"
               value={cardType}
               label="Type"
+              data-testid="card-type-select"
               onChange={(e) => setCardType(e.target.value as CardType)}
             >
               {Object.values(CardType).map((value) => (
-                <MenuItem key={value} value={value}>
+                <MenuItem key={value} value={value} data-testid="select-option">
                   {value}
                 </MenuItem>
               ))}
