@@ -46,7 +46,7 @@ interface StyleProps {
   screenSize: ScreenSize;
 }
 
-export const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   screenArea: {
     width: ({ screenSize }) => screenSize.width,
     paddingLeft: theme.spacing(1),
