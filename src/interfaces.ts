@@ -31,6 +31,16 @@ export type Skill =
   | 'performance'
   | 'persuasion';
 
+export type Rule =
+  | 'strength'
+  | 'dexterity'
+  | 'constitution'
+  | 'intelligence'
+  | 'wisdom'
+  | 'charisma'
+  | 'conditions'
+  | 'cover';
+
 export interface CardData {
   id: string;
   title: string;
@@ -63,14 +73,15 @@ export interface SkillGroup {
 }
 
 export interface SkillData {
-  strength: SkillGroup;
-  dexterity: SkillGroup;
-  constitution: SkillGroup;
-  intelligence: SkillGroup;
-  wisdom: SkillGroup;
-  charisma: SkillGroup;
+  // strength: SkillGroup;
+  // dexterity: SkillGroup;
+  // constitution: SkillGroup;
+  // intelligence: SkillGroup;
+  // wisdom: SkillGroup;
+  // charisma: SkillGroup;
+  [key: string]: SkillGroup;
 }
 
-export interface ConditionData {
-  [key: string]: string;
-}
+// export interface ConditionData {
+//   [key: string]: string;
+// }

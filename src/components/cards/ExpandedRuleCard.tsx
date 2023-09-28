@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CardData, Ability, SkillBreakDown, SkillDescription } from '../../interfaces';
-import { RULES, ABILITIES, skillData, conditionData } from '../../ruleData';
+import { CardData, Ability, Rule, SkillBreakDown, SkillDescription } from '../../interfaces';
+import { RULES, ABILITIES, TWO_COLUMN_RULES, RULE_DATA } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
@@ -53,7 +53,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     marginBottom: theme.spacing(2),
     overflowY: 'scroll',
   },
-  conditionsCardContent: {
+  twoColumnCard: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -173,7 +173,7 @@ const DescriptionBlock: React.FC<{ description: SkillDescription }> = ({ descrip
   );
 };
 
-const BreakDownRow: React.FC<{ breakDownItem: string; breakDownValue: string; order: number }> = ({
+const SectionRow: React.FC<{ breakDownItem: string; breakDownValue: string; order: number }> = ({
   breakDownItem,
   breakDownValue,
   order,
@@ -191,23 +191,23 @@ const BreakDownRow: React.FC<{ breakDownItem: string; breakDownValue: string; or
   );
 };
 
-const SkillSection: React.FC<{ skill: string; skillData: SkillBreakDown }> = ({ skill, skillData }) => {
+const RuleSection: React.FC<{ rule: string; ruleData: SkillBreakDown }> = ({ rule, ruleData }) => {
   const classes = useStyles({ isEditing: false });
-  const skillsWithDots = splitAndTitleCase(skill, ' ', ' ' + String.fromCharCode(183) + ' ');
-  const skillText = splitAndTitleCase(skillsWithDots, '-', ' ');
+  const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + String.fromCharCode(183) + ' ');
+  const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
   return (
     <Box className={classes.skillContainer}>
       <Box className={classes.skillName}>
         <Typography id="skill-name" variant="h4" component="h4" data-testid="skill-name">
-          {skillText}
+          {ruleText}
         </Typography>
       </Box>
-      {Object.keys(skillData).map((breakDownItem, i) => {
+      {Object.keys(ruleData).map((breakDownItem, i) => {
         if (breakDownItem === 'description') {
-          return <DescriptionBlock description={skillData.description} />;
+          return <DescriptionBlock description={ruleData.description} />;
         }
         return (
-          <BreakDownRow breakDownItem={breakDownItem} order={i} breakDownValue={skillData[breakDownItem] as string} />
+          <SectionRow breakDownItem={breakDownItem} order={i} breakDownValue={ruleData[breakDownItem] as string} />
         );
       })}
     </Box>
@@ -216,23 +216,23 @@ const SkillSection: React.FC<{ skill: string; skillData: SkillBreakDown }> = ({ 
 
 const AbilityCard: React.FC<{ title: Ability }> = ({ title }) => {
   const classes = useStyles({ isEditing: false });
-  const ability = skillData[title]; //strength
+  const ability = RULE_DATA[title]; //strength
   const skills = Object.keys(ability);
   return (
     <Box className={classes.abilityCardContent}>
       {skills.map((skill) => {
-        return <SkillSection skill={skill} skillData={ability[skill]} key={skill} />;
+        return <RuleSection rule={skill} ruleData={ability[skill]} key={skill} />;
       })}
     </Box>
   );
 };
 
-const ConditionsCard: React.FC = () => {
+const TwoColumnRuleCard: React.FC<{ title: Rule }> = ({ title }) => {
   const classes = useStyles({ isEditing: false });
-  const conditions = conditionData;
+  const ruleData = RULE_DATA[title][title];
   return (
-    <Box className={classes.conditionsCardContent}>
-      <SkillSection skill={'conditons'} skillData={conditions} key={'conditons'} />;
+    <Box className={classes.twoColumnCard}>
+      <RuleSection rule={title} ruleData={ruleData} />;
     </Box>
   );
 };
@@ -261,12 +261,13 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   };
 
   const renderRule = () => {
+    console.log(title);
     if (ABILITIES.includes(title)) {
       return <AbilityCard title={title as Ability} />;
-    } else if (title === 'Conditions') {
-      return <ConditionsCard />;
+    } else if (TWO_COLUMN_RULES.includes(title.toLowerCase())) {
+      return <TwoColumnRuleCard title={title as Rule} />;
     } else {
-      return <div></div>;
+      return <div>ELSE</div>;
     }
   };
 
@@ -286,7 +287,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
           value={title}
           label="Type"
           data-testid="card-type-select"
-          onChange={(e) => setTitle(e.target.value as Ability)}
+          onChange={(e) => setTitle(e.target.value as Rule)}
         >
           {RULES.map((value) => (
             <MenuItem key={value} value={value} data-testid="select-option">
