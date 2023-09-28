@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardData, Ability, SkillBreakDown, SkillDescription } from '../../interfaces';
-import { ABILITIES, skillData } from '../../ruleData';
+import { RULES, ABILITIES, skillData, conditionData } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
@@ -34,7 +34,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   modalTitle: {
     width: '100%',
     margin: theme.spacing(4),
-    paddingLeft: theme.spacing(25),
+    paddingLeft: '42%',
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
   },
@@ -45,6 +45,15 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     },
   },
   abilityCardContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    overflowY: 'scroll',
+  },
+  conditionsCardContent: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -218,6 +227,16 @@ const AbilityCard: React.FC<{ title: Ability }> = ({ title }) => {
   );
 };
 
+const ConditionsCard: React.FC = () => {
+  const classes = useStyles({ isEditing: false });
+  const conditions = conditionData;
+  return (
+    <Box className={classes.conditionsCardContent}>
+      <SkillSection skill={'conditons'} skillData={conditions} key={'conditons'} />;
+    </Box>
+  );
+};
+
 interface ExpandedRuleCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
@@ -232,7 +251,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   deleteCard,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title as Ability);
+  const [title, setTitle] = useState(expandedCardData.title);
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
@@ -243,7 +262,9 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
 
   const renderRule = () => {
     if (ABILITIES.includes(title)) {
-      return <AbilityCard title={title} />;
+      return <AbilityCard title={title as Ability} />;
+    } else if (title === 'Conditions') {
+      return <ConditionsCard />;
     } else {
       return <div></div>;
     }
@@ -267,7 +288,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
           data-testid="card-type-select"
           onChange={(e) => setTitle(e.target.value as Ability)}
         >
-          {ABILITIES.map((value) => (
+          {RULES.map((value) => (
             <MenuItem key={value} value={value} data-testid="select-option">
               {splitAndTitleCase(value)}
             </MenuItem>

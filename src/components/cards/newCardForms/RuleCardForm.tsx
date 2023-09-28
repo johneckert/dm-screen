@@ -1,7 +1,7 @@
 import { SelectChangeEvent } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { ABILITIES } from '../../../ruleData';
+import { RULES } from '../../../ruleData';
 import { Ability } from '../../../interfaces';
 import { splitAndTitleCase } from '../../../utils';
 import { GenericCardContent } from '../../../interfaces';
@@ -28,7 +28,7 @@ const RuleCardForm: React.FC<{
           handleChange(e);
         }}
       >
-        {ABILITIES.map((value) => (
+        {RULES.map((value) => (
           <MenuItem key={value} value={value} data-testid="select-option">
             {splitAndTitleCase(value)}
           </MenuItem>

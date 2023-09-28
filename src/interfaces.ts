@@ -70,3 +70,7 @@ export interface SkillData {
   wisdom: SkillGroup;
   charisma: SkillGroup;
 }
+
+export interface ConditionData {
+  [key: string]: string;
+}
