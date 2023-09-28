@@ -1,6 +1,6 @@
 import { ScreenSize, CardType } from './interfaces';
 import { BREAKPOINTS } from './constants';
-import { PURPLE, TEAL } from './colors';
+import { PURPLE, TEAL, AMBER } from './colors';
 
 export const getScreenSize = () => {
   return { width: window.innerWidth, height: window.innerHeight };
@@ -22,7 +22,16 @@ export const avatarColor = (type: CardType) => {
       return PURPLE[300];
     case CardType.Note:
       return TEAL[300];
+    case CardType.Rule:
+      return AMBER[400];
     default:
       return;
   }
+};
+
+export const splitAndTitleCase = (str: string, splitChar: string = ' ', joinChar: string = ' ') => {
+  return str
+    .split(splitChar)
+    .map((word) => (word.length > 2 ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(joinChar);
 };
