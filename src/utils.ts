@@ -30,8 +30,9 @@ export const avatarColor = (type: CardType) => {
 };
 
 export const splitAndTitleCase = (str: string, splitChar: string = ' ', joinChar: string = ' ') => {
+  const ignoreWords = ['of', 'the', 'a', 'an', 'and', 'or', 'but', 'nor', 'for', 'yet', 'so'];
   return str
     .split(splitChar)
-    .map((word) => (word.length > 2 ? word[0].toUpperCase() + word.slice(1) : word))
+    .map((word) => (ignoreWords.includes(word) ? word : word[0].toUpperCase() + word.slice(1)))
     .join(joinChar);
 };

@@ -191,9 +191,15 @@ const SectionRow: React.FC<{ breakDownItem: string; breakDownValue: string; orde
   );
 };
 
-const RuleSection: React.FC<{ rule: string; ruleData: SkillBreakDown }> = ({ rule, ruleData }) => {
+const RuleSection: React.FC<{ rule: string; ruleData: SkillBreakDown; isAbilityCard?: boolean }> = ({
+  rule,
+  ruleData,
+  isAbilityCard = false,
+}) => {
+  console.log(rule);
   const classes = useStyles({ isEditing: false });
-  const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + String.fromCharCode(183) + ' ');
+  const spacer = isAbilityCard ? String.fromCharCode(183) : ' ';
+  const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + spacer + ' ');
   const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
   return (
     <Box className={classes.skillContainer}>
@@ -221,7 +227,7 @@ const AbilityCard: React.FC<{ title: Ability }> = ({ title }) => {
   return (
     <Box className={classes.abilityCardContent}>
       {skills.map((skill) => {
-        return <RuleSection rule={skill} ruleData={ability[skill]} key={skill} />;
+        return <RuleSection rule={skill} ruleData={ability[skill]} key={skill} isAbilityCard />;
       })}
     </Box>
   );
