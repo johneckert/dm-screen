@@ -77,7 +77,7 @@ export interface SkillData {
 }
 
 export interface RuleTable {
-  description: SkillDescription;
+  description?: SkillDescription;
   headers: string[];
   rows: { [key: string]: string }[];
 }

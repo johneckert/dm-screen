@@ -45,7 +45,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
       fontWeight: 400,
     },
   },
-  multiSectionCardContent: {
+  cardBody: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -53,24 +53,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     overflowY: 'scroll',
-  },
-  singleSectionCard: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-    overflowY: 'scroll',
-  },
-  ruleContainer: {
     width: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    justifyContent: 'flex-start',
-    padding: theme.spacing(1),
-    marginBottom: theme.spacing(1),
   },
   skillName: {
     width: '100%',
@@ -84,9 +67,10 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   description: {
     width: '100%',
     border: `1px solid ${AMBER[800]}`,
+    borderBottom: 'none',
     backgroundColor: AMBER[300],
   },
-  descriptionTable: {
+  descriptionRow: {
     width: '100%',
     display: 'flex',
     flexDirection: 'row',
@@ -107,39 +91,40 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     marginLeft: 'auto',
     width: '70%',
   },
-  sectionRowOdd: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    border: `1px solid ${AMBER[800]}`,
-    borderTop: 'none',
-    backgroundColor: AMBER[100],
-  },
-  sectionRowEven: {
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    border: `1px solid ${AMBER[800]}`,
-    borderTop: 'none',
-    backgroundColor: AMBER[200],
-  },
-  keyCell: {
-    fontWeight: 'bold',
-    padding: theme.spacing(1),
-    borderRight: `1px solid ${AMBER[800]}`,
-    width: '30%',
-  },
-  valueCell: {
-    marginLeft: 'auto',
-    padding: theme.spacing(1),
-    width: '70%',
-  },
   editButton: {
     alignSelf: 'center',
     justifyContent: 'center',
     width: 'fit-content',
     padding: theme.spacing(1),
     marginLeft: 'auto',
+  },
+  tableSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+    width: '100%',
+  },
+  headerRow: {
+    border: `1px solid ${AMBER[800]}`,
+    '& th': {
+      fontWeight: 'bold',
+      backgroundColor: AMBER[200],
+    },
+  },
+  tableRow: {
+    border: `1px solid ${AMBER[800]}`,
+    '&:last-child td, &:last-child th': {
+      border: 0,
+    },
+    '&:nth-of-type(odd)': {
+      backgroundColor: AMBER[100],
+    },
+    '&:nth-of-type(even)': {
+      backgroundColor: AMBER[200],
+    },
   },
 }));
 
@@ -150,22 +135,21 @@ interface ExpandedRuleCardProps {
   deleteCard: (cardData: CardData) => void;
 }
 
-const DescriptionBlock: React.FC<{ description: SkillDescription }> = ({ description }) => {
+const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ description }) => {
   const classes = useStyles({ isEditing: false });
-  const skills = Object.keys(description);
   return (
     <Box className={classes.description}>
       {typeof description === 'string' ? (
-        <Box className={classes.descriptionTable}>
+        <Box className={classes.descriptionRow}>
           <Typography className={classes.descriptionFullWidth} id="desc-sentence">
             {description}
           </Typography>
         </Box>
       ) : (
         <>
-          {skills.map((skill) => {
+          {Object.keys(description).map((skill) => {
             return (
-              <Box className={classes.descriptionTable}>
+              <Box className={classes.descriptionRow} key={skill}>
                 <Typography sx={{ fontWeight: 'bold' }} className={classes.descKeyCell} id="desc-key">
                   {splitAndTitleCase(skill)}:
                 </Typography>
@@ -181,13 +165,14 @@ const DescriptionBlock: React.FC<{ description: SkillDescription }> = ({ descrip
   );
 };
 
-const RuleTableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: boolean }> = ({
+const TableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: boolean }> = ({
   rule,
   ruleData,
   useSpacers,
 }) => {
   const { headers, rows } = ruleData;
   const classes = useStyles({ isEditing: false });
+  const hasDescription = ruleData.description;
   const spacer = useSpacers ? String.fromCharCode(183) : ' ';
   const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + spacer + ' ');
   const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
@@ -198,11 +183,11 @@ const RuleTableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers
           {ruleText}
         </Typography>
       </Box>
-      <DescriptionBlock description={ruleData.description} />
+      {hasDescription && <DescriptionSection description={ruleData.description ?? ''} />}
       <TableContainer component={Box}>
         <Table aria-label="rule-table">
           <TableHead>
-            <TableRow>
+            <TableRow className={classes.headerRow}>
               {headers.map((header) => {
                 return <TableCell key={header}>{splitAndTitleCase(header)}</TableCell>;
               })}
@@ -210,7 +195,7 @@ const RuleTableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row[headers[0]]} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+              <TableRow key={row[headers[0]]} className={classes.tableRow}>
                 {headers.map((header) => {
                   return <TableCell key={row[header]}>{splitAndTitleCase(row[header])}</TableCell>;
                 })}
@@ -227,11 +212,10 @@ const RuleCardBody: React.FC<{ title: Rule }> = ({ title }) => {
   const classes = useStyles({ isEditing: false });
   const ruleData = RULE_DATA[title];
   const skills = Object.keys(ruleData);
-  console.log('skills: ', skills, 'ruleData:', ruleData);
   return (
-    <Box className={classes.singleSectionCard}>
+    <Box className={classes.cardBody}>
       {skills.map((skill) => {
-        return <RuleTableSection rule={skill} ruleData={ruleData[skill]} key={skill} />;
+        return <TableSection rule={skill} ruleData={ruleData[skill]} key={skill} />;
       })}
     </Box>
   );
@@ -263,7 +247,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
       {isEditing ? (
         <Select
           labelId="card-type-select-label"
-          sx={{ marginBottom: 2 }}
+          sx={{ marginBottom: 2, width: '100%' }}
           id="card-type-select"
           value={title}
           label="Type"

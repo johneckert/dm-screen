@@ -72,7 +72,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     'sleight-of-hand': {
-      description: '',
       headers: ['description', 'purpose'],
       rows: [
         {
@@ -82,17 +81,15 @@ export const RULE_DATA: RuleData = {
       ],
     },
     stealth: {
-      description: '',
       headers: ['description', 'purpose'],
       rows: [
         {
-          check: 'contest vs deception',
+          description: 'contest vs deception',
           purpose: 'Conceal from enemies; sneak past targets; Slip awav while others are distracted.',
         },
       ],
     },
     'pick-lock disarm-trap': {
-      description: '',
       headers: ['difficulty', 'examples'],
       rows: [
         {
@@ -116,7 +113,6 @@ export const RULE_DATA: RuleData = {
   },
   constitution: {
     concentration: {
-      description: '',
       headers: ['difficulty', 'examples'],
       rows: [
         {
@@ -264,7 +260,6 @@ export const RULE_DATA: RuleData = {
   },
   charisma: {
     deception: {
-      description: '',
       headers: ['description', 'examples'],
       rows: [
         {
@@ -275,7 +270,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     intimidation: {
-      description: '',
       headers: ['difficulty', 'examples'],
       rows: [
         {
@@ -299,7 +293,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     performance: {
-      description: '',
       headers: ['difficulty', 'examples'],
       rows: [
         {
@@ -323,7 +316,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     persuasion: {
-      description: '',
       headers: ['difficulty', 'examples'],
       rows: [
         {
@@ -350,7 +342,6 @@ export const RULE_DATA: RuleData = {
   },
   'encounter distance': {
     terrain: {
-      description: '',
       headers: ['description', 'distance'],
       rows: [
         {
@@ -380,7 +371,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     'audible-distance': {
-      description: '',
       headers: ['description', 'distance'],
       rows: [
         {
@@ -398,7 +388,6 @@ export const RULE_DATA: RuleData = {
       ],
     },
     'visibility-outdoors': {
-      description: '',
       headers: ['description', 'distance'],
       rows: [
         {
@@ -422,7 +411,6 @@ export const RULE_DATA: RuleData = {
   },
   conditions: {
     conditions: {
-      description: '',
       headers: ['condition', 'effect'],
       rows: [
         {
@@ -512,7 +500,6 @@ export const RULE_DATA: RuleData = {
   },
   cover: {
     cover: {
-      description: '',
       headers: ['cover', 'effect'],
       rows: [
         {
@@ -532,7 +519,6 @@ export const RULE_DATA: RuleData = {
   },
   actions: {
     actions: {
-      description: '',
       headers: ['action', 'description'],
       rows: [
         {
@@ -604,7 +590,6 @@ export const RULE_DATA: RuleData = {
   },
   'setting a dc': {
     'setting a dc': {
-      description: '',
       headers: ['difficulty', 'dc'],
       rows: [
         {
@@ -636,7 +621,6 @@ export const RULE_DATA: RuleData = {
   },
   'tracking dc': {
     'tracking dc': {
-      description: '',
       headers: ['ground conditions', 'dc'],
       rows: [
         {
@@ -664,7 +648,6 @@ export const RULE_DATA: RuleData = {
   },
   'object ac': {
     'object ac': {
-      description: '',
       headers: ['substance', 'ac'],
       rows: [
         {
@@ -700,7 +683,6 @@ export const RULE_DATA: RuleData = {
   },
   'object hp': {
     'object hp': {
-      description: '',
       headers: ['size', 'fragile', 'resilient'],
       rows: [
         {
@@ -738,7 +720,6 @@ export const RULE_DATA: RuleData = {
   },
   'food and drink': {
     'food and drink': {
-      description: '',
       headers: ['food', 'cost'],
       rows: [
         {
@@ -798,7 +779,6 @@ export const RULE_DATA: RuleData = {
   },
   'services and transportation': {
     'services and transportation': {
-      description: '',
       headers: ['service', 'cost'],
       rows: [
         {
@@ -864,34 +844,3 @@ export const RULE_DATA: RuleData = {
 };
 
 export const RULES = Object.keys(RULE_DATA);
-export const MULTI_SECTION_RULES = [
-  // 'strength',
-  // 'dexterity',
-  // 'constitution',
-  // 'intelligence',
-  // 'wisdom',
-  // 'charisma',
-  // 'encounter distance',
-];
-export const TABLE_RULES = [
-  'strength',
-  'dexterity',
-  'constitution',
-  'intelligence',
-  'wisdom',
-  'charisma',
-  'encounter distance',
-  'conditions',
-  'actios',
-  'food and drink',
-  'travel pace',
-  'obscured areas',
-  'light sources',
-  'object hp',
-  'object ac',
-  'services and transportation',
-  'services and transportation',
-  'tracking dc',
-  'setting a dc',
-  'cover',
-];
