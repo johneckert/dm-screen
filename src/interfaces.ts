@@ -73,15 +73,17 @@ export interface SkillGroup {
 }
 
 export interface SkillData {
-  // strength: SkillGroup;
-  // dexterity: SkillGroup;
-  // constitution: SkillGroup;
-  // intelligence: SkillGroup;
-  // wisdom: SkillGroup;
-  // charisma: SkillGroup;
   [key: string]: SkillGroup;
 }
 
-// export interface ConditionData {
-//   [key: string]: string;
-// }
+export interface RuleTable {
+  description: SkillDescription;
+  headers: string[];
+  rows: { [key: string]: string }[];
+}
+
+export interface RuleTableData {
+  [key: string]: {
+    [key: string]: RuleTable;
+  };
+}

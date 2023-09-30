@@ -1,4 +1,4 @@
-import { SkillData } from './interfaces';
+import { SkillData, RuleTableData } from './interfaces';
 
 export const RULE_DATA: SkillData = {
   strength: {
@@ -127,6 +127,27 @@ export const RULE_DATA: SkillData = {
       hard: 'Convince a chamberlain to let vour party see the king, inspire or rallv a crown of townsfolk negotiate a peace between warring tribes.',
       'very hard':
         "Convince a chhiny that vol are worthy of the secrets it guards assure a dragon vou're worth more alive than dead.",
+    },
+  },
+  'encounter distance': {
+    terrain: {
+      'arctic, desert, farmland, or grassland': '6d6 x 10 feet',
+      'forest, swamp, or woodland': '2d8 x 10 feet',
+      'hills or wastelands': '2d10 x 10 feet',
+      jungle: '2d6 x 10 feet',
+      mountains: '4d10 x 10 feet',
+      'underdark or urban': '2d4 x 10 feet',
+    },
+    'audible-distance': {
+      'trying to be quiet': '2d6 x 5 feet',
+      'normal noise level': '2d6 x 10 feet',
+      'loud noise level': '2d6 x 50 feet',
+    },
+    'visibility-outdoors': {
+      'clear day, no obstructions': '2 miles',
+      rain: '1 mile',
+      fog: '100 to 300 feet',
+      'from height': 'x 20',
     },
   },
   conditions: {
@@ -268,8 +289,48 @@ export const RULE_DATA: SkillData = {
   },
 };
 
-export const RULES = Object.keys(RULE_DATA);
-export const ABILITIES = ['strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+export const RULE_DATA_TABLE: RuleTableData = {
+  'travel pace': {
+    'travel pace': {
+      description: 'distance per...',
+      headers: ['pace', 'distance per minute', 'distance per hour', 'distance per day', 'effect'],
+      rows: [
+        {
+          pace: 'slow',
+          'distance per minute': '200 ft.',
+          'distance per hour': '2 miles',
+          'distance per day': '18 miles',
+          effect: 'Able to use stealth',
+        },
+        {
+          pace: 'normal',
+          'distance per minute': '300 ft.',
+          'distance per hour': '3 miles',
+          'distance per day': '24 miles',
+          effect: 'no effect',
+        },
+        {
+          pace: 'fast',
+          'distance per minute': '400 ft.',
+          'distance per hour': '4 miles',
+          'distance per day': '30 miles',
+          effect: '-5 penalty to passive Wisdom (Perception) scores',
+        },
+      ],
+    },
+  },
+};
+
+export const RULES = Object.keys(RULE_DATA).concat(Object.keys(RULE_DATA_TABLE));
+export const MULTI_SECTION_RULES = [
+  'strength',
+  'dexterity',
+  'constitution',
+  'intelligence',
+  'wisdom',
+  'charisma',
+  'encounter distance',
+];
 export const TWO_COLUMN_RULES = [
   'conditions',
   'cover',
@@ -281,3 +342,4 @@ export const TWO_COLUMN_RULES = [
   'food and drink',
   'services and transportation',
 ];
+export const TABLE_RULES = ['travel pace', 'obscured areas', 'light sources'];
