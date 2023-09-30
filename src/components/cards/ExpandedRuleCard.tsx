@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardData, Ability, Rule, SkillBreakDown, SkillDescription, RuleTable } from '../../interfaces';
-import { RULES, TWO_COLUMN_RULES, MULTI_SECTION_RULES, TABLE_RULES, RULE_DATA, RULE_DATA_TABLE } from '../../ruleData';
+import { RULES, MULTI_SECTION_RULES, TABLE_RULES, RULE_DATA, RULE_DATA_TABLE } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
@@ -256,17 +256,6 @@ const MultiSectionCard: React.FC<{ title: Ability }> = ({ title }) => {
   );
 };
 
-// Non-ability score rules - TODO: can we combine with the table cards?
-const SingleSectionCard: React.FC<{ title: Rule }> = ({ title }) => {
-  const classes = useStyles({ isEditing: false });
-  const ruleData = RULE_DATA[title][title];
-  return (
-    <Box className={classes.singleSectionCard}>
-      <RuleSection rule={title} ruleData={ruleData} />;
-    </Box>
-  );
-};
-
 const TableSectionCard: React.FC<{ title: Rule }> = ({ title }) => {
   const classes = useStyles({ isEditing: false });
   const ruleData = RULE_DATA_TABLE[title][title];
@@ -304,8 +293,6 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
     console.log(title);
     if (MULTI_SECTION_RULES.includes(title)) {
       return <MultiSectionCard title={title as Ability} />;
-    } else if (TWO_COLUMN_RULES.includes(title.toLowerCase())) {
-      return <SingleSectionCard title={title as Rule} />;
     } else if (TABLE_RULES.includes(title.toLowerCase())) {
       return <TableSectionCard title={title as Rule} />;
     } else {

@@ -150,146 +150,468 @@ export const RULE_DATA: SkillData = {
       'from height': 'x 20',
     },
   },
+};
+
+export const RULE_DATA_TABLE: RuleTableData = {
+  strength: {
+    athletics: {
+      description: 'Climb a wall or a rope, swim or jump high.',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Normal wall; tread in rough condition; water; clear obstacle while jumping.',
+        },
+        {
+          difficulty: 'moderate',
+          examples: 'Rope from overhang; swim in rough water.',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Wall with rare handholds; catch on a rope; violent water.',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Slippery wall; clip vertically; stormy waters.',
+        },
+      ],
+    },
+    'feats-of-strength other': {
+      description:
+        'Any attempt to lift, push, pull, or break something, to force your body through a space, or to otherwise apply brute force to a situation.',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Struck/broken door: weak bindings: pull stuck wedge obiect loose.',
+        },
+        {
+          difficulty: 'moderate',
+          examples: 'Reinforced wooden door; hang on a wagon.',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Heavy locked/barred door; topple stone statue.',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Heavy reinforced door; hold door against water.',
+        },
+      ],
+    },
+  },
   conditions: {
     conditions: {
-      blinded: 'Automatically fail any check requiring sight. Disadvantage on attack rolls. Attackers have advantage.',
-      charmed:
-        'Cannot attack the charmer or target them with harmful abilities or effects.Charmer has advantage on interacting socially with the charmed creature',
-      deafened: 'Automatically fail any ability check that requires hearing.',
-      exhaustion:
-        '1: Disadvantage on ability checks; 2: Half Speed; 3: Disadvantage on attack rolls and saving throws; 4: HP Max halved; 5: Speed reduced to 0; 6: Death',
-      falling:
-        'At the end of a fall a creature takes 1d6 bludgeoning damage for every 10 feet they fell (max 20d6). A creature who takes damage this way is knocked prone',
-      frightened:
-        'A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can’t willingly move closer to the source of its fear.',
-      grappled:
-        'A grappled creature’s speed becomes 0, and it can’t benefit from any bonus to its speed. The condition ends if the grappler is incapacitated (see the condition). The condition also ends if an effect removes the grappled creature from the reach of the grappler or grappling effect, such as when a creature is hurled away by the thunderwave spell.',
-      hidden:
-        "When you attack a target that you can't see, you have disadvantage on the attack roll. This is true whether you're guessing the target's location or you're targeting a creature you can hear but not see. If the target isn't in the location you targeted, you automatically miss, but the GM typically just says that the attack missed, not whether you guessed the target's location correctly. When a creature can't see you, you have advantage on attack rolls against it. If you are hidden–both unseen and unheard–when you make an attack, you give away your location when the attack hits or misses.",
-      incapacitated: 'An incapacitated creature can’t take actions or reactions.',
-      invisible:
-        'An invisible creature is impossible to see without the aid of magic or a special sense. For the purpose of hiding, the creature is heavily obscured. The creature’s location can be detected by any noise it makes or any tracks it leaves. Attack rolls against the creature have disadvantage, and the creature’s attack rolls have advantage.',
-      paralyzed:
-        'A paralyzed creature is incapacitated (see the condition) and can’t move or speak. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage. Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.',
-      petrified:
-        'A petrified creature is transformed, along with any nonmagical object it is wearing or carrying, into a solid inanimate substance (usually stone). Its weight increases by a factor of ten, and it ceases aging. The creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings. Attack rolls against the creature have advantage. The creature automatically fails Strength and Dexterity saving throws. The creature has resistance to all damage. The creature is immune to poison and disease, although a poison or disease already in its system is suspended, not neutralized.',
-      poisoned: 'A poisoned creature has disadvantage on attack rolls and ability checks.',
-      prone:
-        'A prone creature’s only movement option is to crawl, unless it stands up and thereby ends the condition. The creature has disadvantage on attack rolls. An attack roll against the creature has advantage if the attacker is within 5 feet of the creature. Otherwise, the attack roll has disadvantage.',
-      restrained:
-        'A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed. Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage. The creature has disadvantage on Dexterity saving throws.',
-      stunned:
-        'A stunned creature is incapacitated (see the condition), can’t move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage.',
-      unconscious:
-        'An unconscious creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings The creature drops whatever it’s holding and falls prone. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage. Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.',
+      description: '',
+      headers: ['condition', 'effect'],
+      rows: [
+        {
+          condition: 'blinded',
+          effect:
+            'Automatically fail any check requiring sight. Disadvantage on attack rolls. Attackers have advantage.',
+        },
+        {
+          condition: 'charmed',
+          effect:
+            'Cannot attack the charmer or target them with harmful abilities or effects.Charmer has advantage on interacting socially with the charmed creature',
+        },
+        {
+          condition: 'deafened',
+          effect: 'Automatically fail any ability check that requires hearing.',
+        },
+        {
+          condition: 'exhaustion',
+          effect:
+            '1: Disadvantage on ability checks; 2: Half Speed; 3: Disadvantage on attack rolls and saving throws; 4: HP Max halved; 5: Speed reduced to 0; 6: Death',
+        },
+        {
+          condition: 'falling',
+          effect:
+            'At the end of a fall a creature takes 1d6 bludgeoning damage for every 10 feet they fell (max 20d6). A creature who takes damage this way is knocked prone',
+        },
+        {
+          condition: 'frightened',
+          effect:
+            'A frightened creature has disadvantage on ability checks and attack rolls while the source of its fear is within line of sight. The creature can’t willingly move closer to the source of its fear.',
+        },
+        {
+          condition: 'grappled',
+          effect:
+            'A grappled creature’s speed becomes 0, and it can’t benefit from any bonus to its speed. The condition ends if the grappler is incapacitated (see the condition). The condition also ends if an effect removes the grappled creature from the reach of the grappler or grappling effect, such as when a creature is hurled away by the thunderwave spell.',
+        },
+        {
+          condition: 'hidden',
+          effect:
+            "When you attack a target that you can't see, you have disadvantage on the attack roll. This is true whether you're guessing the target's location or you're targeting a creature you can hear but not see. If the target isn't in the location you targeted, you automatically miss, but the GM typically just says that the attack missed, not whether you guessed the target's location correctly. When a creature can't see you, you have advantage on attack rolls against it. If you are hidden–both unseen and unheard–when you make an attack, you give away your location when the attack hits or misses.",
+        },
+        {
+          condition: 'incapacitated',
+          effect: 'An incapacitated creature can’t take actions or reactions.',
+        },
+        {
+          condition: 'invisible',
+          effect:
+            'An invisible creature is impossible to see without the aid of magic or a special sense. For the purpose of hiding, the creature is heavily obscured. The creature’s location can be detected by any noise it makes or any tracks it leaves. Attack rolls against the creature have disadvantage, and the creature’s attack rolls have advantage.',
+        },
+        {
+          condition: 'paralyzed',
+          effect:
+            'A paralyzed creature is incapacitated (see the condition) and can’t move or speak. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage. Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.',
+        },
+        {
+          condition: 'petrified',
+          effect:
+            'A petrified creature is transformed, along with any nonmagical object it is wearing or carrying, into a solid inanimate substance (usually stone). Its weight increases by a factor of ten, and it ceases aging. The creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings. Attack rolls against the creature have advantage. The creature automatically fails Strength and Dexterity saving throws. The creature has resistance to all damage. The creature is immune to poison and disease, although a poison or disease already in its system is suspended, not neutralized.',
+        },
+        {
+          condition: 'poisoned',
+          effect: 'A poisoned creature has disadvantage on attack rolls and ability checks.',
+        },
+        {
+          condition: 'prone',
+          effect:
+            'A prone creature’s only movement option is to crawl, unless it stands up and thereby ends the condition. The creature has disadvantage on attack rolls. An attack roll against the creature has advantage if the attacker is within 5 feet of the creature. Otherwise, the attack roll has disadvantage.',
+        },
+        {
+          condition: 'restrained',
+          effect:
+            'A restrained creature’s speed becomes 0, and it can’t benefit from any bonus to its speed. Attack rolls against the creature have advantage, and the creature’s attack rolls have disadvantage. The creature has disadvantage on Dexterity saving throws.',
+        },
+        {
+          condition: 'stunned',
+          effect:
+            'A stunned creature is incapacitated (see the condition), can’t move, and can speak only falteringly. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage.',
+        },
+        {
+          condition: 'unconscious',
+          effect:
+            'An unconscious creature is incapacitated (see the condition), can’t move or speak, and is unaware of its surroundings The creature drops whatever it’s holding and falls prone. The creature automatically fails Strength and Dexterity saving throws. Attack rolls against the creature have advantage. Any attack that hits the creature is a critical hit if the attacker is within 5 feet of the creature.',
+        },
+      ],
     },
   },
   cover: {
     cover: {
-      'half cover': '+2 to AC and Dexterity saving throws',
-      'three-quarters cover': '+5 to AC and Dexterity saving throws',
-      'full cover': 'Cannot be targeted directly by an attack or spell',
+      description: '',
+      headers: ['cover', 'effect'],
+      rows: [
+        {
+          cover: 'half cover',
+          effect: '+2 to AC and Dexterity saving throws',
+        },
+        {
+          cover: 'three-quarters cover',
+          effect: '+5 to AC and Dexterity saving throws',
+        },
+        {
+          cover: 'full cover',
+          effect: 'Cannot be targeted directly by an attack or spell',
+        },
+      ],
     },
   },
   actions: {
     actions: {
-      attack: 'Make a melee or ranged attack',
-      cast: 'You cast a cantrip or leveled spell. See the spells casting time. You can only cast one leveled spell per turn, but you can cast another leveled spell as a reaction.',
-      dash: 'Gain extra movement equal to your speed for the turn. This movement happens after your normal movement.',
-      disengage: 'Your movement does not provoke opportunity attacks for the turn.',
-      dodge:
-        'Until the start of your next turn, any attack roll made against you has disadvantage if you can see the attacker, and you make Dexterity saving throws with advantage. You lose this benefit if you are incapacitated or if your speed drops to 0.',
-      grapple:
-        '(1 melee attack) You make a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check. If you win the contest, you grapple the target.',
-      help: 'You aid another creature in making a skill check or attack roll. The target gains advantage on the next ability check or attack roll it makes before the start of your next turn.',
-      hide: 'You make a Dexterity (Stealth) check in an attempt to become hidden. While hidden you have advantage on attacks and attacks against you have disadvantage.',
-      ready:
-        "You wait for a particular circumstance before you act, which let's you use your reaction before the start of your next turn. You must decide in advance what circumstance will trigger your reaction and what action you will take in response ot the trigger. If you ready a spell it must have a casting time of 1 action and you must concentrate on it until you release it.",
-      search: 'You make a Wisdom (Perception) check or Intelligence (Investigation) check to find something.',
-      shove:
-        '(1 melee attack) You make a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check. If you win the contest, you either knock the target prone or push it 5 feet away from you.',
-      'use a magic item': 'You use a magic item that requires an action to use.',
-      'use an object': 'You use an object that requires an action to use.',
-      'use a special ability': 'You use a special ability that requires an action to use.',
+      description: '',
+      headers: ['action', 'description'],
+      rows: [
+        {
+          action: 'attack',
+          description: 'Make a melee or ranged attack',
+        },
+        {
+          action: 'cast',
+          description:
+            'You cast a cantrip or leveled spell. See the spells casting time. You can only cast one leveled spell per turn, but you can cast another leveled spell as a reaction.',
+        },
+        {
+          action: 'dash',
+          description:
+            'Gain extra movement equal to your speed for the turn. This movement happens after your normal movement.',
+        },
+        {
+          action: 'disengage',
+          description: 'Your movement does not provoke opportunity attacks for the turn.',
+        },
+        {
+          action: 'dodge',
+          description:
+            'Until the start of your next turn, any attack roll made against you has disadvantage if you can see the attacker, and you make Dexterity saving throws with advantage. You lose this benefit if you are incapacitated or if your speed drops to 0.',
+        },
+        {
+          action: 'grapple',
+          description:
+            '(1 melee attack) You make a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check. If you win the contest, you grapple the target.',
+        },
+        {
+          action: 'help',
+          description:
+            'You aid another creature in making a skill check or attack roll. The target gains advantage on the next ability check or attack roll it makes before the start of your next turn.',
+        },
+        {
+          action: 'hide',
+          description:
+            'You make a Dexterity (Stealth) check in an attempt to become hidden. While hidden you have advantage on attacks and attacks against you have disadvantage.',
+        },
+        {
+          action: 'ready',
+          description:
+            "You wait for a particular circumstance before you act, which let's you use your reaction before the start of your next turn. You must decide in advance what circumstance will trigger your reaction and what action you will take in response ot the trigger. If you ready a spell it must have a casting time of 1 action and you must concentrate on it until you release it.",
+        },
+        {
+          action: 'search',
+          description: 'You make a Wisdom (Perception) check or Intelligence (Investigation) check to find something.',
+        },
+        {
+          action: 'shove',
+          description:
+            '(1 melee attack) You make a Strength (Athletics) check contested by the target’s Strength (Athletics) or Dexterity (Acrobatics) check. If you win the contest, you either knock the target prone or push it 5 feet away from you.',
+        },
+        {
+          action: 'use a magic item',
+          description: 'You use a magic item that requires an action to use.',
+        },
+        {
+          action: 'use an object',
+          description: 'You use an object that requires an action to use.',
+        },
+        {
+          action: 'use a special ability',
+          description: 'You use a special ability that requires an action to use.',
+        },
+      ],
     },
   },
   'setting a dc': {
     'setting a dc': {
-      Difficuty: 'DC',
-      'very easy': '5',
-      easy: '10',
-      moderate: '15',
-      hard: '20',
-      'very hard': '25',
-      'nearly impossible': '30',
+      description: '',
+      headers: ['difficulty', 'dc'],
+      rows: [
+        {
+          difficulty: 'very easy',
+          dc: '5',
+        },
+        {
+          difficulty: 'easy',
+          dc: '10',
+        },
+        {
+          difficulty: 'moderate',
+          dc: '15',
+        },
+        {
+          difficulty: 'hard',
+          dc: '20',
+        },
+        {
+          difficulty: 'very hard',
+          dc: '25',
+        },
+        {
+          difficulty: 'nearly impossible',
+          dc: '30',
+        },
+      ],
     },
   },
   'tracking dc': {
     'tracking dc': {
-      'Ground Conditions': 'DC',
-      'soft surfaces such as snow': '10',
-      'Dirt or grass': '15',
-      'Bare stone': '20',
-      'Each day since the creature passed': '+5',
-      'Creature left a trail such as blood': '-5',
+      description: '',
+      headers: ['ground conditions', 'dc'],
+      rows: [
+        {
+          'ground conditions': 'soft surfaces such as snow',
+          dc: '10',
+        },
+        {
+          'ground conditions': 'dirt or grass',
+          dc: '15',
+        },
+        {
+          'ground conditions': 'bare stone',
+          dc: '20',
+        },
+        {
+          'ground conditions': 'each day since the creature passed',
+          dc: '+5',
+        },
+        {
+          'ground conditions': 'creature left a trail such as blood',
+          dc: '-5',
+        },
+      ],
     },
   },
   'object ac': {
     'object ac': {
-      Substance: 'AC',
-      'Cloth, paper, rope': '11',
-      'Crystal, glass, ice': '13',
-      'Wood, bone': '15',
-      Stone: '17',
-      'Iron, steel': '19',
-      Mithral: '21',
-      Adamantine: '23',
+      description: '',
+      headers: ['substance', 'ac'],
+      rows: [
+        {
+          substance: 'cloth, paper, rope',
+          ac: '11',
+        },
+        {
+          substance: 'crystal, glass, ice',
+          ac: '13',
+        },
+        {
+          substance: 'wood, bone',
+          ac: '15',
+        },
+        {
+          substance: 'stone',
+          ac: '17',
+        },
+        {
+          substance: 'iron, steel',
+          ac: '19',
+        },
+        {
+          substance: 'mithral',
+          ac: '21',
+        },
+        {
+          substance: 'adamantine',
+          ac: '23',
+        },
+      ],
     },
   },
   'object hp': {
     'object hp': {
-      Size: 'HP (fragile/resilient)',
-      'Tiny (bottle, lock)': '2(1d4) / 5(2d4)',
-      'Small (chest, lute)': '3(1d6) / 10(3d6)',
-      'Medium (barrel, chandelier)': '4(1d8) / 18(4d8)',
-      'Large (cart, 10x10 ft. window)': '5(1d10) / 27(5d10)',
-      'Huge (rowboat, statue)': '6(1d12) / 40(6d12)',
-      'Gargantuan (sailing ship, castle wall)': '7(2d6) / 50(7d10)',
+      description: '',
+      headers: ['size', 'fragile', 'resilient'],
+      rows: [
+        {
+          size: 'tiny (bottle, lock)',
+          fragile: '2 (1d4)',
+          resilient: '5 (2d4)',
+        },
+        {
+          size: 'small (chest, lute)',
+          fragile: '3 (1d6)',
+          resilient: '10 (3d6)',
+        },
+        {
+          size: 'medium (barrel, chandelier)',
+          fragile: '4 (1d8)',
+          resilient: '18 (4d8)',
+        },
+        {
+          size: 'large (cart, 10x10 ft. window)',
+          fragile: '5 (1d10)',
+          resilient: '27 (5d10)',
+        },
+        {
+          size: 'huge (rowboat, statue)',
+          fragile: '6 (1d12)',
+          resilient: '40 (6d12)',
+        },
+        {
+          size: 'gargantuan (sailing ship, castle wall)',
+          fragile: '7 (2d6)',
+          resilient: '50 (7d10)',
+        },
+      ],
     },
   },
   'food and drink': {
     'food and drink': {
-      Food: 'Cost',
-      'Ale, gallon': '2 sp',
-      'Ale, pint': '4 cp',
-      'Wine, common (pitcher)': '2 sp',
-      'Wine, fine (bottle)': '10 gp',
-      'Banquet (per person)': '10 gp',
-      'Bread, loaf': '2 cp',
-      'Cheese, hunk': '1 sp',
-      'Inn stay (per day, poor)': '2 sp',
-      'Inn stay (per day)': '5 sp',
-      'Inn stay (per day, wealthy)': '2 gp',
-      'Meal (per day, poor)': '3 sp',
-      'Meal (per day)': '5 sp',
-      'Meal (per day, wealthy)': '8 sp',
+      description: '',
+      headers: ['food', 'cost'],
+      rows: [
+        {
+          food: 'Ale, gallon',
+          cost: '2 sp',
+        },
+        {
+          food: 'Ale, pint',
+          cost: '4 cp',
+        },
+        {
+          food: 'Wine, common (pitcher)',
+          cost: '2 sp',
+        },
+        {
+          food: 'Wine, fine (bottle)',
+          cost: '10 gp',
+        },
+        {
+          food: 'Banquet (per person)',
+          cost: '10 gp',
+        },
+        {
+          food: 'Bread, loaf',
+          cost: '2 cp',
+        },
+        {
+          food: 'Cheese, hunk',
+          cost: '1 sp',
+        },
+        {
+          food: 'Inn stay (per day, poor)',
+          cost: '2 sp',
+        },
+        {
+          food: 'Inn stay (per day)',
+          cost: '5 sp',
+        },
+        {
+          food: 'Inn stay (per day, wealthy)',
+          cost: '2 gp',
+        },
+        {
+          food: 'Meal (per day, poor)',
+          cost: '3 sp',
+        },
+        {
+          food: 'Meal (per day)',
+          cost: '5 sp',
+        },
+        {
+          food: 'Meal (per day, wealthy)',
+          cost: '8 sp',
+        },
+      ],
     },
   },
   'services and transportation': {
     'services and transportation': {
-      Service: 'Cost',
-      'Coach cab (per mile)': '3 cp',
-      'Coach hire (per day)': '1 gp',
-      'Hireling, trained (per day)': '2 gp',
-      'Hireling, untrained (per day)': '2 sp',
-      'Messenger (per mile)': '2 cp',
-      'Road or gate toll': '1 cp',
-      'Ship’s passage (per day)': '1 sp',
+      description: '',
+      headers: ['service', 'cost'],
+      rows: [
+        {
+          service: 'coach cab (per mile)',
+          cost: '3 cp',
+        },
+        {
+          service: 'coach hire (per day)',
+          cost: '1 gp',
+        },
+        {
+          service: 'hireling, trained (per day)',
+          cost: '2 gp',
+        },
+        {
+          service: 'hireling, untrained (per day)',
+          cost: '2 sp',
+        },
+        {
+          service: 'messenger (per mile)',
+          cost: '2 cp',
+        },
+        {
+          service: 'road or gate toll',
+          cost: '1 cp',
+        },
+        {
+          service: "ship's passage (per day)",
+          cost: '1 sp',
+        },
+      ],
     },
   },
-};
-
-export const RULE_DATA_TABLE: RuleTableData = {
   'travel pace': {
     'travel pace': {
       description: 'distance per...',
@@ -331,15 +653,18 @@ export const MULTI_SECTION_RULES = [
   'charisma',
   'encounter distance',
 ];
-export const TWO_COLUMN_RULES = [
+export const TABLE_RULES = [
   'conditions',
-  'cover',
-  'actions',
-  'setting a dc',
-  'tracking dc',
-  'object ac',
-  'object hp',
+  'actios',
   'food and drink',
+  'travel pace',
+  'obscured areas',
+  'light sources',
+  'object hp',
+  'object ac',
   'services and transportation',
+  'services and transportation',
+  'tracking dc',
+  'setting a dc',
+  'cover',
 ];
-export const TABLE_RULES = ['travel pace', 'obscured areas', 'light sources'];
