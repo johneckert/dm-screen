@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CardData, Ability, Rule, SkillBreakDown, SkillDescription, RuleTable } from '../../interfaces';
-import { RULES, MULTI_SECTION_RULES, TABLE_RULES, RULE_DATA, RULE_DATA_TABLE } from '../../ruleData';
+import { CardData, Rule, SkillDescription, RuleTable } from '../../interfaces';
+import { RULES, RULE_DATA } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
@@ -143,6 +143,13 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
+interface ExpandedRuleCardProps {
+  closeExpandedCard: () => void;
+  expandedCardData: CardData;
+  updateCard: (cardData: CardData) => void;
+  deleteCard: (cardData: CardData) => void;
+}
+
 const DescriptionBlock: React.FC<{ description: SkillDescription }> = ({ description }) => {
   const classes = useStyles({ isEditing: false });
   const skills = Object.keys(description);
@@ -174,104 +181,61 @@ const DescriptionBlock: React.FC<{ description: SkillDescription }> = ({ descrip
   );
 };
 
-const SectionRow: React.FC<{ keyText: string; value: string; order: number }> = ({ keyText, value, order }) => {
-  const classes = useStyles({ isEditing: false });
-  return (
-    <Box className={order % 2 === 0 ? classes.sectionRowEven : classes.sectionRowOdd}>
-      <Typography className={classes.keyCell} id="sectionRow-key">
-        {splitAndTitleCase(keyText)}:
-      </Typography>
-      <Typography className={classes.valueCell} id="sectionRow-value">
-        {value}
-      </Typography>
-    </Box>
-  );
-};
-
-const RuleTableSection: React.FC<{ ruleData: RuleTable }> = ({ ruleData }) => {
-  const { headers, rows } = ruleData;
-  return (
-    <TableContainer component={Box}>
-      <Table aria-label="rule-table">
-        <TableHead>
-          <TableRow>
-            {headers.map((header) => {
-              return <TableCell key={header}>{splitAndTitleCase(header)}</TableCell>;
-            })}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row[headers[0]]} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-              {headers.map((header) => {
-                return <TableCell key={row[header]}>{splitAndTitleCase(row[header])}</TableCell>;
-              })}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
-};
-
-const RuleSection: React.FC<{ rule: string; ruleData: SkillBreakDown; useSpacers?: boolean }> = ({
+const RuleTableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: boolean }> = ({
   rule,
   ruleData,
-  useSpacers = false,
+  useSpacers,
 }) => {
-  console.log(ruleData);
+  const { headers, rows } = ruleData;
   const classes = useStyles({ isEditing: false });
   const spacer = useSpacers ? String.fromCharCode(183) : ' ';
   const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + spacer + ' ');
   const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
   return (
-    <Box className={classes.ruleContainer}>
+    <Box className={classes.tableSection}>
       <Box className={classes.skillName}>
         <Typography id="skill-name" variant="h4" component="h4" data-testid="skill-name">
           {ruleText}
         </Typography>
       </Box>
-      {Object.keys(ruleData).map((key, i) => {
-        console.log('key: ', key);
-        if (key === 'description') {
-          return <DescriptionBlock description={ruleData.description} key={key} />;
-        }
-        return <SectionRow keyText={key} order={i} value={ruleData[key] as string} key={key} />;
-      })}
+      <DescriptionBlock description={ruleData.description} />
+      <TableContainer component={Box}>
+        <Table aria-label="rule-table">
+          <TableHead>
+            <TableRow>
+              {headers.map((header) => {
+                return <TableCell key={header}>{splitAndTitleCase(header)}</TableCell>;
+              })}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row[headers[0]]} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                {headers.map((header) => {
+                  return <TableCell key={row[header]}>{splitAndTitleCase(row[header])}</TableCell>;
+                })}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Box>
   );
 };
 
-// Ability Score rules
-const MultiSectionCard: React.FC<{ title: Ability }> = ({ title }) => {
+const RuleCardBody: React.FC<{ title: Rule }> = ({ title }) => {
   const classes = useStyles({ isEditing: false });
-  const ability = RULE_DATA[title];
-  const skills = Object.keys(ability);
-  return (
-    <Box className={classes.multiSectionCardContent}>
-      {skills.map((skill) => {
-        return <RuleSection rule={skill} ruleData={ability[skill]} key={skill} useSpacers />;
-      })}
-    </Box>
-  );
-};
-
-const TableSectionCard: React.FC<{ title: Rule }> = ({ title }) => {
-  const classes = useStyles({ isEditing: false });
-  const ruleData = RULE_DATA_TABLE[title][title];
+  const ruleData = RULE_DATA[title];
+  const skills = Object.keys(ruleData);
+  console.log('skills: ', skills, 'ruleData:', ruleData);
   return (
     <Box className={classes.singleSectionCard}>
-      <RuleTableSection ruleData={ruleData} />
+      {skills.map((skill) => {
+        return <RuleTableSection rule={skill} ruleData={ruleData[skill]} key={skill} />;
+      })}
     </Box>
   );
 };
-
-interface ExpandedRuleCardProps {
-  closeExpandedCard: () => void;
-  expandedCardData: CardData;
-  updateCard: (cardData: CardData) => void;
-  deleteCard: (cardData: CardData) => void;
-}
 
 const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   closeExpandedCard,
@@ -288,18 +252,6 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
     }
     setIsEditing(!isEditing);
   };
-
-  const renderRule = () => {
-    console.log(title);
-    if (MULTI_SECTION_RULES.includes(title)) {
-      return <MultiSectionCard title={title as Ability} />;
-    } else if (TABLE_RULES.includes(title.toLowerCase())) {
-      return <TableSectionCard title={title as Rule} />;
-    } else {
-      return <div>ELSE</div>;
-    }
-  };
-
   return (
     <ExpandedCardLayout
       cardData={expandedCardData}
@@ -345,7 +297,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               <EditIcon />
             </IconButton>
           </Box>
-          {renderRule()}
+          <RuleCardBody title={title as Rule} />
         </>
       )}
     </ExpandedCardLayout>

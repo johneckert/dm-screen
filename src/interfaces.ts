@@ -82,7 +82,7 @@ export interface RuleTable {
   rows: { [key: string]: string }[];
 }
 
-export interface RuleTableData {
+export interface RuleData {
   [key: string]: {
     [key: string]: RuleTable;
   };

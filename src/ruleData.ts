@@ -1,158 +1,6 @@
-import { SkillData, RuleTableData } from './interfaces';
+import { RuleData } from './interfaces';
 
-export const RULE_DATA: SkillData = {
-  strength: {
-    athletics: {
-      description: 'Climb a wall or a rope, swim or jump high.',
-      easy: 'Normal wall; tread in rough condition; water; clear obstacle while jumping.',
-      moderate: 'Rope from overhang; swim in rough water.',
-      hard: 'Wall with rare handholds; catch on a rope; violent water.',
-      'very hard': 'Slippery wall; clip vertically; stormy waters.',
-    },
-    'feats-of-strength other': {
-      description:
-        'Any attempt to lift, push, pull, or break something, to force your body through a space, or to otherwise apply brute force to a situation.',
-      easy: 'Struck/broken door: weak bindings: pull stuck wedge obiect loose.',
-      moderate: 'Reinforced wooden door; hang on a wagon.',
-      hard: 'Heavy locked/barred door; topple stone statue.',
-      'very hard': 'Heavy reinforced door; hold door against water.',
-    },
-  },
-  dexterity: {
-    acrobatics: {
-      description: 'Walk across difficult surface; hold balance; land safely. Otherwise fall / take damage.',
-      easy: 'Icy surface; turbulent situation; land on dificult terrain.',
-      moderate: 'Narrow edge; swing from chandelier and land.',
-      hard: 'Cross a wildly swaying rope bridge.',
-      'very hard': 'Walk across a tightrope; vault over/under an enemy.',
-    },
-    'sleight-of-hand': {
-      'contest vs deception': 'Plant or steal an object on or from a target.',
-    },
-    stealth: {
-      'contest vs deception': 'Conceal from enemies; sneak past targets; Slip awav while others are distracted.',
-    },
-    'pick-lock disarm-trap': {
-      easy: 'Simple lock; simple trap.',
-      moderate: 'Typical lock.',
-      hard: 'Elaborate lock; average trap.',
-      'very hard': 'Masterwork lock; complex trap.',
-    },
-  },
-  constitution: {
-    concentration: {
-      'ten or half the damage taken': 'After taking damage while maintaining concentration spell.',
-    },
-  },
-  intelligence: {
-    'arcana history nature religion': {
-      description: {
-        arcana: 'Spells, magic items, planes of existence',
-        history: 'historical events, old kingdoms, legendary people',
-        nature: 'terrain. plants and animals',
-        religion: 'deities, rites and prayers, holy symbols',
-      },
-      easy: 'Recall widely known information (common)',
-      moderate: 'Recall more obscure or specific information (uncommon)',
-      hard: 'Recall truly esoteric or precise information (rare)',
-      'very hard': 'Recall information that is known only by a privileged few (very rare)',
-    },
-    'investigation other': {
-      description:
-        "Identity a trap or a secret or coded message; communicate a idea with an creature vou don't share a language with; discover the true nature of an illusion.",
-      easy: 'Obvious trap or a secret; simple idea with an intelligent creature; low-level illusion.',
-      moderate:
-        'Typical trap; determine time or cause of death of a recentlv deceased creature: estimate the material worth of an item; mid-level illusion.',
-      hard: 'Well-hidden trap, object, or area; forge a document or identity such a document; high-level illusion.',
-      'very hard':
-        'Magicallv-hidden trap. obiect. or area: discern the purpose and process of a comblicated device or system; determine the integrity of a structure, construct, or tormation and identity any exploitable weak points.',
-    },
-  },
-  wisdom: {
-    'insight perception': {
-      description: {
-        insight: 'Read the intentions of a creature; check if it the truth.',
-        perception: 'Spot/recognize a location; hear a sound.',
-      },
-      easy: 'read a child, prominent landmark, or structure; hear the far-off sound of thunder signaling a coming storm.',
-      moderate:
-        'Discern the leader of a group; the intended message of a non-verbal talk shot a natural-obscured obiect or teature: a conversation in the next room.',
-      hard: "guess at the enemy's next action: well-hidden object or feature; a hushed conversation through a heavv door.",
-      'very hard': 'near v-invisible obiect or feature: read the lips of a creature vou can see but not hear.',
-    },
-    survival: {
-      description: 'Follow a trail / track; forage food for a day; navigate in wilderness.',
-      easy: 'well-worn trail in a forest: tracks of a creature through snow or mud: forage in a plentiful area; navigate on a clear night.',
-      moderate:
-        'abandoned or forgotten trail; track a creature through a forest; forage in a sparse area; navigate on a cloudy night; predict an oncoming storm; identify the signs of nearby creatures.',
-      hard: "Track over barren terrain: forage in a harsh area; navigate through an alien area on a cloudy night; predict tomorrow's weather.",
-      'very hard': 'Track after rainfall: navigate an alien area on a stormy night.',
-    },
-    'animal-handling medicine other': {
-      description: {
-        'Animal Handling': 'Interact with or train an animal.',
-        Medicine: 'cure or stabilize a creature , diagnose ailments.',
-      },
-      easy: 'domesticated animal stabilize a dying creature outside of combat; common ailment.',
-      moderate:
-        'wild but otherwise peaceful animal. perform a complex maneuver while mounted; set a broken bone; stabilize a dying creature in the middle of combat: uncommon ailment.',
-      hard: "Intuit a hostile animal's next action: control an untrained mount; rare ailment.",
-      'very hard': 'Calm a dangerous wild animal diagnose magical and divine ailments.',
-    },
-  },
-  charisma: {
-    deception: {
-      'contest vs insight':
-        'Fast-talk or con someone, adopt a disguise or impersonate another creature, tell a convincing lie or otherwise hide vour true intentions.',
-    },
-    intimidation: {
-      easy: 'Scare a spine ess noble in to handing over their coin purse.',
-      moderate:
-        'Pry information out of an uncooperative prisoner, convince street thugs to back down from a controntatior.',
-      hard: 'Advise a suard that it might be best to look the other wav this time around, coerce an official in to signing a document.',
-      'very hard': 'Frighten a creature arger than vou. causing it to flee; stop an agitated mob in their tracks.',
-    },
-    performance: {
-      easy: 'Routine performance such as telling a storv in a tavern or around a campfire.',
-      moderate:
-        'Professional performance such as an inspiring speech or an impressive musical display which may attract the attention of a local troupe and lead to regional fame.',
-      hard: 'Memorable bertormance which mav attract the attention of a oca patron and lead to national tame.',
-      'very hard':
-        'Extraordinarv performance which mav attract the attention of distant patrons and even extra-planar beings.',
-    },
-    persuasion: {
-      easy: 'Convince the mavor to allow vour part to helo calm a distraught person.',
-      moderate:
-        'Persuade a groun of bichway thieves to leave in beace. convince a friend v acauaintance that vou know best.',
-      hard: 'Convince a chamberlain to let vour party see the king, inspire or rallv a crown of townsfolk negotiate a peace between warring tribes.',
-      'very hard':
-        "Convince a chhiny that vol are worthy of the secrets it guards assure a dragon vou're worth more alive than dead.",
-    },
-  },
-  'encounter distance': {
-    terrain: {
-      'arctic, desert, farmland, or grassland': '6d6 x 10 feet',
-      'forest, swamp, or woodland': '2d8 x 10 feet',
-      'hills or wastelands': '2d10 x 10 feet',
-      jungle: '2d6 x 10 feet',
-      mountains: '4d10 x 10 feet',
-      'underdark or urban': '2d4 x 10 feet',
-    },
-    'audible-distance': {
-      'trying to be quiet': '2d6 x 5 feet',
-      'normal noise level': '2d6 x 10 feet',
-      'loud noise level': '2d6 x 50 feet',
-    },
-    'visibility-outdoors': {
-      'clear day, no obstructions': '2 miles',
-      rain: '1 mile',
-      fog: '100 to 300 feet',
-      'from height': 'x 20',
-    },
-  },
-};
-
-export const RULE_DATA_TABLE: RuleTableData = {
+export const RULE_DATA: RuleData = {
   strength: {
     athletics: {
       description: 'Climb a wall or a rope, swim or jump high.',
@@ -196,6 +44,378 @@ export const RULE_DATA_TABLE: RuleTableData = {
         {
           difficulty: 'very hard',
           examples: 'Heavy reinforced door; hold door against water.',
+        },
+      ],
+    },
+  },
+  dexterity: {
+    acrobatics: {
+      description: 'Walk across difficult surface; hold balance; land safely. Otherwise fall / take damage.',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Icy surface; turbulent situation; land on dificult terrain.',
+        },
+        {
+          difficulty: 'moderate',
+          examples: 'Narrow edge; swing from chandelier and land.',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Cross a wildly swaying rope bridge.',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Walk across a tightrope; vault over/under an enemy.',
+        },
+      ],
+    },
+    'sleight-of-hand': {
+      description: '',
+      headers: ['description', 'purpose'],
+      rows: [
+        {
+          description: 'contest vs perception',
+          purpose: 'Hide an object on your person; palm an object.',
+        },
+      ],
+    },
+    stealth: {
+      description: '',
+      headers: ['description', 'purpose'],
+      rows: [
+        {
+          check: 'contest vs deception',
+          purpose: 'Conceal from enemies; sneak past targets; Slip awav while others are distracted.',
+        },
+      ],
+    },
+    'pick-lock disarm-trap': {
+      description: '',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Simple lock; simple trap.',
+        },
+        {
+          difficulty: 'moderate',
+          examples: 'Typical lock.',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Elaborate lock; average trap.',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Masterwork lock; complex trap.',
+        },
+      ],
+    },
+  },
+  constitution: {
+    concentration: {
+      description: '',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'ten or half the damage taken',
+          examples: 'After taking damage while maintaining concentration spell.',
+        },
+      ],
+    },
+  },
+  intelligence: {
+    'arcana history nature religion': {
+      description: {
+        arcana: 'Spells, magic items, planes of existence',
+        history: 'historical events, old kingdoms, legendary people',
+        nature: 'terrain. plants and animals',
+        religion: 'deities, rites and prayers, holy symbols',
+      },
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Recall widely known information (common)',
+        },
+        {
+          difficulty: 'moderate',
+          examples: 'Recall more obscure or specific information (uncommon)',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Recall truly esoteric or precise information (rare)',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Recall information that is known only by a privileged few (very rare)',
+        },
+      ],
+    },
+    'investigation other': {
+      description:
+        "Identity a trap or a secret or coded message; communicate a idea with an creature vou don't share a language with; discover the true nature of an illusion.",
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Obvious trap or a secret; simple idea with an intelligent creature; low-level illusion.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'Typical trap; determine time or cause of death of a recentlv deceased creature: estimate the material worth of an item; mid-level illusion.',
+        },
+        {
+          difficulty: 'hard',
+          examples:
+            'Well-hidden trap, object, or area; forge a document or identity such a document; high-level illusion.',
+        },
+        {
+          difficulty: 'very hard',
+          examples:
+            'Magicallv-hidden trap. obiect. or area: discern the purpose and process of a comblicated device or system; determine the integrity of a structure, construct, or tormation and identity any exploitable weak points.',
+        },
+      ],
+    },
+  },
+  wisdom: {
+    'insight perception': {
+      description: {
+        insight: 'Read the intentions of a creature; check if it the truth.',
+        perception: 'Spot/recognize a location; hear a sound.',
+      },
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples:
+            'read a child, prominent landmark, or structure; hear the far-off sound of thunder signaling a coming storm.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'Discern the leader of a group; the intended message of a non-verbal talk shot a natural-obscured obiect or teature: a conversation in the next room.',
+        },
+        {
+          difficulty: 'hard',
+          examples:
+            "guess at the enemy's next action: well-hidden object or feature; a hushed conversation through a heavv door.",
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'near v-invisible obiect or feature: read the lips of a creature vou can see but not hear.',
+        },
+      ],
+    },
+    survival: {
+      description: 'Follow a trail / track; forage food for a day; navigate in wilderness.',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples:
+            'well-worn trail in a forest: tracks of a creature through snow or mud: forage in a plentiful area; navigate on a clear night.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'abandoned or forgotten trail; track a creature through a forest; forage in a sparse area; navigate on a cloudy night; predict an oncoming storm; identify the signs of nearby creatures.',
+        },
+        {
+          difficulty: 'hard',
+          examples:
+            "Track over barren terrain: forage in a harsh area; navigate through an alien area on a cloudy night; predict tomorrow's weather.",
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Track after rainfall: navigate an alien area on a stormy night.',
+        },
+      ],
+    },
+    'animal-handling medicine other': {
+      description: {
+        'Animal Handling': 'Interact with or train an animal.',
+        Medicine: 'cure or stabilize a creature , diagnose ailments.',
+      },
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'domesticated animal stabilize a dying creature outside of combat; common ailment.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'wild but otherwise peaceful animal. perform a complex maneuver while mounted; set a broken bone; stabilize a dying creature in the middle of combat: uncommon ailment.',
+        },
+        {
+          difficulty: 'hard',
+          examples: "Intuit a hostile animal's next action: control an untrained mount; rare ailment.",
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Calm a dangerous wild animal diagnose magical and divine ailments.',
+        },
+      ],
+    },
+  },
+  charisma: {
+    deception: {
+      description: '',
+      headers: ['description', 'examples'],
+      rows: [
+        {
+          description: 'contest vs insight',
+          examples:
+            'Fast-talk or con someone, adopt a disguise or impersonate another creature, tell a convincing lie or otherwise hide vour true intentions.',
+        },
+      ],
+    },
+    intimidation: {
+      description: '',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Scare a spine ess noble in to handing over their coin purse.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'Pry information out of an uncooperative prisoner, convince street thugs to back down from a controntatior.',
+        },
+        {
+          difficulty: 'hard',
+          examples:
+            'Advise a guard that it might be best to look the other wav this time around, coerce an official in to signing a document.',
+        },
+        {
+          difficulty: 'very hard',
+          examples: 'Frighten a creature arger than vou. causing it to flee; stop an agitated mob in their tracks.',
+        },
+      ],
+    },
+    performance: {
+      description: '',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Routine performance such as telling a storv in a tavern or around a campfire.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'Professional performance such as an inspiring speech or an impressive musical display which may attract the attention of a local troupe and lead to regional fame.',
+        },
+        {
+          difficulty: 'hard',
+          examples: 'Memorable bertormance which mav attract the attention of a oca patron and lead to national tame.',
+        },
+        {
+          difficulty: 'very hard',
+          examples:
+            'Extraordinarv performance which mav attract the attention of distant patrons and even extra-planar beings.',
+        },
+      ],
+    },
+    persuasion: {
+      description: '',
+      headers: ['difficulty', 'examples'],
+      rows: [
+        {
+          difficulty: 'easy',
+          examples: 'Convince the mavor to allow vour part to helo calm a distraught person.',
+        },
+        {
+          difficulty: 'moderate',
+          examples:
+            'Persuade a groun of bichway thieves to leave in beace. convince a friend v acauaintance that vou know best.',
+        },
+        {
+          difficulty: 'hard',
+          examples:
+            'Convince a chamberlain to let vour party see the king, inspire or rallv a crown of townsfolk negotiate a peace between warring tribes.',
+        },
+        {
+          difficulty: 'very hard',
+          examples:
+            "Convince a chhiny that vol are worthy of the secrets it guards assure a dragon vou're worth more alive than dead.",
+        },
+      ],
+    },
+  },
+  'encounter distance': {
+    terrain: {
+      description: '',
+      headers: ['description', 'distance'],
+      rows: [
+        {
+          description: 'arctic, desert, farmland, or grassland',
+          distance: '6d6 x 10 feet',
+        },
+        {
+          description: 'forest, swamp, or woodland',
+          distance: '2d8 x 10 feet',
+        },
+        {
+          description: 'hills or wastelands',
+          distance: '2d10 x 10 feet',
+        },
+        {
+          description: 'jungle',
+          distance: '2d6 x 10 feet',
+        },
+        {
+          description: 'mountains',
+          distance: '4d10 x 10 feet',
+        },
+        {
+          description: 'underdark or urban',
+          distance: '2d4 x 10 feet',
+        },
+      ],
+    },
+    'audible-distance': {
+      description: '',
+      headers: ['description', 'distance'],
+      rows: [
+        {
+          description: 'trying to be quiet',
+          distance: '2d6 x 5 feet',
+        },
+        {
+          description: 'normal noise level',
+          distance: '2d6 x 10 feet',
+        },
+        {
+          description: 'loud noise level',
+          distance: '2d6 x 50 feet',
+        },
+      ],
+    },
+    'visibility-outdoors': {
+      description: '',
+      headers: ['description', 'distance'],
+      rows: [
+        {
+          description: 'clear day, no obstructions',
+          distance: '2 miles',
+        },
+        {
+          description: 'rain',
+          distance: '1 mile',
+        },
+        {
+          description: 'fog',
+          distance: '100 to 300 feet',
+        },
+        {
+          description: 'from height',
+          distance: 'x 20',
         },
       ],
     },
@@ -643,8 +863,17 @@ export const RULE_DATA_TABLE: RuleTableData = {
   },
 };
 
-export const RULES = Object.keys(RULE_DATA).concat(Object.keys(RULE_DATA_TABLE));
+export const RULES = Object.keys(RULE_DATA);
 export const MULTI_SECTION_RULES = [
+  // 'strength',
+  // 'dexterity',
+  // 'constitution',
+  // 'intelligence',
+  // 'wisdom',
+  // 'charisma',
+  // 'encounter distance',
+];
+export const TABLE_RULES = [
   'strength',
   'dexterity',
   'constitution',
@@ -652,8 +881,6 @@ export const MULTI_SECTION_RULES = [
   'wisdom',
   'charisma',
   'encounter distance',
-];
-export const TABLE_RULES = [
   'conditions',
   'actios',
   'food and drink',
