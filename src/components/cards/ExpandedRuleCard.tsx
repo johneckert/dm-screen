@@ -128,14 +128,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-interface ExpandedRuleCardProps {
-  closeExpandedCard: () => void;
-  expandedCardData: CardData;
-  updateCard: (cardData: CardData) => void;
-  deleteCard: (cardData: CardData) => void;
-}
-
-const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ description }) => {
+export const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ description }) => {
   const classes = useStyles({ isEditing: false });
   return (
     <Box className={classes.description}>
@@ -149,7 +142,7 @@ const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ descr
         <>
           {Object.keys(description).map((skill) => {
             return (
-              <Box className={classes.descriptionRow} key={skill}>
+              <Box className={classes.descriptionRow} key={skill} data-testid="desc-row">
                 <Typography sx={{ fontWeight: 'bold' }} className={classes.descKeyCell} id="desc-key">
                   {splitAndTitleCase(skill)}:
                 </Typography>
@@ -165,25 +158,25 @@ const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ descr
   );
 };
 
-const TableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: boolean }> = ({
-  rule,
-  ruleData,
+export const TableSection: React.FC<{ subRule: string; tableData: RuleTable; useSpacers?: boolean }> = ({
+  subRule,
+  tableData,
   useSpacers,
 }) => {
-  const { headers, rows } = ruleData;
+  const { headers, rows } = tableData;
   const classes = useStyles({ isEditing: false });
-  const hasDescription = ruleData.description;
+  const hasDescription = tableData.description;
   const spacer = useSpacers ? String.fromCharCode(183) : ' ';
-  const rulesWithDots = splitAndTitleCase(rule, ' ', ' ' + spacer + ' ');
+  const rulesWithDots = splitAndTitleCase(subRule, ' ', ' ' + spacer + ' ');
   const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
   return (
-    <Box className={classes.tableSection}>
+    <Box className={classes.tableSection} data-testid="table-section">
       <Box className={classes.skillName}>
         <Typography id="skill-name" variant="h4" component="h4" data-testid="skill-name">
           {ruleText}
         </Typography>
       </Box>
-      {hasDescription && <DescriptionSection description={ruleData.description ?? ''} />}
+      {hasDescription && <DescriptionSection description={tableData.description ?? ''} />}
       <TableContainer component={Box}>
         <Table aria-label="rule-table">
           <TableHead>
@@ -208,18 +201,12 @@ const TableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: b
   );
 };
 
-const RuleCardBody: React.FC<{ title: Rule }> = ({ title }) => {
-  const classes = useStyles({ isEditing: false });
-  const ruleData = RULE_DATA[title];
-  const skills = Object.keys(ruleData);
-  return (
-    <Box className={classes.cardBody}>
-      {skills.map((skill) => {
-        return <TableSection rule={skill} ruleData={ruleData[skill]} key={skill} />;
-      })}
-    </Box>
-  );
-};
+interface ExpandedRuleCardProps {
+  closeExpandedCard: () => void;
+  expandedCardData: CardData;
+  updateCard: (cardData: CardData) => void;
+  deleteCard: (cardData: CardData) => void;
+}
 
 const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   closeExpandedCard,
@@ -229,6 +216,8 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
+  const ruleData = RULE_DATA[title];
+  const subRules = Object.keys(ruleData);
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
@@ -258,12 +247,12 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
             </Typography>
           </Box>
           <Select
-            labelId="card-type-select-label"
+            labelId="rule-select-label"
             sx={{ marginBottom: 2, width: '100%' }}
-            id="card-type-select"
+            id="rule-select"
             value={title}
-            label="Type"
-            data-testid="card-type-select"
+            label="Rule"
+            data-testid="rule-select"
             onChange={(e) => setTitle(e.target.value as Rule)}
           >
             {RULES.map((value) => (
@@ -294,7 +283,11 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               <EditIcon />
             </IconButton>
           </Box>
-          <RuleCardBody title={title as Rule} />
+          <Box className={classes.cardBody}>
+            {subRules.map((subRule) => (
+              <TableSection subRule={subRule} tableData={ruleData[subRule]} key={subRule} />
+            ))}
+          </Box>
         </>
       )}
     </ExpandedCardLayout>
