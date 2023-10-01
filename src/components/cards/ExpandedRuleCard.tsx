@@ -25,7 +25,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
   body: {
     display: 'flex',
@@ -35,7 +34,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   modalTitle: {
     width: '100%',
     margin: theme.spacing(4),
-    paddingLeft: '42%',
+    paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
   },
@@ -103,7 +102,8 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     marginBottom: theme.spacing(2),
     width: '100%',
   },
@@ -197,7 +197,7 @@ const TableSection: React.FC<{ rule: string; ruleData: RuleTable; useSpacers?: b
             {rows.map((row) => (
               <TableRow key={row[headers[0]]} className={classes.tableRow}>
                 {headers.map((header) => {
-                  return <TableCell key={row[header]}>{splitAndTitleCase(row[header])}</TableCell>;
+                  return <TableCell key={row[header]}>{row[header]}</TableCell>;
                 })}
               </TableRow>
             ))}
@@ -245,21 +245,34 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
       saveCard={handleEdit}
     >
       {isEditing ? (
-        <Select
-          labelId="card-type-select-label"
-          sx={{ marginBottom: 2, width: '100%' }}
-          id="card-type-select"
-          value={title}
-          label="Type"
-          data-testid="card-type-select"
-          onChange={(e) => setTitle(e.target.value as Rule)}
-        >
-          {RULES.map((value) => (
-            <MenuItem key={value} value={value} data-testid="select-option">
-              {splitAndTitleCase(value)}
-            </MenuItem>
-          ))}
-        </Select>
+        <>
+          <Box className={classes.header}>
+            <Typography
+              id="rule-card-title"
+              className={classes.modalTitle}
+              variant="h3"
+              component="h3"
+              data-testid="title-view"
+            >
+              Choose Rule
+            </Typography>
+          </Box>
+          <Select
+            labelId="card-type-select-label"
+            sx={{ marginBottom: 2, width: '100%' }}
+            id="card-type-select"
+            value={title}
+            label="Type"
+            data-testid="card-type-select"
+            onChange={(e) => setTitle(e.target.value as Rule)}
+          >
+            {RULES.map((value) => (
+              <MenuItem key={value} value={value} data-testid="select-option">
+                {splitAndTitleCase(value)}
+              </MenuItem>
+            ))}
+          </Select>
+        </>
       ) : (
         <>
           <Box className={classes.header}>
