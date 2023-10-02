@@ -1,5 +1,11 @@
 import { RuleData } from './interfaces';
 
+/* 
+NOTE ON KEY NAMES: 
+For key names of main rules eg. 'strength' spaces should be used between words.
+For key names of sub-rules eg. 'athletics' a '-' represents a space in the rule name and ' ' represents a dot. 
+*/
+
 export const RULE_DATA: RuleData = {
   strength: {
     athletics: {
@@ -590,7 +596,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'setting a dc': {
-    'setting a dc': {
+    'setting-a-dc': {
       headers: ['difficulty', 'dc'],
       rows: [
         {
@@ -621,7 +627,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'tracking dc': {
-    'tracking dc': {
+    'tracking-dc': {
       headers: ['ground conditions', 'dc'],
       rows: [
         {
@@ -648,7 +654,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'object ac': {
-    'object ac': {
+    'object-ac': {
       headers: ['substance', 'ac'],
       rows: [
         {
@@ -683,7 +689,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'object hp': {
-    'object hp': {
+    'object-hp': {
       headers: ['size', 'fragile', 'resilient'],
       rows: [
         {
@@ -720,7 +726,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'food and drink': {
-    'food and drink': {
+    'food-and-drink': {
       headers: ['food', 'cost'],
       rows: [
         {
@@ -779,7 +785,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'services and transportation': {
-    'services and transportation': {
+    'services-and-transportation': {
       headers: ['service', 'cost'],
       rows: [
         {
@@ -814,7 +820,7 @@ export const RULE_DATA: RuleData = {
     },
   },
   'travel pace': {
-    'travel pace': {
+    'travel-pace': {
       description: 'Distance per...',
       headers: ['pace', 'distance per minute', 'distance per hour', 'distance per day', 'effect'],
       rows: [

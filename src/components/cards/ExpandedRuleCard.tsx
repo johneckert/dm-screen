@@ -158,15 +158,11 @@ export const DescriptionSection: React.FC<{ description: SkillDescription }> = (
   );
 };
 
-export const TableSection: React.FC<{ subRule: string; tableData: RuleTable; useSpacers?: boolean }> = ({
-  subRule,
-  tableData,
-  useSpacers,
-}) => {
+export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> = ({ subRule, tableData }) => {
   const { headers, rows } = tableData;
   const classes = useStyles({ isEditing: false });
   const hasDescription = tableData.description;
-  const spacer = useSpacers ? String.fromCharCode(183) : ' ';
+  const spacer = String.fromCharCode(183);
   const rulesWithDots = splitAndTitleCase(subRule, ' ', ' ' + spacer + ' ');
   const ruleText = splitAndTitleCase(rulesWithDots, '-', ' ');
   return (
