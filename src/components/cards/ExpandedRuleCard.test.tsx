@@ -164,13 +164,13 @@ describe('ExpandedCard', () => {
       });
     });
 
-    it('renders the correct number of rows', () => {
+    it('renders a table name', () => {
       <ThemeProvider theme={theme}>
         <TableSection subRule={'subRule'} tableData={mockTableData} />
       </ThemeProvider>;
 
       waitFor(() => {
-        expect(screen.queryByTestId('table-row')).toHaveLength(2);
+        expect(screen.getByTestId('table-name')).toBeInTheDocument();
       });
     });
 
@@ -191,6 +191,16 @@ describe('ExpandedCard', () => {
 
       waitFor(() => {
         expect(screen.queryByTestId('description-section')).not.toBeInTheDocument();
+      });
+    });
+
+    it('renders the correct number of rows', () => {
+      <ThemeProvider theme={theme}>
+        <TableSection subRule={'subRule'} tableData={mockTableData} />
+      </ThemeProvider>;
+
+      waitFor(() => {
+        expect(screen.queryByTestId('table-row')).toHaveLength(2);
       });
     });
   });

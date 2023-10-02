@@ -172,7 +172,7 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable; use
   return (
     <Box className={classes.tableSection} data-testid="table-section">
       <Box className={classes.skillName}>
-        <Typography id="skill-name" variant="h4" component="h4" data-testid="skill-name">
+        <Typography id="skill-name" variant="h4" component="h4" data-testid="table-name">
           {ruleText}
         </Typography>
       </Box>
