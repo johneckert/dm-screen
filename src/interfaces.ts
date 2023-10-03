@@ -12,6 +12,10 @@ export enum CardType {
   // Monster = 'Monster',
 }
 
+export interface CardDataMap {
+  [key: string]: CardData[];
+}
+
 export interface CardData {
   id: string;
   title: string;
