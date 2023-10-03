@@ -12,35 +12,6 @@ export enum CardType {
   // Monster = 'Monster',
 }
 
-export type Ability = 'strength' | 'dexterity' | 'constitution' | 'intelligence' | 'wisdom' | 'charisma';
-export type Skill =
-  | 'athletics'
-  | 'feats of strength or other'
-  | 'acrobatics'
-  | 'sleight of hand'
-  | 'stealth'
-  | 'pick lock or disarm trap'
-  | 'concentration'
-  | 'arcana history nature religion'
-  | 'investigation other'
-  | 'animal handling'
-  | 'insight perception'
-  | 'animal handling medicine other'
-  | 'deception'
-  | 'intimidation'
-  | 'performance'
-  | 'persuasion';
-
-export type Rule =
-  | 'strength'
-  | 'dexterity'
-  | 'constitution'
-  | 'intelligence'
-  | 'wisdom'
-  | 'charisma'
-  | 'conditions'
-  | 'cover';
-
 export interface CardData {
   id: string;
   title: string;

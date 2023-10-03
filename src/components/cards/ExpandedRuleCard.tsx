@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, Rule, SkillDescription, RuleTable } from '../../interfaces';
+import { CardData, SkillDescription, RuleTable } from '../../interfaces';
 import { RULES, RULE_DATA } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
@@ -249,7 +249,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
             value={title}
             label="Rule"
             data-testid="rule-select"
-            onChange={(e) => setTitle(e.target.value as Rule)}
+            onChange={(e) => setTitle(e.target.value)}
           >
             {RULES.map((value) => (
               <MenuItem key={value} value={value} data-testid="select-option">

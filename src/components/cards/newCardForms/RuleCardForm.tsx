@@ -2,7 +2,6 @@ import { SelectChangeEvent } from '@mui/material';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { RULES } from '../../../ruleData';
-import { Ability } from '../../../interfaces';
 import { splitAndTitleCase } from '../../../utils';
 import { GenericCardContent } from '../../../interfaces';
 
@@ -12,7 +11,7 @@ const RuleCardForm: React.FC<{
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
 }> = ({ title, setTitle, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
-    setTitle(e.target.value as Ability);
+    setTitle(e.target.value);
     setContent({ content: splitAndTitleCase(e.target.value) });
   };
   return (
