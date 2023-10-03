@@ -13,6 +13,7 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
+import RuleCardForm from './newCardForms/RuleCardForm';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
@@ -117,6 +118,8 @@ const NewCardModal: React.FC<{
             data-testid="note-form"
           />
         );
+      case CardType.Rule:
+        return <RuleCardForm title={title} setTitle={setTitle} setContent={setContent} data-testid="rule-form" />;
       default:
         return <div>default</div>;
     }

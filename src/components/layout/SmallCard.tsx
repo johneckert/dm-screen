@@ -8,6 +8,9 @@ import Typography from '@mui/material/Typography';
 import { SmallCardProps } from '../../interfaces';
 import { getScreenSize, avatarColor } from '../../utils';
 import { HEADER_HEIGHT, NUMBER_OF_ROWS } from '../../constants';
+import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import PushPinIcon from '@mui/icons-material/PushPin';
+import { splitAndTitleCase } from '../../utils';
 
 const SmallCard = ({ title, content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
@@ -17,6 +20,10 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
     switch (type) {
       case CardType.Map:
         return mapContent?.roomNumber;
+      case CardType.Note:
+        return <PushPinIcon />;
+      case CardType.Rule:
+        return <LightbulbIcon />;
       default:
         return title.charAt(0).toUpperCase();
     }
@@ -50,11 +57,11 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
     >
       <CardHeader
         avatar={
-          <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(type) }}>
+          <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(type), fontWeight: 'bold' }}>
             {avatar()}
           </Avatar>
         }
-        title={title}
+        title={splitAndTitleCase(title)}
       />
       <CardContent>
         <Container>
