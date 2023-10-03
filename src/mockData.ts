@@ -1,5 +1,4 @@
 import { CardType } from './interfaces';
-import { WELCOME_CARDS } from './welcomeCard';
 
 export const mockCardData = [
   {
