@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
-import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
+import { useLocalStorage } from 'usehooks-ts';
 import { CardDataMap } from '../interfaces';
 import { WELCOME_CARDS } from '../welcomeCard';
 
 const useCardStorage: () => [CardDataMap, (cards: CardDataMap) => void] = () => {
-  const savedCards = useReadLocalStorage('cards');
   const [storedCards, setStoredCards] = useLocalStorage('cards', WELCOME_CARDS);
 
   const filterCards = () => {
@@ -18,12 +16,6 @@ const useCardStorage: () => [CardDataMap, (cards: CardDataMap) => void] = () => 
   const setCards = (cards: CardDataMap) => {
     setStoredCards(Object.values(cards).flat());
   };
-
-  useEffect(() => {
-    if (!savedCards) {
-      setStoredCards(WELCOME_CARDS);
-    }
-  }, []);
 
   return [filterCards(), setCards];
 };

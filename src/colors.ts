@@ -18,7 +18,8 @@ export const PURPLE = {
 };
 
 export const GREY = {
-  100: '#DBDBDB',
+  100: '#F5F5F5',
+  200: '#DBDBDB',
   300: '#959595',
   500: '#595959',
 };

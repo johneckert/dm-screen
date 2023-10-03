@@ -10,6 +10,7 @@ import ExpandedNoteCard from '../cards/ExpandedNoteCard';
 import ExpandedMapCard from '../cards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/ExpandedRuleCard';
 import NewCardModal from '../cards/NewCardModal';
+import { GREY } from '../../colors';
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -23,7 +24,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     paddingRight: theme.spacing(1),
     display: 'flex',
     flexWrap: 'wrap',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: GREY[100],
   },
 }));
 
