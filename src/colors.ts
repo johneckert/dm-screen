@@ -23,5 +23,17 @@ export const GREY = {
   500: '#595959',
 };
 
+export const AMBER = {
+  100: '#FFF7E9',
+  200: '#FFE8BD',
+  300: '#FFDC99',
+  400: '#FFD27C',
+  500: '#FFB526',
+  600: '#CC901E',
+  700: '#996C16',
+  800: '#664806',
+  900: '#332407',
+};
+
 export const BLACK = '#000000';
 export const WHITE = '#FFFFFF';

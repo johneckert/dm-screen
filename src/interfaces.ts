@@ -7,7 +7,7 @@ export interface SmallCardProps {
 export enum CardType {
   Note = 'Note',
   // PC = 'PC',
-  // Rule = 'Rule',
+  Rule = 'Rule',
   Map = 'Map',
   // Monster = 'Monster',
 }
@@ -29,4 +29,32 @@ export interface GenericCardContent {
 export interface ScreenSize {
   width: number;
   height: number;
+}
+
+export type SkillDescription = string | { [key: string]: string };
+
+export interface SkillBreakDown {
+  [key: string]: SkillDescription | string;
+}
+
+export type SkillValue = SkillBreakDown | Record<string, string>;
+
+export interface SkillGroup {
+  [key: string]: SkillBreakDown;
+}
+
+export interface SkillData {
+  [key: string]: SkillGroup;
+}
+
+export interface RuleTable {
+  description?: SkillDescription;
+  headers: string[];
+  rows: { [key: string]: string }[];
+}
+
+export interface RuleData {
+  [key: string]: {
+    [key: string]: RuleTable;
+  };
 }

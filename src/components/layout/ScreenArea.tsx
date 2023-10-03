@@ -9,6 +9,7 @@ import { getScreenSize } from '../../utils';
 import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import ExpandedNoteCard from '../cards/ExpandedNoteCard';
 import ExpandedMapCard from '../cards/ExpandedMapCard';
+import ExpandedRuleCard from '../cards/ExpandedRuleCard';
 import NewCardModal from '../cards/NewCardModal';
 
 interface CardDataMap {
@@ -53,6 +54,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     paddingRight: theme.spacing(1),
     display: 'flex',
     flexWrap: 'wrap',
+    backgroundColor: '#f5f5f5',
   },
 }));
 
@@ -194,6 +196,15 @@ const ScreenArea: React.FC = () => {
         case CardType.Map:
           return (
             <ExpandedMapCard
+              closeExpandedCard={closeExpandedCard}
+              expandedCardData={expandedCardData}
+              updateCard={updateCard}
+              deleteCard={deleteCard}
+            />
+          );
+        case CardType.Rule:
+          return (
+            <ExpandedRuleCard
               closeExpandedCard={closeExpandedCard}
               expandedCardData={expandedCardData}
               updateCard={updateCard}
