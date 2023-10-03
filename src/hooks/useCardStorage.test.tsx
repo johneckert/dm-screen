@@ -1,5 +1,5 @@
 import useCardStorage from './useCardStorage';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import { useLocalStorage } from 'usehooks-ts';
 import { WELCOME_CARDS } from '../welcomeCard';
 import { mockCardData, mockCardDataMap } from '../mockData';
