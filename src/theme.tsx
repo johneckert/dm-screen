@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { PURPLE, RED, TEAL } from './colors';
+import { PURPLE, RED, TEAL, WHITE } from './colors';
 import { BREAKPOINTS } from './constants';
 
 // A custom theme for this app
@@ -15,7 +15,7 @@ const theme = createTheme({
       main: RED[500],
     },
     background: {
-      paper: '#fff',
+      paper: WHITE,
     },
   },
   spacing: 8,
