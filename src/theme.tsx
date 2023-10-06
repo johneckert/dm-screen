@@ -7,6 +7,7 @@ const theme = createTheme({
   palette: {
     primary: {
       main: PURPLE[500],
+      light: PURPLE[200],
     },
     secondary: {
       main: TEAL[500],
