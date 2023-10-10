@@ -82,15 +82,15 @@ const MainMenu = () => {
     const file = target.files?.[0];
     const reader = new FileReader();
     reader.onload = (event) => {
-      const cards = JSON.parse(event.target?.result as string);
-      localStorage.setItem('cards', cards);
-      window.location.reload();
+      if (file && validateFileType(file)) {
+        const cards = JSON.parse(event.target?.result as string);
+        localStorage.setItem('cards', cards);
+        window.location.reload();
+      } else {
+        console.log('Invalid file type!');
+      }
     };
-    if (file && validateFileType(file)) {
-      reader.readAsText(file as Blob);
-    } else {
-      console.log('Invalid file type!');
-    }
+    reader.readAsText(file as Blob);
   };
 
   const resetCards = () => {
@@ -113,7 +113,11 @@ const MainMenu = () => {
           <CloudUploadIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Upload file</Typography>
         </ListItem>
-        <ListItem onClick={resetCards} className={`${classes.menuOption} ${classes.destructive}`}>
+        <ListItem
+          onClick={resetCards}
+          className={`${classes.menuOption} ${classes.destructive}`}
+          data-testid="reset-button"
+        >
           <DeleteIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Reset cards</Typography>
         </ListItem>

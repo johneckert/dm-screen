@@ -5,7 +5,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { act } from 'react-dom/test-utils';
 
-// jest.spyOn(Storage.prototype, 'setItem');
+jest.spyOn(Storage.prototype, 'setItem');
+jest.spyOn(Storage.prototype, 'removeItem');
 
 const blob = new Blob([JSON.stringify(mockCardData)]);
 const file = new File([blob], 'dmscreen.json', {
@@ -25,8 +26,8 @@ describe('<MainMenu />', () => {
   });
 
   beforeEach(() => {
-    // jest.spyOn(Storage.prototype, 'setItem');
-    jest.spyOn(localStorage, 'setItem');
+    localStorage.clear();
+    jest.clearAllMocks();
   });
 
   afterAll(() => {
@@ -48,7 +49,7 @@ describe('<MainMenu />', () => {
     expect(document.createElement).toHaveBeenCalledWith('a');
   });
 
-  it('uploads file and saves to localStorage', () => {
+  it('uploads file and saves to localStorage', async () => {
     render(
       <ThemeProvider theme={theme}>
         <MainMenu />
@@ -61,12 +62,12 @@ describe('<MainMenu />', () => {
       value: [file],
     });
     fireEvent.change(inputEl);
-    waitFor(() => {
+    await waitFor(() => {
       expect(localStorage.setItem).toHaveBeenCalled();
     });
   });
 
-  it('reloads the page when upload is complete', () => {
+  it('reloads the page when upload is complete', async () => {
     render(
       <ThemeProvider theme={theme}>
         <MainMenu />
@@ -79,12 +80,12 @@ describe('<MainMenu />', () => {
       value: [file],
     });
     fireEvent.change(inputEl);
-    waitFor(() => {
+    await waitFor(() => {
       expect(window.location.reload).toHaveBeenCalled();
     });
   });
 
-  it('does not save file if file type is invalid', () => {
+  it('does not save file if file type is invalid', async () => {
     render(
       <ThemeProvider theme={theme}>
         <MainMenu />
@@ -97,8 +98,23 @@ describe('<MainMenu />', () => {
       value: [fileWithWrongType],
     });
     fireEvent.change(inputEl);
-    waitFor(() => {
-      expect(localStorage.setItem).toHaveBeenCalled();
+    await waitFor(() => {
+      expect(localStorage.setItem).not.toHaveBeenCalled();
+      expect(window.location.reload).not.toHaveBeenCalled();
     });
+  });
+
+  it('clears localStorage when reset button is clicked', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <MainMenu />
+      </ThemeProvider>,
+    );
+
+    act(() => {
+      screen.getByTestId('reset-button').click();
+    });
+    expect(localStorage.removeItem).toHaveBeenCalledWith('cards');
+    expect(window.location.reload).toHaveBeenCalled();
   });
 });
