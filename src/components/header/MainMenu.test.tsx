@@ -5,11 +5,15 @@ import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { act } from 'react-dom/test-utils';
 
-jest.spyOn(Storage.prototype, 'setItem');
+// jest.spyOn(Storage.prototype, 'setItem');
 
 const blob = new Blob([JSON.stringify(mockCardData)]);
 const file = new File([blob], 'dmscreen.json', {
   type: 'application/JSON',
+});
+
+const fileWithWrongType = new File([blob], 'dmscreen.json', {
+  type: 'image/jpeg',
 });
 
 describe('<MainMenu />', () => {
@@ -18,6 +22,11 @@ describe('<MainMenu />', () => {
       configurable: true,
       value: { reload: jest.fn() },
     });
+  });
+
+  beforeEach(() => {
+    // jest.spyOn(Storage.prototype, 'setItem');
+    jest.spyOn(localStorage, 'setItem');
   });
 
   afterAll(() => {
@@ -72,6 +81,24 @@ describe('<MainMenu />', () => {
     fireEvent.change(inputEl);
     waitFor(() => {
       expect(window.location.reload).toHaveBeenCalled();
+    });
+  });
+
+  it('does not save file if file type is invalid', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <MainMenu />
+      </ThemeProvider>,
+    );
+
+    const inputEl = screen.getByTestId('file-input');
+
+    Object.defineProperty(inputEl, 'files', {
+      value: [fileWithWrongType],
+    });
+    fireEvent.change(inputEl);
+    waitFor(() => {
+      expect(localStorage.setItem).toHaveBeenCalled();
     });
   });
 });

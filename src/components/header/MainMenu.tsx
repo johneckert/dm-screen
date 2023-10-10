@@ -1,16 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import { WHITE } from '../../colors';
+import { WHITE, RED } from '../../colors';
 import { styled } from '@mui/material/styles';
-import { validateFileType, validateData } from '../../utils';
-import { CardData } from '../../interfaces';
+import { validateFileType } from '../../utils';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -41,6 +41,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
     '&:first-child': {
       paddingRight: theme.spacing(4),
     },
+  },
+  destructive: {
+    color: theme.palette.error.light,
   },
 }));
 
@@ -77,17 +80,22 @@ const MainMenu = () => {
   const uploadCards = (e: React.SyntheticEvent) => {
     const target = e.target as HTMLInputElement;
     const file = target.files?.[0];
-    if (!file || !validateFileType(file)) {
-      console.log('Invalid file type!');
-      return;
-    }
     const reader = new FileReader();
     reader.onload = (event) => {
       const cards = JSON.parse(event.target?.result as string);
       localStorage.setItem('cards', cards);
-      reader.readAsText(file as Blob);
       window.location.reload();
     };
+    if (file && validateFileType(file)) {
+      reader.readAsText(file as Blob);
+    } else {
+      console.log('Invalid file type!');
+    }
+  };
+
+  const resetCards = () => {
+    localStorage.removeItem('cards');
+    window.location.reload();
   };
 
   return (
@@ -104,6 +112,10 @@ const MainMenu = () => {
           <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
           <CloudUploadIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Upload file</Typography>
+        </ListItem>
+        <ListItem onClick={resetCards} className={`${classes.menuOption} ${classes.destructive}`}>
+          <DeleteIcon sx={{ pr: 1, width: 40 }} />
+          <Typography variant="body2">Reset cards</Typography>
         </ListItem>
       </List>
       <Divider />
