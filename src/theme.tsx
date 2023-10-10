@@ -14,6 +14,7 @@ const theme = createTheme({
     },
     error: {
       main: RED[500],
+      light: RED[300],
     },
     background: {
       paper: WHITE,
