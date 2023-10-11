@@ -104,6 +104,24 @@ describe('<MainMenu />', () => {
     });
   });
 
+  it('shows feedback modal if file type is invalid', async () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <MainMenu />
+      </ThemeProvider>,
+    );
+
+    const inputEl = screen.getByTestId('file-input');
+
+    Object.defineProperty(inputEl, 'files', {
+      value: [fileWithWrongType],
+    });
+    fireEvent.change(inputEl);
+    await waitFor(() => {
+      expect(screen.getByText(/Please upload a JSON file./i)).toBeInTheDocument();
+    });
+  });
+
   it('clears localStorage when reset button is clicked and choice is verified', () => {
     render(
       <ThemeProvider theme={theme}>
