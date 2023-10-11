@@ -1,6 +1,7 @@
 import { ScreenSize, CardType } from './interfaces';
 import { BREAKPOINTS } from './constants';
 import { PURPLE, TEAL, AMBER } from './colors';
+import { toLower } from 'lodash';
 
 export const getScreenSize = () => {
   return { width: window.innerWidth, height: window.innerHeight };
@@ -35,4 +36,30 @@ export const splitAndTitleCase = (str: string, splitChar: string = ' ', joinChar
     .split(splitChar)
     .map((word) => (ignoreWords.includes(word) ? word : word[0].toUpperCase() + word.slice(1)))
     .join(joinChar);
+};
+
+export const validateFileType = (file: File) => {
+  if (toLower(file.type) !== 'application/json') {
+    return false;
+  }
+  return true;
+};
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore-next-line
+export const validateData = (data) => {
+  let valid = true;
+  const parsedData = data;
+  if (!parsedData) {
+    return false;
+  }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore-next-line
+  parsedData.forEach((card) => {
+    console.log(card);
+    if (!card.id || !card.type || !card.title || !card.content || !card.column) {
+      valid = false;
+    }
+  });
+  return valid;
 };

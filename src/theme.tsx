@@ -7,12 +7,14 @@ const theme = createTheme({
   palette: {
     primary: {
       main: PURPLE[500],
+      light: PURPLE[200],
     },
     secondary: {
       main: TEAL[500],
     },
     error: {
       main: RED[500],
+      light: RED[300],
     },
     background: {
       paper: WHITE,

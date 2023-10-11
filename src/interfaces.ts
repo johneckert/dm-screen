@@ -12,6 +12,12 @@ export enum CardType {
   // Monster = 'Monster',
 }
 
+export enum DialogTypes {
+  Upload = 'upload',
+  Reset = 'reset',
+  FileType = 'fileType',
+}
+
 export interface CardDataMap {
   [key: string]: CardData[];
 }
