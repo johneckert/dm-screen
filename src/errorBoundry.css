@@ -1,0 +1,66 @@
+.error-container {
+  width: 100%;
+  display: 'flex';
+  flex-direction: 'column';
+  align-items: center;
+  justify-content: center;
+}
+
+.help-messege {
+  text-align: center;
+}
+
+.art-container {
+  width: 100%;
+  display: 'flex';
+  flex-direction: 'column';
+  padding-top: 5%;
+  padding-left: 35%;
+}
+
+.owlbear {
+  width: 20%;
+}
+
+.speech-bubble {
+  width: 25%;
+  margin-left: 15%;
+  border: 0.5vmin solid #51565f;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: #f2edda;
+  box-shadow: 0 -0.25vmin;
+}
+
+.speech-bubble:before {
+  content: '';
+  display: block;
+  position: absolute;
+}
+
+.bubble {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 0.5vmin solid #51565f;
+  background: #f2edda;
+  box-shadow: 0 -0.25vmin;
+}
+
+.top {
+  margin-left: 24%;
+  margin-top: 2%;
+}
+
+.middle {
+  margin-left: 21%;
+  margin-top: 2%;
+}
+
+.bottom {
+  margin-left: 18%;
+  margin-top: 2%;
+}
