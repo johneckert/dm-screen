@@ -11,6 +11,9 @@ import { Theme } from '@mui/material/styles';
 import { WHITE, RED } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
+import VerificationDialog from '../modals/VerificationDialog';
+import { DialogTypes } from '../../interfaces';
+import { DIALOG_MESSAGES } from '../../constants';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -62,6 +65,16 @@ const VisuallyHiddenInput = styled('input')({
 const MainMenu = () => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
+  const [showDialog, setShowDialog] = React.useState<DialogTypes | null>(null);
+
+  const handleVerifyUpload = () => {
+    setShowDialog(DialogTypes.Upload);
+  };
+
+  const handleVerifyReset = () => {
+    setShowDialog(DialogTypes.Reset);
+  };
+
   const passClickToInput = () => {
     fileUploadRef.current?.click();
   };
@@ -98,6 +111,19 @@ const MainMenu = () => {
     window.location.reload();
   };
 
+  const handleCancel = () => {
+    setShowDialog(null);
+  };
+
+  const handleConfirm = () => {
+    if (showDialog === DialogTypes.Upload) {
+      passClickToInput();
+    } else if (showDialog === DialogTypes.Reset) {
+      resetCards();
+    }
+    setShowDialog(null);
+  };
+
   return (
     <>
       <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
@@ -108,13 +134,13 @@ const MainMenu = () => {
           <SaveAltIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Download file</Typography>
         </ListItem>
-        <ListItem onClick={passClickToInput} className={classes.menuOption}>
+        <ListItem onClick={() => setShowDialog(DialogTypes.Upload)} className={classes.menuOption}>
           <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
           <CloudUploadIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Upload file</Typography>
         </ListItem>
         <ListItem
-          onClick={resetCards}
+          onClick={() => setShowDialog(DialogTypes.Reset)}
           className={`${classes.menuOption} ${classes.destructive}`}
           data-testid="reset-button"
         >
@@ -123,6 +149,14 @@ const MainMenu = () => {
         </ListItem>
       </List>
       <Divider />
+      {showDialog && (
+        <VerificationDialog
+          dialogOpen={!!showDialog}
+          dialogMessage={showDialog ? DIALOG_MESSAGES[showDialog] : ''}
+          handleCancel={handleCancel}
+          handleConfirm={handleConfirm}
+        />
+      )}
     </>
   );
 };

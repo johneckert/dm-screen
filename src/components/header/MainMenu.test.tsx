@@ -104,7 +104,7 @@ describe('<MainMenu />', () => {
     });
   });
 
-  it('clears localStorage when reset button is clicked', () => {
+  it('clears localStorage when reset button is clicked and choice is verified', () => {
     render(
       <ThemeProvider theme={theme}>
         <MainMenu />
@@ -113,6 +113,10 @@ describe('<MainMenu />', () => {
 
     act(() => {
       screen.getByTestId('reset-button').click();
+    });
+
+    act(() => {
+      screen.getByTestId('confirm-button').click();
     });
     expect(localStorage.removeItem).toHaveBeenCalledWith('cards');
     expect(window.location.reload).toHaveBeenCalled();
