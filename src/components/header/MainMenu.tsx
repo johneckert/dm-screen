@@ -8,7 +8,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import { WHITE, RED } from '../../colors';
+import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
