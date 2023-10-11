@@ -1,6 +1,4 @@
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import Owlbear from './assets/images/owlbear.svg';
 import './errorBoundry.css';
 
