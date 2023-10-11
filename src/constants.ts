@@ -19,4 +19,5 @@ export const NUMBER_OF_COLUMNS = {
 export const DIALOG_MESSAGES = {
   upload: 'This will reset all of your current cards. Are you sure you want to continue?',
   reset: 'This will delete all of your current cards. Are you sure you want to continue?',
+  fileType: 'Please upload a JSON file.',
 };

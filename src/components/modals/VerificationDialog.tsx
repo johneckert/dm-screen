@@ -7,7 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import { Theme } from '@mui/material/styles';
 import { Typography } from '@mui/material';
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles<Theme, { confirmOnly: boolean }>((theme) => ({
   modal: {
     position: 'absolute',
     top: '50%',
@@ -33,7 +33,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     width: '100%',
     display: 'flex',
     alignSelf: 'flex-end',
-    justifyContent: 'space-between',
+    justifyContent: ({ confirmOnly }) => (confirmOnly ? 'center' : 'space-between'),
     alignItems: 'center',
   },
   modalButton: {
@@ -52,6 +52,7 @@ interface VerificationDialogProps {
   handleCancel: () => void;
   handleConfirm: () => void;
   dialogOpen: boolean;
+  confirmOnly?: boolean;
 }
 
 const VerificationDialog: React.FC<VerificationDialogProps> = ({
@@ -59,8 +60,9 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({
   handleCancel,
   handleConfirm,
   dialogOpen,
+  confirmOnly = false,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ confirmOnly: confirmOnly });
   return (
     <Modal
       open={dialogOpen}
@@ -74,15 +76,17 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({
           <Typography variant="h6">{dialogMessage}</Typography>
         </Box>
         <Box className={classes.buttonArea}>
-          <Button
-            variant="outlined"
-            className={classes.modalButton}
-            aria-label="cancel-button"
-            onClick={handleCancel}
-            data-testid="cancel-button"
-          >
-            Cancel
-          </Button>
+          {!confirmOnly && (
+            <Button
+              variant="outlined"
+              className={classes.modalButton}
+              aria-label="cancel-button"
+              onClick={handleCancel}
+              data-testid="cancel-button"
+            >
+              Cancel
+            </Button>
+          )}
           <Button
             variant="contained"
             className={classes.modalButton}

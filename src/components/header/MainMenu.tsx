@@ -65,16 +65,7 @@ const VisuallyHiddenInput = styled('input')({
 const MainMenu = () => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
-  const [showDialog, setShowDialog] = React.useState<DialogTypes | null>(null);
-
-  const handleVerifyUpload = () => {
-    setShowDialog(DialogTypes.Upload);
-  };
-
-  const handleVerifyReset = () => {
-    setShowDialog(DialogTypes.Reset);
-  };
-
+  const [dialogType, setDialogType] = React.useState<DialogTypes | null>(null);
   const passClickToInput = () => {
     fileUploadRef.current?.click();
   };
@@ -100,7 +91,7 @@ const MainMenu = () => {
         localStorage.setItem('cards', cards);
         window.location.reload();
       } else {
-        console.log('Invalid file type!');
+        setDialogType(DialogTypes.FileType);
       }
     };
     reader.readAsText(file as Blob);
@@ -112,16 +103,16 @@ const MainMenu = () => {
   };
 
   const handleCancel = () => {
-    setShowDialog(null);
+    setDialogType(null);
   };
 
   const handleConfirm = () => {
-    if (showDialog === DialogTypes.Upload) {
+    if (dialogType === DialogTypes.Upload) {
       passClickToInput();
-    } else if (showDialog === DialogTypes.Reset) {
+    } else if (dialogType === DialogTypes.Reset) {
       resetCards();
     }
-    setShowDialog(null);
+    setDialogType(null);
   };
 
   return (
@@ -134,13 +125,13 @@ const MainMenu = () => {
           <SaveAltIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Download file</Typography>
         </ListItem>
-        <ListItem onClick={() => setShowDialog(DialogTypes.Upload)} className={classes.menuOption}>
+        <ListItem onClick={() => setDialogType(DialogTypes.Upload)} className={classes.menuOption}>
           <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
           <CloudUploadIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Upload file</Typography>
         </ListItem>
         <ListItem
-          onClick={() => setShowDialog(DialogTypes.Reset)}
+          onClick={() => setDialogType(DialogTypes.Reset)}
           className={`${classes.menuOption} ${classes.destructive}`}
           data-testid="reset-button"
         >
@@ -149,12 +140,13 @@ const MainMenu = () => {
         </ListItem>
       </List>
       <Divider />
-      {showDialog && (
+      {dialogType && (
         <VerificationDialog
-          dialogOpen={!!showDialog}
-          dialogMessage={showDialog ? DIALOG_MESSAGES[showDialog] : ''}
+          dialogOpen={!!dialogType}
+          dialogMessage={dialogType ? DIALOG_MESSAGES[dialogType] : ''}
           handleCancel={handleCancel}
           handleConfirm={handleConfirm}
+          confirmOnly={dialogType === DialogTypes.FileType}
         />
       )}
     </>
