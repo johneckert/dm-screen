@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<Props, State> {
   public render() {
     if (this.state.hasError) {
       return (
-        <div className="error-container">
+        <div className="error-container" data-testid="error-boundry">
           <div className="art-container">
             <div className="speech-bubble">
               <h2>Something went wrong.</h2>
