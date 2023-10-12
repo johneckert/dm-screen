@@ -21,3 +21,5 @@ export const DIALOG_MESSAGES = {
   reset: 'This will delete all of your card data. Are you sure you want to continue?',
   fileType: 'Please upload a JSON file.',
 };
+
+export const DEFAULT_TAB = 'tab-1';

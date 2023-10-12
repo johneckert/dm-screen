@@ -1,9 +1,11 @@
-import { useLocalStorage } from 'usehooks-ts';
+import { useLocalStorage, useReadLocalStorage } from 'usehooks-ts';
 import { CardDataMap } from '../interfaces';
 import { WELCOME_CARDS } from '../welcomeCard';
 
 const useCardStorage: () => [CardDataMap, (cards: CardDataMap) => void] = () => {
+  const activeTab = useReadLocalStorage('activeTab');
   const [storedCards, setStoredCards] = useLocalStorage('cards', WELCOME_CARDS);
+
   const emptyCardMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] } as CardDataMap;
 
   const mappedCards = storedCards.reduce((filteredCards: CardDataMap, card) => {

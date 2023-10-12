@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useReadLocalStorage } from 'usehooks-ts';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -14,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
 import RuleCardForm from './newCardForms/RuleCardForm';
+import { DEFAULT_TAB } from '../../constants';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
@@ -80,12 +82,13 @@ const NewCardModal: React.FC<{
 }> = ({ showNewCard, columnId, createCard, closeNewCardModal }) => {
   const classes = useStyles();
   const id = uuidv4();
-  const [title, setTitle] = React.useState('');
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState({} as GenericCardContent);
-  const [cardType, setCardType] = React.useState<CardType>(CardType.Note);
+  const [cardType, setCardType] = useState<CardType>(CardType.Note);
+  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TAB;
 
   const handleSave = () => {
-    createCard({ id, title, content, type: cardType, column: columnId });
+    createCard({ id, title, content, type: cardType, column: columnId, tab: activeTab });
     setTitle('');
     setContent({} as GenericCardContent);
   };

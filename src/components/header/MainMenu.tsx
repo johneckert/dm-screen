@@ -8,12 +8,13 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import { WHITE } from '../../colors';
+import { WHITE, GREY } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes } from '../../interfaces';
 import { DIALOG_MESSAGES } from '../../constants';
+import { upperFirst } from 'lodash';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -48,6 +49,12 @@ const useStyles = makeStyles<Theme>((theme) => ({
   destructive: {
     color: theme.palette.error.light,
   },
+  isActive: {
+    fontWeight: 'bold',
+  },
+  notActive: {
+    color: GREY[500],
+  },
 }));
 
 const VisuallyHiddenInput = styled('input')({
@@ -62,7 +69,14 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const MainMenu = () => {
+interface MainMenuProps {
+  tabs: string[];
+  setTabs: (tabs: string[]) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab }) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
   const [dialogType, setDialogType] = React.useState<DialogTypes | null>(null);
@@ -97,11 +111,6 @@ const MainMenu = () => {
     reader.readAsText(file as Blob);
   };
 
-  const resetCards = () => {
-    localStorage.removeItem('cards');
-    window.location.reload();
-  };
-
   const handleCancel = () => {
     setDialogType(null);
   };
@@ -110,9 +119,14 @@ const MainMenu = () => {
     if (dialogType === DialogTypes.Upload) {
       passClickToInput();
     } else if (dialogType === DialogTypes.Reset) {
-      resetCards();
+      localStorage.removeItem('cards');
+      window.location.reload();
     }
     setDialogType(null);
+  };
+
+  const createNewTab = () => {
+    setTabs([...tabs, `tab-${tabs.length + 1}`]);
   };
 
   return (
@@ -140,6 +154,23 @@ const MainMenu = () => {
         </ListItem>
       </List>
       <Divider />
+      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
+        Tabs
+      </Typography>
+      <List className={classes.menuList}>
+        {tabs.map((tab) => (
+          <ListItem
+            key={tab}
+            className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
+            onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
+          >
+            <Typography variant="body2">{upperFirst(tab.split('-').join(' '))}</Typography>
+          </ListItem>
+        ))}
+        <ListItem className={classes.menuOption} onClick={createNewTab}>
+          <Typography variant="body2">Create new tab</Typography>
+        </ListItem>
+      </List>
       {dialogType && (
         <VerificationDialog
           dialogOpen={!!dialogType}

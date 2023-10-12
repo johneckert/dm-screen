@@ -28,7 +28,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-const ScreenArea: React.FC = () => {
+const ScreenArea: React.FC<{ activeTab: string }> = ({ activeTab }) => {
   const [cards, setCards] = useCardStorage();
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
   const classes = useStyles({ screenSize: screenSize });
@@ -144,6 +144,8 @@ const ScreenArea: React.FC = () => {
     setCards(updatedList);
   };
 
+  const activeTabCards = (cards: CardData[]) => cards.filter((card) => card.tab === activeTab);
+
   const renderCard = () => {
     if (expandedCardData) {
       switch (expandedCardData.type) {
@@ -186,25 +188,25 @@ const ScreenArea: React.FC = () => {
         <div className={classes.screenArea} data-testid="screen-area">
           <Column
             columnId={1}
-            cards={cards['droppable-1']}
+            cards={activeTabCards(cards['droppable-1'])}
             expandCard={setExpandedCardId}
             openCreateCard={openCreateCard}
           />
           <Column
             columnId={2}
-            cards={cards['droppable-2']}
+            cards={activeTabCards(cards['droppable-2'])}
             expandCard={setExpandedCardId}
             openCreateCard={openCreateCard}
           />
           <Column
             columnId={3}
-            cards={cards['droppable-3']}
+            cards={activeTabCards(cards['droppable-3'])}
             expandCard={setExpandedCardId}
             openCreateCard={openCreateCard}
           />
           <Column
             columnId={4}
-            cards={cards['droppable-4']}
+            cards={activeTabCards(cards['droppable-4'])}
             expandCard={setExpandedCardId}
             openCreateCard={openCreateCard}
           />
