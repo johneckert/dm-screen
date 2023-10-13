@@ -163,11 +163,12 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
             key={tab}
             className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
             onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
+            data-testid="tab-button"
           >
             <Typography variant="body2">{upperFirst(tab.split('-').join(' '))}</Typography>
           </ListItem>
         ))}
-        <ListItem className={classes.menuOption} onClick={createNewTab}>
+        <ListItem className={classes.menuOption} onClick={createNewTab} data-testid="add-tab-button">
           <Typography variant="body2">Create new tab</Typography>
         </ListItem>
       </List>
