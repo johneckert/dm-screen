@@ -19,7 +19,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-interface HeaderProps {
+export interface HeaderProps {
   tabs: string[];
   setTabs: (tabs: string[]) => void;
   activeTab: string;

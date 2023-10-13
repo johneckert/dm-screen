@@ -23,12 +23,14 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-const Column: React.FC<{
+export interface ColumnProps {
   cards: CardData[];
   columnId: number;
   expandCard: (id: string) => void;
   openCreateCard: (columnId: number) => void;
-}> = ({ cards, columnId, expandCard, openCreateCard }) => {
+}
+
+const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, openCreateCard }) => {
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
