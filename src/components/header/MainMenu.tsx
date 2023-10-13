@@ -10,11 +10,10 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { WHITE, GREY } from '../../colors';
 import { styled } from '@mui/material/styles';
-import { validateFileType } from '../../utils';
+import { validateFileType, upperFirst } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes } from '../../interfaces';
 import { DIALOG_MESSAGES } from '../../constants';
-import { upperFirst } from 'lodash';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
