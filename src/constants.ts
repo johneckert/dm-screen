@@ -1,3 +1,5 @@
+import { CardDataMap } from './interfaces.ts';
+
 export const BREAKPOINTS = {
   sm: 600,
   md: 800,
@@ -23,3 +25,10 @@ export const DIALOG_MESSAGES = {
 };
 
 export const DEFAULT_TAB = 'tab-1';
+
+export const EMPTY_CARD_MAP = {
+  'droppable-1': [],
+  'droppable-2': [],
+  'droppable-3': [],
+  'droppable-4': [],
+} as CardDataMap;

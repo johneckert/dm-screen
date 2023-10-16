@@ -1,6 +1,7 @@
-import { ScreenSize, CardType } from './interfaces';
+import { ScreenSize, CardData, CardDataMap, CardType } from './interfaces';
 import { BREAKPOINTS } from './constants';
 import { PURPLE, TEAL, AMBER } from './colors';
+import { EMPTY_CARD_MAP } from './constants';
 
 export const getScreenSize = () => {
   return { width: window.innerWidth, height: window.innerHeight };
@@ -14,6 +15,16 @@ export const getBreakPoint = (screenSize: ScreenSize) => {
   } else {
     return 'sm';
   }
+};
+
+export const mapCards = (cards: CardData[]) =>
+  cards.reduce((filteredCards: CardDataMap, card) => {
+    filteredCards[card.column].push(card);
+    return filteredCards;
+  }, EMPTY_CARD_MAP);
+
+export const flattenCards = (cardDataMap: CardDataMap) => {
+  return Object.values(cardDataMap).flat();
 };
 
 export const avatarColor = (type: CardType) => {
