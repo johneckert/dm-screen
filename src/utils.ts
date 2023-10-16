@@ -56,22 +56,3 @@ export const validateFileType = (file: File) => {
   }
   return true;
 };
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore-next-line
-export const validateData = (data) => {
-  let valid = true;
-  const parsedData = data;
-  if (!parsedData) {
-    return false;
-  }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore-next-line
-  parsedData.forEach((card) => {
-    console.log(card);
-    if (!card.id || !card.type || !card.title || !card.content || !card.column) {
-      valid = false;
-    }
-  });
-  return valid;
-};

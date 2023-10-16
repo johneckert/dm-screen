@@ -28,7 +28,7 @@ export interface CardData {
   content: GenericCardContent;
   column: string;
   type: CardType;
-  tab?: string;
+  tab: string;
 }
 
 export interface GenericCardContent {

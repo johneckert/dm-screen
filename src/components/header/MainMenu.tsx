@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -12,8 +12,11 @@ import { WHITE, GREY } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType, upperFirst } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
-import { DialogTypes } from '../../interfaces';
-import { DIALOG_MESSAGES } from '../../constants';
+import { DialogTypes, CardData } from '../../interfaces';
+import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
+import IconButton from '@mui/material/IconButton';
+import useCardStorage from '../../hooks/useCardStorage';
+import { flattenCards, mapCards } from '../../utils';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -78,10 +81,11 @@ interface MainMenuProps {
 const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab }) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
-  const [dialogType, setDialogType] = React.useState<DialogTypes | null>(null);
+  const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
   const passClickToInput = () => {
     fileUploadRef.current?.click();
   };
+  const [cards, setCards] = useCardStorage();
 
   const downloadCards = () => {
     const saveData = localStorage.getItem('cards');
@@ -100,9 +104,11 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
     const reader = new FileReader();
     reader.onload = (event) => {
       if (file && validateFileType(file)) {
-        const cards = JSON.parse(event.target?.result as string);
-        localStorage.setItem('cards', cards);
-        window.location.reload();
+        const cards = JSON.parse(JSON.parse(event.target?.result as string)) as CardData[];
+        const tabs = cards.map((card: CardData) => card.tab) ?? [DEFAULT_TAB];
+        setTabs([...new Set(tabs)]);
+        setCards(mapCards(cards));
+        setActiveTab(tabs[0]);
       } else {
         setDialogType(DialogTypes.FileType);
       }
@@ -118,14 +124,23 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
     if (dialogType === DialogTypes.Upload) {
       passClickToInput();
     } else if (dialogType === DialogTypes.Reset) {
-      localStorage.removeItem('cards');
-      window.location.reload();
+      setCards(mapCards([]));
+      setActiveTab(activeTab);
     }
     setDialogType(null);
   };
 
   const createNewTab = () => {
     setTabs([...tabs, `tab-${tabs.length + 1}`]);
+  };
+
+  const deleteTab = (tab: string) => {
+    const newTabs = tabs.filter((savedTab) => savedTab !== tab);
+    setTabs(newTabs);
+    const flatCards = flattenCards(cards);
+    const updatedCards = flatCards.filter((card) => card.tab !== tab);
+    setCards(mapCards(updatedCards));
+    setActiveTab(tabs[0]);
   };
 
   return (
@@ -161,10 +176,17 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
           <ListItem
             key={tab}
             className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
-            onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
             data-testid="tab-button"
           >
-            <Typography variant="body2">{upperFirst(tab.split('-').join(' '))}</Typography>
+            <Typography
+              variant="body2"
+              onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
+            >
+              {upperFirst(tab.split('-').join(' '))}
+            </Typography>
+            <IconButton aria-label="delete" onClick={() => deleteTab(tab)}>
+              <DeleteIcon />
+            </IconButton>
           </ListItem>
         ))}
         <ListItem className={classes.menuOption} onClick={createNewTab} data-testid="add-tab-button">
