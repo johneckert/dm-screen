@@ -176,10 +176,10 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
           <ListItem
             key={tab}
             className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
-            data-testid="tab-button"
           >
             <Typography
               variant="body2"
+              data-testid="tab-button"
               onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
             >
               {upperFirst(tab.split('-').join(' '))}
