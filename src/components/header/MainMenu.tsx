@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { generateSlug, RandomWordOptions } from 'random-word-slugs';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -10,7 +11,7 @@ import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { WHITE, GREY } from '../../colors';
 import { styled } from '@mui/material/styles';
-import { validateFileType, upperFirst } from '../../utils';
+import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes, CardData } from '../../interfaces';
 import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
@@ -38,15 +39,16 @@ const useStyles = makeStyles<Theme>((theme) => ({
   menuOption: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
     paddingX: theme.spacing(4),
     paddingY: theme.spacing(1),
     '&:hover': {
       cursor: 'pointer',
       backgroundColor: theme.palette.primary.light,
     },
-    '&:first-child': {
-      paddingRight: theme.spacing(4),
-    },
+  },
+  tab: {
+    justifyContent: 'space-between',
   },
   destructive: {
     color: theme.palette.error.light,
@@ -131,7 +133,16 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
   };
 
   const createNewTab = () => {
-    setTabs([...tabs, `tab-${tabs.length + 1}`]);
+    const options: RandomWordOptions<2> = {
+      format: 'kebab',
+      partsOfSpeech: ['adjective', 'noun'],
+      categories: {
+        adjective: ['personality'],
+        noun: ['animals'],
+      },
+    };
+    const tabName = generateSlug(2, options);
+    setTabs([...tabs, tabName]);
   };
 
   const deleteTab = (tab: string) => {
@@ -175,6 +186,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
         {tabs.map((tab) => (
           <ListItem
             key={tab}
+            sx={{ justifyContent: 'space-between' }}
             className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
           >
             <Typography
@@ -182,7 +194,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
               data-testid="tab-button"
               onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
             >
-              {upperFirst(tab.split('-').join(' '))}
+              {tab}
             </Typography>
             <IconButton aria-label="delete" onClick={() => deleteTab(tab)}>
               <DeleteIcon />

@@ -24,7 +24,7 @@ export const DIALOG_MESSAGES = {
   fileType: 'Please upload a JSON file.',
 };
 
-export const DEFAULT_TAB = 'tab-1';
+export const DEFAULT_TAB = 'welcome-info';
 
 export const EMPTY_CARD_MAP = {
   'droppable-1': [],
