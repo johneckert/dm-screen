@@ -8,6 +8,13 @@ import { EMPTY_CARD_MAP } from '../../constants';
 
 const mockSetCards = jest.fn();
 jest.mock('../../hooks/useCardStorage', () => () => [mockCardDataMap, mockSetCards]);
+jest.mock('random-word-slugs', () => ({
+  generateSlug: jest.fn().mockReturnValue('tab-4'),
+  RandomWordOptions: {
+    Adjectives: ['tab'],
+    Nouns: ['tab'],
+  },
+}));
 
 const mockProps = {
   tabs: ['tab-1', 'tab-2', 'tab-3'],
