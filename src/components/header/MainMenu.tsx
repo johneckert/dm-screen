@@ -7,6 +7,7 @@ import Divider from '@mui/material/Divider';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { WHITE, GREY } from '../../colors';
@@ -78,9 +79,18 @@ interface MainMenuProps {
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  showNewCardModal: boolean;
+  setShowNewCardModal: (showNewCardModal: boolean) => void;
 }
 
-const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab }) => {
+const MainMenu: React.FC<MainMenuProps> = ({
+  tabs,
+  setTabs,
+  activeTab,
+  setActiveTab,
+  showNewCardModal,
+  setShowNewCardModal,
+}) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
   const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
@@ -203,6 +213,20 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
         ))}
         <ListItem className={classes.menuOption} onClick={createNewTab} data-testid="add-tab-button">
           <Typography variant="body2">Create new tab</Typography>
+        </ListItem>
+      </List>
+      <Divider />
+      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
+        New Card
+      </Typography>
+      <List className={classes.menuList}>
+        <ListItem
+          onClick={() => setShowNewCardModal(true)}
+          className={classes.menuOption}
+          data-testid="new-card-button"
+        >
+          <AddBoxIcon sx={{ pr: 1, width: 40 }} />
+          <Typography variant="body2">New Card</Typography>
         </ListItem>
       </List>
       {dialogType && (

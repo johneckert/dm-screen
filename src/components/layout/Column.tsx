@@ -27,10 +27,9 @@ export interface ColumnProps {
   cards: CardData[];
   columnId: number;
   expandCard: (id: string) => void;
-  openCreateCard: (columnId: number) => void;
 }
 
-const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, openCreateCard }) => {
+const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard }) => {
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
@@ -38,9 +37,6 @@ const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, openCreate
   const classes = useStyles(styleProps);
   return (
     <div className={classes.column} data-testid="column">
-      <Button sx={{ marginY: 1, width: '100%' }} variant="contained" onClick={() => openCreateCard(columnId)}>
-        New Card
-      </Button>
       <Droppable droppableId={`droppable-${columnId}`}>
         {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment

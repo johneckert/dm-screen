@@ -9,6 +9,10 @@ import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import ReactMarkdown from 'react-markdown';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import { DEFAULT_TAB } from '../../constants';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 interface StyleProps {
   isEditing: boolean;
@@ -67,13 +71,15 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   deleteCard,
 }) => {
   const cardContent = expandedCardData.content as GenericCardContent;
+  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(cardContent.content);
+  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { content } });
+      updateCard({ ...expandedCardData, title: title, content: { content }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -98,6 +104,21 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
+            <Select
+              labelId="card-tab-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-tab-select"
+              value={cardTab}
+              label="Tab"
+              data-testid="card-tab-select"
+              onChange={(e) => setCardTab(e.target.value)}
+            >
+              {tabs.map((value) => (
+                <MenuItem key={value} value={value} data-testid="select-option">
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
             <TextField
               id="note-card-title"
               label="Title"

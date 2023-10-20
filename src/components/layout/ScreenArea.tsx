@@ -28,18 +28,18 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-const ScreenArea: React.FC<{ activeTab: string }> = ({ activeTab }) => {
+interface ScreenAreaProps {
+  activeTab: string;
+  showNewCardModal: boolean;
+  setShowNewCardModal: (showNewCardModal: boolean) => void;
+}
+
+const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, setShowNewCardModal }) => {
   const [cards, setCards] = useCardStorage();
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
   const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
-  const [newCardColumnId, setNewCardColumnId] = useState<number | null>(null);
-  const [showNewCard, setShowNewCard] = useState<boolean>(false);
-  const openCreateCard = (columnId: number) => {
-    setNewCardColumnId(columnId);
-    setShowNewCard(true);
-  };
 
   useEffect(() => {
     if (expandedCardId) {
@@ -78,7 +78,7 @@ const ScreenArea: React.FC<{ activeTab: string }> = ({ activeTab }) => {
   };
 
   const closeNewCardModal = () => {
-    setShowNewCard(false);
+    setShowNewCardModal(false);
   };
 
   const createCard = (cardData: CardData) => {
@@ -89,15 +89,19 @@ const ScreenArea: React.FC<{ activeTab: string }> = ({ activeTab }) => {
       ...cards,
       [`${columnKey}`]: targetColumn,
     });
-    setShowNewCard(false);
+    setShowNewCardModal(false);
   };
 
   const updateCard = (cardData: CardData): void => {
     const targetCard = cards[cardData.column].find((card) => card.id === cardData.id);
     if (targetCard) {
       targetCard.title = cardData.title;
+      targetCard.tab = cardData.tab;
       targetCard.content = cardData.content;
       setCards(cards);
+    }
+    if (cardData.tab !== activeTab) {
+      closeExpandedCard();
     }
   };
 
@@ -186,41 +190,14 @@ const ScreenArea: React.FC<{ activeTab: string }> = ({ activeTab }) => {
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={classes.screenArea} data-testid="screen-area">
-          <Column
-            columnId={1}
-            cards={activeTabCards(cards['droppable-1'])}
-            expandCard={setExpandedCardId}
-            openCreateCard={openCreateCard}
-          />
-          <Column
-            columnId={2}
-            cards={activeTabCards(cards['droppable-2'])}
-            expandCard={setExpandedCardId}
-            openCreateCard={openCreateCard}
-          />
-          <Column
-            columnId={3}
-            cards={activeTabCards(cards['droppable-3'])}
-            expandCard={setExpandedCardId}
-            openCreateCard={openCreateCard}
-          />
-          <Column
-            columnId={4}
-            cards={activeTabCards(cards['droppable-4'])}
-            expandCard={setExpandedCardId}
-            openCreateCard={openCreateCard}
-          />
+          <Column columnId={1} cards={activeTabCards(cards['droppable-1'])} expandCard={setExpandedCardId} />
+          <Column columnId={2} cards={activeTabCards(cards['droppable-2'])} expandCard={setExpandedCardId} />
+          <Column columnId={3} cards={activeTabCards(cards['droppable-3'])} expandCard={setExpandedCardId} />
+          <Column columnId={4} cards={activeTabCards(cards['droppable-4'])} expandCard={setExpandedCardId} />
         </div>
       </DragDropContext>
       {renderCard()}
-      {
-        <NewCardModal
-          showNewCard={showNewCard}
-          columnId={`droppable-${newCardColumnId}`}
-          createCard={createCard}
-          closeNewCardModal={closeNewCardModal}
-        />
-      }
+      {<NewCardModal isVisible={showNewCardModal} createCard={createCard} closeNewCardModal={closeNewCardModal} />}
     </>
   );
 };
