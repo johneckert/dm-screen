@@ -1,8 +1,14 @@
 import { useLocalStorage } from 'usehooks-ts';
+import { useEffect } from 'react';
 import { CardDataMap } from '../interfaces';
 import { WELCOME_CARDS } from '../welcomeCard';
 
 const useCardStorage: () => [CardDataMap, (cards: CardDataMap) => void] = () => {
+  useEffect(() => {
+    if (localStorage.getItem('cards') === null) {
+      localStorage.setItem('cards', JSON.stringify(WELCOME_CARDS));
+    }
+  }, []);
   const [storedCards, setStoredCards] = useLocalStorage('cards', WELCOME_CARDS);
   const emptyCardMap = { 'droppable-1': [], 'droppable-2': [], 'droppable-3': [], 'droppable-4': [] } as CardDataMap;
 

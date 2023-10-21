@@ -2,6 +2,14 @@ import { render, screen } from '@testing-library/react';
 import ErrorBoundry from './ErrorBoundry';
 
 describe('<ErrorBoundry />', () => {
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+  });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders children when no error is thrown', () => {
     render(
       <ErrorBoundry>

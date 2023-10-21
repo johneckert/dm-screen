@@ -1,4 +1,10 @@
-import { splitAndTitleCase } from './utils';
+import { upperFirst, splitAndTitleCase } from './utils';
+
+describe('upperFirst', () => {
+  it('should uppercase the first letter of a string', () => {
+    expect(upperFirst('hello world')).toEqual('Hello world');
+  });
+});
 
 describe('splitAndTitleCase', () => {
   describe('when given a single argument', () => {

@@ -1,7 +1,7 @@
-import { ScreenSize, CardType } from './interfaces';
+import { ScreenSize, CardData, CardDataMap, CardType } from './interfaces';
 import { BREAKPOINTS } from './constants';
 import { PURPLE, TEAL, AMBER } from './colors';
-import { toLower } from 'lodash';
+import { EMPTY_CARD_MAP } from './constants';
 
 export const getScreenSize = () => {
   return { width: window.innerWidth, height: window.innerHeight };
@@ -17,6 +17,16 @@ export const getBreakPoint = (screenSize: ScreenSize) => {
   }
 };
 
+export const mapCards = (cards: CardData[]) =>
+  cards.reduce((filteredCards: CardDataMap, card) => {
+    filteredCards[card.column].push(card);
+    return filteredCards;
+  }, EMPTY_CARD_MAP);
+
+export const flattenCards = (cardDataMap: CardDataMap) => {
+  return Object.values(cardDataMap).flat();
+};
+
 export const avatarColor = (type: CardType) => {
   switch (type) {
     case CardType.Map:
@@ -30,6 +40,8 @@ export const avatarColor = (type: CardType) => {
   }
 };
 
+export const upperFirst = (string: string) => string.charAt(0).toUpperCase() + string.slice(1);
+
 export const splitAndTitleCase = (str: string, splitChar: string = ' ', joinChar: string = ' ') => {
   const ignoreWords = ['of', 'the', 'a', 'an', 'and', 'or', 'but', 'nor', 'for', 'yet', 'so'];
   return str
@@ -39,27 +51,8 @@ export const splitAndTitleCase = (str: string, splitChar: string = ' ', joinChar
 };
 
 export const validateFileType = (file: File) => {
-  if (toLower(file.type) !== 'application/json') {
+  if (file.type.toLowerCase() !== 'application/json') {
     return false;
   }
   return true;
-};
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore-next-line
-export const validateData = (data) => {
-  let valid = true;
-  const parsedData = data;
-  if (!parsedData) {
-    return false;
-  }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore-next-line
-  parsedData.forEach((card) => {
-    console.log(card);
-    if (!card.id || !card.type || !card.title || !card.content || !card.column) {
-      valid = false;
-    }
-  });
-  return valid;
 };

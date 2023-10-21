@@ -1,4 +1,5 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { generateSlug, RandomWordOptions } from 'random-word-slugs';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -6,14 +7,18 @@ import Divider from '@mui/material/Divider';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import { WHITE } from '../../colors';
+import { WHITE, GREY } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
-import { DialogTypes } from '../../interfaces';
-import { DIALOG_MESSAGES } from '../../constants';
+import { DialogTypes, CardData } from '../../interfaces';
+import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
+import IconButton from '@mui/material/IconButton';
+import useCardStorage from '../../hooks/useCardStorage';
+import { flattenCards, mapCards } from '../../utils';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -35,18 +40,25 @@ const useStyles = makeStyles<Theme>((theme) => ({
   menuOption: {
     display: 'flex',
     flexDirection: 'row',
+    width: '100%',
     paddingX: theme.spacing(4),
     paddingY: theme.spacing(1),
     '&:hover': {
       cursor: 'pointer',
       backgroundColor: theme.palette.primary.light,
     },
-    '&:first-child': {
-      paddingRight: theme.spacing(4),
-    },
+  },
+  tab: {
+    justifyContent: 'space-between',
   },
   destructive: {
     color: theme.palette.error.light,
+  },
+  isActive: {
+    fontWeight: 'bold',
+  },
+  notActive: {
+    color: GREY[500],
   },
 }));
 
@@ -62,13 +74,22 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-const MainMenu = () => {
+interface MainMenuProps {
+  tabs: string[];
+  setTabs: (tabs: string[]) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+  setShowNewCardModal: (showNewCardModal: boolean) => void;
+}
+
+const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
-  const [dialogType, setDialogType] = React.useState<DialogTypes | null>(null);
+  const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
   const passClickToInput = () => {
     fileUploadRef.current?.click();
   };
+  const [cards, setCards] = useCardStorage();
 
   const downloadCards = () => {
     const saveData = localStorage.getItem('cards');
@@ -87,19 +108,16 @@ const MainMenu = () => {
     const reader = new FileReader();
     reader.onload = (event) => {
       if (file && validateFileType(file)) {
-        const cards = JSON.parse(event.target?.result as string);
-        localStorage.setItem('cards', cards);
-        window.location.reload();
+        const cards = JSON.parse(JSON.parse(event.target?.result as string)) as CardData[];
+        const tabs = cards.map((card: CardData) => card.tab) ?? [DEFAULT_TAB];
+        setTabs([...new Set(tabs)]);
+        setCards(mapCards(cards));
+        setActiveTab(tabs[0]);
       } else {
         setDialogType(DialogTypes.FileType);
       }
     };
     reader.readAsText(file as Blob);
-  };
-
-  const resetCards = () => {
-    localStorage.removeItem('cards');
-    window.location.reload();
   };
 
   const handleCancel = () => {
@@ -110,9 +128,32 @@ const MainMenu = () => {
     if (dialogType === DialogTypes.Upload) {
       passClickToInput();
     } else if (dialogType === DialogTypes.Reset) {
-      resetCards();
+      setCards(mapCards([]));
+      setActiveTab(activeTab);
     }
     setDialogType(null);
+  };
+
+  const createNewTab = () => {
+    const options: RandomWordOptions<2> = {
+      format: 'kebab',
+      partsOfSpeech: ['adjective', 'noun'],
+      categories: {
+        adjective: ['personality'],
+        noun: ['animals'],
+      },
+    };
+    const tabName = generateSlug(2, options);
+    setTabs([...tabs, tabName]);
+  };
+
+  const deleteTab = (tab: string) => {
+    const newTabs = tabs.filter((savedTab) => savedTab !== tab);
+    setTabs(newTabs);
+    const flatCards = flattenCards(cards);
+    const updatedCards = flatCards.filter((card) => card.tab !== tab);
+    setCards(mapCards(updatedCards));
+    setActiveTab(tabs[0]);
   };
 
   return (
@@ -140,6 +181,46 @@ const MainMenu = () => {
         </ListItem>
       </List>
       <Divider />
+      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
+        Tabs
+      </Typography>
+      <List className={classes.menuList}>
+        {tabs.map((tab) => (
+          <ListItem
+            key={tab}
+            sx={{ justifyContent: 'space-between' }}
+            className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
+          >
+            <Typography
+              variant="body2"
+              data-testid="tab-button"
+              onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
+            >
+              {tab}
+            </Typography>
+            <IconButton aria-label="delete" onClick={() => deleteTab(tab)}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItem>
+        ))}
+        <ListItem className={classes.menuOption} onClick={createNewTab} data-testid="add-tab-button">
+          <Typography variant="body2">Create new tab</Typography>
+        </ListItem>
+      </List>
+      <Divider />
+      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
+        New Card
+      </Typography>
+      <List className={classes.menuList}>
+        <ListItem
+          onClick={() => setShowNewCardModal(true)}
+          className={classes.menuOption}
+          data-testid="new-card-button"
+        >
+          <AddBoxIcon sx={{ pr: 1, width: 40 }} />
+          <Typography variant="body2">New Card</Typography>
+        </ListItem>
+      </List>
       {dialogType && (
         <VerificationDialog
           dialogOpen={!!dialogType}
