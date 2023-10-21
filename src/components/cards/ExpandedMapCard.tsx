@@ -3,6 +3,7 @@ import { CardData, CardType, GenericCardContent } from '../../interfaces';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
@@ -12,6 +13,9 @@ import ReactMarkdown from 'react-markdown';
 import { Avatar } from '@mui/material';
 import { avatarColor } from '../../utils';
 import { PURPLE } from '../../colors';
+import MenuItem from '@mui/material/MenuItem';
+import { DEFAULT_TAB } from '../../constants';
+import { useReadLocalStorage } from 'usehooks-ts';
 
 interface StyleProps {
   isEditing: boolean;
@@ -72,13 +76,15 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   deleteCard,
 }) => {
   const [isEditing, setIsEditing] = useState(false);
+  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [title, setTitle] = useState(expandedCardData.title);
   const [content, setContent] = useState(expandedCardData.content as GenericCardContent);
+  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
 
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: content });
+      updateCard({ ...expandedCardData, title: title, content: content, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -103,6 +109,21 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
+            <Select
+              labelId="card-tab-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-tab-select"
+              value={cardTab}
+              label="Tab"
+              data-testid="card-tab-select"
+              onChange={(e) => setCardTab(e.target.value)}
+            >
+              {tabs.map((value) => (
+                <MenuItem key={value} value={value} data-testid="select-option">
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
             <TextField
               id="map-card-room-number"
               label="Room Number"

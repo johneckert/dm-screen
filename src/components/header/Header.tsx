@@ -19,7 +19,15 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-const Header = () => {
+export interface HeaderProps {
+  tabs: string[];
+  setTabs: (tabs: string[]) => void;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+  setShowNewCardModal: (showNewCardModal: boolean) => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDrawerOpen = Boolean(anchorEl);
@@ -49,7 +57,13 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
         <Drawer anchor="right" open={isDrawerOpen} onClose={handleDrawerClose}>
-          <ManinMenu />
+          <ManinMenu
+            tabs={tabs}
+            setTabs={setTabs}
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            setShowNewCardModal={setShowNewCardModal}
+          />
         </Drawer>
       </Toolbar>
     </AppBar>

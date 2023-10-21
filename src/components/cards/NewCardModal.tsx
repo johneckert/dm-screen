@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useReadLocalStorage } from 'usehooks-ts';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -14,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
 import RuleCardForm from './newCardForms/RuleCardForm';
+import { DEFAULT_TAB } from '../../constants';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
@@ -73,19 +75,37 @@ const useStyles = makeStyles<Theme>((theme) => ({
 }));
 
 const NewCardModal: React.FC<{
-  showNewCard: boolean;
-  columnId: string;
+  isVisible: boolean;
   closeNewCardModal: () => void;
   createCard: (cardData: CardData) => void;
-}> = ({ showNewCard, columnId, createCard, closeNewCardModal }) => {
+}> = ({ isVisible, createCard, closeNewCardModal }) => {
   const classes = useStyles();
   const id = uuidv4();
-  const [title, setTitle] = React.useState('');
+  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TAB;
+  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
+  const [title, setTitle] = useState('');
   const [content, setContent] = useState({} as GenericCardContent);
-  const [cardType, setCardType] = React.useState<CardType>(CardType.Note);
+  const [cardType, setCardType] = useState<CardType>(CardType.Note);
+  const [cardTab, setCardTab] = useState<string>(activeTab);
+  const [cardColumn, setCardColumn] = useState<string>('droppable-1');
+
+  const columnDisplayName = (column: string) => {
+    switch (column) {
+      case 'droppable-1':
+        return 'Column 1';
+      case 'droppable-2':
+        return 'Column 2';
+      case 'droppable-3':
+        return 'Column 3';
+      case 'droppable-4':
+        return 'Column 4';
+      default:
+        return 'Column 1';
+    }
+  };
 
   const handleSave = () => {
-    createCard({ id, title, content, type: cardType, column: columnId });
+    createCard({ id, title, content, type: cardType, column: cardColumn, tab: cardTab });
     setTitle('');
     setContent({} as GenericCardContent);
   };
@@ -127,7 +147,7 @@ const NewCardModal: React.FC<{
 
   return (
     <Modal
-      open={showNewCard}
+      open={!!isVisible}
       onClose={handleCancel}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
@@ -156,8 +176,38 @@ const NewCardModal: React.FC<{
               onChange={(e) => setCardType(e.target.value as CardType)}
             >
               {Object.values(CardType).map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
+                <MenuItem key={value} value={value}>
                   {value}
+                </MenuItem>
+              ))}
+            </Select>
+            <Select
+              labelId="card-tab-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-tab-select"
+              value={cardTab}
+              label="Tab"
+              data-testid="card-tab-select"
+              onChange={(e) => setCardTab(e.target.value)}
+            >
+              {tabs.map((value) => (
+                <MenuItem key={value} value={value}>
+                  {value}
+                </MenuItem>
+              ))}
+            </Select>
+            <Select
+              labelId="card-column-select-label"
+              sx={{ marginBottom: 2 }}
+              id="card-column-select"
+              value={cardColumn}
+              label="Column"
+              data-testid="card-column-select"
+              onChange={(e) => setCardColumn(e.target.value)}
+            >
+              {['droppable-1', 'droppable-2', 'droppable-3', 'droppable-4'].map((value) => (
+                <MenuItem key={value} value={value}>
+                  {columnDisplayName(value)}
                 </MenuItem>
               ))}
             </Select>

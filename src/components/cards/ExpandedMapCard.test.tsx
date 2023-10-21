@@ -3,6 +3,7 @@ import ExpandedMapCard from './ExpandedMapCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { CardType } from '../../interfaces';
+import { DEFAULT_TAB } from '../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
@@ -15,6 +16,7 @@ const expandedMapCardData = {
   type: CardType.Map,
   column: 'column-1',
   title: 'Charazard',
+  tab: DEFAULT_TAB,
   content: {
     roomNumber: 'C1',
     description: 'I am Charazard',
@@ -57,6 +59,26 @@ describe('ExpandedCard', () => {
 
       expect(screen.getByTestId('title-input')).toBeInTheDocument();
     });
+  });
+
+  it('renders select field for tab', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <ExpandedMapCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedMapCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />
+      </ThemeProvider>,
+    );
+
+    const editButton = screen.getByTestId('edit-button');
+    act(() => {
+      editButton.click();
+    });
+
+    expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
   });
 
   it('renders input for room number', () => {

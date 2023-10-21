@@ -38,6 +38,7 @@ class ErrorBoundary extends Component<Props, State> {
             <img className="owlbear" src={Owlbear} alt="a sad looking owlbear" />
           </div>
           <h2 className="help-messege">If the problem persists try reseting card data.</h2>
+          <button onClick={() => localStorage.clear()}>Reset All Data</button>
         </div>
       );
     }

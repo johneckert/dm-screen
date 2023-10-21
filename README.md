@@ -38,4 +38,5 @@ yarn dev
 
 ## Acknowledgments
 
-- Shout otu to the [D&D 5e API](https://www.dnd5eapi.co/) where I'm pulling all the data from!
+- Shout out to the [D&D 5e API](https://www.dnd5eapi.co/) where I'm pulling all the data from!
+- Favicon was created by [Delapouite](https://delapouite.com/) and is used under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
