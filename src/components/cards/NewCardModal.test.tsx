@@ -27,6 +27,24 @@ describe('NewCardModal', () => {
     expect(screen.getByTestId('card-type-select')).toBeInTheDocument();
   });
 
+  it('renders select field for tab', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
+  });
+
+  it('renders select field for column', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('card-column-select')).toBeInTheDocument();
+  });
+
   it('renders correct form', () => {
     render(
       <ThemeProvider theme={theme}>

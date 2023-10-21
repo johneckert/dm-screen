@@ -24,18 +24,10 @@ export interface HeaderProps {
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  showNewCardModal: boolean;
   setShowNewCardModal: (showNewCardModal: boolean) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({
-  tabs,
-  setTabs,
-  activeTab,
-  setActiveTab,
-  showNewCardModal,
-  setShowNewCardModal,
-}) => {
+const Header: React.FC<HeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const isDrawerOpen = Boolean(anchorEl);
@@ -70,7 +62,6 @@ const Header: React.FC<HeaderProps> = ({
             setTabs={setTabs}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            showNewCardModal={showNewCardModal}
             setShowNewCardModal={setShowNewCardModal}
           />
         </Drawer>

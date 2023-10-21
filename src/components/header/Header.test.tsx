@@ -10,6 +10,7 @@ const mockHeaderProps: HeaderProps = {
   setTabs: jest.fn(),
   activeTab: 'tab-1,',
   setActiveTab: jest.fn(),
+  setShowNewCardModal: jest.fn(),
 };
 
 describe('ScreenArea', () => {

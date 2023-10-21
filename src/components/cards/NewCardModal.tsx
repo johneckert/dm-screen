@@ -176,7 +176,7 @@ const NewCardModal: React.FC<{
               onChange={(e) => setCardType(e.target.value as CardType)}
             >
               {Object.values(CardType).map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
+                <MenuItem key={value} value={value}>
                   {value}
                 </MenuItem>
               ))}
@@ -191,7 +191,7 @@ const NewCardModal: React.FC<{
               onChange={(e) => setCardTab(e.target.value)}
             >
               {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
+                <MenuItem key={value} value={value}>
                   {value}
                 </MenuItem>
               ))}
@@ -206,7 +206,7 @@ const NewCardModal: React.FC<{
               onChange={(e) => setCardColumn(e.target.value)}
             >
               {['droppable-1', 'droppable-2', 'droppable-3', 'droppable-4'].map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
+                <MenuItem key={value} value={value}>
                   {columnDisplayName(value)}
                 </MenuItem>
               ))}

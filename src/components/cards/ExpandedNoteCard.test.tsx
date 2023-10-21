@@ -55,26 +55,46 @@ describe('ExpandedCard', () => {
 
       expect(screen.getByTestId('title-input')).toBeInTheDocument();
     });
-  });
 
-  it('renders input for content', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ExpandedNoteCard
-          closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={expandedNoteCardData}
-          updateCard={mockUpdateCard}
-          deleteCard={mockDeleteCard}
-        />
-      </ThemeProvider>,
-    );
+    it('renders select field for tab', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedNoteCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={expandedNoteCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
 
-    const editButton = screen.getByTestId('edit-button');
-    act(() => {
-      editButton.click();
+      const editButton = screen.getByTestId('edit-button');
+      act(() => {
+        editButton.click();
+      });
+
+      expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId('content-input')).toBeInTheDocument();
+    it('renders input for content', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedNoteCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={expandedNoteCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      const editButton = screen.getByTestId('edit-button');
+      act(() => {
+        editButton.click();
+      });
+
+      expect(screen.getByTestId('content-input')).toBeInTheDocument();
+    });
   });
 
   describe('View Mode', () => {

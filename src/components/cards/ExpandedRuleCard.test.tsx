@@ -53,6 +53,26 @@ describe('ExpandedCard', () => {
 
       expect(screen.getByTestId('rule-select')).toBeInTheDocument();
     });
+
+    it('renders select field for tab', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedRuleCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={expandedRuleCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      const editButton = screen.getByTestId('edit-button');
+      act(() => {
+        editButton.click();
+      });
+
+      expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
+    });
   });
 
   describe('View Mode', () => {

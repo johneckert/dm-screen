@@ -61,6 +61,26 @@ describe('ExpandedCard', () => {
     });
   });
 
+  it('renders select field for tab', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <ExpandedMapCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedMapCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />
+      </ThemeProvider>,
+    );
+
+    const editButton = screen.getByTestId('edit-button');
+    act(() => {
+      editButton.click();
+    });
+
+    expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
+  });
+
   it('renders input for room number', () => {
     render(
       <ThemeProvider theme={theme}>

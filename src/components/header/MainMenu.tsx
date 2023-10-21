@@ -79,18 +79,10 @@ interface MainMenuProps {
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  showNewCardModal: boolean;
   setShowNewCardModal: (showNewCardModal: boolean) => void;
 }
 
-const MainMenu: React.FC<MainMenuProps> = ({
-  tabs,
-  setTabs,
-  activeTab,
-  setActiveTab,
-  showNewCardModal,
-  setShowNewCardModal,
-}) => {
+const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
   const [dialogType, setDialogType] = useState<DialogTypes | null>(null);

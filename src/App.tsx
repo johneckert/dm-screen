@@ -21,7 +21,6 @@ function App() {
         setTabs={setTabs}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        showNewCardModal={showNewCardModal}
         setShowNewCardModal={setShowNewCardModal}
       />
       <ScreenArea activeTab={activeTab} showNewCardModal={showNewCardModal} setShowNewCardModal={setShowNewCardModal} />

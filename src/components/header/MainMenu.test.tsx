@@ -21,6 +21,7 @@ const mockProps = {
   setTabs: jest.fn(),
   activeTab: 'tab-1',
   setActiveTab: jest.fn(),
+  setShowNewCardModal: jest.fn(),
 };
 
 const blob = new Blob([JSON.stringify([])]);
@@ -165,6 +166,21 @@ describe('<MainMenu />', () => {
         screen.queryAllByTestId('tab-button')[1].click();
       });
       expect(mockProps.setActiveTab).toHaveBeenCalledWith('tab-2');
+    });
+  });
+
+  describe('new card', () => {
+    it('opens new card modal when new card button is clicked', () => {
+      render(
+        <ThemeProvider theme={theme}>
+          <MainMenu {...mockProps} />
+        </ThemeProvider>,
+      );
+
+      act(() => {
+        screen.getByTestId('new-card-button').click();
+      });
+      expect(mockProps.setShowNewCardModal).toHaveBeenCalledWith(true);
     });
   });
 });
