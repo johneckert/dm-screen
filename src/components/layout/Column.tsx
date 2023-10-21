@@ -5,7 +5,6 @@ import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import makeStyles from '@mui/styles/makeStyles';
 import { getScreenSize, getBreakPoint } from '../../utils';
 import { Theme } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 
 interface StyleProps {
   screenSize: ScreenSize;

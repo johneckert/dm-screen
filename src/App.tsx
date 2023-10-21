@@ -3,7 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import useActiveTabStorage from './hooks/useActiveTabStorage';
 import useTabStorage from './hooks/useTabStorage';
 import Header from './components/header/Header';

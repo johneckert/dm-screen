@@ -11,6 +11,13 @@ jest.mock('react-markdown', () => (props: { children: string }) => (
   <div data-testid="react-markdown">{props.children}</div>
 ));
 
+const mockScreenAreaProps = {
+  activeTab: 'tab-1',
+  setActiveTab: jest.fn(),
+  showNewCardModal: false,
+  setShowNewCardModal: jest.fn(),
+};
+
 const mockColumn = jest.fn().mockReturnValue(<div data-testid="column" />);
 jest.mock('./Column.tsx', () => (props: ColumnProps) => {
   mockColumn(props);
@@ -22,7 +29,7 @@ describe('ScreenArea', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ScreenArea activeTab={'tab-1'} />
+        <ScreenArea {...mockScreenAreaProps} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('screen-area')).toBeInTheDocument();
@@ -31,7 +38,7 @@ describe('ScreenArea', () => {
   it('filters cards based on active tab before passing to child components', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ScreenArea activeTab={'tab-1'} />
+        <ScreenArea {...mockScreenAreaProps} />
       </ThemeProvider>,
     );
 
@@ -44,7 +51,7 @@ describe('ScreenArea', () => {
   it('resizes the screen area when the window is resized', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ScreenArea activeTab={'tab-1'} />
+        <ScreenArea {...mockScreenAreaProps} />
       </ThemeProvider>,
     );
     const screenArea = screen.getByTestId('screen-area');
