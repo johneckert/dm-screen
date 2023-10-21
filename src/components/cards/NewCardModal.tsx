@@ -9,7 +9,7 @@ import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
 import { GenericCardContent, CardData, CardType } from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
@@ -147,7 +147,7 @@ const NewCardModal: React.FC<{
 
   return (
     <Modal
-      open={isVisible}
+      open={!!isVisible}
       onClose={handleCancel}
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
