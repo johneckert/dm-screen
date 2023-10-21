@@ -86,7 +86,6 @@ const NewCardModal: React.FC<{
   const [title, setTitle] = useState('');
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = useState<CardType>(CardType.Note);
-  console.log(activeTab);
   const [cardTab, setCardTab] = useState<string>(activeTab);
   const [cardColumn, setCardColumn] = useState<string>('droppable-1');
 
@@ -105,7 +104,6 @@ const NewCardModal: React.FC<{
     }
   };
 
-  console.log('tabs', tabs);
   const handleSave = () => {
     createCard({ id, title, content, type: cardType, column: cardColumn, tab: cardTab });
     setTitle('');
