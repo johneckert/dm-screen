@@ -6,7 +6,7 @@ export interface SmallCardProps {
 
 export enum CardType {
   Note = 'Note',
-  // PC = 'PC',
+  Player = 'Player',
   Rule = 'Rule',
   Map = 'Map',
   // Monster = 'Monster',
@@ -32,9 +32,20 @@ export interface CardData {
 }
 
 export interface GenericCardContent {
-  roomNumber?: string;
-  description?: string;
-  content: string;
+  content: string; //for all
+  roomNumber?: string; // for maps
+  description?: string; // for maps
+  hp?: string; // for players
+  ac?: string; // for players
+  passivePerception?: string; // for players
+  passiveInvestigation?: string; // for players
+  passiveStealth?: string; // for players
+  passiveInsight?: string; // for players
+  speed?: string; // for players
+  spellSaveDC?: string; // for players
+  spellAttackBonus?: string; // for players
+  link?: string; // for players
+  languages?: string; // for players
 }
 
 export interface ScreenSize {

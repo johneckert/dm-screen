@@ -10,6 +10,7 @@ import { getScreenSize, avatarColor } from '../../utils';
 import { HEADER_HEIGHT, NUMBER_OF_ROWS } from '../../constants';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PushPinIcon from '@mui/icons-material/PushPin';
+import PersonIcon from '@mui/icons-material/Person';
 import { splitAndTitleCase } from '../../utils';
 
 const SmallCard = ({ title, content, type }: SmallCardProps) => {
@@ -24,6 +25,8 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
         return <PushPinIcon />;
       case CardType.Rule:
         return <LightbulbIcon />;
+      case CardType.Player:
+        return <PersonIcon />;
       default:
         return title.charAt(0).toUpperCase();
     }
