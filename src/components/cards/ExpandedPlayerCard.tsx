@@ -17,6 +17,7 @@ import ShieldIcon from '@mui/icons-material/Shield';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CircleIcon from '@mui/icons-material/Circle';
 import { PURPLE } from '../../colors';
+import PlayerCardForm from './newCardForms/PlayerCardForm';
 
 interface StyleProps {
   isEditing: boolean;
@@ -170,6 +171,48 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [languages, setLanguages] = useState(cardContent.languages);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
+  const formContent = {
+    hp,
+    ac,
+    charClass,
+    charLevel,
+    charRace,
+    charBackground,
+    passivePerception,
+    passiveStealth,
+    passiveInvestigation,
+    passiveInsight,
+    speed,
+    spellCastingAbility,
+    spellCastingModifier,
+    spellSaveDC,
+    spellAttackBonus,
+    languages,
+    link,
+    content: notes,
+  };
+  const handleContentUpdate = (content: GenericCardContent) => {
+    console.log(content);
+    setNotes(content.content);
+    setCharClass(content.charClass);
+    setCharLevel(content.charLevel);
+    setCharRace(content.charRace);
+    setCharBackground(content.charBackground);
+    setHp(content.hp);
+    setAc(content.ac);
+    setPassivePerception(content.passivePerception);
+    setPassiveInvestigation(content.passiveInvestigation);
+    setPassiveStealth(content.passiveStealth);
+    setPassiveInsight(content.passiveInsight);
+    setSpeed(content.speed);
+    setSpellCastingAbility(content.spellCastingAbility);
+    setSpellCastingModifier(content.spellCastingModifier);
+    setSpellSaveDC(content.spellSaveDC);
+    setSpellAttackBonus(content.spellAttackBonus);
+    setLink(content.link);
+    setLanguages(content.languages);
+  };
+
   const handleEdit = () => {
     if (isEditing) {
       updateCard({
@@ -235,202 +278,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <TextField
-              id="player-card-name"
-              label="Name"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              fullWidth
-              variant="outlined"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              data-testid="name-input"
-            />
-            <TextField
-              id="player-card-race"
-              label="Race"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={charRace}
-              onChange={(e) => setCharRace(e.target.value)}
-              data-testid="rec-input"
-            />
-            <TextField
-              id="player-card-class"
-              label="Class"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={charClass}
-              onChange={(e) => setCharClass(e.target.value)}
-              data-testid="class-input"
-            />
-            <TextField
-              id="player-card-level"
-              label="Level"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={charLevel}
-              onChange={(e) => setCharLevel(e.target.value)}
-              data-testid="level-input"
-            />
-            <TextField
-              id="player-card-background"
-              label="Background"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={charBackground}
-              onChange={(e) => setCharBackground(e.target.value)}
-              data-testid="background-input"
-            />
-            <TextField
-              id="player-card-hp"
-              label="HP"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={hp}
-              onChange={(e) => setHp(e.target.value)}
-              data-testid="hp-input"
-            />
-            <TextField
-              id="player-card-ac"
-              label="AC"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={ac}
-              onChange={(e) => setAc(e.target.value)}
-              data-testid="ac-input"
-            />
-            <TextField
-              id="player-card-speed"
-              label="Speed"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={speed}
-              onChange={(e) => setSpeed(e.target.value)}
-              data-testid="speed-input"
-            />
-            <TextField
-              id="player-card-passive-perception"
-              label="Passive Perception"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={passivePerception}
-              onChange={(e) => setPassivePerception(e.target.value)}
-              data-testid="passive-perception-input"
-            />
-            <TextField
-              id="player-card-passive-investigation"
-              label="Passive Investigation"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={passiveInvestigation}
-              onChange={(e) => setPassiveInvestigation(e.target.value)}
-              data-testid="passive-investigation-input"
-            />
-            <TextField
-              id="player-card-passive-stealth"
-              label="Passive Stealth"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={passiveStealth}
-              onChange={(e) => setPassiveStealth(e.target.value)}
-              data-testid="passive-stealth-input"
-            />
-            <TextField
-              id="player-card-passive-insight"
-              label="Passive Insight"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={passiveInsight}
-              onChange={(e) => setPassiveInsight(e.target.value)}
-              data-testid="passive-insight-input"
-            />
-            <TextField
-              id="player-card-spell-casting-ability"
-              label="Spell Casting Modifier"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={spellCastingAbility}
-              onChange={(e) => setSpellCastingAbility(e.target.value)}
-              data-testid="spell-casting-ability-input"
-            />
-            <TextField
-              id="player-card-spell-casting-modifier"
-              label="Spell Casting Modifier"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={spellCastingModifier}
-              onChange={(e) => setSpellCastingModifier(e.target.value)}
-              data-testid="spell-casting-modifier-input"
-            />
-            <TextField
-              id="player-card-spell-save-dc"
-              label="Spell Save DC"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={spellSaveDC}
-              onChange={(e) => setSpellSaveDC(e.target.value)}
-              data-testid="spell-save-dc-input"
-            />
-            <TextField
-              id="player-card-spell-attack"
-              label="Spell Attack"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={spellAttackBonus}
-              onChange={(e) => setSpellAttackBonus(e.target.value)}
-              data-testid="spell-attack-input"
-            />
-            <TextField
-              id="player-card-languages"
-              label="Languages"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              fullWidth
-              variant="outlined"
-              value={languages}
-              onChange={(e) => setLanguages(e.target.value)}
-              data-testid="languages-input"
-            />
-            <TextField
-              id="player-card-character-sheet"
-              label="Character Sheet"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              fullWidth
-              variant="outlined"
-              value={link}
-              onChange={(e) => setLink(e.target.value)}
-              data-testid="character-sheet-input"
-            />
-            <TextField
-              id="player-card-content"
-              label="Notes"
-              fullWidth
-              variant="outlined"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              multiline
-              rows={18}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              data-testid="content-input"
-            />
+            <PlayerCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (

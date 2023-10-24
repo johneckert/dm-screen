@@ -5,7 +5,7 @@ const PlayerCardForm: React.FC<{
   title: string;
   content: GenericCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
+  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="player-form">
@@ -81,6 +81,24 @@ const PlayerCardForm: React.FC<{
         data-testid="content-input"
       />
       <TextField
+        id="modal-spell-casting-ability"
+        label="Spell Casting Ability"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.spellCastingAbility}
+        onChange={(e) => setContent({ ...content, spellCastingAbility: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
+        id="modal-spell-casting-modifier"
+        label="Spell Casting Modifier"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.spellCastingModifier}
+        onChange={(e) => setContent({ ...content, spellCastingModifier: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
         id="modal-spell-save-dc"
         label="Spell Save DC"
         sx={{ paddingBottom: 2 }}
@@ -94,7 +112,7 @@ const PlayerCardForm: React.FC<{
         label="Spell Attack Bonus"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.spellSaveDC}
+        value={content.spellAttackBonus}
         onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
         data-testid="content-input"
       />

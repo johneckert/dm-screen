@@ -10,6 +10,7 @@ const mockUpdateCard = jest.fn();
 const mockDeleteCard = jest.fn();
 
 jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
+jest.mock('./newCardForms/PlayerCardForm', () => () => <div data-testid="player-card-form"></div>);
 
 const mockExpandedPlayerCardData = {
   id: '1',
@@ -36,7 +37,7 @@ describe('ExpandedCard', () => {
   });
 
   describe('Edit Mode', () => {
-    it('renders input for title', () => {
+    it('renders <PlayerCardForm>', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedPlayerCard
@@ -53,47 +54,7 @@ describe('ExpandedCard', () => {
         editButton.click();
       });
 
-      expect(screen.getByTestId('title-input')).toBeInTheDocument();
-    });
-
-    it('renders select field for tab', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
-      );
-
-      const editButton = screen.getByTestId('edit-button');
-      act(() => {
-        editButton.click();
-      });
-
-      expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
-    });
-
-    it('renders input for content', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
-      );
-
-      const editButton = screen.getByTestId('edit-button');
-      act(() => {
-        editButton.click();
-      });
-
-      expect(screen.getByTestId('content-input')).toBeInTheDocument();
+      expect(screen.getByTestId('player-card-form')).toBeInTheDocument();
     });
   });
 
