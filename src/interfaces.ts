@@ -35,6 +35,10 @@ export interface GenericCardContent {
   content: string; //for all
   roomNumber?: string; // for maps
   description?: string; // for maps
+  charClass?: string; // for players
+  charRace?: string; // for players
+  charBackground?: string; // for players
+  charLevel?: string; // for players
   hp?: string; // for players
   ac?: string; // for players
   passivePerception?: string; // for players
@@ -42,6 +46,8 @@ export interface GenericCardContent {
   passiveStealth?: string; // for players
   passiveInsight?: string; // for players
   speed?: string; // for players
+  spellCastingAbility?: string; // for players
+  spellCastingModifier?: string; // for players
   spellSaveDC?: string; // for players
   spellAttackBonus?: string; // for players
   link?: string; // for players
