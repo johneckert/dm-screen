@@ -8,7 +8,7 @@ const PlayerCardForm: React.FC<{
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
 }> = ({ title, content, setTitle, setContent }) => {
   return (
-    <div data-testid="note-form">
+    <div data-testid="player-form">
       <TextField
         id="modal-title"
         label="Character Name"
