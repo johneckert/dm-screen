@@ -15,6 +15,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
 import RuleCardForm from './newCardForms/RuleCardForm';
+import PlayerCardForm from './newCardForms/PlayerCardForm';
 import { DEFAULT_TAB } from '../../constants';
 
 const useStyles = makeStyles<Theme>((theme) => ({
@@ -126,6 +127,16 @@ const NewCardModal: React.FC<{
             setTitle={setTitle}
             setContent={setContent}
             data-testid="map-form"
+          />
+        );
+      case CardType.Player:
+        return (
+          <PlayerCardForm
+            title={title}
+            content={content}
+            setTitle={setTitle}
+            setContent={setContent}
+            data-testid="player-form"
           />
         );
       case CardType.Note:
