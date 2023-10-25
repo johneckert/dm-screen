@@ -4,7 +4,6 @@ import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
@@ -102,17 +101,17 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     alignItems: 'flex-start',
     padding: theme.spacing(1),
   },
-  notesField: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   label: {
     fontWeight: 900,
     marginRight: theme.spacing(1),
   },
   iconFieldLabel: {
     fontWeight: 900,
+  },
+  notesField: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   notesLabel: {
     alignSelf: 'flex-start',
@@ -133,6 +132,27 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     marginLeft: 'auto',
   },
 }));
+
+const DisplayField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean }> = ({
+  label,
+  value,
+  isVertical = false,
+}) => {
+  const classes = useStyles({ isEditing: false });
+
+  return (
+    <Box className={isVertical ? classes.verticalField : classes.horizontalField}>
+      <span className={classes.label}>{label}:</span>
+      {value && /(http(s?)):\/\//i.test(value) ? (
+        <a href={value} target="_blank">
+          <span>{value}</span>
+        </a>
+      ) : (
+        <span>{value}</span>
+      )}
+    </Box>
+  );
+};
 
 interface ExpandedPlayerCardProps {
   closeExpandedCard: () => void;
@@ -171,6 +191,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [languages, setLanguages] = useState(cardContent.languages);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
+  const badgeStyles = { position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' } as React.CSSProperties;
   const formContent = {
     hp,
     ac,
@@ -304,104 +325,48 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
           </Box>
           <Box className={classes.body}>
             <Box className={classes.basicInfoRow}>
-              <Box id="passive-perception" className={classes.horizontalFiled} data-testid="passive-perception-view">
-                <span className={classes.label}>Race:</span>
-                <span className={classes.value}>{charRace}</span>
-              </Box>
-              <Box id="passive-perception" className={classes.horizontalFiled} data-testid="passive-perception-view">
-                <span className={classes.label}>Class:</span>
-                <span className={classes.value}>{charClass}</span>
-              </Box>
-              <Box id="passive-perception" className={classes.horizontalFiled} data-testid="passive-perception-view">
-                <span className={classes.label}>Level:</span>
-                <span className={classes.value}>{charLevel}</span>
-              </Box>
-              <Box id="passive-perception" className={classes.horizontalFiled} data-testid="passive-perception-view">
-                <span className={classes.label}>Background:</span>
-                <span className={classes.value}>{charBackground}</span>
-              </Box>
+              <DisplayField label="Race" value={charRace} />
+              <DisplayField label="Class" value={charClass} />
+              <DisplayField label="Level" value={charLevel} />
+              <DisplayField label="Background" value={charBackground} />
             </Box>
             <Box className={classes.iconRow}>
-              <Box id="hp" className={classes.verticalField} data-testid="hp-view">
+              <Box className={classes.verticalField}>
                 <span className={classes.iconFieldLabel}>HP</span>
                 <span className={classes.value}>{hp}</span>
-                <FavoriteIcon style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
+                <FavoriteIcon style={badgeStyles} />
               </Box>
-              <Box id="ac" className={classes.verticalField} data-testid="ac-view">
+              <Box className={classes.verticalField}>
                 <span className={classes.iconFieldLabel}>AC</span>
                 <span className={classes.value}>{ac}</span>
-                <ShieldIcon style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
+                <ShieldIcon style={badgeStyles} />
               </Box>
-              <Box id="speed" className={classes.verticalField} data-testid="speed-view">
+              <Box className={classes.verticalField} data-testid="speed-view">
                 <span className={classes.iconFieldLabel}>Speed</span>
                 <span className={classes.value}>{speed}</span>
-                <CircleIcon style={{ position: 'absolute', left: 0, top: 0, width: '100%', height: '100%' }} />
+                <CircleIcon style={badgeStyles} />
               </Box>
             </Box>
             <Box className={classes.row}>
               <Box className={classes.group}>
-                <Box id="passive-perception" className={classes.horizontalFiled} data-testid="passive-perception-view">
-                  <span className={classes.label}>Passive Perception:</span>
-                  <span className={classes.value}>{passivePerception}</span>
-                </Box>
-                <Box
-                  id="passive-investigation"
-                  className={classes.horizontalFiled}
-                  data-testid="passive-investigation-view"
-                >
-                  <span className={classes.label}>Passive Investigation:</span>
-                  <span className={classes.value}>{passiveInvestigation}</span>
-                </Box>
-                <Box id="passive-stealth" className={classes.horizontalFiled} data-testid="passive-stealth-view">
-                  <span className={classes.label}>Passive Stealth:</span>
-                  <span className={classes.value}>{passiveStealth}</span>
-                </Box>
-                <Box id="passive-insight" className={classes.horizontalFiled} data-testid="passive-insight-view">
-                  <span className={classes.label}>Passive Insight:</span>
-                  <span className={classes.value}>{passiveInsight}</span>
-                </Box>
+                <DisplayField label="Passive Perception" value={passivePerception} />
+                <DisplayField label="Passive Investigation" value={passiveInvestigation} />
+                <DisplayField label="Passive Stealth" value={passiveStealth} />
+                <DisplayField label="Passive Insight" value={passiveInsight} />
               </Box>
               <Box className={classes.group}>
-                <Box
-                  id="spell-casting-ability"
-                  className={classes.horizontalFiled}
-                  data-testid="spell-casting-ability-view"
-                >
-                  <span className={classes.label}>Spell Casting Ability:</span>
-                  <span className={classes.value}>{spellCastingAbility}</span>
-                </Box>
-                <Box
-                  id="spell-casting-modifier"
-                  className={classes.horizontalFiled}
-                  data-testid="spell-casting-modifier-view"
-                >
-                  <span className={classes.label}>Spell Casting Modifier:</span>
-                  <span className={classes.value}>{spellCastingModifier}</span>
-                </Box>
-                <Box id="spell-save-dc" className={classes.horizontalFiled} data-testid="spell-save-dc-view">
-                  <span className={classes.label}>Spell Save DC:</span>
-                  <span className={classes.value}>{spellSaveDC}</span>
-                </Box>
-                <Box id="spell-attack-bonus" className={classes.horizontalFiled} data-testid="spell-attack-bonus-view">
-                  <span className={classes.label}>Spell Attack Bonus:</span>
-                  <span className={classes.value}>{spellAttackBonus}</span>
-                </Box>
+                <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
+                <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
+                <DisplayField label="Spell Save DC" value={spellSaveDC} />
+                <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
               </Box>
             </Box>
             <Box className={classes.group}>
-              <Box id="languages" className={classes.horizontalFiled} data-testid="passive-stealth-view">
-                <span className={classes.label}>Languages:</span>
-                <span className={classes.value}>{languages}</span>
-              </Box>
-              <Box id="character-sheet" className={classes.horizontalFiled} data-testid="character-sheet-view">
-                <span className={classes.label}>Character Sheet:</span>
-                <a href={link} target="_blank">
-                  <span className={classes.value}>{link}</span>
-                </a>
-              </Box>
+              <DisplayField label="Languages" value={languages} />
+              <DisplayField label="Character Sheet" value={link} />
             </Box>
             <Box className={classes.group}>
-              <Box id="notes" className={classes.notesField} data-testid="notes-view">
+              <Box id="notes" className={classes.notesField}>
                 <span className={classes.notesLabel}>Notes:</span>
                 <span className={classes.notesValue}>
                   <ReactMarkdown>{notes}</ReactMarkdown>

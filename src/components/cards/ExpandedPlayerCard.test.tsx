@@ -16,8 +16,25 @@ const mockExpandedPlayerCardData = {
   id: '1',
   type: CardType.Player,
   column: 'column-1',
-  title: 'Pikachu',
-  content: { content: 'I am Pikachu' },
+  title: 'Minsc',
+  content: {
+    charRace: 'Human',
+    charClass: 'Ranger',
+    hp: '100',
+    ac: '15',
+    speed: '30',
+    passivePerception: '15',
+    passiveInvestigation: '8',
+    passiveStealth: '13',
+    passiveInsight: '10',
+    spellCastingAbility: 'Wisdom',
+    spellCastingModifier: '+5',
+    spellSaveDC: '18',
+    spellAttackBonus: '+8',
+    link: 'https://www.dndbeyond.com/characters/12345678',
+    languages: 'Common, Giant Space Hamster',
+    content: 'Minsc is a ranger who travels with his hamster Boo.',
+  },
   tab: DEFAULT_TAB,
 };
 
@@ -94,21 +111,116 @@ describe('ExpandedCard', () => {
         expect(titleComponent).toBeInTheDocument();
       });
     });
-    it('renders content', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
-      );
+    describe('renders all content fields', () => {
+      const content = mockExpandedPlayerCardData.content;
 
-      waitFor(() => {
-        const contentComponenet = screen.getByTestId('content-view');
-        expect(contentComponenet).toBeInTheDocument();
+      beforeAll(() => {
+        render(
+          <ThemeProvider theme={theme}>
+            <ExpandedPlayerCard
+              closeExpandedCard={mockCloseExpandedCard}
+              expandedCardData={mockExpandedPlayerCardData}
+              updateCard={mockUpdateCard}
+              deleteCard={mockDeleteCard}
+            />
+          </ThemeProvider>,
+        );
+      });
+
+      it('renders character race', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.charRace)).toBeInTheDocument();
+        });
+      });
+
+      it('renders character class', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.charClass)).toBeInTheDocument();
+        });
+      });
+
+      it('renders hp', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.hp)).toBeInTheDocument();
+        });
+      });
+
+      it('renders ac', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.ac)).toBeInTheDocument();
+        });
+      });
+
+      it('renders speed', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.speed)).toBeInTheDocument();
+        });
+      });
+
+      it('renders passive perception', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.passivePerception)).toBeInTheDocument();
+        });
+      });
+
+      it('renders passive investigation', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.passiveInvestigation)).toBeInTheDocument();
+        });
+      });
+
+      it('renders passive stealth', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.passiveStealth)).toBeInTheDocument();
+        });
+      });
+
+      it('renders passive insight', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.passiveInsight)).toBeInTheDocument();
+        });
+      });
+
+      it('renders spell casting ability', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.spellCastingAbility)).toBeInTheDocument();
+        });
+      });
+
+      it('renders spell casting modifier', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.spellCastingModifier)).toBeInTheDocument();
+        });
+      });
+
+      it('renders spell save DC', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.spellSaveDC)).toBeInTheDocument();
+        });
+      });
+
+      it('renders spell attack bonus', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.spellAttackBonus)).toBeInTheDocument();
+        });
+      });
+
+      it('renders link', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.link)).toBeInTheDocument();
+        });
+      });
+
+      it('renders languages', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.languages)).toBeInTheDocument();
+        });
+      });
+
+      it('renders notes', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.content)).toBeInTheDocument();
+        });
       });
     });
   });

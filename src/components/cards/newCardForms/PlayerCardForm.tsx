@@ -122,7 +122,7 @@ const PlayerCardForm: React.FC<{
         fullWidth
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.link}
+        value={content.languages}
         onChange={(e) => setContent({ ...content, languages: e.target.value })}
         data-testid="content-input"
       />

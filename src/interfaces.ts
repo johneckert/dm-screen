@@ -41,11 +41,11 @@ export interface GenericCardContent {
   charLevel?: string; // for players
   hp?: string; // for players
   ac?: string; // for players
+  speed?: string; // for players
   passivePerception?: string; // for players
   passiveInvestigation?: string; // for players
   passiveStealth?: string; // for players
   passiveInsight?: string; // for players
-  speed?: string; // for players
   spellCastingAbility?: string; // for players
   spellCastingModifier?: string; // for players
   spellSaveDC?: string; // for players
