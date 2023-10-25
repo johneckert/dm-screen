@@ -20,6 +20,38 @@ const PlayerCardForm: React.FC<{
         data-testid="title-input"
       />
       <TextField
+        id="modal-race"
+        label="Race"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.charRace}
+        onChange={(e) => setContent({ ...content, charRace: e.target.value })}
+      />
+      <TextField
+        id="modal-class"
+        label="Class"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.charClass}
+        onChange={(e) => setContent({ ...content, charClass: e.target.value })}
+      />
+      <TextField
+        id="modal-hp"
+        label="Level"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.charLevel}
+        onChange={(e) => setContent({ ...content, charLevel: e.target.value })}
+      />
+      <TextField
+        id="modal-background"
+        label="Background"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.charBackground}
+        onChange={(e) => setContent({ ...content, charBackground: e.target.value })}
+      />
+      <TextField
         id="modal-hp"
         label="HP"
         sx={{ paddingBottom: 2 }}
