@@ -16,6 +16,7 @@ import DisplayField from './cardFields/DisplayField';
 import IconField from './cardFields/IconField';
 import BlockField from './cardFields/BlockField';
 import StatField from './cardFields/StatField';
+import CardHeader from './cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   header: {
@@ -244,23 +245,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <Typography
-              id="title-name"
-              className={classes.modalTitle}
-              variant="h3"
-              component="h3"
-              data-testid="title-view"
-            >
-              {title}
-            </Typography>
-            <IconButton
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="edit-button"
-              onClick={handleEdit}
-            >
-              <EditIcon />
-            </IconButton>
+            <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>

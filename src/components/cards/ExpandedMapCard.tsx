@@ -4,24 +4,18 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
-import EditIcon from '@mui/icons-material/Edit';
 import ExpandedCardLayout from './ExpandedCardLayout';
-import ReactMarkdown from 'react-markdown';
 import { Avatar } from '@mui/material';
 import { avatarColor } from '../../utils';
-import { PURPLE } from '../../colors';
 import MenuItem from '@mui/material/MenuItem';
 import { DEFAULT_TAB } from '../../constants';
 import { useReadLocalStorage } from 'usehooks-ts';
+import BlockField from './cardFields/BlockField';
+import CardHeader from './cardFields/CardHeader';
+import MapCardForm from './newCardForms/MapCardForm';
 
-interface StyleProps {
-  isEditing: boolean;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
+const useStyles = makeStyles<Theme>((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'row',
@@ -50,16 +44,6 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
   },
-  modalDescription: {
-    margin: theme.spacing(4),
-    padding: theme.spacing(2),
-    background: PURPLE[200],
-  },
-  modalContent: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(3),
-  },
 }));
 
 interface ExpandedMapCardProps {
@@ -75,16 +59,28 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
+  const cardContent = expandedCardData.content as GenericCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [title, setTitle] = useState(expandedCardData.title);
-  const [content, setContent] = useState(expandedCardData.content as GenericCardContent);
+  const [notes, setNotes] = useState(cardContent.content);
+  const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
+  const [description, setDescription] = useState(cardContent.description);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
-  const classes = useStyles({ isEditing });
-
+  const classes = useStyles();
+  const formContent = {
+    roomNumber,
+    description,
+    content: notes,
+  };
+  const handleContentUpdate = (content: GenericCardContent) => {
+    setNotes(content.content);
+    setRoomNumber(content.roomNumber);
+    setDescription(content.description);
+  };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: content, tab: cardTab });
+      updateCard({ ...expandedCardData, title: title, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -124,53 +120,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <TextField
-              id="map-card-room-number"
-              label="Room Number"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              value={content.roomNumber}
-              onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
-              data-testid="room-number-input"
-            />
-            <TextField
-              id="map-card-title"
-              label="Title"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              fullWidth
-              variant="outlined"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              data-testid="title-input"
-            />
-            <TextField
-              id="map-card-description"
-              label="Read Out Loud"
-              fullWidth
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              variant="outlined"
-              multiline
-              rows={18}
-              value={content.description}
-              onChange={(e) => setContent({ ...content, description: e.target.value })}
-              data-testid="description-input"
-            />
-            <TextField
-              id="map-card-content"
-              label="DM Info"
-              fullWidth
-              variant="outlined"
-              className={classes.modalInput}
-              sx={{ paddingBottom: 2 }}
-              multiline
-              rows={18}
-              value={content.content}
-              onChange={(e) => setContent({ ...content, content: e.target.value })}
-              data-testid="content-input"
-            />
+            <MapCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
@@ -181,38 +131,13 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
               data-testid="room-number-view"
             >
-              {content.roomNumber}
+              {roomNumber}
             </Avatar>
-            <Typography
-              id="map-card-title"
-              className={classes.modalTitle}
-              variant="h3"
-              component="h3"
-              data-testid="title-view"
-            >
-              {title}
-            </Typography>
-            <IconButton
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="edit-button"
-              onClick={handleEdit}
-            >
-              <EditIcon />
-            </IconButton>
+            <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <Box
-              id="map-card-description"
-              className={classes.modalDescription}
-              sx={{ boxShadow: 3 }}
-              data-testid="description-view"
-            >
-              <ReactMarkdown>{content.description as string}</ReactMarkdown>
-            </Box>
-            <Box id="map-card-content" className={classes.modalContent} data-testid="content-view">
-              <ReactMarkdown>{content.content}</ReactMarkdown>
-            </Box>
+            <BlockField label="Read Out Loud" value={description} />
+            <BlockField label="DM Info" value={notes} />
           </Box>
         </>
       )}

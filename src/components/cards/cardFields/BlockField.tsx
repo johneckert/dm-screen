@@ -4,10 +4,10 @@ import ReactMarkdown from 'react-markdown';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { CardType } from '../../../interfaces';
-import { BLUE, PURPLE, TEAL, AMBER, RED, GREY } from '../../../colors';
+import { BLUE, PURPLE, TEAL, AMBER, RED, WHITE } from '../../../colors';
 
 interface StyleProps {
-  type: CardType;
+  type: CardType | undefined;
 }
 
 const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
@@ -35,7 +35,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
         case CardType.Monster:
           return BLUE[200];
         default:
-          return GREY[200];
+          return WHITE;
       }
     },
     width: '100%',
@@ -44,7 +44,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   },
 }));
 
-const BlockField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean; cardType: CardType }> = ({
+const BlockField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean; cardType?: CardType }> = ({
   label,
   value = '',
   cardType,

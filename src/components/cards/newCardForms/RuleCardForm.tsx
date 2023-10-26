@@ -8,7 +8,7 @@ import { GenericCardContent } from '../../../interfaces';
 const RuleCardForm: React.FC<{
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
+  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, setTitle, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
     setTitle(e.target.value);

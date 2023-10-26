@@ -4,9 +4,7 @@ import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
-import EditIcon from '@mui/icons-material/Edit';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { DEFAULT_TAB } from '../../constants';
@@ -16,6 +14,7 @@ import DisplayField from './cardFields/DisplayField';
 import StatField from './cardFields/StatField';
 import IconField from './cardFields/IconField';
 import BlockField from './cardFields/BlockField';
+import CardHeader from './cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   header: {
@@ -40,12 +39,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
-  },
-  titleInput: {
-    '& input': {
-      fontSize: theme.spacing(6),
-      fontWeight: 400,
-    },
   },
   group: {
     display: 'flex',
@@ -150,7 +143,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     content: notes,
   };
   const handleContentUpdate = (content: GenericCardContent) => {
-    console.log(content);
     setSize(content.size);
     setType(content.type);
     setAlignment(content.alignment);
@@ -237,23 +229,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <Typography
-              id="title-name"
-              className={classes.modalTitle}
-              variant="h3"
-              component="h3"
-              data-testid="title-view"
-            >
-              {title}
-            </Typography>
-            <IconButton
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="edit-button"
-              onClick={handleEdit}
-            >
-              <EditIcon />
-            </IconButton>
+            <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
