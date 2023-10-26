@@ -9,7 +9,7 @@ export enum CardType {
   Player = 'Player',
   Rule = 'Rule',
   Map = 'Map',
-  // Monster = 'Monster',
+  Monster = 'Monster',
 }
 
 export enum DialogTypes {
@@ -35,7 +35,7 @@ export interface GenericCardContent {
   content: string; //for all
 
   roomNumber?: string; // for maps
-  description?: string; // for maps
+  description?: string; // for maps & monsters
 
   charClass?: string; // for players
   charRace?: string; // for players
@@ -54,6 +54,7 @@ export interface GenericCardContent {
   spellAttackBonus?: string; // for players
   link?: string; // for players & monsters
   languages?: string; // for players & monsters
+  alignment?: string; // for players & monsters
 
   size?: string; // for monsters
   type?: string; // for monsters

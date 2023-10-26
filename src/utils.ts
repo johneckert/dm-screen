@@ -1,6 +1,6 @@
 import { ScreenSize, CardData, CardDataMap, CardType } from './interfaces';
 import { BREAKPOINTS } from './constants';
-import { PURPLE, TEAL, AMBER, RED } from './colors';
+import { PURPLE, TEAL, AMBER, RED, BLUE } from './colors';
 import { EMPTY_CARD_MAP } from './constants';
 
 export const getScreenSize = () => {
@@ -37,6 +37,8 @@ export const avatarColor = (type: CardType) => {
       return AMBER[400];
     case CardType.Player:
       return RED[300];
+    case CardType.Monster:
+      return BLUE[300];
     default:
       return;
   }

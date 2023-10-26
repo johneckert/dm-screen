@@ -11,11 +11,11 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import { DEFAULT_TAB } from '../../constants';
 import { useReadLocalStorage } from 'usehooks-ts';
-import PlayerCardForm from './newCardForms/PlayerCardForm';
+import MonsterCardForm from './newCardForms/MonsterCardForm';
 import DisplayField from './cardFields/DisplayField';
+import StatField from './cardFields/StatField';
 import IconField from './cardFields/IconField';
 import BlockField from './cardFields/BlockField';
-import StatField from './cardFields/StatField';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   header: {
@@ -70,14 +70,14 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-interface ExpandedPlayerCardProps {
+interface ExpandedMonsterCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
   deleteCard: (cardData: CardData) => void;
 }
 
-const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
+const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   closeExpandedCard,
   expandedCardData,
   updateCard,
@@ -87,13 +87,11 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
-  const [notes, setNotes] = useState(cardContent.content);
-  const [charClass, setCharClass] = useState(cardContent.charClass);
-  const [charLevel, setCharLevel] = useState(cardContent.charLevel);
-  const [charRace, setCharRace] = useState(cardContent.charRace);
-  const [charBackground, setCharBackground] = useState(cardContent.charBackground);
   const [size, setSize] = useState(cardContent.size);
+  const [type, setType] = useState(cardContent.type);
   const [alignment, setAlignment] = useState(cardContent.alignment);
+  const [hitDice, setHitDice] = useState(cardContent.hitDice);
+  const [hitPointsRoll, setHitPointsRoll] = useState(cardContent.hitPointsRoll);
   const [hp, setHp] = useState(cardContent.hp);
   const [ac, setAc] = useState(cardContent.ac);
   const [strength, setStrength] = useState(cardContent.strength);
@@ -102,56 +100,62 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [intelligence, setIntelligence] = useState(cardContent.intelligence);
   const [wisdom, setwisdom] = useState(cardContent.wisdom);
   const [charisma, setCharisma] = useState(cardContent.charisma);
-  const [passivePerception, setPassivePerception] = useState(cardContent.passivePerception);
-  const [passiveInvestigation, setPassiveInvestigation] = useState(cardContent.passiveInvestigation);
-  const [passiveStealth, setPassiveStealth] = useState(cardContent.passiveStealth);
-  const [passiveInsight, setPassiveInsight] = useState(cardContent.passiveInsight);
   const [speed, setSpeed] = useState(cardContent.speed);
-  const [spellCastingAbility, setSpellCastingAbility] = useState(cardContent.spellCastingAbility);
-  const [spellCastingModifier, setSpellCastingModifier] = useState(cardContent.spellCastingModifier);
-  const [spellSaveDC, setSpellSaveDC] = useState(cardContent.spellSaveDC);
-  const [spellAttackBonus, setSpellAttackBonus] = useState(cardContent.spellAttackBonus);
-  const [link, setLink] = useState(cardContent.link);
+  const [proficiencies, setProficiencies] = useState(cardContent.proficiencies);
+  const [vulnerabilities, setVulnerabilities] = useState(cardContent.vulnerabilities);
+  const [resistances, setResistances] = useState(cardContent.resistances);
+  const [damageImmunities, setDamageImmunities] = useState(cardContent.damageImmunities);
+  const [conditionImmunities, setConditionImmunities] = useState(cardContent.conditionImmunities);
+  const [senses, setSenses] = useState(cardContent.senses);
+  const [challengeRating, setChallengeRating] = useState(cardContent.challengeRating);
+  const [specialAbilities, setspecialAbilities] = useState(cardContent.specialAbilities);
+  const [actions, setActions] = useState(cardContent.actions);
+  const [legendaryActions, setLegendaryActions] = useState(cardContent.legendaryActions);
+  const [image, setImage] = useState(cardContent.image);
+  const [link, setLink] = useState(cardContent.link); //
   const [languages, setLanguages] = useState(cardContent.languages);
+  const [description, setDescription] = useState(cardContent.description);
+  const [notes, setNotes] = useState(cardContent.content);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    size,
+    type,
+    alignment,
+    hitDice,
+    hitPointsRoll,
     hp,
     ac,
-    size,
-    alignment,
     strength,
     dexterity,
     constitution,
     intelligence,
     wisdom,
     charisma,
-    charClass,
-    charLevel,
-    charRace,
-    charBackground,
-    passivePerception,
-    passiveStealth,
-    passiveInvestigation,
-    passiveInsight,
     speed,
-    spellCastingAbility,
-    spellCastingModifier,
-    spellSaveDC,
-    spellAttackBonus,
-    languages,
+    proficiencies,
+    vulnerabilities,
+    resistances,
+    damageImmunities,
+    conditionImmunities,
+    senses,
+    challengeRating,
+    specialAbilities,
+    actions,
+    legendaryActions,
+    image,
     link,
+    languages,
+    description,
     content: notes,
   };
   const handleContentUpdate = (content: GenericCardContent) => {
     console.log(content);
-    setNotes(content.content);
-    setCharClass(content.charClass);
-    setCharLevel(content.charLevel);
-    setCharRace(content.charRace);
-    setCharBackground(content.charBackground);
     setSize(content.size);
+    setType(content.type);
     setAlignment(content.alignment);
+    setHitDice(content.hitDice);
+    setHitPointsRoll(content.hitPointsRoll);
     setHp(content.hp);
     setAc(content.ac);
     setStrength(content.strength);
@@ -160,17 +164,22 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     setIntelligence(content.intelligence);
     setwisdom(content.wisdom);
     setCharisma(content.charisma);
-    setPassivePerception(content.passivePerception);
-    setPassiveInvestigation(content.passiveInvestigation);
-    setPassiveStealth(content.passiveStealth);
-    setPassiveInsight(content.passiveInsight);
     setSpeed(content.speed);
-    setSpellCastingAbility(content.spellCastingAbility);
-    setSpellCastingModifier(content.spellCastingModifier);
-    setSpellSaveDC(content.spellSaveDC);
-    setSpellAttackBonus(content.spellAttackBonus);
+    setProficiencies(content.proficiencies);
+    setVulnerabilities(content.vulnerabilities);
+    setResistances(content.resistances);
+    setDamageImmunities(content.damageImmunities);
+    setConditionImmunities(content.conditionImmunities);
+    setSenses(content.senses);
+    setChallengeRating(content.challengeRating);
+    setspecialAbilities(content.specialAbilities);
+    setActions(content.actions);
+    setLegendaryActions(content.legendaryActions);
+    setImage(content.image);
     setLink(content.link);
     setLanguages(content.languages);
+    setDescription(content.description);
+    setNotes(content.content);
   };
 
   const handleEdit = () => {
@@ -179,23 +188,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
         ...expandedCardData,
         title: title,
         content: {
-          hp: hp,
-          ac: ac,
-          charClass: charClass,
-          charLevel: charLevel,
-          charRace: charRace,
-          charBackground: charBackground,
-          passivePerception: passivePerception,
-          passiveStealth: passiveStealth,
-          passiveInsight: passiveInsight,
-          speed: speed,
-          spellCastingAbility: spellCastingAbility,
-          spellCastingModifier: spellCastingModifier,
-          spellSaveDC: spellSaveDC,
-          spellAttackBonus: spellAttackBonus,
-          languages: languages,
-          link: link,
-          content: notes,
+          ...formContent,
         },
         tab: cardTab,
       });
@@ -238,7 +231,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <PlayerCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <MonsterCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
@@ -264,46 +257,58 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
           </Box>
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
-              <DisplayField label="Race" value={charRace} />
-              <DisplayField label="Class" value={charClass} />
-              <DisplayField label="Level" value={charLevel} />
-              <DisplayField label="Background" value={charBackground} />
               <DisplayField label="Size" value={size} />
+              <DisplayField label="Type" value={type} />
               <DisplayField label="Alignment" value={alignment} />
             </Box>
             <Box sx={{ mb: 3 }} className={classes.row}>
-              <StatField label="STR" value={strength} cardType={CardType.Player} />
-              <StatField label="DEX" value={dexterity} cardType={CardType.Player} />
-              <StatField label="CON" value={constitution} cardType={CardType.Player} />
-              <StatField label="INT" value={intelligence} cardType={CardType.Player} />
-              <StatField label="WIS" value={wisdom} cardType={CardType.Player} />
-              <StatField label="CHA" value={charisma} cardType={CardType.Player} />
+              <StatField label="STR" value={strength} cardType={CardType.Monster} />
+              <StatField label="DEX" value={dexterity} cardType={CardType.Monster} />
+              <StatField label="CON" value={constitution} cardType={CardType.Monster} />
+              <StatField label="INT" value={intelligence} cardType={CardType.Monster} />
+              <StatField label="WIS" value={wisdom} cardType={CardType.Monster} />
+              <StatField label="CHA" value={charisma} cardType={CardType.Monster} />
             </Box>
             <Box sx={{ mb: 3 }} className={classes.row}>
-              <IconField label="HP" value={hp} cardType={CardType.Player} />
-              <IconField label="AC" value={ac} cardType={CardType.Player} />
-              <IconField label="Speed" value={speed} cardType={CardType.Player} />
+              <IconField label="HP" value={hp} cardType={CardType.Monster} />
+              <IconField label="AC" value={ac} cardType={CardType.Monster} />
+              <IconField label="Speed" value={speed} cardType={CardType.Monster} />
             </Box>
             <Box className={classes.row}>
               <Box className={classes.group}>
-                <DisplayField label="Passive Perception" value={passivePerception} />
-                <DisplayField label="Passive Investigation" value={passiveInvestigation} />
-                <DisplayField label="Passive Stealth" value={passiveStealth} />
-                <DisplayField label="Passive Insight" value={passiveInsight} />
+                <DisplayField label="Vulnerabilities" value={vulnerabilities} />
+                <DisplayField label="Resistances" value={resistances} />
+                <DisplayField label="Dammage Immunities" value={damageImmunities} />
+                <DisplayField label="Condition Immunitiest" value={conditionImmunities} />
               </Box>
               <Box className={classes.group}>
-                <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
-                <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
-                <DisplayField label="Spell Save DC" value={spellSaveDC} />
-                <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
+                <DisplayField label="Proficiencies" value={proficiencies} />
+                <DisplayField label="Senses" value={senses} />
+                <DisplayField label="Languages" value={languages} />
+                <DisplayField label="CR" value={challengeRating} />
               </Box>
             </Box>
             <Box className={classes.group}>
-              <DisplayField label="Languages" value={languages} />
-              <DisplayField label="Character Sheet" value={link} />
+              <BlockField label="Special Abilities" value={specialAbilities} cardType={CardType.Monster} />
             </Box>
             <Box className={classes.group}>
-              <BlockField label="Notes" value={notes} cardType={CardType.Player} />
+              <BlockField label="Actions" value={actions} cardType={CardType.Monster} />
+            </Box>
+            {legendaryActions && (
+              <Box className={classes.group}>
+                <BlockField label="Legendary Actions" value={legendaryActions} cardType={CardType.Monster} />
+              </Box>
+            )}
+            <Box className={classes.group}>
+              <BlockField label="Description" value={description} cardType={CardType.Monster} />
+            </Box>
+            {image && (
+              <Box className={classes.group}>
+                <img src={image} alt={`${title} image`} />
+              </Box>
+            )}
+            <Box className={classes.group}>
+              <BlockField label="Notes" value={notes} cardType={CardType.Monster} />
             </Box>
           </Box>
         </>
@@ -312,4 +317,4 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   );
 };
 
-export default ExpandedPlayerCard;
+export default ExpandedMonsterCard;

@@ -1,17 +1,17 @@
 import { TextField } from '@mui/material';
 import { GenericCardContent } from '../../../interfaces';
 
-const PlayerCardForm: React.FC<{
+const MosnterCardForm: React.FC<{
   title: string;
   content: GenericCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
-    <div data-testid="player-form">
+    <div data-testid="monster-form">
       <TextField
         id="modal-title"
-        label="Character Name"
+        label="Monster Name"
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
@@ -20,20 +20,20 @@ const PlayerCardForm: React.FC<{
         data-testid="title-input"
       />
       <TextField
-        id="modal-race"
-        label="Race"
+        id="modal-size"
+        label="Size"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.charRace}
-        onChange={(e) => setContent({ ...content, charRace: e.target.value })}
+        value={content.size}
+        onChange={(e) => setContent({ ...content, size: e.target.value })}
       />
       <TextField
-        id="modal-class"
-        label="Class"
+        id="modal-type"
+        label="Type"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.charClass}
-        onChange={(e) => setContent({ ...content, charClass: e.target.value })}
+        value={content.type}
+        onChange={(e) => setContent({ ...content, type: e.target.value })}
       />
       <TextField
         id="modal-alignment"
@@ -42,14 +42,6 @@ const PlayerCardForm: React.FC<{
         variant="outlined"
         value={content.alignment}
         onChange={(e) => setContent({ ...content, alignment: e.target.value })}
-      />
-      <TextField
-        id="modal-size"
-        label="Size"
-        sx={{ paddingBottom: 2 }}
-        variant="outlined"
-        value={content.size}
-        onChange={(e) => setContent({ ...content, size: e.target.value })}
       />
       <TextField
         id="modal-strength"
@@ -101,22 +93,6 @@ const PlayerCardForm: React.FC<{
       />
       <TextField
         id="modal-hp"
-        label="Level"
-        sx={{ paddingBottom: 2 }}
-        variant="outlined"
-        value={content.charLevel}
-        onChange={(e) => setContent({ ...content, charLevel: e.target.value })}
-      />
-      <TextField
-        id="modal-background"
-        label="Background"
-        sx={{ paddingBottom: 2 }}
-        variant="outlined"
-        value={content.charBackground}
-        onChange={(e) => setContent({ ...content, charBackground: e.target.value })}
-      />
-      <TextField
-        id="modal-hp"
         label="HP"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -141,75 +117,57 @@ const PlayerCardForm: React.FC<{
         data-testid="content-input"
       />
       <TextField
-        id="modal-passive-perception"
-        label="Passive Perception"
+        id="modal-vulnerabilities"
+        label="Vulnerabilties"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.passivePerception}
-        onChange={(e) => setContent({ ...content, passivePerception: e.target.value })}
+        value={content.vulnerabilities}
+        onChange={(e) => setContent({ ...content, vulnerabilities: e.target.value })}
         data-testid="content-input"
       />
       <TextField
-        id="modal-passive-investigation"
-        label="Passive Investigation"
+        id="modal-resistances"
+        label="Resistances"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.passiveInvestigation}
-        onChange={(e) => setContent({ ...content, passiveInvestigation: e.target.value })}
+        value={content.resistances}
+        onChange={(e) => setContent({ ...content, resistances: e.target.value })}
         data-testid="content-input"
       />
       <TextField
-        id="modal-passive-stealth"
-        label="Passive Stealth"
+        id="modal-dmg-immunities"
+        label="Damage Immunities"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.passiveStealth}
-        onChange={(e) => setContent({ ...content, passiveStealth: e.target.value })}
+        value={content.damageImmunities}
+        onChange={(e) => setContent({ ...content, damageImmunities: e.target.value })}
         data-testid="content-input"
       />
       <TextField
-        id="modal-passive-insight"
-        label="Passive Insight"
+        id="modal-cond-immmunities"
+        label="Condition Immunities"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.passiveInsight}
-        onChange={(e) => setContent({ ...content, passiveInsight: e.target.value })}
+        value={content.conditionImmunities}
+        onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
         data-testid="content-input"
       />
       <TextField
-        id="modal-spell-casting-ability"
-        label="Spell Casting Ability"
+        id="modal-proficincies"
+        label="Proficincies"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.spellCastingAbility}
-        onChange={(e) => setContent({ ...content, spellCastingAbility: e.target.value })}
+        value={content.proficiencies}
+        onChange={(e) => setContent({ ...content, proficiencies: e.target.value })}
         data-testid="content-input"
       />
       <TextField
-        id="modal-spell-casting-modifier"
-        label="Spell Casting Modifier"
+        id="modal-senses"
+        label="Senses"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.spellCastingModifier}
-        onChange={(e) => setContent({ ...content, spellCastingModifier: e.target.value })}
-        data-testid="content-input"
-      />
-      <TextField
-        id="modal-spell-save-dc"
-        label="Spell Save DC"
-        sx={{ paddingBottom: 2 }}
-        variant="outlined"
-        value={content.spellSaveDC}
-        onChange={(e) => setContent({ ...content, spellSaveDC: e.target.value })}
-        data-testid="content-input"
-      />
-      <TextField
-        id="modal-spell-attack-bonus"
-        label="Spell Attack Bonus"
-        sx={{ paddingBottom: 2 }}
-        variant="outlined"
-        value={content.spellAttackBonus}
-        onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
+        value={content.senses}
+        onChange={(e) => setContent({ ...content, senses: e.target.value })}
         data-testid="content-input"
       />
       <TextField
@@ -223,13 +181,61 @@ const PlayerCardForm: React.FC<{
         data-testid="content-input"
       />
       <TextField
-        id="modal-link"
-        label="Character Sheet Link"
+        id="modal-cr"
+        label="Challenge Rating"
         fullWidth
         sx={{ paddingBottom: 2 }}
         variant="outlined"
-        value={content.link}
-        onChange={(e) => setContent({ ...content, link: e.target.value })}
+        value={content.challengeRating}
+        onChange={(e) => setContent({ ...content, challengeRating: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
+        id="modal-special-abilities"
+        label="Special Abilties"
+        fullWidth
+        variant="outlined"
+        sx={{ paddingBottom: 2 }}
+        multiline
+        rows={18}
+        value={content.specialAbilities}
+        onChange={(e) => setContent({ ...content, specialAbilities: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
+        id="modal-actions"
+        label="Actions"
+        fullWidth
+        variant="outlined"
+        sx={{ paddingBottom: 2 }}
+        multiline
+        rows={18}
+        value={content.actions}
+        onChange={(e) => setContent({ ...content, actions: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
+        id="modal-legendary-actions"
+        label="Legendary Actions"
+        fullWidth
+        variant="outlined"
+        sx={{ paddingBottom: 2 }}
+        multiline
+        rows={18}
+        value={content.legendaryActions}
+        onChange={(e) => setContent({ ...content, legendaryActions: e.target.value })}
+        data-testid="content-input"
+      />
+      <TextField
+        id="modal-description"
+        label="Decription"
+        fullWidth
+        variant="outlined"
+        sx={{ paddingBottom: 2 }}
+        multiline
+        rows={18}
+        value={content.description}
+        onChange={(e) => setContent({ ...content, description: e.target.value })}
         data-testid="content-input"
       />
       <TextField
@@ -244,8 +250,20 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, content: e.target.value })}
         data-testid="content-input"
       />
+      <TextField
+        id="modal-image"
+        label="Image URL"
+        fullWidth
+        variant="outlined"
+        sx={{ paddingBottom: 2 }}
+        multiline
+        rows={18}
+        value={content.image}
+        onChange={(e) => setContent({ ...content, image: e.target.value })}
+        data-testid="content-input"
+      />
     </div>
   );
 };
 
-export default PlayerCardForm;
+export default MosnterCardForm;
