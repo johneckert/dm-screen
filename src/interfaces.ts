@@ -112,14 +112,6 @@ export interface RuleData {
   };
 }
 
-// export interface APIMonsterData {
-
-//   speed: {
-//     [key: string]: string;
-//   };
-//   }
-// }
-
 export interface APIMonsterData {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;

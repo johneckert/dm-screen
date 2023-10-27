@@ -42,7 +42,6 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
         detailText = content.description ?? '';
         break;
       default:
-        console.log('content', content);
         detailText = content.content ?? '';
     }
     return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
