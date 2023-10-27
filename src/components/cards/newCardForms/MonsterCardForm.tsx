@@ -1,5 +1,16 @@
+import { useState, useEffect, useCallback } from 'react';
 import { TextField } from '@mui/material';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import { GenericCardContent } from '../../../interfaces';
+
+interface Monster {
+  name: string;
+  index: string;
+  url: string;
+}
+
+const CUSTOM = { name: 'custom', index: 'custom', url: 'custom' };
 
 const MosnterCardForm: React.FC<{
   title: string;
@@ -7,8 +18,51 @@ const MosnterCardForm: React.FC<{
   setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
+  const [availableMonsters, setAvailableMonsters] = useState<Monster[]>([CUSTOM]);
+  const [selectedMonster, setSelectedMonster] = useState<Monster>(CUSTOM);
+  const setSelectedMonsterFromList = (monsterName: string) => {
+    const selected = availableMonsters.filter((monster) => monster.name === monsterName) ?? [CUSTOM];
+    setSelectedMonster(selected[0]);
+    console.log(selected[0]);
+  };
+  const fetchMonsters = useCallback(async () => {
+    const response = await fetch('https://api.open5e.com/monsters/?limit=1000');
+    const data = await response.json();
+    console.log(data.count);
+    const alphabetized = data.results.sort((a: Monster, b: Monster) => {
+      if (a.name < b.name) {
+        return -1;
+      }
+      if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+    const monsters = [CUSTOM, ...alphabetized];
+    setAvailableMonsters(monsters);
+  }, []);
+
+  useEffect(() => {
+    fetchMonsters();
+  }, [fetchMonsters]);
+
   return (
     <div data-testid="monster-form">
+      <Select
+        labelId="monster-select-label"
+        sx={{ marginBottom: 2 }}
+        id="monster-select"
+        value={selectedMonster.name}
+        label="Tab"
+        data-testid="monster-select"
+        onChange={(e) => setSelectedMonsterFromList(e.target.value)}
+      >
+        {availableMonsters.map((monster) => (
+          <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
+            {monster.name}
+          </MenuItem>
+        ))}
+      </Select>
       <TextField
         id="modal-title"
         label="Monster Name"
