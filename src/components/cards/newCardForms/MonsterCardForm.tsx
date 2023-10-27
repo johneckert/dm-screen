@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
-import { Box, TextField } from '@mui/material';
+import { Box, Input, InputLabel, TextField } from '@mui/material';
 import { GenericCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import Select from '@mui/material/Select';
@@ -56,23 +56,25 @@ const MosnterCardForm: React.FC<{
 
   return (
     <div data-testid="monster-form">
-      <Box sx={{ display: 'flex', mb: 2 }}>
-        <Select
-          labelId="monster-select-label"
-          sx={{ mr: 2, width: '95%' }}
-          id="monster-select"
-          value={selectedMonster.name}
-          label="Tab"
-          data-testid="monster-select"
-          onChange={(e) => setSelectedMonsterFromList(e.target.value)}
-        >
-          {availableMonsters.map((monster) => (
-            <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
-              {monster.name}
-            </MenuItem>
-          ))}
-        </Select>
-        {isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> : null}
+      <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
+        <InputLabel id="monster-select-label">Monster</InputLabel>
+        <span style={{ display: 'flex', width: '100%' }}>
+          <Select
+            labelId="monster-select-label"
+            sx={{ mr: 2, width: '90%' }}
+            id="monster-select"
+            value={selectedMonster.name}
+            data-testid="monster-select"
+            onChange={(e) => setSelectedMonsterFromList(e.target.value)}
+          >
+            {availableMonsters.map((monster) => (
+              <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
+                {monster.name}
+              </MenuItem>
+            ))}
+          </Select>
+          {isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> : null}
+        </span>
       </Box>
       {selectedMonster.name === 'custom' ? (
         <>
