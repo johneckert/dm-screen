@@ -42,7 +42,8 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
         detailText = content.description ?? '';
         break;
       default:
-        detailText = content.content;
+        console.log('content', content);
+        detailText = content.content ?? '';
     }
     return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
   };
@@ -70,7 +71,9 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
         title={splitAndTitleCase(title)}
       />
       <CardContent>
-        <Container>{/* <Typography>{detailText()}</Typography> */}</Container>
+        <Container>
+          <Typography>{detailText()}</Typography>
+        </Container>
       </CardContent>
     </Card>
   );
