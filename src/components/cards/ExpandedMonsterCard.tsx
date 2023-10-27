@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { CardData, CardType, GenericCardContent, APIMonsterData } from '../../interfaces';
+import React, { useState } from 'react';
+import { CardData, CardType, GenericCardContent } from '../../interfaces';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -15,7 +15,6 @@ import StatField from './cardFields/StatField';
 import IconField from './cardFields/IconField';
 import BlockField from './cardFields/BlockField';
 import CardHeader from './cardFields/CardHeader';
-import { formatMonsterData } from '../../utils';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   header: {
