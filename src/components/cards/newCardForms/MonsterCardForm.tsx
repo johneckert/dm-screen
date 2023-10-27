@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { GenericCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const MosnterCardForm: React.FC<{
   title: string;
@@ -15,11 +16,13 @@ const MosnterCardForm: React.FC<{
 }> = ({ title, content, setTitle, setContent }) => {
   const [availableMonsters, setAvailableMonsters] = useState<APIMonsterData[]>([CUSTOM_MONSTER]);
   const [selectedMonster, setSelectedMonster] = useState<APIMonsterData>(CUSTOM_MONSTER);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const setSelectedMonsterFromList = (monsterName: string) => {
     const selected = availableMonsters.filter((monster) => monster.name === monsterName) ?? [CUSTOM_MONSTER];
     setSelectedMonster(selected[0]);
   };
   const fetchMonsters = useCallback(async () => {
+    setIsLoading(true);
     const response = await fetch('https://api.open5e.com/monsters/?limit=1000');
     const data = await response.json();
     console.log(data);
@@ -34,6 +37,7 @@ const MosnterCardForm: React.FC<{
     });
     const monsters = [CUSTOM_MONSTER, ...alphabetized];
     setAvailableMonsters(monsters);
+    setIsLoading(false);
   }, []);
 
   useEffect(() => {
@@ -52,21 +56,24 @@ const MosnterCardForm: React.FC<{
 
   return (
     <div data-testid="monster-form">
-      <Select
-        labelId="monster-select-label"
-        sx={{ marginBottom: 2 }}
-        id="monster-select"
-        value={selectedMonster.name}
-        label="Tab"
-        data-testid="monster-select"
-        onChange={(e) => setSelectedMonsterFromList(e.target.value)}
-      >
-        {availableMonsters.map((monster) => (
-          <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
-            {monster.name}
-          </MenuItem>
-        ))}
-      </Select>
+      <Box sx={{ display: 'flex', mb: 2 }}>
+        <Select
+          labelId="monster-select-label"
+          sx={{ mr: 2, width: '95%' }}
+          id="monster-select"
+          value={selectedMonster.name}
+          label="Tab"
+          data-testid="monster-select"
+          onChange={(e) => setSelectedMonsterFromList(e.target.value)}
+        >
+          {availableMonsters.map((monster) => (
+            <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
+              {monster.name}
+            </MenuItem>
+          ))}
+        </Select>
+        {isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> : null}
+      </Box>
       {selectedMonster.name === 'custom' ? (
         <>
           <TextField
