@@ -24,19 +24,23 @@ const MonsterCardForm: React.FC<{
   const fetchMonsters = useCallback(async () => {
     setIsLoading(true);
     const response = await fetch('https://api.open5e.com/monsters/?limit=1000');
-    const data = await response.json();
-    console.log(data);
-    const alphabetized = data.results.sort((a: APIMonsterData, b: APIMonsterData) => {
-      if (a.name < b.name) {
-        return -1;
-      }
-      if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
-    const monsters = [CUSTOM_MONSTER, ...alphabetized];
-    setAvailableMonsters(monsters);
+    try {
+      const data = await response.json();
+      console.log(data);
+      const alphabetized = data.results.sort((a: APIMonsterData, b: APIMonsterData) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+      const monsters = [CUSTOM_MONSTER, ...alphabetized];
+      setAvailableMonsters(monsters);
+    } catch (e) {
+      console.log(e);
+    }
     setIsLoading(false);
   }, []);
 
@@ -57,7 +61,7 @@ const MonsterCardForm: React.FC<{
   return (
     <div data-testid="monster-form">
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
-        <InputLabel id="monster-select-label">Monster</InputLabel>
+        <InputLabel id="monster-select-label">Monster Preset</InputLabel>
         <span style={{ display: 'flex', width: '100%' }}>
           <Select
             labelId="monster-select-label"
