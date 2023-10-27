@@ -7,6 +7,8 @@ export const BREAKPOINTS = {
   xl: 1920,
 };
 
+export const CUSTOM_MONSTER = { name: 'custom', index: 'custom', url: 'custom' };
+
 export const HEADER_HEIGHT = 64;
 
 export const NUMBER_OF_ROWS = 4;

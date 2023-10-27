@@ -1,4 +1,4 @@
-import { ScreenSize, CardData, CardDataMap, CardType } from './interfaces';
+import { ScreenSize, CardData, CardDataMap, CardType, APIMonsterData } from './interfaces';
 import { BREAKPOINTS } from './constants';
 import { PURPLE, TEAL, AMBER, RED, BLUE } from './colors';
 import { EMPTY_CARD_MAP } from './constants';
@@ -59,4 +59,56 @@ export const validateFileType = (file: File) => {
     return false;
   }
   return true;
+};
+
+const combineSpeed = (speed: { [key: string]: string }) => {
+  return Object.entries(speed)
+    .map(([key, value]) => `${key}: ${value}ft.`)
+    .join(', ');
+};
+
+const combineSkills = (skills: { [key: string]: string }) => {
+  return Object.entries(skills)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(', ');
+};
+
+const combineToMarkdown = (specialAbilities: { [key: string]: string }[]) => {
+  const abilitiesMarkDown =
+    specialAbilities?.map((ability) => {
+      return `### ${ability.name}: \n ${ability.desc} \n`;
+    }) || [];
+  return abilitiesMarkDown.join('\n');
+};
+
+export const formatMonsterData = (monsterData: APIMonsterData) => {
+  return {
+    title: monsterData.name,
+    size: monsterData.size,
+    type: monsterData.type,
+    alignment: monsterData.alignment,
+    hitDice: monsterData.hit_dice,
+    hp: monsterData.hit_points,
+    ac: monsterData.armor_class,
+    strength: monsterData.strength,
+    dexterity: monsterData.dexterity,
+    constitution: monsterData.constitution,
+    intelligence: monsterData.intelligence,
+    wisdom: monsterData.wisdom,
+    charisma: monsterData.charisma,
+    speed: combineSpeed(monsterData.speed),
+    proficiencies: combineSkills(monsterData.skills),
+    vulnerabilities: monsterData.damage_vulnerabilities,
+    resistances: monsterData.damage_resistances,
+    damageImmunities: monsterData.damage_immunities,
+    conditionImmunities: monsterData.condition_immunities,
+    senses: monsterData.senses,
+    challengeRating: monsterData.challenge_rating,
+    specialAbilities: combineToMarkdown(monsterData.special_abilities),
+    actions: combineToMarkdown(monsterData.actions),
+    legendaryActions: combineToMarkdown(monsterData.legendary_actions),
+    image: monsterData.image_main,
+    languages: monsterData.languages,
+    description: monsterData.desc,
+  };
 };

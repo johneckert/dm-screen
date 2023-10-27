@@ -14,7 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
 
-const SmallCard = ({ title, content, type }: SmallCardProps) => {
+const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const mapContent = content as GenericCardContent;
 
@@ -70,9 +70,7 @@ const SmallCard = ({ title, content, type }: SmallCardProps) => {
         title={splitAndTitleCase(title)}
       />
       <CardContent>
-        <Container>
-          <Typography>{detailText()}</Typography>
-        </Container>
+        <Container>{/* <Typography>{detailText()}</Typography> */}</Container>
       </CardContent>
     </Card>
   );
