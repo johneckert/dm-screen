@@ -94,13 +94,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="note-card-title"
-            sx={{ alignSelf: 'center' }}
-            className={classes.modalTitle}
-            variant="h3"
-            component="h3"
-          >
+          <Typography id="note-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>

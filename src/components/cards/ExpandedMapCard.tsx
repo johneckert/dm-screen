@@ -95,13 +95,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="map-card-title"
-            sx={{ alignSelf: 'center' }}
-            className={classes.modalTitle}
-            variant="h3"
-            component="h3"
-          >
+          <Typography id="map-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>

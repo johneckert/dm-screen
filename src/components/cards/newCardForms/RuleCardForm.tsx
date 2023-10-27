@@ -17,12 +17,12 @@ const RuleCardForm: React.FC<{
   return (
     <div data-testid="rule-form">
       <Select
-        labelId="card-type-select-label"
-        sx={{ marginBottom: 2 }}
-        id="card-type-select"
+        labelId="rule-select-label"
+        sx={{ marginBottom: 2, width: '100%' }}
+        id="rule-select"
         value={title}
-        label="Type"
-        data-testid="card-type-select"
+        label="Rule"
+        data-testid="rule-select"
         onChange={(e) => {
           handleChange(e);
         }}

@@ -198,13 +198,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="player-card-title"
-            sx={{ alignSelf: 'center' }}
-            className={classes.modalTitle}
-            variant="h3"
-            component="h3"
-          >
+          <Typography id="player-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>
