@@ -16,6 +16,7 @@ import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
 import RuleCardForm from './newCardForms/RuleCardForm';
 import PlayerCardForm from './newCardForms/PlayerCardForm';
+import MonsterCardForm from './newCardForms/MonsterCardForm';
 import { DEFAULT_TAB } from '../../constants';
 
 const useStyles = makeStyles<Theme>((theme) => ({
@@ -139,6 +140,16 @@ const NewCardModal: React.FC<{
             data-testid="player-form"
           />
         );
+      case CardType.Monster:
+        return (
+          <MonsterCardForm
+            title={title}
+            content={content}
+            setTitle={setTitle}
+            setContent={setContent}
+            data-testid="monster-form"
+          />
+        );
       case CardType.Note:
         return (
           <NoteCardForm
@@ -176,53 +187,58 @@ const NewCardModal: React.FC<{
         </Typography>
         <Box className={classes.content}>
           <Box className={classes.form}>
-            <InputLabel id="card-type-select-label">Type</InputLabel>
-            <Select
-              labelId="card-type-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-type-select"
-              value={cardType}
-              label="Type"
-              data-testid="card-type-select"
-              onChange={(e) => setCardType(e.target.value as CardType)}
-            >
-              {Object.values(CardType).map((value) => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value}>
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <Select
-              labelId="card-column-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-column-select"
-              value={cardColumn}
-              label="Column"
-              data-testid="card-column-select"
-              onChange={(e) => setCardColumn(e.target.value)}
-            >
-              {['droppable-1', 'droppable-2', 'droppable-3', 'droppable-4'].map((value) => (
-                <MenuItem key={value} value={value}>
-                  {columnDisplayName(value)}
-                </MenuItem>
-              ))}
-            </Select>
-            {renderForm()}
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+              <InputLabel id="card-type-select-label">Card Type</InputLabel>
+              <Select
+                labelId="card-type-select-label"
+                sx={{ marginBottom: 2 }}
+                id="card-type-select"
+                value={cardType}
+                data-testid="card-type-select"
+                onChange={(e) => setCardType(e.target.value as CardType)}
+              >
+                {Object.values(CardType).map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+              <InputLabel id="card-tab-select-label">Tab</InputLabel>
+              <Select
+                labelId="card-tab-select-label"
+                sx={{ marginBottom: 2 }}
+                id="card-tab-select"
+                value={cardTab}
+                data-testid="card-tab-select"
+                onChange={(e) => setCardTab(e.target.value)}
+              >
+                {tabs.map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {value}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+              <InputLabel id="card-column-select-label">Column</InputLabel>
+              <Select
+                labelId="card-column-select-label"
+                sx={{ marginBottom: 2 }}
+                id="card-column-select"
+                value={cardColumn}
+                data-testid="card-column-select"
+                onChange={(e) => setCardColumn(e.target.value)}
+              >
+                {['droppable-1', 'droppable-2', 'droppable-3', 'droppable-4'].map((value) => (
+                  <MenuItem key={value} value={value}>
+                    {columnDisplayName(value)}
+                  </MenuItem>
+                ))}
+              </Select>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderForm()}</Box>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <Button

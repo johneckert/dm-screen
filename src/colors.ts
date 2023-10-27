@@ -1,11 +1,13 @@
 export const RED = {
   100: '#ffbaba',
+  200: '#ff7b7b',
   300: '#ff5252',
   500: '#ff0000',
 };
 
 export const TEAL = {
   100: '#b2d8d8',
+  200: '#80bfbf',
   300: '#66b2b2',
   500: '#19857b',
 };
@@ -34,6 +36,13 @@ export const AMBER = {
   700: '#996C16',
   800: '#664806',
   900: '#332407',
+};
+
+export const BLUE = {
+  100: '#C1D1DB',
+  200: '#75A2BF',
+  300: '#5E8CAD',
+  500: '#46769B',
 };
 
 export const BLACK = '#000000';

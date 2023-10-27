@@ -5,7 +5,7 @@ const NoteCardForm: React.FC<{
   title: string;
   content: GenericCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
+  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="note-form">
