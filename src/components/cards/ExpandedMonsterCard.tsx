@@ -273,14 +273,14 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
             <Box className={classes.group}>
               <BlockField label="Description" value={description} cardType={CardType.Monster} />
             </Box>
-            {image && (
-              <Box className={classes.group}>
-                <img src={image} alt={`${title} image`} />
-              </Box>
-            )}
             <Box className={classes.group}>
               <BlockField label="Notes" value={notes} cardType={CardType.Monster} />
             </Box>
+            {image && (
+              <Box className={classes.group}>
+                <img src={image} alt={`image of ${title}`} />
+              </Box>
+            )}
           </Box>
         </>
       )}

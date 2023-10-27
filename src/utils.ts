@@ -61,19 +61,19 @@ export const validateFileType = (file: File) => {
   return true;
 };
 
-const combineSpeed = (speed: { [key: string]: string }) => {
+const combineToString = (speed: { [key: string]: string } | string) => {
+  if (typeof speed === 'string') {
+    return speed;
+  }
   return Object.entries(speed)
     .map(([key, value]) => `${key}: ${value}ft.`)
     .join(', ');
 };
 
-const combineSkills = (skills: { [key: string]: string }) => {
-  return Object.entries(skills)
-    .map(([key, value]) => `${key}: ${value}`)
-    .join(', ');
-};
-
-const combineToMarkdown = (specialAbilities: { [key: string]: string }[]) => {
+const combineToMarkdown = (specialAbilities: { [key: string]: string }[] | string) => {
+  if (typeof specialAbilities === 'string') {
+    return specialAbilities;
+  }
   const abilitiesMarkDown =
     specialAbilities?.map((ability) => {
       return `### ${ability.name}: \n ${ability.desc} \n`;
@@ -96,8 +96,8 @@ export const formatMonsterData = (monsterData: APIMonsterData) => {
     intelligence: monsterData.intelligence,
     wisdom: monsterData.wisdom,
     charisma: monsterData.charisma,
-    speed: combineSpeed(monsterData.speed),
-    proficiencies: combineSkills(monsterData.skills),
+    speed: combineToString(monsterData.speed),
+    proficiencies: combineToString(monsterData.skills),
     vulnerabilities: monsterData.damage_vulnerabilities,
     resistances: monsterData.damage_resistances,
     damageImmunities: monsterData.damage_immunities,
@@ -107,7 +107,7 @@ export const formatMonsterData = (monsterData: APIMonsterData) => {
     specialAbilities: combineToMarkdown(monsterData.special_abilities),
     actions: combineToMarkdown(monsterData.actions),
     legendaryActions: combineToMarkdown(monsterData.legendary_actions),
-    image: monsterData.image_main,
+    image: monsterData.img_main,
     languages: monsterData.languages,
     description: monsterData.desc,
   };

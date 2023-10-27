@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
-import { Box, Input, InputLabel, TextField } from '@mui/material';
+import { Box, InputLabel, TextField } from '@mui/material';
 import { GenericCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const MosnterCardForm: React.FC<{
+const MonsterCardForm: React.FC<{
   title: string;
   content: GenericCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
@@ -45,12 +45,12 @@ const MosnterCardForm: React.FC<{
   }, [fetchMonsters]);
 
   useEffect(() => {
-    if (selectedMonster.index !== 'custom') {
+    if (selectedMonster.name !== 'custom') {
       console.log(selectedMonster);
       const formatted = formatMonsterData(selectedMonster);
       console.log(formatted);
       setTitle(formatted.title);
-      setContent({ ...formatted, content: content.content });
+      setContent({ ...formatted, content: content.content ?? '' });
     }
   }, [selectedMonster]);
 
@@ -324,9 +324,7 @@ const MosnterCardForm: React.FC<{
             label="Image URL"
             fullWidth
             variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
+            sx={{ paddingBottom: 2, display: 'none' }}
             value={content.image}
             onChange={(e) => setContent({ ...content, image: e.target.value })}
             data-testid="content-input"
@@ -337,4 +335,4 @@ const MosnterCardForm: React.FC<{
   );
 };
 
-export default MosnterCardForm;
+export default MonsterCardForm;
