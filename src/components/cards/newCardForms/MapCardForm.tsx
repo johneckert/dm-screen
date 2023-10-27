@@ -5,7 +5,7 @@ const MapCardForm: React.FC<{
   title: string;
   content: GenericCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>>;
+  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="map-form">
@@ -16,6 +16,7 @@ const MapCardForm: React.FC<{
         variant="outlined"
         value={content.roomNumber}
         onChange={(e) => setContent({ ...content, roomNumber: e.target.value })}
+        data-testid="room-number-input"
       />
       <TextField
         id="modal-title"
@@ -37,7 +38,7 @@ const MapCardForm: React.FC<{
         rows={18}
         value={content.description}
         onChange={(e) => setContent({ ...content, description: e.target.value })}
-        data-testid="content-input"
+        data-testid="description-input"
       />
       <TextField
         id="modal-content"

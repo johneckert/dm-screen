@@ -7,6 +7,38 @@ export const BREAKPOINTS = {
   xl: 1920,
 };
 
+export const CUSTOM_MONSTER = {
+  title: 'custom',
+  name: 'custom',
+  size: '',
+  type: '',
+  alignment: '',
+  hitDice: '',
+  hp: '',
+  ac: '',
+  strength: '10',
+  dexterity: '10',
+  constitution: '10',
+  intelligence: '10',
+  wisdom: '10',
+  charisma: '10',
+  speed: '',
+  skills: '',
+  vulnerabilities: '',
+  resistances: '',
+  damageImmunities: '',
+  conditionImmunities: '',
+  senses: '',
+  challengeRating: '',
+  specialAbilities: '',
+  actions: '',
+  legendaryActions: '',
+  image: '',
+  languages: '',
+  description: '',
+  notes: '',
+};
+
 export const HEADER_HEIGHT = 64;
 
 export const NUMBER_OF_ROWS = 4;

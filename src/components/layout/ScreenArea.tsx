@@ -10,6 +10,7 @@ import ExpandedNoteCard from '../cards/ExpandedNoteCard';
 import ExpandedMapCard from '../cards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/ExpandedRuleCard';
 import ExpandedPlayerCard from '../cards/ExpandedPlayerCard';
+import ExpandedMonsterCard from '../cards/ExpandedMonsterCard';
 import NewCardModal from '../cards/NewCardModal';
 import { GREY } from '../../colors';
 
@@ -166,6 +167,15 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
         case CardType.Player:
           return (
             <ExpandedPlayerCard
+              closeExpandedCard={closeExpandedCard}
+              expandedCardData={expandedCardData}
+              updateCard={updateCard}
+              deleteCard={deleteCard}
+            />
+          );
+        case CardType.Monster:
+          return (
+            <ExpandedMonsterCard
               closeExpandedCard={closeExpandedCard}
               expandedCardData={expandedCardData}
               updateCard={updateCard}

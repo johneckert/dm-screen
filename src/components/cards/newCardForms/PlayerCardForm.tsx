@@ -36,6 +36,70 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charClass: e.target.value })}
       />
       <TextField
+        id="modal-alignment"
+        label="Alignment"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.alignment}
+        onChange={(e) => setContent({ ...content, alignment: e.target.value })}
+      />
+      <TextField
+        id="modal-size"
+        label="Size"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.size}
+        onChange={(e) => setContent({ ...content, size: e.target.value })}
+      />
+      <TextField
+        id="modal-strength"
+        label="STR"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.strength}
+        onChange={(e) => setContent({ ...content, strength: e.target.value })}
+      />
+      <TextField
+        id="modal-dexterity"
+        label="DEX"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.dexterity}
+        onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
+      />
+      <TextField
+        id="modal-strength"
+        label="CON"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.constitution}
+        onChange={(e) => setContent({ ...content, constitution: e.target.value })}
+      />
+      <TextField
+        id="modal-intelligence"
+        label="INT"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.intelligence}
+        onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
+      />
+      <TextField
+        id="modal-wisdom"
+        label="WIS"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.wisdom}
+        onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
+      />
+      <TextField
+        id="modal-charisma"
+        label="CHA"
+        sx={{ paddingBottom: 2 }}
+        variant="outlined"
+        value={content.charisma}
+        onChange={(e) => setContent({ ...content, charisma: e.target.value })}
+      />
+      <TextField
         id="modal-hp"
         label="Level"
         sx={{ paddingBottom: 2 }}

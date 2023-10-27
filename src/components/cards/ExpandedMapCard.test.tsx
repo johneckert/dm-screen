@@ -24,7 +24,7 @@ const expandedMapCardData = {
   },
 };
 
-describe('ExpandedCard', () => {
+describe('ExpandedMapCard', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
