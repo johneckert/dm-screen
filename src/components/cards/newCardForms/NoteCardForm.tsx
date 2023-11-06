@@ -2,11 +2,9 @@ import { TextField } from '@mui/material';
 import { NoteCardContent } from '../../../interfaces';
 
 const NoteCardForm: React.FC<{
-  title: string;
   content: NoteCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<NoteCardContent>> | ((content: NoteCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+}> = ({ content, setContent }) => {
   return (
     <div data-testid="note-form">
       <TextField
@@ -15,8 +13,8 @@ const NoteCardForm: React.FC<{
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={content.title}
+        onChange={(e) => setContent({ ...content, title: e.target.value })}
         data-testid="title-input"
       />
       <TextField

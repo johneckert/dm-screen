@@ -2,11 +2,9 @@ import { TextField } from '@mui/material';
 import { PlayerCardContent } from '../../../interfaces';
 
 const PlayerCardForm: React.FC<{
-  title: string;
   content: PlayerCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<PlayerCardContent>> | ((content: PlayerCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+}> = ({ content, setContent }) => {
   return (
     <div data-testid="player-form">
       <TextField
@@ -15,8 +13,8 @@ const PlayerCardForm: React.FC<{
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={content.title}
+        onChange={(e) => setContent({ ...content, title: e.target.value })}
         data-testid="title-input"
       />
       <TextField

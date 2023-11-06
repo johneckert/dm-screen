@@ -62,25 +62,27 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   const cardContent = expandedCardData.content as MapCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.content);
   const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
   const [description, setDescription] = useState(cardContent.description);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     roomNumber,
     description,
     content: notes,
   };
   const handleContentUpdate = (content: MapCardContent) => {
+    setTitle(content.title);
     setNotes(content.content);
     setRoomNumber(content.roomNumber);
     setDescription(content.description);
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -114,7 +116,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <MapCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <MapCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (

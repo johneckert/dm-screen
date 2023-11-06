@@ -85,7 +85,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const cardContent = expandedCardData.content as PlayerCardContent;
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.content);
   const [charClass, setCharClass] = useState(cardContent.charClass);
   const [charLevel, setCharLevel] = useState(cardContent.charLevel);
@@ -115,6 +115,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     hp,
     ac,
     size,
@@ -143,7 +144,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     content: notes,
   };
   const handleContentUpdate = (content: PlayerCardContent) => {
-    console.log(content);
+    setTitle(content.title);
     setNotes(content.content);
     setCharClass(content.charClass);
     setCharLevel(content.charLevel);
@@ -176,8 +177,8 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     if (isEditing) {
       updateCard({
         ...expandedCardData,
-        title: title,
         content: {
+          title: title,
           hp: hp,
           ac: ac,
           charClass: charClass,
@@ -231,7 +232,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <PlayerCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (

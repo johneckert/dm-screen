@@ -79,7 +79,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const cardContent = expandedCardData.content as MonsterCardContent;
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [size, setSize] = useState(cardContent.size);
   const [type, setType] = useState(cardContent.type);
   const [alignment, setAlignment] = useState(cardContent.alignment);
@@ -112,6 +112,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     size,
     type,
     alignment,
@@ -143,6 +144,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     content: notes,
   };
   const handleContentUpdate = (content: MonsterCardContent) => {
+    setTitle(content.title);
     setSize(content.size);
     setType(content.type);
     setAlignment(content.alignment);
@@ -178,7 +180,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     if (isEditing) {
       updateCard({
         ...expandedCardData,
-        title: title,
         content: {
           ...formContent,
         },
@@ -217,7 +218,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <MonsterCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <MonsterCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (

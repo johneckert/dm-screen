@@ -15,8 +15,7 @@ const expandedNoteCardData = {
   id: '1',
   type: CardType.Note,
   column: 'column-1',
-  title: 'Pikachu',
-  content: { content: 'I am Pikachu' },
+  content: { title: 'Pikachu', content: 'I am Pikachu' },
   tab: DEFAULT_TAB,
 };
 

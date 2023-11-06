@@ -8,13 +8,11 @@ import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';
 
 const RuleCardForm: React.FC<{
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
+  content: RuleCardContent;
   setContent: React.Dispatch<React.SetStateAction<RuleCardContent>> | ((content: RuleCardContent) => void);
-}> = ({ title, setTitle, setContent }) => {
+}> = ({ content, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
-    setTitle(e.target.value);
-    setContent({ content: splitAndTitleCase(e.target.value) });
+    setContent({ title: e.target.value, content: splitAndTitleCase(e.target.value) });
   };
   return (
     <div data-testid="rule-form">
@@ -24,7 +22,7 @@ const RuleCardForm: React.FC<{
           labelId="rule-select-label"
           sx={{ marginBottom: 2, width: '100%' }}
           id="rule-select"
-          value={title}
+          value={content.title}
           data-testid="rule-select"
           onChange={(e) => {
             handleChange(e);

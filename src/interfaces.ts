@@ -1,5 +1,4 @@
 export interface SmallCardProps {
-  title: string;
   type: CardType;
   content: NoteCardContent | PlayerCardContent | RuleCardContent | MapCardContent | MonsterCardContent;
 }
@@ -24,7 +23,6 @@ export interface CardDataMap {
 
 export interface CardData {
   id: string;
-  title: string;
   content: NoteCardContent | PlayerCardContent | RuleCardContent | MapCardContent | MonsterCardContent;
   column: string;
   type: CardType;
@@ -32,7 +30,7 @@ export interface CardData {
 }
 
 export interface GenericCardContent {
-  title?: string;
+  title: string;
   content: string;
 }
 

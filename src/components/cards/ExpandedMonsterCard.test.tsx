@@ -16,8 +16,8 @@ const mockExpandedMonsterCardData = {
   id: '1',
   type: CardType.Monster,
   column: 'column-1',
-  title: 'Owlbear',
   content: {
+    title: 'Owlbear',
     type: 'monstrosity',
     size: 'Large',
     alignment: 'Unaligned',

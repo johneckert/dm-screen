@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, SkillDescription, RuleTable } from '../../interfaces';
+import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../interfaces';
 import { RULES, RULE_DATA } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
@@ -212,16 +212,17 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
+  const cardContent = expandedCardData.content as RuleCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const ruleData = RULE_DATA[title];
   const subRules = Object.keys(ruleData);
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { content: splitAndTitleCase(title) }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { title: title, content: splitAndTitleCase(title) }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };

@@ -9,11 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const MonsterCardForm: React.FC<{
-  title: string;
   content: MonsterCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<MonsterCardContent>> | ((content: MonsterCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+}> = ({ content, setContent }) => {
   const [availableMonsters, setAvailableMonsters] = useState<APIMonsterData[]>([CUSTOM_MONSTER]);
   const [selectedMonster, setSelectedMonster] = useState<APIMonsterData>(CUSTOM_MONSTER);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +24,6 @@ const MonsterCardForm: React.FC<{
     const response = await fetch('https://api.open5e.com/monsters/?limit=1000');
     try {
       const data = await response.json();
-      console.log(data);
       const alphabetized = data.results.sort((a: APIMonsterData, b: APIMonsterData) => {
         if (a.name < b.name) {
           return -1;
@@ -50,10 +47,7 @@ const MonsterCardForm: React.FC<{
 
   useEffect(() => {
     if (selectedMonster.name !== 'custom') {
-      console.log(selectedMonster);
       const formatted = formatMonsterData(selectedMonster);
-      console.log(formatted);
-      setTitle(formatted.title);
       setContent({ ...formatted, content: content.content ?? '' });
     }
   }, [selectedMonster]);
@@ -88,8 +82,8 @@ const MonsterCardForm: React.FC<{
             sx={{ paddingBottom: 2 }}
             fullWidth
             variant="outlined"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={content.title}
+            onChange={(e) => setContent({ ...content, title: e.target.value })}
             data-testid="title-input"
           />
           <TextField

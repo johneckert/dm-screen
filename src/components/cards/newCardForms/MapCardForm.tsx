@@ -2,11 +2,9 @@ import { TextField } from '@mui/material';
 import { MapCardContent } from '../../../interfaces';
 
 const MapCardForm: React.FC<{
-  title: string;
   content: MapCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
   setContent: React.Dispatch<React.SetStateAction<MapCardContent>> | ((content: MapCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+}> = ({ content, setContent }) => {
   return (
     <div data-testid="map-form">
       <TextField
@@ -24,8 +22,8 @@ const MapCardForm: React.FC<{
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={content.title}
+        onChange={(e) => setContent({ ...content, title: e.target.value })}
         data-testid="title-input"
       />
       <TextField

@@ -16,8 +16,8 @@ const mockExpandedPlayerCardData = {
   id: '1',
   type: CardType.Player,
   column: 'column-1',
-  title: 'Minsc',
   content: {
+    title: 'Minsc',
     charRace: 'Human',
     charClass: 'Ranger',
     alignment: 'Chaotic Good',

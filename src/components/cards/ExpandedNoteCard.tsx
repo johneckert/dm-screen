@@ -66,16 +66,17 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   const cardContent = expandedCardData.content as NoteCardContent;
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [content, setContent] = useState(cardContent.content);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
   const formContent = {
+    title: title,
     content: content,
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -113,7 +114,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
                 </MenuItem>
               ))}
             </Select>
-            <NoteCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (

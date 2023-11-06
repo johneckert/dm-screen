@@ -14,7 +14,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
 
-const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) => {
+const SmallCard = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const mapContent = (content as MapCardContent) ?? {};
 
@@ -31,7 +31,7 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
       case CardType.Monster:
         return <BugReportIcon />;
       default:
-        return title.charAt(0).toUpperCase();
+        return content.title.charAt(0).toUpperCase();
     }
   };
 
@@ -67,7 +67,7 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
             {avatar()}
           </Avatar>
         }
-        title={splitAndTitleCase(title)}
+        title={content.title ? splitAndTitleCase(content.title) : ''}
       />
       <CardContent>
         <Container>
