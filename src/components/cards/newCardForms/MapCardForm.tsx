@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { MapCardContent } from '../../../interfaces';
 
 const MapCardForm: React.FC<{
   title: string;
-  content: GenericCardContent;
+  content: MapCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
+  setContent: React.Dispatch<React.SetStateAction<MapCardContent>> | ((content: MapCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="map-form">

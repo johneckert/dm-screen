@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { PlayerCardContent } from '../../../interfaces';
 
 const PlayerCardForm: React.FC<{
   title: string;
-  content: GenericCardContent;
+  content: PlayerCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
+  setContent: React.Dispatch<React.SetStateAction<PlayerCardContent>> | ((content: PlayerCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="player-form">

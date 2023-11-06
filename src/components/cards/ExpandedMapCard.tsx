@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, CardType, GenericCardContent } from '../../interfaces';
+import { CardData, CardType, MapCardContent } from '../../interfaces';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
@@ -59,7 +59,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
+  const cardContent = expandedCardData.content as MapCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [title, setTitle] = useState(expandedCardData.title);
@@ -73,7 +73,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     description,
     content: notes,
   };
-  const handleContentUpdate = (content: GenericCardContent) => {
+  const handleContentUpdate = (content: MapCardContent) => {
     setNotes(content.content);
     setRoomNumber(content.roomNumber);
     setDescription(content.description);

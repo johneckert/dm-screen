@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, GenericCardContent } from '../../interfaces';
+import { CardData, NoteCardContent } from '../../interfaces';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -63,7 +63,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
+  const cardContent = expandedCardData.content as NoteCardContent;
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
@@ -80,7 +80,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
     setIsEditing(!isEditing);
   };
 
-  const handleContentUpdate = (content: GenericCardContent) => {
+  const handleContentUpdate = (content: NoteCardContent) => {
     setContent(content.content);
   };
 

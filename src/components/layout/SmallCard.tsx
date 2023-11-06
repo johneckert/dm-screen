@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import { CardType, GenericCardContent } from '../../interfaces';
+import { CardType, MapCardContent } from '../../interfaces';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { SmallCardProps } from '../../interfaces';
@@ -16,7 +16,7 @@ import { splitAndTitleCase } from '../../utils';
 
 const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
-  const mapContent = content as GenericCardContent;
+  const mapContent = (content as MapCardContent) ?? {};
 
   const avatar = () => {
     switch (type) {
@@ -39,7 +39,7 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
     let detailText = '';
     switch (type) {
       case CardType.Map:
-        detailText = content.description ?? '';
+        detailText = mapContent.description ?? '';
         break;
       default:
         detailText = content.content ?? '';

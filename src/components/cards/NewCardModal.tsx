@@ -7,7 +7,15 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
-import { GenericCardContent, CardData, CardType } from '../../interfaces';
+import {
+  GenericCardContent,
+  MapCardContent,
+  NoteCardContent,
+  PlayerCardContent,
+  MonsterCardContent,
+  CardData,
+  CardType,
+} from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -124,7 +132,7 @@ const NewCardModal: React.FC<{
         return (
           <MapCardform
             title={title}
-            content={content}
+            content={content as MapCardContent}
             setTitle={setTitle}
             setContent={setContent}
             data-testid="map-form"
@@ -134,7 +142,7 @@ const NewCardModal: React.FC<{
         return (
           <PlayerCardForm
             title={title}
-            content={content}
+            content={content as PlayerCardContent}
             setTitle={setTitle}
             setContent={setContent}
             data-testid="player-form"
@@ -144,7 +152,7 @@ const NewCardModal: React.FC<{
         return (
           <MonsterCardForm
             title={title}
-            content={content}
+            content={content as MonsterCardContent}
             setTitle={setTitle}
             setContent={setContent}
             data-testid="monster-form"
@@ -154,7 +162,7 @@ const NewCardModal: React.FC<{
         return (
           <NoteCardForm
             title={title}
-            content={content}
+            content={content as NoteCardContent}
             setTitle={setTitle}
             setContent={setContent}
             data-testid="note-form"

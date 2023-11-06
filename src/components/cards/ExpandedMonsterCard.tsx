@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CardData, CardType, GenericCardContent } from '../../interfaces';
+import { CardData, CardType, MonsterCardContent } from '../../interfaces';
 import ExpandedCardLayout from './ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
@@ -76,7 +76,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
+  const cardContent = expandedCardData.content as MonsterCardContent;
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(expandedCardData.title);
@@ -142,7 +142,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     description,
     content: notes,
   };
-  const handleContentUpdate = (content: GenericCardContent) => {
+  const handleContentUpdate = (content: MonsterCardContent) => {
     setSize(content.size);
     setType(content.type);
     setAlignment(content.alignment);

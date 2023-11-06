@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
 import { Box, InputLabel, TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { MonsterCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -10,9 +10,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 const MonsterCardForm: React.FC<{
   title: string;
-  content: GenericCardContent;
+  content: MonsterCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
+  setContent: React.Dispatch<React.SetStateAction<MonsterCardContent>> | ((content: MonsterCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   const [availableMonsters, setAvailableMonsters] = useState<APIMonsterData[]>([CUSTOM_MONSTER]);
   const [selectedMonster, setSelectedMonster] = useState<APIMonsterData>(CUSTOM_MONSTER);

@@ -1,11 +1,11 @@
 import { TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { NoteCardContent } from '../../../interfaces';
 
 const NoteCardForm: React.FC<{
   title: string;
-  content: GenericCardContent;
+  content: NoteCardContent;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
+  setContent: React.Dispatch<React.SetStateAction<NoteCardContent>> | ((content: NoteCardContent) => void);
 }> = ({ title, content, setTitle, setContent }) => {
   return (
     <div data-testid="note-form">

@@ -5,12 +5,12 @@ import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
-import { GenericCardContent } from '../../../interfaces';
+import { RuleCardContent } from '../../../interfaces';
 
 const RuleCardForm: React.FC<{
   title: string;
   setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
+  setContent: React.Dispatch<React.SetStateAction<RuleCardContent>> | ((content: RuleCardContent) => void);
 }> = ({ title, setTitle, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
     setTitle(e.target.value);
