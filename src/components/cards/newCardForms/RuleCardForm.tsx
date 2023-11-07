@@ -12,7 +12,7 @@ const RuleCardForm: React.FC<{
   setContent: React.Dispatch<React.SetStateAction<RuleCardContent>> | ((content: RuleCardContent) => void);
 }> = ({ content, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
-    setContent({ title: e.target.value, content: splitAndTitleCase(e.target.value) });
+    setContent({ title: e.target.value });
   };
   return (
     <div data-testid="rule-form">

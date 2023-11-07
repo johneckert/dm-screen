@@ -13,7 +13,7 @@ const expandedRuleCardData = {
   id: '1',
   type: CardType.Rule,
   column: 'column-1',
-  content: { title: 'strength', content: 'Strength' },
+  content: { title: 'strength' },
   tab: DEFAULT_TAB,
 };
 

@@ -222,7 +222,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, content: { title: title, content: splitAndTitleCase(title) }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { title: title }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };

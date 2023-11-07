@@ -66,9 +66,7 @@ export interface PlayerCardContent extends GenericCardContent {
   alignment?: string; // for players & monsters
 }
 
-export interface RuleCardContent extends GenericCardContent {
-  content?: string;
-}
+export interface RuleCardContent extends GenericCardContent {}
 
 export interface MapCardContent extends GenericCardContent {
   roomNumber?: string; // for maps
