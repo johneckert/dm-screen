@@ -41,7 +41,7 @@ const mockExpandedPlayerCardData = {
     spellAttackBonus: '+8',
     link: 'https://www.dndbeyond.com/characters/12345678',
     languages: 'Common, Giant Space Hamster',
-    content: 'Minsc is a ranger who travels with his hamster Boo.',
+    notes: 'Minsc is a ranger who travels with his hamster Boo.',
   },
   tab: DEFAULT_TAB,
 };
@@ -275,7 +275,7 @@ describe('ExpandedCard', () => {
 
       it('renders notes', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.content)).toBeInTheDocument();
+          expect(screen.queryByText(content.notes)).toBeInTheDocument();
         });
       });
     });
