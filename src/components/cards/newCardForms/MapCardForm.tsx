@@ -8,7 +8,7 @@ const MapCardForm: React.FC<{
   return (
     <div data-testid="map-form">
       <TextField
-        id="modal-room-number"
+        id="map-form-room-number"
         label="Room Number"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -17,7 +17,7 @@ const MapCardForm: React.FC<{
         data-testid="room-number-input"
       />
       <TextField
-        id="modal-title"
+        id="map-form-title"
         label="Title"
         sx={{ paddingBottom: 2 }}
         fullWidth
@@ -27,28 +27,28 @@ const MapCardForm: React.FC<{
         data-testid="title-input"
       />
       <TextField
-        id="modal-description"
+        id="map-form-read-out-loud-text"
         label="Read Out Loud"
         fullWidth
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         multiline
         rows={18}
-        value={content.description}
-        onChange={(e) => setContent({ ...content, description: e.target.value })}
-        data-testid="description-input"
+        value={content.readOutLoudText}
+        onChange={(e) => setContent({ ...content, readOutLoudText: e.target.value })}
+        data-testid="read-out-loud-text-input"
       />
       <TextField
-        id="modal-content"
-        label="DM Info"
+        id="map-form-notes"
+        label="DM Notes"
         fullWidth
         variant="outlined"
         sx={{ paddingBottom: 2 }}
         multiline
         rows={18}
-        value={content.content}
-        onChange={(e) => setContent({ ...content, content: e.target.value })}
-        data-testid="content-input"
+        value={content.notes}
+        onChange={(e) => setContent({ ...content, notes: e.target.value })}
+        data-testid="notes-input"
       />
     </div>
   );

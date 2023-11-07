@@ -31,12 +31,14 @@ export interface CardData {
 
 export interface GenericCardContent {
   title: string;
-  content: string;
 }
 
-export interface NoteCardContent extends GenericCardContent {}
+export interface NoteCardContent extends GenericCardContent {
+  content?: string;
+}
 
 export interface PlayerCardContent extends GenericCardContent {
+  content?: string;
   charClass?: string; // for players
   charRace?: string; // for players
   charBackground?: string; // for players
@@ -64,14 +66,19 @@ export interface PlayerCardContent extends GenericCardContent {
   alignment?: string; // for players & monsters
 }
 
-export interface RuleCardContent extends GenericCardContent {}
+export interface RuleCardContent extends GenericCardContent {
+  content?: string;
+}
 
 export interface MapCardContent extends GenericCardContent {
+  content?: string;
   roomNumber?: string; // for maps
-  description?: string; // for maps & monsters
+  readOutLoudText?: string; // for maps & monsters
+  notes?: string; // for maps
 }
 
 export interface MonsterCardContent extends GenericCardContent {
+  content?: string;
   description?: string; // for maps & monsters
   hp?: string; // for players & monsters
   ac?: string; // for players & monsters

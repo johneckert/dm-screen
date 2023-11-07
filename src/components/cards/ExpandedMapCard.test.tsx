@@ -19,8 +19,8 @@ const expandedMapCardData = {
   content: {
     title: 'Charazard',
     roomNumber: 'C1',
-    description: 'I am Charazard',
-    content: 'Charazard is a fire pokemon',
+    readOutLoudText: 'I am Charazard',
+    notes: 'Charazard is a fire pokemon',
   },
 };
 
@@ -101,7 +101,7 @@ describe('ExpandedMapCard', () => {
     expect(screen.getByTestId('room-number-input')).toBeInTheDocument();
   });
 
-  it('renders input for description', () => {
+  it('renders input for read out loud text', () => {
     render(
       <ThemeProvider theme={theme}>
         <ExpandedMapCard
@@ -118,10 +118,10 @@ describe('ExpandedMapCard', () => {
       editButton.click();
     });
 
-    expect(screen.getByTestId('description-input')).toBeInTheDocument();
+    expect(screen.getByTestId('read-out-loud-text-input')).toBeInTheDocument();
   });
 
-  it('renders input for content', () => {
+  it('renders input for notes', () => {
     render(
       <ThemeProvider theme={theme}>
         <ExpandedMapCard
@@ -138,7 +138,7 @@ describe('ExpandedMapCard', () => {
       editButton.click();
     });
 
-    expect(screen.getByTestId('content-input')).toBeInTheDocument();
+    expect(screen.getByTestId('notes-input')).toBeInTheDocument();
   });
 
   describe('View Mode', () => {
@@ -196,7 +196,7 @@ describe('ExpandedMapCard', () => {
       });
     });
 
-    it('renders description', () => {
+    it('renders read out loud text', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedMapCard
@@ -209,12 +209,12 @@ describe('ExpandedMapCard', () => {
       );
 
       waitFor(() => {
-        const contentComponenet = screen.getByTestId('description-view');
+        const contentComponenet = screen.getByText(expandedMapCardData.content.readOutLoudText);
         expect(contentComponenet).toBeInTheDocument();
       });
     });
 
-    it('renders content', () => {
+    it('renders notes', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedMapCard
@@ -227,7 +227,7 @@ describe('ExpandedMapCard', () => {
       );
 
       waitFor(() => {
-        const contentComponenet = screen.getByTestId('content-view');
+        const contentComponenet = screen.getByText(expandedMapCardData.content.notes);
         expect(contentComponenet).toBeInTheDocument();
       });
     });

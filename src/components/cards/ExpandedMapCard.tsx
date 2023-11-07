@@ -63,22 +63,22 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [title, setTitle] = useState(cardContent.title);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
-  const [description, setDescription] = useState(cardContent.description);
+  const [readOutLoudText, setReadOutLoudText] = useState(cardContent.readOutLoudText);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
     title,
     roomNumber,
-    description,
-    content: notes,
+    readOutLoudText,
+    notes,
   };
   const handleContentUpdate = (content: MapCardContent) => {
     setTitle(content.title);
-    setNotes(content.content);
+    setNotes(content.notes);
     setRoomNumber(content.roomNumber);
-    setDescription(content.description);
+    setReadOutLoudText(content.readOutLoudText);
   };
   const handleEdit = () => {
     if (isEditing) {
@@ -132,8 +132,8 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <BlockField label="Read Out Loud" value={description} />
-            <BlockField label="DM Info" value={notes} />
+            <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />
+            <BlockField label="DM Notes" value={notes} />
           </Box>
         </>
       )}
