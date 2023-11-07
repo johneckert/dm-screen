@@ -5,8 +5,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import TabSelect from './cardFields/TabSelect';
 import { DEFAULT_TAB } from '../../constants';
 import { useReadLocalStorage } from 'usehooks-ts';
 import MonsterCardForm from './newCardForms/MonsterCardForm';
@@ -199,25 +198,11 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="player-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography id="editing-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <MonsterCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>

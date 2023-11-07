@@ -5,10 +5,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
+import TabSelect from './cardFields/TabSelect';
 import BlockField from './cardFields//BlockField';
 import CardHeader from './cardFields/CardHeader';
 import NoteCardForm from './newCardForms/NoteCardForm';
@@ -64,7 +61,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   deleteCard,
 }) => {
   const cardContent = expandedCardData.content as NoteCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.notes);
@@ -82,6 +78,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   };
 
   const handleContentUpdate = (content: NoteCardContent) => {
+    setTitle(content.title);
     setNotes(content.notes);
   };
 
@@ -99,21 +96,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>

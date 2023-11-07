@@ -25,13 +25,7 @@ const CardHeader: React.FC<{ title: string; handleEdit: () => void }> = ({ title
 
   return (
     <>
-      <Typography
-        id="note-card-title"
-        className={classes.modalTitle}
-        variant="h3"
-        component="h3"
-        data-testid="title-view"
-      >
+      <Typography id="card-title" className={classes.modalTitle} variant="h3" component="h3" data-testid="title-view">
         {title}
       </Typography>
       <IconButton

@@ -5,10 +5,7 @@ import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
+import TabSelect from './cardFields/TabSelect';
 import PlayerCardForm from './newCardForms/PlayerCardForm';
 import DisplayField from './cardFields/DisplayField';
 import IconField from './cardFields/IconField';
@@ -83,7 +80,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   deleteCard,
 }) => {
   const cardContent = expandedCardData.content as PlayerCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.notes);
@@ -217,21 +213,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>

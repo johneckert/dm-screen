@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
+import TabSelect from './cardFields/TabSelect';
 import {
   GenericCardContent,
   MapCardContent,
@@ -93,7 +94,6 @@ const NewCardModal: React.FC<{
   const classes = useStyles();
   const id = uuidv4();
   const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TAB;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = useState<CardType>(CardType.Note);
   const [cardTab, setCardTab] = useState<string>(activeTab);
@@ -183,21 +183,7 @@ const NewCardModal: React.FC<{
               </Select>
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
-              <InputLabel id="card-tab-select-label">Tab</InputLabel>
-              <Select
-                labelId="card-tab-select-label"
-                sx={{ marginBottom: 2 }}
-                id="card-tab-select"
-                value={cardTab}
-                data-testid="card-tab-select"
-                onChange={(e) => setCardTab(e.target.value)}
-              >
-                {tabs.map((value) => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
+              <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
               <InputLabel id="card-column-select-label">Column</InputLabel>

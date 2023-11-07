@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../interfaces';
 import { RULES, RULE_DATA } from '../../ruleData';
 import ExpandedCardLayout from './ExpandedCardLayout';
+import TabSelect from './cardFields/TabSelect';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -13,8 +14,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import { AMBER } from '../../colors';
 import { splitAndTitleCase } from '../../utils';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
 
 interface StyleProps {
   isEditing: boolean;
@@ -214,7 +213,6 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
 }) => {
   const cardContent = expandedCardData.content as RuleCardContent;
   const [isEditing, setIsEditing] = useState(false);
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [title, setTitle] = useState(cardContent.title);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const ruleData = RULE_DATA[title];
@@ -262,21 +260,7 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               </MenuItem>
             ))}
           </Select>
-          <Select
-            labelId="card-tab-select-label"
-            sx={{ marginBottom: 2 }}
-            id="card-tab-select"
-            value={cardTab}
-            label="Tab"
-            data-testid="card-tab-select"
-            onChange={(e) => setCardTab(e.target.value)}
-          >
-            {tabs.map((value) => (
-              <MenuItem key={value} value={value} data-testid="select-option">
-                {value}
-              </MenuItem>
-            ))}
-          </Select>
+          <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
         </>
       ) : (
         <>

@@ -71,14 +71,16 @@ const ExpandedCardLayout: React.FC<{
     <Modal
       open={cardData.id !== null}
       onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
+      aria-labelledby="card-title"
+      aria-describedby="card-data"
       data-testid="expanded-card"
     >
       <Box className={classes.modal}>
-        <Box className={classes.body}>{children}</Box>
+        <Box id="card-data" className={classes.body}>
+          {children}
+        </Box>
         {isEditing && (
-          <Box className={classes.buttonArea}>
+          <Box id="card-actions" className={classes.buttonArea}>
             <Button
               variant="outlined"
               className={classes.editButton}
