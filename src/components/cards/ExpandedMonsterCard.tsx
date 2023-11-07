@@ -6,8 +6,6 @@ import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import TabSelect from './cardFields/TabSelect';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
 import MonsterCardForm from './newCardForms/MonsterCardForm';
 import DisplayField from './cardFields/DisplayField';
 import StatField from './cardFields/StatField';
@@ -76,7 +74,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   deleteCard,
 }) => {
   const cardContent = expandedCardData.content as MonsterCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [size, setSize] = useState(cardContent.size);
