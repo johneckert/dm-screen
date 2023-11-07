@@ -75,7 +75,7 @@ export interface MapCardContent extends GenericCardContent {
 }
 
 export interface MonsterCardContent extends GenericCardContent {
-  content?: string;
+  notes?: string;
   description?: string; // for maps & monsters
   hp?: string; // for players & monsters
   ac?: string; // for players & monsters

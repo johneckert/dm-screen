@@ -105,10 +105,10 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [actions, setActions] = useState(cardContent.actions);
   const [legendaryActions, setLegendaryActions] = useState(cardContent.legendaryActions);
   const [image, setImage] = useState(cardContent.image);
-  const [link, setLink] = useState(cardContent.link); //
+  const [link, setLink] = useState(cardContent.link);
   const [languages, setLanguages] = useState(cardContent.languages);
   const [description, setDescription] = useState(cardContent.description);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
@@ -141,7 +141,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     link,
     languages,
     description,
-    content: notes,
+    notes,
   };
   const handleContentUpdate = (content: MonsterCardContent) => {
     setTitle(content.title);
@@ -173,7 +173,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     setLink(content.link);
     setLanguages(content.languages);
     setDescription(content.description);
-    setNotes(content.content);
+    setNotes(content.notes);
   };
 
   const handleEdit = () => {
