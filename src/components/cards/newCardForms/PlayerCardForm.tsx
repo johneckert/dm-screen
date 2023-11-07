@@ -8,7 +8,7 @@ const PlayerCardForm: React.FC<{
   return (
     <div data-testid="player-form">
       <TextField
-        id="player-form-title"
+        id="title"
         label="Character Name"
         sx={{ paddingBottom: 2 }}
         fullWidth
@@ -17,7 +17,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, title: e.target.value })}
       />
       <TextField
-        id="player-form-race"
+        id="race"
         label="Race"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -25,7 +25,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charRace: e.target.value })}
       />
       <TextField
-        id="player-form-class"
+        id="class"
         label="Class"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -33,7 +33,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charClass: e.target.value })}
       />
       <TextField
-        id="player-form-alignment"
+        id="alignment"
         label="Alignment"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -41,7 +41,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, alignment: e.target.value })}
       />
       <TextField
-        id="player-form-size"
+        id="size"
         label="Size"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -49,7 +49,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, size: e.target.value })}
       />
       <TextField
-        id="player-form-strength"
+        id="strength"
         label="STR"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -57,7 +57,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, strength: e.target.value })}
       />
       <TextField
-        id="player-form-dexterity"
+        id="dexterity"
         label="DEX"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -65,7 +65,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
       />
       <TextField
-        id="player-form-strength"
+        id="strength"
         label="CON"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -73,7 +73,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, constitution: e.target.value })}
       />
       <TextField
-        id="player-form-intelligence"
+        id="intelligence"
         label="INT"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -81,7 +81,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
       />
       <TextField
-        id="player-form-wisdom"
+        id="wisdom"
         label="WIS"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -89,7 +89,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
       />
       <TextField
-        id="player-form-charisma"
+        id="charisma"
         label="CHA"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -97,7 +97,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charisma: e.target.value })}
       />
       <TextField
-        id="player-form-hp"
+        id="level"
         label="Level"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -105,7 +105,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charLevel: e.target.value })}
       />
       <TextField
-        id="player-form-background"
+        id="background"
         label="Background"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -113,7 +113,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charBackground: e.target.value })}
       />
       <TextField
-        id="player-form-hp"
+        id="hitpoints"
         label="HP"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -121,7 +121,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, hp: e.target.value })}
       />
       <TextField
-        id="player-form-ac"
+        id="armor-class"
         label="AC"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -129,7 +129,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, ac: e.target.value })}
       />
       <TextField
-        id="player-form-speed"
+        id="speed"
         label="Speed"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -137,7 +137,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, speed: e.target.value })}
       />
       <TextField
-        id="player-form-passive-perception"
+        id="passive-perception"
         label="Passive Perception"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -145,7 +145,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, passivePerception: e.target.value })}
       />
       <TextField
-        id="player-form-passive-investigation"
+        id="passive-investigation"
         label="Passive Investigation"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -153,7 +153,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, passiveInvestigation: e.target.value })}
       />
       <TextField
-        id="player-form-passive-stealth"
+        id="passive-stealth"
         label="Passive Stealth"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -161,7 +161,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, passiveStealth: e.target.value })}
       />
       <TextField
-        id="player-form-passive-insight"
+        id="passive-insight"
         label="Passive Insight"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -169,7 +169,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, passiveInsight: e.target.value })}
       />
       <TextField
-        id="player-form-spell-casting-ability"
+        id="spell-casting-ability"
         label="Spell Casting Ability"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -177,7 +177,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, spellCastingAbility: e.target.value })}
       />
       <TextField
-        id="player-form-spell-casting-modifier"
+        id="spell-casting-modifier"
         label="Spell Casting Modifier"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -185,7 +185,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, spellCastingModifier: e.target.value })}
       />
       <TextField
-        id="player-form-spell-save-dc"
+        id="spell-save-dc"
         label="Spell Save DC"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -193,7 +193,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, spellSaveDC: e.target.value })}
       />
       <TextField
-        id="player-form-spell-attack-bonus"
+        id="spell-attack-bonus"
         label="Spell Attack Bonus"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -201,7 +201,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
       />
       <TextField
-        id="player-form-languages"
+        id="languages"
         label="Languages"
         fullWidth
         sx={{ paddingBottom: 2 }}
@@ -210,7 +210,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, languages: e.target.value })}
       />
       <TextField
-        id="player-form-link"
+        id="link"
         label="Character Sheet Link"
         fullWidth
         sx={{ paddingBottom: 2 }}
@@ -219,7 +219,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, link: e.target.value })}
       />
       <TextField
-        id="player-form-notes"
+        id="notes"
         label="Notes"
         fullWidth
         variant="outlined"

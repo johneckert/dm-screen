@@ -8,7 +8,7 @@ const MapCardForm: React.FC<{
   return (
     <div data-testid="map-form">
       <TextField
-        id="map-form-room-number"
+        id="room-number"
         label="Room Number"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -17,7 +17,7 @@ const MapCardForm: React.FC<{
         data-testid="room-number-input"
       />
       <TextField
-        id="map-form-title"
+        id="title"
         label="Title"
         sx={{ paddingBottom: 2 }}
         fullWidth
@@ -27,7 +27,7 @@ const MapCardForm: React.FC<{
         data-testid="title-input"
       />
       <TextField
-        id="map-form-read-out-loud-text"
+        id="read-out-loud-text"
         label="Read Out Loud"
         fullWidth
         sx={{ paddingBottom: 2 }}
@@ -39,7 +39,7 @@ const MapCardForm: React.FC<{
         data-testid="read-out-loud-text-input"
       />
       <TextField
-        id="map-form-notes"
+        id="notes"
         label="DM Notes"
         fullWidth
         variant="outlined"

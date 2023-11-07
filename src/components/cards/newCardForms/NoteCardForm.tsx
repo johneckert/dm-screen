@@ -8,7 +8,7 @@ const NoteCardForm: React.FC<{
   return (
     <div data-testid="note-form">
       <TextField
-        id="modal-title"
+        id="title"
         label="Title"
         sx={{ paddingBottom: 2 }}
         fullWidth
@@ -18,8 +18,8 @@ const NoteCardForm: React.FC<{
         data-testid="title-input"
       />
       <TextField
-        id="modal-content"
-        label="Content"
+        id="notes"
+        label="Notes"
         fullWidth
         variant="outlined"
         sx={{ paddingBottom: 2 }}
