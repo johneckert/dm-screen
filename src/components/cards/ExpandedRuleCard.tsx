@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../interfaces';
 import { RULES, RULE_DATA } from '../../ruleData';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import TabSelect from './cardFields/TabSelect';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';

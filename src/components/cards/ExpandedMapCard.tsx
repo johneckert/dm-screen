@@ -5,7 +5,7 @@ import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import TabSelect from './cardFields/TabSelect';
 import { Theme } from '@mui/material/styles';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import { Avatar } from '@mui/material';
 import { avatarColor } from '../../utils';
 import BlockField from './cardFields/BlockField';

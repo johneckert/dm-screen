@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardData, NoteCardContent } from '../../interfaces';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
