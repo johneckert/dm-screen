@@ -39,10 +39,10 @@ const SmallCard = ({ content, type }: SmallCardProps) => {
     let detailText = '';
     switch (type) {
       case CardType.Map:
-        detailText = mapContent.description ?? '';
+        detailText = mapContent.readOutLoudText ?? '';
         break;
       default:
-        detailText = content.content ?? '';
+        detailText = ' TODO: what should this be?';
     }
     return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
   };

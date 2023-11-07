@@ -97,7 +97,6 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
   const updateCard = (cardData: CardData): void => {
     const targetCard = cards[cardData.column].find((card) => card.id === cardData.id);
     if (targetCard) {
-      targetCard.title = cardData.title;
       targetCard.tab = cardData.tab;
       targetCard.content = cardData.content;
       setCards(cards);
