@@ -71,7 +71,6 @@ export interface RuleCardContent extends GenericCardContent {
 }
 
 export interface MapCardContent extends GenericCardContent {
-  content?: string;
   roomNumber?: string; // for maps
   readOutLoudText?: string; // for maps & monsters
   notes?: string; // for maps
