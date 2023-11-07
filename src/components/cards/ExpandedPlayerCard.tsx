@@ -86,7 +86,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [charClass, setCharClass] = useState(cardContent.charClass);
   const [charLevel, setCharLevel] = useState(cardContent.charLevel);
   const [charRace, setCharRace] = useState(cardContent.charRace);
@@ -141,11 +141,11 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     spellAttackBonus,
     languages,
     link,
-    content: notes,
+    notes,
   };
   const handleContentUpdate = (content: PlayerCardContent) => {
     setTitle(content.title);
-    setNotes(content.content);
+    setNotes(content.notes);
     setCharClass(content.charClass);
     setCharLevel(content.charLevel);
     setCharRace(content.charRace);
@@ -195,7 +195,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
           spellAttackBonus: spellAttackBonus,
           languages: languages,
           link: link,
-          content: notes,
+          notes: notes,
         },
         tab: cardTab,
       });
