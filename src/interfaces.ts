@@ -35,6 +35,7 @@ export interface GenericCardContent {
 
 export interface NoteCardContent extends GenericCardContent {
   content?: string;
+  notes?: string; // for maps
 }
 
 export interface PlayerCardContent extends GenericCardContent {

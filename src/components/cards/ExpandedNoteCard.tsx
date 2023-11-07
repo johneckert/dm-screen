@@ -67,12 +67,12 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
-  const [content, setContent] = useState(cardContent.content);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
   const formContent = {
-    title: title,
-    content: content,
+    title,
+    notes,
   };
   const handleEdit = () => {
     if (isEditing) {
@@ -82,7 +82,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   };
 
   const handleContentUpdate = (content: NoteCardContent) => {
-    setContent(content.content);
+    setNotes(content.notes);
   };
 
   return (
@@ -123,7 +123,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <BlockField label="Notes" value={content} />
+            <BlockField label="Notes" value={notes} />
           </Box>
         </>
       )}

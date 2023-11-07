@@ -25,9 +25,9 @@ const NoteCardForm: React.FC<{
         sx={{ paddingBottom: 2 }}
         multiline
         rows={18}
-        value={content.content}
-        onChange={(e) => setContent({ ...content, content: e.target.value })}
-        data-testid="content-input"
+        value={content.notes}
+        onChange={(e) => setContent({ ...content, notes: e.target.value })}
+        data-testid="notes-input"
       />
     </div>
   );
