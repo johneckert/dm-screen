@@ -13,7 +13,7 @@ jest.mock('react-beautiful-dnd', () => ({
   ),
 }));
 
-describe('Draggable Card', () => {
+describe('<DraggableCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

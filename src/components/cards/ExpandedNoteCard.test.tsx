@@ -19,7 +19,7 @@ const expandedNoteCardData = {
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedNoteCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

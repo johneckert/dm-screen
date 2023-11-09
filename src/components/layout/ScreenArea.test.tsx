@@ -25,7 +25,7 @@ jest.mock('./Column.tsx', () => (props: ColumnProps) => {
 
 // TODO: add more tests
 
-describe('ScreenArea', () => {
+describe('<ScreenArea />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

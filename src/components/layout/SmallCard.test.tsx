@@ -12,7 +12,7 @@ const mockLongCardData = {
   },
 };
 
-describe('SmallCard', () => {
+describe('<SmallCard />', () => {
   it('renders', () => {
     render(<SmallCard content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByTestId('basic-card')).toBeInTheDocument();

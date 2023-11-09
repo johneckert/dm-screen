@@ -46,7 +46,7 @@ const mockExpandedPlayerCardData = {
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedPlayerCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

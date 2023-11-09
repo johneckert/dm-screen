@@ -17,7 +17,7 @@ const expandedRuleCardData = {
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedRuleCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

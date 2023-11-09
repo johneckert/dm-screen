@@ -15,11 +15,10 @@ const RuleCardForm: React.FC<{
   const handleChange = (e: SelectChangeEvent<string>) => {
     setContent({ title: e.target.value });
   };
-  set(content, 'title', RULES[0]);
   return (
     <div data-testid="rule-form">
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
-        <InputLabel id="rule-select-label">Rule</InputLabel>
+        <InputLabel id="rule-select-label">Rule*</InputLabel>
         <Select
           labelId="rule-select-label"
           sx={{ marginBottom: 2, width: '100%' }}
