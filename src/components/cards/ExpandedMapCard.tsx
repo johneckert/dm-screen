@@ -109,7 +109,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
               data-testid="room-number-view"
             >
-              {roomNumber}
+              {roomNumber || 'X'}
             </Avatar>
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>

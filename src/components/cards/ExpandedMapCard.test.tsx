@@ -24,7 +24,7 @@ const expandedMapCardData = {
   },
 };
 
-describe('ExpandedMapCard', () => {
+describe('<ExpandedMapCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
@@ -193,6 +193,29 @@ describe('ExpandedMapCard', () => {
       waitFor(() => {
         const contentComponenet = screen.getByTestId('room-number-view');
         expect(contentComponenet).toBeInTheDocument();
+      });
+    });
+
+    it('renders X for room number if room number is undefined', () => {
+      const noRoomNumberData = {
+        ...expandedMapCardData,
+        content: { ...expandedMapCardData.content, roomNumber: undefined },
+      };
+
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedMapCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={noRoomNumberData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      waitFor(() => {
+        const roomNumberAvatar = screen.getByTestId('room-number-view');
+        expect(roomNumberAvatar).toHaveTextContent('X');
       });
     });
 

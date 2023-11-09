@@ -21,7 +21,7 @@ const SmallCard = ({ content, type }: SmallCardProps) => {
   const avatar = () => {
     switch (type) {
       case CardType.Map:
-        return mapContent?.roomNumber;
+        return mapContent?.roomNumber ?? 'X';
       case CardType.Note:
         return <PushPinIcon />;
       case CardType.Rule:
