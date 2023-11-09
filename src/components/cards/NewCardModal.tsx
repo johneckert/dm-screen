@@ -168,6 +168,7 @@ const NewCardModal: React.FC<{
             </Button>
             <Button
               variant="contained"
+              disabled={cardType === CardType.Rule && !content?.title}
               className={classes.saveButton}
               aria-label="save-button"
               data-testid="save-button"
