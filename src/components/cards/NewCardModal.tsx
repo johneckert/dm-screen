@@ -19,15 +19,14 @@ import {
   RuleCardContent,
 } from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
 import MapCardform from './newCardForms/MapCardForm';
 import NoteCardForm from './newCardForms/NoteCardForm';
 import RuleCardForm from './newCardForms/RuleCardForm';
 import PlayerCardForm from './newCardForms/PlayerCardForm';
 import MonsterCardForm from './newCardForms/MonsterCardForm';
 import { DEFAULT_TAB } from '../../constants';
+import CardTypeSelect from './cardFields/CardTypeSelect';
+import CardColumnSelect from './cardFields/CardColumnSelect';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
@@ -99,21 +98,6 @@ const NewCardModal: React.FC<{
   const [cardTab, setCardTab] = useState<string>(activeTab);
   const [cardColumn, setCardColumn] = useState<string>('droppable-1');
 
-  const columnDisplayName = (column: string) => {
-    switch (column) {
-      case 'droppable-1':
-        return 'Column 1';
-      case 'droppable-2':
-        return 'Column 2';
-      case 'droppable-3':
-        return 'Column 3';
-      case 'droppable-4':
-        return 'Column 4';
-      default:
-        return 'Column 1';
-    }
-  };
-
   const handleSave = () => {
     createCard({ id, content, type: cardType, column: cardColumn, tab: cardTab });
     setContent({} as GenericCardContent);
@@ -124,7 +108,7 @@ const NewCardModal: React.FC<{
     closeNewCardModal();
   };
 
-  const renderForm = () => {
+  const renderCardForm = () => {
     switch (cardType) {
       case CardType.Map:
         return <MapCardform content={content as MapCardContent} setContent={setContent} data-testid="map-form" />;
@@ -166,43 +150,11 @@ const NewCardModal: React.FC<{
         <Box className={classes.content}>
           <Box className={classes.form}>
             <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
-              <InputLabel id="card-type-select-label">Card Type</InputLabel>
-              <Select
-                labelId="card-type-select-label"
-                sx={{ marginBottom: 2 }}
-                id="card-type-select"
-                value={cardType}
-                data-testid="card-type-select"
-                onChange={(e) => setCardType(e.target.value as CardType)}
-              >
-                {Object.values(CardType).map((value) => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+              <CardTypeSelect cardType={cardType} setCardType={setCardType} />
               <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+              <CardColumnSelect cardColumn={cardColumn} setCardColumn={setCardColumn} />
             </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
-              <InputLabel id="card-column-select-label">Column</InputLabel>
-              <Select
-                labelId="card-column-select-label"
-                sx={{ marginBottom: 2 }}
-                id="card-column-select"
-                value={cardColumn}
-                data-testid="card-column-select"
-                onChange={(e) => setCardColumn(e.target.value)}
-              >
-                {['droppable-1', 'droppable-2', 'droppable-3', 'droppable-4'].map((value) => (
-                  <MenuItem key={value} value={value}>
-                    {columnDisplayName(value)}
-                  </MenuItem>
-                ))}
-              </Select>
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderForm()}</Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderCardForm()}</Box>
           </Box>
           <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
             <Button
