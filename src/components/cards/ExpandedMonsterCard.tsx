@@ -206,7 +206,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
       ) : (
         <>
           <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} />
+            <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
           </Box>
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
