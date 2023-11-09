@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';
+import { set } from 'lodash';
 
 const RuleCardForm: React.FC<{
   content: RuleCardContent;
@@ -14,6 +15,7 @@ const RuleCardForm: React.FC<{
   const handleChange = (e: SelectChangeEvent<string>) => {
     setContent({ title: e.target.value });
   };
+  set(content, 'title', RULES[0]);
   return (
     <div data-testid="rule-form">
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
