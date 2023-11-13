@@ -42,6 +42,7 @@ class CardErrorBoundary extends Component<Props, State> {
               p: 2,
               mb: 2,
             }}
+            data-testId="card-error-boundry"
           >
             <Typography id="card-title" variant="h6" component="h6" data-testid="title-view">
               You rolled a 1... Please delete this card and recreate it.
