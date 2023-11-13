@@ -2,7 +2,6 @@ import { Component, ErrorInfo, ReactNode } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import NatOne from './assets/images/nat-one.svg';
-import './errorBoundry.css';
 import { Button } from '@mui/material';
 
 interface Props {

@@ -6,7 +6,6 @@ import Box from '@mui/material/Box';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';
-import { set } from 'lodash';
 
 const RuleCardForm: React.FC<{
   content: RuleCardContent;
