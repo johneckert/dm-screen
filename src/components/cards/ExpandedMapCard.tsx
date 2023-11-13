@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { CardData, CardType, GenericCardContent } from '../../interfaces';
+import { CardData, CardType, MapCardContent } from '../../interfaces';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import Select from '@mui/material/Select';
+import TabSelect from './cardFields/TabSelect';
 import { Theme } from '@mui/material/styles';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import { Avatar } from '@mui/material';
 import { avatarColor } from '../../utils';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
 import BlockField from './cardFields/BlockField';
 import CardHeader from './cardFields/CardHeader';
 import MapCardForm from './newCardForms/MapCardForm';
@@ -59,28 +56,29 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
+  const cardContent = expandedCardData.content as MapCardContent;
   const [isEditing, setIsEditing] = useState(false);
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
-  const [title, setTitle] = useState(expandedCardData.title);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [title, setTitle] = useState(cardContent.title);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
-  const [description, setDescription] = useState(cardContent.description);
+  const [readOutLoudText, setReadOutLoudText] = useState(cardContent.readOutLoudText);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     roomNumber,
-    description,
-    content: notes,
+    readOutLoudText,
+    notes,
   };
-  const handleContentUpdate = (content: GenericCardContent) => {
-    setNotes(content.content);
+  const handleContentUpdate = (content: MapCardContent) => {
+    setTitle(content.title);
+    setNotes(content.notes);
     setRoomNumber(content.roomNumber);
-    setDescription(content.description);
+    setReadOutLoudText(content.readOutLoudText);
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
@@ -99,22 +97,8 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <MapCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+            <MapCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
@@ -125,13 +109,13 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
               data-testid="room-number-view"
             >
-              {roomNumber}
+              {roomNumber || 'X'}
             </Avatar>
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <BlockField label="Read Out Loud" value={description} />
-            <BlockField label="DM Info" value={notes} />
+            <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />
+            <BlockField label="DM Notes" value={notes} />
           </Box>
         </>
       )}

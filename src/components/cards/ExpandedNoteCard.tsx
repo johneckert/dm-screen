@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { CardData, GenericCardContent } from '../../interfaces';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import { CardData, NoteCardContent } from '../../interfaces';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
+import TabSelect from './cardFields/TabSelect';
 import BlockField from './cardFields//BlockField';
 import CardHeader from './cardFields/CardHeader';
 import NoteCardForm from './newCardForms/NoteCardForm';
@@ -63,25 +60,26 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
+  const cardContent = expandedCardData.content as NoteCardContent;
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
-  const [content, setContent] = useState(cardContent.content);
+  const [title, setTitle] = useState(cardContent.title);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
   const formContent = {
-    content: content,
+    title,
+    notes,
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, title: title, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
   };
 
-  const handleContentUpdate = (content: GenericCardContent) => {
-    setContent(content.content);
+  const handleContentUpdate = (content: NoteCardContent) => {
+    setTitle(content.title);
+    setNotes(content.notes);
   };
 
   return (
@@ -98,22 +96,8 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <NoteCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+            <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
@@ -122,7 +106,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <BlockField label="Notes" value={content} />
+            <BlockField label="Notes" value={notes} />
           </Box>
         </>
       )}

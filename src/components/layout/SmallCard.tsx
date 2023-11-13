@@ -2,7 +2,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import { CardType, GenericCardContent } from '../../interfaces';
+import { CardType, MapCardContent } from '../../interfaces';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { SmallCardProps } from '../../interfaces';
@@ -14,14 +14,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
 
-const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) => {
+const SmallCard = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
-  const mapContent = content as GenericCardContent;
+  const mapContent = (content as MapCardContent) ?? {};
 
   const avatar = () => {
     switch (type) {
       case CardType.Map:
-        return mapContent?.roomNumber;
+        return mapContent?.roomNumber ?? 'X';
       case CardType.Note:
         return <PushPinIcon />;
       case CardType.Rule:
@@ -31,7 +31,7 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
       case CardType.Monster:
         return <BugReportIcon />;
       default:
-        return title.charAt(0).toUpperCase();
+        return content.title.charAt(0).toUpperCase();
     }
   };
 
@@ -39,10 +39,10 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
     let detailText = '';
     switch (type) {
       case CardType.Map:
-        detailText = content.description ?? '';
+        detailText = mapContent.readOutLoudText ?? '';
         break;
       default:
-        detailText = content.content ?? '';
+        detailText = ' TODO: what should this be?';
     }
     return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
   };
@@ -67,7 +67,7 @@ const SmallCard = ({ title, content = { content: '' }, type }: SmallCardProps) =
             {avatar()}
           </Avatar>
         }
-        title={splitAndTitleCase(title)}
+        title={content.title ? splitAndTitleCase(content.title) : ''}
       />
       <CardContent>
         <Container>

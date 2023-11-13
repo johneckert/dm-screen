@@ -15,12 +15,11 @@ const expandedNoteCardData = {
   id: '1',
   type: CardType.Note,
   column: 'column-1',
-  title: 'Pikachu',
-  content: { content: 'I am Pikachu' },
+  content: { title: 'Pikachu', notes: 'I am Pikachu' },
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedNoteCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
@@ -76,7 +75,7 @@ describe('ExpandedCard', () => {
       expect(screen.getByTestId('card-tab-select')).toBeInTheDocument();
     });
 
-    it('renders input for content', () => {
+    it('renders input for notes', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedNoteCard
@@ -93,7 +92,7 @@ describe('ExpandedCard', () => {
         editButton.click();
       });
 
-      expect(screen.getByTestId('content-input')).toBeInTheDocument();
+      expect(screen.getByTestId('notes-input')).toBeInTheDocument();
     });
   });
 
@@ -133,7 +132,7 @@ describe('ExpandedCard', () => {
         expect(titleComponent).toBeInTheDocument();
       });
     });
-    it('renders content', () => {
+    it('renders notes', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedNoteCard
@@ -146,7 +145,7 @@ describe('ExpandedCard', () => {
       );
 
       waitFor(() => {
-        const contentComponenet = screen.getByTestId('content-view');
+        const contentComponenet = screen.getByText(expandedNoteCardData.content.notes);
         expect(contentComponenet).toBeInTheDocument();
       });
     });

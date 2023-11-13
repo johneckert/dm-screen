@@ -13,12 +13,11 @@ const expandedRuleCardData = {
   id: '1',
   type: CardType.Rule,
   column: 'column-1',
-  title: 'strength',
-  content: { content: 'Strength' },
+  content: { title: 'strength' },
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedRuleCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

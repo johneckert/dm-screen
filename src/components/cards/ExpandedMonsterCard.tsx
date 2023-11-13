@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { CardData, CardType, GenericCardContent } from '../../interfaces';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import { CardData, CardType, MonsterCardContent } from '../../interfaces';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
+import TabSelect from './cardFields/TabSelect';
 import MonsterCardForm from './newCardForms/MonsterCardForm';
 import DisplayField from './cardFields/DisplayField';
 import StatField from './cardFields/StatField';
@@ -76,10 +73,9 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
+  const cardContent = expandedCardData.content as MonsterCardContent;
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
+  const [title, setTitle] = useState(cardContent.title);
   const [size, setSize] = useState(cardContent.size);
   const [type, setType] = useState(cardContent.type);
   const [alignment, setAlignment] = useState(cardContent.alignment);
@@ -105,13 +101,14 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [actions, setActions] = useState(cardContent.actions);
   const [legendaryActions, setLegendaryActions] = useState(cardContent.legendaryActions);
   const [image, setImage] = useState(cardContent.image);
-  const [link, setLink] = useState(cardContent.link); //
+  const [link, setLink] = useState(cardContent.link);
   const [languages, setLanguages] = useState(cardContent.languages);
   const [description, setDescription] = useState(cardContent.description);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     size,
     type,
     alignment,
@@ -140,9 +137,10 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     link,
     languages,
     description,
-    content: notes,
+    notes,
   };
-  const handleContentUpdate = (content: GenericCardContent) => {
+  const handleContentUpdate = (content: MonsterCardContent) => {
+    setTitle(content.title);
     setSize(content.size);
     setType(content.type);
     setAlignment(content.alignment);
@@ -171,14 +169,13 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     setLink(content.link);
     setLanguages(content.languages);
     setDescription(content.description);
-    setNotes(content.content);
+    setNotes(content.notes);
   };
 
   const handleEdit = () => {
     if (isEditing) {
       updateCard({
         ...expandedCardData,
-        title: title,
         content: {
           ...formContent,
         },
@@ -198,32 +195,18 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="player-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography id="editing-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <MonsterCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+            <MonsterCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
         <>
           <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} />
+            <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
           </Box>
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>

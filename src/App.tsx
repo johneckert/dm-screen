@@ -23,7 +23,13 @@ function App() {
         setActiveTab={setActiveTab}
         setShowNewCardModal={setShowNewCardModal}
       />
-      <ScreenArea activeTab={activeTab} showNewCardModal={showNewCardModal} setShowNewCardModal={setShowNewCardModal} />
+      <ErrorBoundary>
+        <ScreenArea
+          activeTab={activeTab}
+          showNewCardModal={showNewCardModal}
+          setShowNewCardModal={setShowNewCardModal}
+        />
+      </ErrorBoundary>
     </ErrorBoundary>
   );
 }

@@ -15,16 +15,16 @@ const expandedMapCardData = {
   id: '1',
   type: CardType.Map,
   column: 'column-1',
-  title: 'Charazard',
   tab: DEFAULT_TAB,
   content: {
+    title: 'Charazard',
     roomNumber: 'C1',
     description: 'I am Charazard',
     content: 'Charazard is a fire pokemon',
   },
 };
 
-describe('ExpandedCardLayout', () => {
+describe('<ExpandedCardLayout />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

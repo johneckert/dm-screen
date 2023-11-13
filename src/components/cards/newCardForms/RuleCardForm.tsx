@@ -5,26 +5,25 @@ import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
-import { GenericCardContent } from '../../../interfaces';
+import { RuleCardContent } from '../../../interfaces';
+import { set } from 'lodash';
 
 const RuleCardForm: React.FC<{
-  title: string;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
-}> = ({ title, setTitle, setContent }) => {
+  content: RuleCardContent;
+  setContent: React.Dispatch<React.SetStateAction<RuleCardContent>> | ((content: RuleCardContent) => void);
+}> = ({ content, setContent }) => {
   const handleChange = (e: SelectChangeEvent<string>) => {
-    setTitle(e.target.value);
-    setContent({ content: splitAndTitleCase(e.target.value) });
+    setContent({ title: e.target.value });
   };
   return (
     <div data-testid="rule-form">
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
-        <InputLabel id="rule-select-label">Rule</InputLabel>
+        <InputLabel id="rule-select-label">Rule*</InputLabel>
         <Select
           labelId="rule-select-label"
           sx={{ marginBottom: 2, width: '100%' }}
           id="rule-select"
-          value={title}
+          value={content.title}
           data-testid="rule-select"
           onChange={(e) => {
             handleChange(e);

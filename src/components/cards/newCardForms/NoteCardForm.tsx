@@ -1,35 +1,33 @@
 import { TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { NoteCardContent } from '../../../interfaces';
 
 const NoteCardForm: React.FC<{
-  title: string;
-  content: GenericCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+  content: NoteCardContent;
+  setContent: React.Dispatch<React.SetStateAction<NoteCardContent>> | ((content: NoteCardContent) => void);
+}> = ({ content, setContent }) => {
   return (
     <div data-testid="note-form">
       <TextField
-        id="modal-title"
+        id="title"
         label="Title"
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={content.title}
+        onChange={(e) => setContent({ ...content, title: e.target.value })}
         data-testid="title-input"
       />
       <TextField
-        id="modal-content"
-        label="Content"
+        id="notes"
+        label="Notes"
         fullWidth
         variant="outlined"
         sx={{ paddingBottom: 2 }}
         multiline
         rows={18}
-        value={content.content}
-        onChange={(e) => setContent({ ...content, content: e.target.value })}
-        data-testid="content-input"
+        value={content.notes}
+        onChange={(e) => setContent({ ...content, notes: e.target.value })}
+        data-testid="notes-input"
       />
     </div>
   );

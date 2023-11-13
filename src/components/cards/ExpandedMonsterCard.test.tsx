@@ -16,8 +16,8 @@ const mockExpandedMonsterCardData = {
   id: '1',
   type: CardType.Monster,
   column: 'column-1',
-  title: 'Owlbear',
   content: {
+    title: 'Owlbear',
     type: 'monstrosity',
     size: 'Large',
     alignment: 'Unaligned',
@@ -43,12 +43,12 @@ const mockExpandedMonsterCardData = {
     legendaryActions: 'None',
     link: 'https://www.dndbeyond.com/monsters/owlbear',
     description: 'An owlbear is a large magical beast that looks like a cross between an owl and a bear.',
-    content: 'They are fluffy!',
+    notes: 'They are fluffy!',
   },
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedMonsterCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
@@ -283,7 +283,7 @@ describe('ExpandedCard', () => {
 
       it('renders notes', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.content)).toBeInTheDocument();
+          expect(screen.queryByText(content.notes)).toBeInTheDocument();
         });
       });
     });

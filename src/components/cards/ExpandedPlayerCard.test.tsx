@@ -16,8 +16,8 @@ const mockExpandedPlayerCardData = {
   id: '1',
   type: CardType.Player,
   column: 'column-1',
-  title: 'Minsc',
   content: {
+    title: 'Minsc',
     charRace: 'Human',
     charClass: 'Ranger',
     alignment: 'Chaotic Good',
@@ -41,12 +41,12 @@ const mockExpandedPlayerCardData = {
     spellAttackBonus: '+8',
     link: 'https://www.dndbeyond.com/characters/12345678',
     languages: 'Common, Giant Space Hamster',
-    content: 'Minsc is a ranger who travels with his hamster Boo.',
+    notes: 'Minsc is a ranger who travels with his hamster Boo.',
   },
   tab: DEFAULT_TAB,
 };
 
-describe('ExpandedCard', () => {
+describe('<ExpandedPlayerCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
@@ -275,7 +275,7 @@ describe('ExpandedCard', () => {
 
       it('renders notes', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.content)).toBeInTheDocument();
+          expect(screen.queryByText(content.notes)).toBeInTheDocument();
         });
       });
     });

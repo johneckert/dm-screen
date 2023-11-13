@@ -15,16 +15,16 @@ const expandedMapCardData = {
   id: '1',
   type: CardType.Map,
   column: 'column-1',
-  title: 'Charazard',
   tab: DEFAULT_TAB,
   content: {
+    title: 'Charazard',
     roomNumber: 'C1',
-    description: 'I am Charazard',
-    content: 'Charazard is a fire pokemon',
+    readOutLoudText: 'I am Charazard',
+    notes: 'Charazard is a fire pokemon',
   },
 };
 
-describe('ExpandedMapCard', () => {
+describe('<ExpandedMapCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
@@ -101,7 +101,7 @@ describe('ExpandedMapCard', () => {
     expect(screen.getByTestId('room-number-input')).toBeInTheDocument();
   });
 
-  it('renders input for description', () => {
+  it('renders input for read out loud text', () => {
     render(
       <ThemeProvider theme={theme}>
         <ExpandedMapCard
@@ -118,10 +118,10 @@ describe('ExpandedMapCard', () => {
       editButton.click();
     });
 
-    expect(screen.getByTestId('description-input')).toBeInTheDocument();
+    expect(screen.getByTestId('read-out-loud-text-input')).toBeInTheDocument();
   });
 
-  it('renders input for content', () => {
+  it('renders input for notes', () => {
     render(
       <ThemeProvider theme={theme}>
         <ExpandedMapCard
@@ -138,7 +138,7 @@ describe('ExpandedMapCard', () => {
       editButton.click();
     });
 
-    expect(screen.getByTestId('content-input')).toBeInTheDocument();
+    expect(screen.getByTestId('notes-input')).toBeInTheDocument();
   });
 
   describe('View Mode', () => {
@@ -196,7 +196,30 @@ describe('ExpandedMapCard', () => {
       });
     });
 
-    it('renders description', () => {
+    it('renders X for room number if room number is undefined', () => {
+      const noRoomNumberData = {
+        ...expandedMapCardData,
+        content: { ...expandedMapCardData.content, roomNumber: undefined },
+      };
+
+      render(
+        <ThemeProvider theme={theme}>
+          <ExpandedMapCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={noRoomNumberData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />
+        </ThemeProvider>,
+      );
+
+      waitFor(() => {
+        const roomNumberAvatar = screen.getByTestId('room-number-view');
+        expect(roomNumberAvatar).toHaveTextContent('X');
+      });
+    });
+
+    it('renders read out loud text', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedMapCard
@@ -209,12 +232,12 @@ describe('ExpandedMapCard', () => {
       );
 
       waitFor(() => {
-        const contentComponenet = screen.getByTestId('description-view');
+        const contentComponenet = screen.getByText(expandedMapCardData.content.readOutLoudText);
         expect(contentComponenet).toBeInTheDocument();
       });
     });
 
-    it('renders content', () => {
+    it('renders notes', () => {
       render(
         <ThemeProvider theme={theme}>
           <ExpandedMapCard
@@ -227,7 +250,7 @@ describe('ExpandedMapCard', () => {
       );
 
       waitFor(() => {
-        const contentComponenet = screen.getByTestId('content-view');
+        const contentComponenet = screen.getByText(expandedMapCardData.content.notes);
         expect(contentComponenet).toBeInTheDocument();
       });
     });

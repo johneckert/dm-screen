@@ -2,18 +2,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
 import { Box, InputLabel, TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { MonsterCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import CircularProgress from '@mui/material/CircularProgress';
 
 const MonsterCardForm: React.FC<{
-  title: string;
-  content: GenericCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+  content: MonsterCardContent;
+  setContent: React.Dispatch<React.SetStateAction<MonsterCardContent>> | ((content: MonsterCardContent) => void);
+}> = ({ content, setContent }) => {
   const [availableMonsters, setAvailableMonsters] = useState<APIMonsterData[]>([CUSTOM_MONSTER]);
   const [selectedMonster, setSelectedMonster] = useState<APIMonsterData>(CUSTOM_MONSTER);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -26,7 +24,6 @@ const MonsterCardForm: React.FC<{
     const response = await fetch('https://api.open5e.com/monsters/?limit=1000');
     try {
       const data = await response.json();
-      console.log(data);
       const alphabetized = data.results.sort((a: APIMonsterData, b: APIMonsterData) => {
         if (a.name < b.name) {
           return -1;
@@ -50,29 +47,25 @@ const MonsterCardForm: React.FC<{
 
   useEffect(() => {
     if (selectedMonster.name !== 'custom') {
-      console.log(selectedMonster);
       const formatted = formatMonsterData(selectedMonster);
-      console.log(formatted);
-      setTitle(formatted.title);
-      setContent({ ...formatted, content: content.content ?? '' });
+      setContent({ ...formatted, notes: content.notes });
     }
   }, [selectedMonster]);
 
   return (
     <div data-testid="monster-form">
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
-        <InputLabel id="monster-select-label">Monster Preset</InputLabel>
+        <InputLabel id="monster-preset-label">Monster Preset</InputLabel>
         <span style={{ display: 'flex', width: '100%' }}>
           <Select
-            labelId="monster-select-label"
+            labelId="monster-preset-label"
             sx={{ mr: 2, width: '90%' }}
-            id="monster-select"
+            id="monster-preset"
             value={selectedMonster.name}
-            data-testid="monster-select"
             onChange={(e) => setSelectedMonsterFromList(e.target.value)}
           >
             {availableMonsters.map((monster) => (
-              <MenuItem key={monster.name} value={monster.name} data-testid="select-option">
+              <MenuItem key={monster.name} value={monster.name}>
                 {monster.name}
               </MenuItem>
             ))}
@@ -83,17 +76,16 @@ const MonsterCardForm: React.FC<{
       {selectedMonster.name === 'custom' ? (
         <>
           <TextField
-            id="modal-title"
+            id="title"
             label="Monster Name"
             sx={{ paddingBottom: 2 }}
             fullWidth
             variant="outlined"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            data-testid="title-input"
+            value={content.title}
+            onChange={(e) => setContent({ ...content, title: e.target.value })}
           />
           <TextField
-            id="modal-size"
+            id="size"
             label="Size"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -101,7 +93,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, size: e.target.value })}
           />
           <TextField
-            id="modal-type"
+            id="type"
             label="Type"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -109,7 +101,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, type: e.target.value })}
           />
           <TextField
-            id="modal-alignment"
+            id="alignment"
             label="Alignment"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -117,7 +109,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, alignment: e.target.value })}
           />
           <TextField
-            id="modal-strength"
+            id="strength"
             label="STR"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -125,7 +117,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, strength: e.target.value })}
           />
           <TextField
-            id="modal-dexterity"
+            id="dexterity"
             label="DEX"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -133,7 +125,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
           />
           <TextField
-            id="modal-strength"
+            id="strength"
             label="CON"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -141,7 +133,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, constitution: e.target.value })}
           />
           <TextField
-            id="modal-intelligence"
+            id="intelligence"
             label="INT"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -149,7 +141,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
           />
           <TextField
-            id="modal-wisdom"
+            id="wisdom"
             label="WIS"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -157,7 +149,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
           />
           <TextField
-            id="modal-charisma"
+            id="charisma"
             label="CHA"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -165,7 +157,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, charisma: e.target.value })}
           />
           <TextField
-            id="modal-hp"
+            id="hp"
             label="HP"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -173,7 +165,7 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, hp: e.target.value })}
           />
           <TextField
-            id="modal-ac"
+            id="ac"
             label="AC"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
@@ -181,90 +173,81 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, ac: e.target.value })}
           />
           <TextField
-            id="modal-speed"
+            id="speed"
             label="Speed"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.speed}
             onChange={(e) => setContent({ ...content, speed: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-vulnerabilities"
+            id="vulnerabilities"
             label="Vulnerabilties"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.vulnerabilities}
             onChange={(e) => setContent({ ...content, vulnerabilities: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-resistances"
+            id="resistances"
             label="Resistances"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.resistances}
             onChange={(e) => setContent({ ...content, resistances: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-dmg-immunities"
+            id="damage-immunities"
             label="Damage Immunities"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.damageImmunities}
             onChange={(e) => setContent({ ...content, damageImmunities: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-cond-immmunities"
+            id="condition-immmunities"
             label="Condition Immunities"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.conditionImmunities}
             onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-proficincies"
+            id="proficincies"
             label="Proficincies"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.proficiencies}
             onChange={(e) => setContent({ ...content, proficiencies: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-senses"
+            id="senses"
             label="Senses"
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.senses}
             onChange={(e) => setContent({ ...content, senses: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-languages"
+            id="languages"
             label="Languages"
             fullWidth
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.languages}
             onChange={(e) => setContent({ ...content, languages: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-cr"
+            id="challenge-rating"
             label="Challenge Rating"
             fullWidth
             sx={{ paddingBottom: 2 }}
             variant="outlined"
             value={content.challengeRating}
             onChange={(e) => setContent({ ...content, challengeRating: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-special-abilities"
+            id="special-abilities"
             label="Special Abilties"
             fullWidth
             variant="outlined"
@@ -273,10 +256,9 @@ const MonsterCardForm: React.FC<{
             rows={18}
             value={content.specialAbilities}
             onChange={(e) => setContent({ ...content, specialAbilities: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-actions"
+            id="actions"
             label="Actions"
             fullWidth
             variant="outlined"
@@ -285,10 +267,9 @@ const MonsterCardForm: React.FC<{
             rows={18}
             value={content.actions}
             onChange={(e) => setContent({ ...content, actions: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-legendary-actions"
+            id="legendary-actions"
             label="Legendary Actions"
             fullWidth
             variant="outlined"
@@ -297,10 +278,9 @@ const MonsterCardForm: React.FC<{
             rows={18}
             value={content.legendaryActions}
             onChange={(e) => setContent({ ...content, legendaryActions: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-description"
+            id="description"
             label="Decription"
             fullWidth
             variant="outlined"
@@ -309,29 +289,26 @@ const MonsterCardForm: React.FC<{
             rows={18}
             value={content.description}
             onChange={(e) => setContent({ ...content, description: e.target.value })}
-            data-testid="content-input"
           />
           <TextField
-            id="modal-content"
+            id="notes"
             label="Notes"
             fullWidth
             variant="outlined"
             sx={{ paddingBottom: 2 }}
             multiline
             rows={18}
-            value={content.content}
-            onChange={(e) => setContent({ ...content, content: e.target.value })}
-            data-testid="content-input"
+            value={content.notes}
+            onChange={(e) => setContent({ ...content, notes: e.target.value })}
           />
           <TextField
-            id="modal-image"
+            id="image-url"
             label="Image URL"
             fullWidth
             variant="outlined"
             sx={{ paddingBottom: 2, display: 'none' }}
             value={content.image}
             onChange={(e) => setContent({ ...content, image: e.target.value })}
-            data-testid="content-input"
           />
         </>
       ) : null}

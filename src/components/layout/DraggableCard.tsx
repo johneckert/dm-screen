@@ -27,7 +27,7 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
             onClick={handleClick}
             data-testid="draggable-card"
           >
-            <SmallCard key={card.id} type={card.type} title={card.title} content={card.content} />
+            <SmallCard key={card.id} type={card.type} content={card.content} />
           </div>
         )
       }

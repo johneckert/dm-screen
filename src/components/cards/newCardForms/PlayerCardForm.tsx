@@ -1,26 +1,23 @@
 import { TextField } from '@mui/material';
-import { GenericCardContent } from '../../../interfaces';
+import { PlayerCardContent } from '../../../interfaces';
 
 const PlayerCardForm: React.FC<{
-  title: string;
-  content: GenericCardContent;
-  setTitle: React.Dispatch<React.SetStateAction<string>>;
-  setContent: React.Dispatch<React.SetStateAction<GenericCardContent>> | ((content: GenericCardContent) => void);
-}> = ({ title, content, setTitle, setContent }) => {
+  content: PlayerCardContent;
+  setContent: React.Dispatch<React.SetStateAction<PlayerCardContent>> | ((content: PlayerCardContent) => void);
+}> = ({ content, setContent }) => {
   return (
     <div data-testid="player-form">
       <TextField
-        id="modal-title"
+        id="title"
         label="Character Name"
         sx={{ paddingBottom: 2 }}
         fullWidth
         variant="outlined"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        data-testid="title-input"
+        value={content.title}
+        onChange={(e) => setContent({ ...content, title: e.target.value })}
       />
       <TextField
-        id="modal-race"
+        id="race"
         label="Race"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -28,7 +25,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charRace: e.target.value })}
       />
       <TextField
-        id="modal-class"
+        id="class"
         label="Class"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -36,7 +33,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charClass: e.target.value })}
       />
       <TextField
-        id="modal-alignment"
+        id="alignment"
         label="Alignment"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -44,7 +41,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, alignment: e.target.value })}
       />
       <TextField
-        id="modal-size"
+        id="size"
         label="Size"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -52,7 +49,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, size: e.target.value })}
       />
       <TextField
-        id="modal-strength"
+        id="strength"
         label="STR"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -60,7 +57,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, strength: e.target.value })}
       />
       <TextField
-        id="modal-dexterity"
+        id="dexterity"
         label="DEX"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -68,7 +65,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
       />
       <TextField
-        id="modal-strength"
+        id="strength"
         label="CON"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -76,7 +73,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, constitution: e.target.value })}
       />
       <TextField
-        id="modal-intelligence"
+        id="intelligence"
         label="INT"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -84,7 +81,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
       />
       <TextField
-        id="modal-wisdom"
+        id="wisdom"
         label="WIS"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -92,7 +89,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
       />
       <TextField
-        id="modal-charisma"
+        id="charisma"
         label="CHA"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -100,7 +97,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charisma: e.target.value })}
       />
       <TextField
-        id="modal-hp"
+        id="level"
         label="Level"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -108,7 +105,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charLevel: e.target.value })}
       />
       <TextField
-        id="modal-background"
+        id="background"
         label="Background"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -116,7 +113,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, charBackground: e.target.value })}
       />
       <TextField
-        id="modal-hp"
+        id="hitpoints"
         label="HP"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -124,7 +121,7 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, hp: e.target.value })}
       />
       <TextField
-        id="modal-ac"
+        id="armor-class"
         label="AC"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
@@ -132,117 +129,105 @@ const PlayerCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, ac: e.target.value })}
       />
       <TextField
-        id="modal-speed"
+        id="speed"
         label="Speed"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.speed}
         onChange={(e) => setContent({ ...content, speed: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-passive-perception"
+        id="passive-perception"
         label="Passive Perception"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.passivePerception}
         onChange={(e) => setContent({ ...content, passivePerception: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-passive-investigation"
+        id="passive-investigation"
         label="Passive Investigation"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.passiveInvestigation}
         onChange={(e) => setContent({ ...content, passiveInvestigation: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-passive-stealth"
+        id="passive-stealth"
         label="Passive Stealth"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.passiveStealth}
         onChange={(e) => setContent({ ...content, passiveStealth: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-passive-insight"
+        id="passive-insight"
         label="Passive Insight"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.passiveInsight}
         onChange={(e) => setContent({ ...content, passiveInsight: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-spell-casting-ability"
+        id="spell-casting-ability"
         label="Spell Casting Ability"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.spellCastingAbility}
         onChange={(e) => setContent({ ...content, spellCastingAbility: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-spell-casting-modifier"
+        id="spell-casting-modifier"
         label="Spell Casting Modifier"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.spellCastingModifier}
         onChange={(e) => setContent({ ...content, spellCastingModifier: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-spell-save-dc"
+        id="spell-save-dc"
         label="Spell Save DC"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.spellSaveDC}
         onChange={(e) => setContent({ ...content, spellSaveDC: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-spell-attack-bonus"
+        id="spell-attack-bonus"
         label="Spell Attack Bonus"
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.spellAttackBonus}
         onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-languages"
+        id="languages"
         label="Languages"
         fullWidth
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.languages}
         onChange={(e) => setContent({ ...content, languages: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-link"
+        id="link"
         label="Character Sheet Link"
         fullWidth
         sx={{ paddingBottom: 2 }}
         variant="outlined"
         value={content.link}
         onChange={(e) => setContent({ ...content, link: e.target.value })}
-        data-testid="content-input"
       />
       <TextField
-        id="modal-content"
+        id="notes"
         label="Notes"
         fullWidth
         variant="outlined"
         sx={{ paddingBottom: 2 }}
         multiline
         rows={18}
-        value={content.content}
-        onChange={(e) => setContent({ ...content, content: e.target.value })}
-        data-testid="content-input"
+        value={content.notes}
+        onChange={(e) => setContent({ ...content, notes: e.target.value })}
       />
     </div>
   );

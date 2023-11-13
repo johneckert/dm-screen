@@ -22,6 +22,8 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     marginRight: theme.spacing(1),
   },
   value: {
+    paddingLeft: theme.spacing(1),
+    paddingRight: theme.spacing(1),
     backgroundColor: ({ type }) => {
       switch (type) {
         case CardType.Note:
@@ -52,7 +54,7 @@ const BlockField: React.FC<{ label: string; value: string | undefined; isVertica
   const classes = useStyles({ type: cardType });
 
   return (
-    <Box className={classes.notesField}>
+    <Box className={classes.blockField}>
       <div className={classes.label}>{label}:</div>
       <div className={classes.value}>
         <ReactMarkdown>{value}</ReactMarkdown>

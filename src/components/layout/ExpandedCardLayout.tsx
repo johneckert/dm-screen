@@ -7,6 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@mui/material/styles';
 import { CardData } from '../../interfaces';
+import CardErrorBoundry from '../cards/CardErrorBoundry';
 
 const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
   modal: {
@@ -71,14 +72,16 @@ const ExpandedCardLayout: React.FC<{
     <Modal
       open={cardData.id !== null}
       onClose={handleClose}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
+      aria-labelledby="card-title"
+      aria-describedby="card-data"
       data-testid="expanded-card"
     >
       <Box className={classes.modal}>
-        <Box className={classes.body}>{children}</Box>
+        <Box id="card-data" className={classes.body}>
+          <CardErrorBoundry deleteCard={handleDelete}>{children}</CardErrorBoundry>
+        </Box>
         {isEditing && (
-          <Box className={classes.buttonArea}>
+          <Box id="card-actions" className={classes.buttonArea}>
             <Button
               variant="outlined"
               className={classes.editButton}

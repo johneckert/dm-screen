@@ -1,7 +1,6 @@
 export interface SmallCardProps {
-  title: string;
   type: CardType;
-  content: GenericCardContent;
+  content: NoteCardContent | PlayerCardContent | RuleCardContent | MapCardContent | MonsterCardContent;
 }
 
 export enum CardType {
@@ -24,23 +23,33 @@ export interface CardDataMap {
 
 export interface CardData {
   id: string;
-  title: string;
-  content: GenericCardContent;
+  content: NoteCardContent | PlayerCardContent | RuleCardContent | MapCardContent | MonsterCardContent;
   column: string;
   type: CardType;
   tab: string;
 }
 
 export interface GenericCardContent {
-  content: string; //for all
+  title: string;
+}
 
-  roomNumber?: string; // for maps
-  description?: string; // for maps & monsters
+export interface NoteCardContent extends GenericCardContent {
+  notes?: string; // for maps
+}
 
+export interface PlayerCardContent extends GenericCardContent {
+  notes?: string; // for maps
   charClass?: string; // for players
   charRace?: string; // for players
   charBackground?: string; // for players
   charLevel?: string; // for players
+  size?: string; // for monsters
+  strength?: string; // for monsters
+  dexterity?: string; // for monsters
+  constitution?: string; // for monsters
+  intelligence?: string; // for monsters
+  wisdom?: string; // for monsters
+  charisma?: string; // for monsters
   hp?: string; // for players & monsters
   ac?: string; // for players & monsters
   speed?: string; // for players & monsters
@@ -55,7 +64,25 @@ export interface GenericCardContent {
   link?: string; // for players & monsters
   languages?: string; // for players & monsters
   alignment?: string; // for players & monsters
+}
 
+export interface RuleCardContent extends GenericCardContent {}
+
+export interface MapCardContent extends GenericCardContent {
+  roomNumber?: string; // for maps
+  readOutLoudText?: string; // for maps & monsters
+  notes?: string; // for maps
+}
+
+export interface MonsterCardContent extends GenericCardContent {
+  notes?: string;
+  description?: string; // for maps & monsters
+  hp?: string; // for players & monsters
+  ac?: string; // for players & monsters
+  speed?: string; // for players & monsters
+  link?: string; // for players & monsters
+  languages?: string; // for players & monsters
+  alignment?: string; // for players & monsters
   size?: string; // for monsters
   type?: string; // for monsters
   hitDice?: string; // for monsters

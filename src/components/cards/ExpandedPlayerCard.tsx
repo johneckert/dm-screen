@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
-import { CardData, CardType, GenericCardContent } from '../../interfaces';
-import ExpandedCardLayout from './ExpandedCardLayout';
+import { CardData, CardType, PlayerCardContent } from '../../interfaces';
+import ExpandedCardLayout from '../layout/ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import { DEFAULT_TAB } from '../../constants';
-import { useReadLocalStorage } from 'usehooks-ts';
+import TabSelect from './cardFields/TabSelect';
 import PlayerCardForm from './newCardForms/PlayerCardForm';
 import DisplayField from './cardFields/DisplayField';
 import IconField from './cardFields/IconField';
@@ -82,11 +79,10 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as GenericCardContent;
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TAB];
+  const cardContent = expandedCardData.content as PlayerCardContent;
   const [isEditing, setIsEditing] = useState(false);
-  const [title, setTitle] = useState(expandedCardData.title);
-  const [notes, setNotes] = useState(cardContent.content);
+  const [title, setTitle] = useState(cardContent.title);
+  const [notes, setNotes] = useState(cardContent.notes);
   const [charClass, setCharClass] = useState(cardContent.charClass);
   const [charLevel, setCharLevel] = useState(cardContent.charLevel);
   const [charRace, setCharRace] = useState(cardContent.charRace);
@@ -115,6 +111,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
+    title,
     hp,
     ac,
     size,
@@ -140,11 +137,11 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     spellAttackBonus,
     languages,
     link,
-    content: notes,
+    notes,
   };
-  const handleContentUpdate = (content: GenericCardContent) => {
-    console.log(content);
-    setNotes(content.content);
+  const handleContentUpdate = (content: PlayerCardContent) => {
+    setTitle(content.title);
+    setNotes(content.notes);
     setCharClass(content.charClass);
     setCharLevel(content.charLevel);
     setCharRace(content.charRace);
@@ -176,8 +173,8 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     if (isEditing) {
       updateCard({
         ...expandedCardData,
-        title: title,
         content: {
+          title: title,
           hp: hp,
           ac: ac,
           charClass: charClass,
@@ -194,7 +191,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
           spellAttackBonus: spellAttackBonus,
           languages: languages,
           link: link,
-          content: notes,
+          notes: notes,
         },
         tab: cardTab,
       });
@@ -216,22 +213,8 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <Select
-              labelId="card-tab-select-label"
-              sx={{ marginBottom: 2 }}
-              id="card-tab-select"
-              value={cardTab}
-              label="Tab"
-              data-testid="card-tab-select"
-              onChange={(e) => setCardTab(e.target.value)}
-            >
-              {tabs.map((value) => (
-                <MenuItem key={value} value={value} data-testid="select-option">
-                  {value}
-                </MenuItem>
-              ))}
-            </Select>
-            <PlayerCardForm title={title} setTitle={setTitle} content={formContent} setContent={handleContentUpdate} />
+            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+            <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
