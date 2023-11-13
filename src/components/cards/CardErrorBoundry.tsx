@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Owlbear from '../../assets/images/owlbear.svg';
 import NatOne from '../../assets/images/nat-one.svg';
 
 interface Props {
