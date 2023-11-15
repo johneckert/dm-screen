@@ -41,7 +41,7 @@ export const CUSTOM_MONSTER = {
 
 export const HEADER_HEIGHT = 64;
 
-export const NUMBER_OF_ROWS = 3;
+export const NUMBER_OF_ROWS = 4;
 
 export const NUMBER_OF_COLUMNS = {
   xl: 6,
