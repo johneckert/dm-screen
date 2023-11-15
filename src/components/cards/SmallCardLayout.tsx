@@ -15,6 +15,7 @@ import { splitAndTitleCase } from '../../utils';
 import RoomCardSmall from './smallCards/MapCardSmall';
 import NoteCardSmall from './smallCards/NoteCardSmall';
 import PlayerCardSmall from './smallCards/PlayerCardSmall';
+import MonsterCardSmall from './smallCards/MonsterCardSmall';
 
 const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
@@ -45,6 +46,8 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
         return <NoteCardSmall content={content} />;
       case CardType.Player:
         return <PlayerCardSmall content={content} />;
+      case CardType.Monster:
+        return <MonsterCardSmall content={content} />;
       default:
         return <Typography>TODO: what should this be?</Typography>;
     }

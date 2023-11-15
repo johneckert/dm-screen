@@ -4,21 +4,31 @@ import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { RED } from '../../../colors';
 import IconField from '../cardFields/IconField';
+import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) => {
   const {
-    charClass,
-    charRace,
-    charBackground,
-    charLevel,
-    hp,
-    ac,
-    passivePerception,
-    passiveStealth,
-    spellSaveDC,
-    spellAttackBonus,
-    languages,
+    charClass = '',
+    charRace = '',
+    charBackground = '',
+    charLevel = '',
+    hp = '',
+    ac = '',
+    passivePerception = '',
+    passiveStealth = '',
+    spellSaveDC = '',
+    spellAttackBonus = '',
+    languages = '',
   } = content ?? {};
+
+  const labels = [
+    'Passive Perception: ',
+    'Passive Stealth: ',
+    'Languages: ',
+    'Spell Save DC: ',
+    'Spell Attack Bonus: ',
+  ];
+  const values = [passivePerception, passiveStealth, languages, spellSaveDC, spellAttackBonus];
   return (
     <Box data-testid="small-player-card">
       <Box
@@ -44,13 +54,7 @@ const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) 
           justifyContent: 'space-between',
         }}
       >
-        <Box>
-          <Typography>Passive Perception: {passivePerception}</Typography>
-          <Typography>Passive Stealth: {passiveStealth}</Typography>
-          <Typography>Languages: {languages}</Typography>
-          <Typography>Spell Save DC: {spellSaveDC}</Typography>
-          <Typography>Spell Attack Bonus: {spellAttackBonus}</Typography>
-        </Box>
+        <SmallCardStatTable labels={labels} values={values} />
         <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
           <IconField label="HP" value={hp} cardType={CardType.Player} />
           <IconField label="AC" value={ac} cardType={CardType.Player} />
