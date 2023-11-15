@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -13,7 +12,8 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
-import RoomCardSmall from './smallCards/RoomCardSmall';
+import RoomCardSmall from './smallCards/MapCardSmall';
+import NoteCardSmall from './smallCards/NoteCardSmall';
 
 const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
@@ -40,6 +40,9 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
     switch (type) {
       case CardType.Map:
         return <RoomCardSmall content={content} />;
+        break;
+      case CardType.Note:
+        return <NoteCardSmall content={content} />;
         break;
       default:
         return <Typography>TODO: what should this be?</Typography>;
