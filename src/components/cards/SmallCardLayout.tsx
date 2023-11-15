@@ -13,8 +13,9 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
+import RoomCardSmall from './smallCards/RoomCardSmall';
 
-const SmallCard = ({ content, type }: SmallCardProps) => {
+const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
   const mapContent = (content as MapCardContent) ?? {};
 
@@ -35,16 +36,14 @@ const SmallCard = ({ content, type }: SmallCardProps) => {
     }
   };
 
-  const detailText = () => {
-    let detailText = '';
+  const renderSmallCard = () => {
     switch (type) {
       case CardType.Map:
-        detailText = mapContent.readOutLoudText ?? '';
+        return <RoomCardSmall content={content} />;
         break;
       default:
-        detailText = ' TODO: what should this be?';
+        return <Typography>TODO: what should this be?</Typography>;
     }
-    return detailText.length > 100 ? `${detailText.substring(0, 100)}...` : detailText;
   };
 
   const getCardHeight = () => {
@@ -69,13 +68,9 @@ const SmallCard = ({ content, type }: SmallCardProps) => {
         }
         title={content.title ? splitAndTitleCase(content.title) : ''}
       />
-      <CardContent>
-        <Container>
-          <Typography>{detailText()}</Typography>
-        </Container>
-      </CardContent>
+      <CardContent sx={{ paddingY: 0, minHeight: '60%' }}>{renderSmallCard()}</CardContent>
     </Card>
   );
 };
 
-export default SmallCard;
+export default SmallCardLayout;

@@ -1,9 +1,9 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ExpandedMapCard from './ExpandedMapCard';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
-import { CardType } from '../../interfaces';
-import { DEFAULT_TAB } from '../../constants';
+import theme from '../../../theme';
+import { CardType } from '../../../interfaces';
+import { DEFAULT_TAB } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();

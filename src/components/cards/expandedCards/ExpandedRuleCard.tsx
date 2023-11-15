@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../interfaces';
-import { RULES, RULE_DATA } from '../../ruleData';
-import ExpandedCardLayout from '../layout/ExpandedCardLayout';
-import TabSelect from './cardFields/TabSelect';
+import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../../interfaces';
+import { RULES, RULE_DATA } from '../../../ruleData';
+import ExpandedCardLayout from '../ExpandedCardLayout';
+import TabSelect from '../cardFields/TabSelect';
 import Box from '@mui/material/Box';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,8 +11,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
-import { AMBER } from '../../colors';
-import { splitAndTitleCase } from '../../utils';
+import { AMBER } from '../../../colors';
+import { splitAndTitleCase } from '../../../utils';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 
 interface StyleProps {

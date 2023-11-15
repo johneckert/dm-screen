@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import SmallCard from './SmallCard';
+import SmallCardLayout from './SmallCardLayout';
 import { CardType } from '../../interfaces';
 
 const mockCardData = { id: 'ABC-123', content: { title: 'Pikachu', content: 'I am Pikachu' } };
@@ -12,29 +12,29 @@ const mockLongCardData = {
   },
 };
 
-describe('<SmallCard />', () => {
+describe('<SmallCardLayout />', () => {
   it('renders', () => {
-    render(<SmallCard content={mockCardData.content} type={CardType.Note} />);
+    render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByTestId('basic-card')).toBeInTheDocument();
   });
 
   it('renders an avatar', () => {
-    render(<SmallCard content={mockCardData.content} type={CardType.Note} />);
+    render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByLabelText('avatar')).toBeInTheDocument();
   });
 
   it('renders the title', () => {
-    render(<SmallCard content={mockCardData.content} type={CardType.Note} />);
+    render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByText(mockCardData.content.title)).toBeInTheDocument();
   });
   xit('renders the content if its under 100 characters', () => {
-    render(<SmallCard content={mockCardData.content} type={CardType.Note} />);
+    render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByText(mockCardData.content.content)).toBeInTheDocument();
   });
 
   xit('renders truncated content with ellipsis if longer than 100 characters', () => {
     const expectedContent = `${mockLongCardData.content.content.substring(0, 100)}...`;
-    render(<SmallCard content={mockLongCardData.content} type={CardType.Note} />);
+    render(<SmallCardLayout content={mockLongCardData.content} type={CardType.Note} />);
 
     expect(screen.getByText(expectedContent)).toBeInTheDocument();
   });

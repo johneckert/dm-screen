@@ -6,11 +6,11 @@ import makeStyles from '@mui/styles/makeStyles';
 import { Theme } from '@mui/material/styles';
 import { getScreenSize } from '../../utils';
 import useCardStorage from '../../hooks/useCardStorage';
-import ExpandedNoteCard from '../cards/ExpandedNoteCard';
-import ExpandedMapCard from '../cards/ExpandedMapCard';
-import ExpandedRuleCard from '../cards/ExpandedRuleCard';
-import ExpandedPlayerCard from '../cards/ExpandedPlayerCard';
-import ExpandedMonsterCard from '../cards/ExpandedMonsterCard';
+import ExpandedNoteCard from '../cards/expandedCards/ExpandedNoteCard';
+import ExpandedMapCard from '../cards/expandedCards/ExpandedMapCard';
+import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
+import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
+import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
 import NewCardModal from '../cards/NewCardModal';
 import { GREY } from '../../colors';
 

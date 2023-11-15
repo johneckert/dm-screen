@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { CardData, CardType, MapCardContent } from '../../interfaces';
+import { CardData, NoteCardContent } from '../../../interfaces';
+import ExpandedCardLayout from '../ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
-import TabSelect from './cardFields/TabSelect';
 import { Theme } from '@mui/material/styles';
-import ExpandedCardLayout from '../layout/ExpandedCardLayout';
-import { Avatar } from '@mui/material';
-import { avatarColor } from '../../utils';
-import BlockField from './cardFields/BlockField';
-import CardHeader from './cardFields/CardHeader';
-import MapCardForm from './newCardForms/MapCardForm';
+import TabSelect from '../cardFields/TabSelect';
+import BlockField from '../cardFields/BlockField';
+import CardHeader from '../cardFields/CardHeader';
+import NoteCardForm from '../newCardForms/NoteCardForm';
 
-const useStyles = makeStyles<Theme>((theme) => ({
+interface StyleProps {
+  isEditing: boolean;
+}
+
+const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   header: {
     display: 'flex',
     flexDirection: 'row',
@@ -26,61 +28,58 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'column',
     overflowY: 'scroll',
   },
-  editView: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(2),
-    overflowY: 'scroll',
-    fontSize: theme.spacing(6),
-    fontWeight: 400,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
   modalTitle: {
     margin: theme.spacing(4),
     paddingX: theme.spacing(2),
     paddingTop: theme.spacing(1.5),
   },
+  modalContent: {
+    margin: theme.spacing(4),
+    paddingX: theme.spacing(2),
+    paddingTop: theme.spacing(3),
+  },
+  editButton: {
+    alignSelf: 'center',
+    justifyContent: 'center',
+    width: 'fit-content',
+    padding: theme.spacing(1),
+    marginLeft: 'auto',
+  },
 }));
 
-interface ExpandedMapCardProps {
+interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
   expandedCardData: CardData;
   updateCard: (cardData: CardData) => void;
   deleteCard: (cardData: CardData) => void;
 }
 
-const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
+const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   closeExpandedCard,
   expandedCardData,
   updateCard,
   deleteCard,
 }) => {
-  const cardContent = expandedCardData.content as MapCardContent;
+  const cardContent = expandedCardData.content as NoteCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.notes);
-  const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
-  const [readOutLoudText, setReadOutLoudText] = useState(cardContent.readOutLoudText);
   const [cardTab, setCardTab] = useState(expandedCardData.tab);
-  const classes = useStyles();
+  const classes = useStyles({ isEditing });
   const formContent = {
     title,
-    roomNumber,
-    readOutLoudText,
     notes,
-  };
-  const handleContentUpdate = (content: MapCardContent) => {
-    setTitle(content.title);
-    setNotes(content.notes);
-    setRoomNumber(content.roomNumber);
-    setReadOutLoudText(content.readOutLoudText);
   };
   const handleEdit = () => {
     if (isEditing) {
       updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
     }
     setIsEditing(!isEditing);
+  };
+
+  const handleContentUpdate = (content: NoteCardContent) => {
+    setTitle(content.title);
+    setNotes(content.notes);
   };
 
   return (
@@ -93,29 +92,21 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="map-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography id="note-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
             Editing
           </Typography>
           <Box className={classes.editView}>
             <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
-            <MapCardForm content={formContent} setContent={handleContentUpdate} />
+            <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
         <>
           <Box className={classes.header}>
-            <Avatar
-              aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
-              data-testid="room-number-view"
-            >
-              {roomNumber || 'X'}
-            </Avatar>
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
           <Box className={classes.body}>
-            <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />
-            <BlockField label="DM Notes" value={notes} />
+            <BlockField label="Notes" value={notes} />
           </Box>
         </>
       )}
@@ -123,4 +114,4 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   );
 };
 
-export default ExpandedMapCard;
+export default ExpandedNoteCard;

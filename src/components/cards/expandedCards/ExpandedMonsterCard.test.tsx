@@ -1,58 +1,60 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
-import ExpandedPlayerCard from './ExpandedPlayerCard';
+import ExpandedMonsterCard from './ExpandedMonsterCard';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
-import { CardType } from '../../interfaces';
-import { DEFAULT_TAB } from '../../constants';
+import theme from '../../../theme';
+import { CardType } from '../../../interfaces';
+import { DEFAULT_TAB } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
 const mockDeleteCard = jest.fn();
 
 jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
-jest.mock('./newCardForms/PlayerCardForm', () => () => <div data-testid="player-card-form"></div>);
+jest.mock('../newCardForms/MonsterCardForm', () => () => <div data-testid="monster-card-form"></div>);
 
-const mockExpandedPlayerCardData = {
+const mockExpandedMonsterCardData = {
   id: '1',
-  type: CardType.Player,
+  type: CardType.Monster,
   column: 'column-1',
   content: {
-    title: 'Minsc',
-    charRace: 'Human',
-    charClass: 'Ranger',
-    alignment: 'Chaotic Good',
-    strength: '18',
-    dexterity: '16',
-    constitution: '14',
-    intelligence: '10',
-    wisdom: '16',
-    charisma: '10',
-    size: 'Medium',
-    hp: '100',
-    ac: '15',
-    speed: '30',
-    passivePerception: '15',
-    passiveInvestigation: '8',
-    passiveStealth: '13',
-    passiveInsight: '10',
-    spellCastingAbility: 'Wisdom',
-    spellCastingModifier: '+5',
-    spellSaveDC: '18',
-    spellAttackBonus: '+8',
-    link: 'https://www.dndbeyond.com/characters/12345678',
-    languages: 'Common, Giant Space Hamster',
-    notes: 'Minsc is a ranger who travels with his hamster Boo.',
+    title: 'Owlbear',
+    type: 'monstrosity',
+    size: 'Large',
+    alignment: 'Unaligned',
+    hitpointsRoll: '4d10 + 12',
+    ac: '13',
+    hp: '59',
+    speed: '40 ft.',
+    strength: '20',
+    dexterity: '12',
+    constitution: '17',
+    intelligence: '3',
+    wisdom: '12',
+    charisma: '7',
+    senses: 'Darkvision 60 ft., passive Perception 13',
+    proficiencies: 'Perception +3',
+    vulnerabilities: 'Piercing',
+    conditionImmunities: 'None',
+    damageImmunities: 'None',
+    languages: 'None',
+    challengeRating: '3',
+    specialAbilities: 'Keen Sight and Smell',
+    actions: 'Multiattack',
+    legendaryActions: 'None',
+    link: 'https://www.dndbeyond.com/monsters/owlbear',
+    description: 'An owlbear is a large magical beast that looks like a cross between an owl and a bear.',
+    notes: 'They are fluffy!',
   },
   tab: DEFAULT_TAB,
 };
 
-describe('<ExpandedPlayerCard />', () => {
+describe('<ExpandedMonsterCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ExpandedPlayerCard
+        <ExpandedMonsterCard
           closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={mockExpandedPlayerCardData}
+          expandedCardData={mockExpandedMonsterCardData}
           deleteCard={mockDeleteCard}
           updateCard={mockUpdateCard}
         />
@@ -62,12 +64,12 @@ describe('<ExpandedPlayerCard />', () => {
   });
 
   describe('Edit Mode', () => {
-    it('renders <PlayerCardForm>', () => {
+    it('renders <MonsterCardForm>', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
+          <ExpandedMonsterCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
+            expandedCardData={mockExpandedMonsterCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -79,7 +81,7 @@ describe('<ExpandedPlayerCard />', () => {
         editButton.click();
       });
 
-      expect(screen.getByTestId('player-card-form')).toBeInTheDocument();
+      expect(screen.getByTestId('monster-card-form')).toBeInTheDocument();
     });
   });
 
@@ -87,9 +89,9 @@ describe('<ExpandedPlayerCard />', () => {
     it('renders edit button', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
+          <ExpandedMonsterCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
+            expandedCardData={mockExpandedMonsterCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -105,9 +107,9 @@ describe('<ExpandedPlayerCard />', () => {
     it('renders title', () => {
       render(
         <ThemeProvider theme={theme}>
-          <ExpandedPlayerCard
+          <ExpandedMonsterCard
             closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedPlayerCardData}
+            expandedCardData={mockExpandedMonsterCardData}
             updateCard={mockUpdateCard}
             deleteCard={mockDeleteCard}
           />
@@ -120,31 +122,19 @@ describe('<ExpandedPlayerCard />', () => {
       });
     });
     describe('renders all content fields', () => {
-      const content = mockExpandedPlayerCardData.content;
+      const content = mockExpandedMonsterCardData.content;
 
       beforeAll(() => {
         render(
           <ThemeProvider theme={theme}>
-            <ExpandedPlayerCard
+            <ExpandedMonsterCard
               closeExpandedCard={mockCloseExpandedCard}
-              expandedCardData={mockExpandedPlayerCardData}
+              expandedCardData={mockExpandedMonsterCardData}
               updateCard={mockUpdateCard}
               deleteCard={mockDeleteCard}
             />
           </ThemeProvider>,
         );
-      });
-
-      it('renders character race', () => {
-        waitFor(() => {
-          expect(screen.queryByText(content.charRace)).toBeInTheDocument();
-        });
-      });
-
-      it('renders character class', () => {
-        waitFor(() => {
-          expect(screen.queryByText(content.charClass)).toBeInTheDocument();
-        });
       });
 
       it('renders alignment', () => {
@@ -156,6 +146,12 @@ describe('<ExpandedPlayerCard />', () => {
       it('renders size', () => {
         waitFor(() => {
           expect(screen.queryByText(content.size)).toBeInTheDocument();
+        });
+      });
+
+      it('renders type', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.type)).toBeInTheDocument();
         });
       });
 
@@ -213,51 +209,57 @@ describe('<ExpandedPlayerCard />', () => {
         });
       });
 
-      it('renders passive perception', () => {
+      it('renders proficiencies', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.passivePerception)).toBeInTheDocument();
+          expect(screen.queryByText(content.proficiencies)).toBeInTheDocument();
         });
       });
 
-      it('renders passive investigation', () => {
+      it('renders vulnerabilities', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.passiveInvestigation)).toBeInTheDocument();
+          expect(screen.queryByText(content.vulnerabilities)).toBeInTheDocument();
         });
       });
 
-      it('renders passive stealth', () => {
+      it('renders dammage immunities', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.passiveStealth)).toBeInTheDocument();
+          expect(screen.queryByText(content.damageImmunities)).toBeInTheDocument();
         });
       });
 
-      it('renders passive insight', () => {
+      it('renders condition immunities', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.passiveInsight)).toBeInTheDocument();
+          expect(screen.queryByText(content.conditionImmunities)).toBeInTheDocument();
         });
       });
 
-      it('renders spell casting ability', () => {
+      it('renders senses', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.spellCastingAbility)).toBeInTheDocument();
+          expect(screen.queryByText(content.senses)).toBeInTheDocument();
         });
       });
 
-      it('renders spell casting modifier', () => {
+      it('renders challenge rating', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.spellCastingModifier)).toBeInTheDocument();
+          expect(screen.queryByText(content.challengeRating)).toBeInTheDocument();
         });
       });
 
-      it('renders spell save DC', () => {
+      it('renders special abilities', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.spellSaveDC)).toBeInTheDocument();
+          expect(screen.queryByText(content.specialAbilities)).toBeInTheDocument();
         });
       });
 
-      it('renders spell attack bonus', () => {
+      it('renders actions', () => {
         waitFor(() => {
-          expect(screen.queryByText(content.spellAttackBonus)).toBeInTheDocument();
+          expect(screen.queryByText(content.actions)).toBeInTheDocument();
+        });
+      });
+
+      it('renders legendary actions', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.legendaryActions)).toBeInTheDocument();
         });
       });
 
@@ -270,6 +272,12 @@ describe('<ExpandedPlayerCard />', () => {
       it('renders languages', () => {
         waitFor(() => {
           expect(screen.queryByText(content.languages)).toBeInTheDocument();
+        });
+      });
+
+      it('renders description', () => {
+        waitFor(() => {
+          expect(screen.queryByText(content.description)).toBeInTheDocument();
         });
       });
 
