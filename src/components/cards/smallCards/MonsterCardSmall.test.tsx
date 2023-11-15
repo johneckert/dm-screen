@@ -1,35 +1,33 @@
 import { render, screen } from '@testing-library/react';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../theme';
-import PlayerCardSmall from './PlayerCardSmall';
+import MonsterCardSmall from './MonsterCardSmall';
 
-const mockPlayerCardContentNoValues = {
-  title: 'Fizban the Fabulous',
+const mockMonsterCardContentNoValues = {
+  title: 'Owlbear',
 };
 
 jest.mock('../cardFields/IconField.tsx', () => () => <div data-testid="icon-field" />);
 jest.mock('../cardFields/SmallCardStatTable.tsx', () => () => <div data-testid="stat-table" />);
 
-const mockPlayerCardContent = {
-  ...mockPlayerCardContentNoValues,
-  charClass: 'Wizard',
-  charRace: 'Human',
-  charBackground: 'Sage',
-  charLevel: '1',
-  hp: '10',
-  ac: '15',
-  passivePerception: '11',
-  passiveStealth: '12',
-  spellSaveDC: '13',
-  spellAttackBonus: '+5',
-  languages: 'Common, Elvish',
+const mockMonsterCardContent = {
+  ...mockMonsterCardContentNoValues,
+  type: 'monstrosity',
+  size: 'Large',
+  ac: '13',
+  hp: '59',
+  speed: '40 ft.',
+  senses: 'Darkvision 60 ft., passive Perception 13',
+  proficiencies: 'Perception +3',
+  languages: 'None',
+  challengeRating: '3',
 };
 
-describe('<PlayerCardSmall />', () => {
+describe('<MonsterCardSmall />', () => {
   it('renders ok with no content', () => {
     render(
       <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContentNoValues} />
+        <MonsterCardSmall content={mockMonsterCardContentNoValues} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('small-player-card')).toBeInTheDocument();
@@ -38,17 +36,17 @@ describe('<PlayerCardSmall />', () => {
   it('renders correct data in character info row', () => {
     render(
       <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
+        <MonsterCardSmall content={mockMonsterCardContent} />
       </ThemeProvider>,
     );
-    expect(screen.getByText('Level 1 Human Wizard')).toBeInTheDocument();
-    expect(screen.getByText('Background: Sage')).toBeInTheDocument();
+    expect(screen.getByText('Large monstrosity')).toBeInTheDocument();
+    expect(screen.getByText('CR 3')).toBeInTheDocument();
   });
 
   it('renders SmallCardStatTable', () => {
     render(
       <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
+        <MonsterCardSmall content={mockMonsterCardContent} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('stat-table')).toBeInTheDocument();
@@ -57,7 +55,7 @@ describe('<PlayerCardSmall />', () => {
   it('renders HP and AC fields', () => {
     render(
       <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
+        <MonsterCardSmall content={mockMonsterCardContent} />
       </ThemeProvider>,
     );
     expect(screen.getAllByTestId('icon-field')).toHaveLength(2);
