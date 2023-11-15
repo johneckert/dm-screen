@@ -3,8 +3,8 @@ export const RED = {
   200: '#ff7b7b',
   300: '#ff5252',
   500: '#ff0000',
+  600: '#e60000',
 };
-
 export const TEAL = {
   100: '#b2d8d8',
   200: '#80bfbf',

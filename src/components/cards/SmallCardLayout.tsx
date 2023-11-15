@@ -14,6 +14,7 @@ import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
 import RoomCardSmall from './smallCards/MapCardSmall';
 import NoteCardSmall from './smallCards/NoteCardSmall';
+import PlayerCardSmall from './smallCards/PlayerCardSmall';
 
 const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
@@ -40,10 +41,10 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
     switch (type) {
       case CardType.Map:
         return <RoomCardSmall content={content} />;
-        break;
       case CardType.Note:
         return <NoteCardSmall content={content} />;
-        break;
+      case CardType.Player:
+        return <PlayerCardSmall content={content} />;
       default:
         return <Typography>TODO: what should this be?</Typography>;
     }

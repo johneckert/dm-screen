@@ -26,6 +26,10 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
   label: {
     fontWeight: 900,
+    zIndex: 2,
+  },
+  value: {
+    zIndex: 2,
   },
 }));
 
@@ -58,7 +62,7 @@ const IconField: React.FC<{ label: 'HP' | 'AC' | 'Speed'; value: string | undefi
     top: 0,
     width: '100%',
     height: '100%',
-    zIndex: -1,
+    zIndex: 1,
     color: color(),
   } as React.CSSProperties;
 
