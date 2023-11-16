@@ -27,15 +27,4 @@ describe('<SmallCardLayout />', () => {
     render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
     expect(screen.getByText(mockCardData.content.title)).toBeInTheDocument();
   });
-  xit('renders the content if its under 100 characters', () => {
-    render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);
-    expect(screen.getByText(mockCardData.content.content)).toBeInTheDocument();
-  });
-
-  xit('renders truncated content with ellipsis if longer than 100 characters', () => {
-    const expectedContent = `${mockLongCardData.content.content.substring(0, 100)}...`;
-    render(<SmallCardLayout content={mockLongCardData.content} type={CardType.Note} />);
-
-    expect(screen.getByText(expectedContent)).toBeInTheDocument();
-  });
 });
