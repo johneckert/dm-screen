@@ -1,9 +1,8 @@
 import React from 'react';
-import { CardType, PlayerCardContent } from '../../../interfaces';
+import { PlayerCardContent } from '../../../interfaces';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { RED } from '../../../colors';
-import IconField from '../cardFields/IconField';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) => {
