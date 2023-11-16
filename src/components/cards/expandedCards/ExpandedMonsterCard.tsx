@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { CardData, CardType, MonsterCardContent } from '../../interfaces';
-import ExpandedCardLayout from '../layout/ExpandedCardLayout';
+import { CardData, CardType, MonsterCardContent } from '../../../interfaces';
+import ExpandedCardLayout from '../ExpandedCardLayout';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
-import TabSelect from './cardFields/TabSelect';
-import MonsterCardForm from './newCardForms/MonsterCardForm';
-import DisplayField from './cardFields/DisplayField';
-import StatField from './cardFields/StatField';
-import IconField from './cardFields/IconField';
-import BlockField from './cardFields/BlockField';
-import CardHeader from './cardFields/CardHeader';
+import TabSelect from '../cardFields/TabSelect';
+import MonsterCardForm from '../newCardForms/MonsterCardForm';
+import DisplayField from '../cardFields/DisplayField';
+import StatField from '../cardFields/StatField';
+import IconField from '../cardFields/IconField';
+import BlockField from '../cardFields/BlockField';
+import CardHeader from '../cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   header: {

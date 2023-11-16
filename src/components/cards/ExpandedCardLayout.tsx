@@ -7,7 +7,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@mui/material/styles';
 import { CardData } from '../../interfaces';
-import CardErrorBoundry from '../cards/CardErrorBoundry';
+import CardErrorBoundry from './CardErrorBoundry';
 
 const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
   modal: {
