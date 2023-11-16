@@ -1,9 +1,8 @@
 import React from 'react';
-import { CardType, MonsterCardContent } from '../../../interfaces';
+import { MonsterCardContent } from '../../../interfaces';
 import Box from '@mui/material/Box';
 import { Typography } from '@mui/material';
 import { BLUE } from '../../../colors';
-import IconField from '../cardFields/IconField';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const MonsterCardSmall: React.FC<{ content: MonsterCardContent }> = ({ content }) => {
@@ -11,8 +10,6 @@ const MonsterCardSmall: React.FC<{ content: MonsterCardContent }> = ({ content }
     size = '',
     type = '',
     challengeRating = '',
-    hp = '',
-    ac = '',
     senses = '',
     proficiencies = '',
     languages = '',
