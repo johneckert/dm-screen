@@ -1,4 +1,4 @@
-import { RuleData } from './interfaces';
+import { RuleData, SmallCardRuleData } from './interfaces';
 
 /* 
 NOTE ON KEY NAMES: 
@@ -851,3 +851,23 @@ export const RULE_DATA: RuleData = {
 };
 
 export const RULES = Object.keys(RULE_DATA);
+
+export const SMALL_TABLE_RULES: SmallCardRuleData = {
+  strength: 'Measures physical power. Skills: Athletics',
+  dexterity: 'Measures agility. Skills: Acrobatics, Sleight of Hand, Stealth',
+  constitution: 'Measures endurance. Skills: Concentration',
+  intelligence: 'Measures reasoning and memory. Skills: Arcana, History, Investigation, Nature, Religion',
+  wisdom: 'Measures perception and insight. Skills: Animal Handling, Insight, Medicine, Perception, Survival',
+  charisma: 'Measures force of personality. Skills: Deception, Intimidation, Performance, Persuasion',
+  'encounter distance': 'Wilderness encounter distance based on visibility and terrain.',
+  conditions: 'A list of conditions and their effects.',
+  cover: 'Effects of cover. Cover: Half cover, Three-quarters cover, Full cover',
+  actions: 'Available actions in combat.',
+  'setting a dc': 'Guidlines for setting DC of an ability check.',
+  'tracking dc': 'Guidlines for setting DC of tracking based on ground conditions.',
+  'object ac': 'Armor class of objects based on substance.',
+  'object hp': 'Hit points of objects based on size.',
+  'food and drink': 'Prices of food and drink.',
+  'services and transportation': 'Prices of services and transportation.',
+  'travel pace': 'Distance and effects based on travel pace.',
+};
