@@ -16,6 +16,7 @@ import RoomCardSmall from './smallCards/MapCardSmall';
 import NoteCardSmall from './smallCards/NoteCardSmall';
 import PlayerCardSmall from './smallCards/PlayerCardSmall';
 import MonsterCardSmall from './smallCards/MonsterCardSmall';
+import RuleCardSmall from './smallCards/RuleCardSmall';
 
 const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   const screenSize = getScreenSize();
@@ -48,6 +49,8 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
         return <PlayerCardSmall content={content} />;
       case CardType.Monster:
         return <MonsterCardSmall content={content} />;
+      case CardType.Rule:
+        return <RuleCardSmall content={content} />;
       default:
         return <Typography>TODO: what should this be?</Typography>;
     }
@@ -74,8 +77,9 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
           </Avatar>
         }
         title={content.title ? splitAndTitleCase(content.title) : ''}
+        sx={{ fontSize: 2, fontWeight: 900 }}
       />
-      <CardContent sx={{ paddingY: 0, minHeight: '60%' }}>{renderSmallCard()}</CardContent>
+      <CardContent sx={{ py: 0, height: '70%' }}>{renderSmallCard()}</CardContent>
     </Card>
   );
 };

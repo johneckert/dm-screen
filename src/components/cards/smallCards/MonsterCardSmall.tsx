@@ -46,10 +46,6 @@ const MonsterCardSmall: React.FC<{ content: MonsterCardContent }> = ({ content }
         }}
       >
         <SmallCardStatTable labels={labels} values={values} />
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-          <IconField label="HP" value={hp} cardType={CardType.Monster} />
-          <IconField label="AC" value={ac} cardType={CardType.Monster} />
-        </Box>
       </Box>
     </Box>
   );

@@ -7,7 +7,6 @@ const mockPlayerCardContentNoValues = {
   title: 'Fizban the Fabulous',
 };
 
-jest.mock('../cardFields/IconField.tsx', () => () => <div data-testid="icon-field" />);
 jest.mock('../cardFields/SmallCardStatTable.tsx', () => () => <div data-testid="stat-table" />);
 
 const mockPlayerCardContent = {
@@ -52,14 +51,5 @@ describe('<PlayerCardSmall />', () => {
       </ThemeProvider>,
     );
     expect(screen.getByTestId('stat-table')).toBeInTheDocument();
-  });
-
-  it('renders HP and AC fields', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
-      </ThemeProvider>,
-    );
-    expect(screen.getAllByTestId('icon-field')).toHaveLength(2);
   });
 });

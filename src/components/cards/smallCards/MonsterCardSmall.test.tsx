@@ -7,7 +7,6 @@ const mockMonsterCardContentNoValues = {
   title: 'Owlbear',
 };
 
-jest.mock('../cardFields/IconField.tsx', () => () => <div data-testid="icon-field" />);
 jest.mock('../cardFields/SmallCardStatTable.tsx', () => () => <div data-testid="stat-table" />);
 
 const mockMonsterCardContent = {
@@ -50,14 +49,5 @@ describe('<MonsterCardSmall />', () => {
       </ThemeProvider>,
     );
     expect(screen.getByTestId('stat-table')).toBeInTheDocument();
-  });
-
-  it('renders HP and AC fields', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <MonsterCardSmall content={mockMonsterCardContent} />
-      </ThemeProvider>,
-    );
-    expect(screen.getAllByTestId('icon-field')).toHaveLength(2);
   });
 });

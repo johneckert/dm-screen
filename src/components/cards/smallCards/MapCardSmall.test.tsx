@@ -31,7 +31,7 @@ describe('<MapCardSmall />', () => {
   });
 
   it('renders truncated readOutLoudText if string is more than 500 characters', () => {
-    const truncatedText = `${mockMapCardContentWithLongText.readOutLoudText.substring(0, 300)}...`;
+    const truncatedText = `${mockMapCardContentWithLongText.readOutLoudText.substring(0, 200)}...`;
 
     render(<MapCardSmall content={mockMapCardContentWithLongText} />);
     expect(screen.getByTestId('small-room-card')).toHaveTextContent(truncatedText);
