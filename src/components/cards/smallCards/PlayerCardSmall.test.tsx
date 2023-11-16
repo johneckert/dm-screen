@@ -41,7 +41,7 @@ describe('<PlayerCardSmall />', () => {
       </ThemeProvider>,
     );
     expect(screen.getByText('Level 1 Human Wizard')).toBeInTheDocument();
-    expect(screen.getByText('Background: Sage')).toBeInTheDocument();
+    expect(screen.getByText('Sage')).toBeInTheDocument();
   });
 
   it('renders SmallCardStatTable', () => {
