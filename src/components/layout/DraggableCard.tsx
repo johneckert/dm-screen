@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { CardData } from '../../interfaces';
-import SmallCard from './SmallCard';
+import SmallCardLayout from '../cards/SmallCardLayout';
 import { Draggable } from 'react-beautiful-dnd';
 
 const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: string) => void }> = ({
@@ -27,7 +27,7 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
             onClick={handleClick}
             data-testid="draggable-card"
           >
-            <SmallCard key={card.id} type={card.type} content={card.content} />
+            <SmallCardLayout key={card.id} type={card.type} content={card.content} />
           </div>
         )
       }
