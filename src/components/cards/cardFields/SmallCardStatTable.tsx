@@ -5,7 +5,7 @@ const SmallCardStatTable: React.FC<{ labels: string[]; values: string[] }> = ({ 
   const rows = labels.map((label, index) => {
     return [label, values[index]];
   });
-  console.log(rows);
+
   return (
     <TableContainer component={Box}>
       <Table aria-label="stat-table">
