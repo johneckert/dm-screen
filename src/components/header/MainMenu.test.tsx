@@ -3,7 +3,7 @@ import MainMenu from './MainMenu';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { act } from 'react-dom/test-utils';
-import { mockCardDataMap } from '../../mockData';
+import { mockCardDataMap, mockSaveData } from '../../mockData';
 import { EMPTY_CARD_MAP } from '../../constants';
 
 const mockSetCards = jest.fn();
@@ -24,7 +24,7 @@ const mockProps = {
   setShowNewCardModal: jest.fn(),
 };
 
-const blob = new Blob([JSON.stringify([])]);
+const blob = new Blob([JSON.stringify(mockSaveData)]);
 const file = new File([blob], 'dmscreen.json', {
   type: 'application/JSON',
 });
@@ -55,7 +55,7 @@ describe('<MainMenu />', () => {
       expect(document.createElement).toHaveBeenCalledWith('a');
     });
 
-    xit('uploads file and saves to localStorage', async () => {
+    it('uploads file and saves to localStorage', async () => {
       render(
         <ThemeProvider theme={theme}>
           <MainMenu {...mockProps} />
@@ -72,7 +72,7 @@ describe('<MainMenu />', () => {
 
       await waitFor(() => {
         expect(mockProps.setTabs).toHaveBeenCalled();
-        expect(mockProps.setActiveTab).toHaveBeenCalledWith();
+        expect(mockProps.setActiveTab).toHaveBeenCalledWith('welcome-info');
         expect(mockSetCards).toHaveBeenCalled();
       });
     });
