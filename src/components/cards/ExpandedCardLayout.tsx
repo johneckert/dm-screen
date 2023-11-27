@@ -17,7 +17,7 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
     transform: 'translate(-50%, -50%)',
     width: '50%',
     height: '80%',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.paper,
     border: 'none',
     outline: 'none',
     borderRadius: theme.spacing(1.5),
@@ -29,9 +29,8 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
   body: {
     display: 'flex',
     flexDirection: 'column',
-    paddingBottom: theme.spacing(4),
     width: '100%',
-    height: ({ isEditing }) => (isEditing ? '92%' : '100%'),
+    overflowY: 'scroll',
   },
   buttonArea: {
     width: '100%',
