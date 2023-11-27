@@ -6,7 +6,6 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { SmallCardProps } from '../../interfaces';
 import { getScreenSize, avatarColor } from '../../utils';
-import { HEADER_HEIGHT, NUMBER_OF_ROWS } from '../../constants';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
@@ -19,12 +18,10 @@ import MonsterCardSmall from './smallCards/MonsterCardSmall';
 import RuleCardSmall from './smallCards/RuleCardSmall';
 
 const SmallCardLayout = ({ content, type }: SmallCardProps) => {
-  const screenSize = getScreenSize();
-  const mapContent = (content as MapCardContent) ?? {};
-
   const avatar = () => {
     switch (type) {
       case CardType.Map:
+        const mapContent = (content as MapCardContent) ?? {};
         return mapContent?.roomNumber ?? 'X';
       case CardType.Note:
         return <PushPinIcon />;
@@ -56,11 +53,6 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
     }
   };
 
-  const getCardHeight = () => {
-    console.log((screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16);
-    return (screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16;
-  };
-
   return (
     <Card
       sx={{
@@ -68,7 +60,6 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
         zIndex: '0',
         margin: '8px 0',
         minHeight: '250px',
-        // height: getCardHeight(),
         height: '250px',
       }}
       data-testid="basic-card"
