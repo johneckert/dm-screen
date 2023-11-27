@@ -19,6 +19,7 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
     height: '80%',
     backgroundColor: '#ffffff',
     border: 'none',
+    outline: 'none',
     borderRadius: theme.spacing(1.5),
     boxShadow: '24px',
     padding: theme.spacing(2),
