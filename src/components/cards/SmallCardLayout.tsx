@@ -57,6 +57,7 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
   };
 
   const getCardHeight = () => {
+    console.log((screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16);
     return (screenSize.height - HEADER_HEIGHT) / NUMBER_OF_ROWS - 16;
   };
 
@@ -66,7 +67,9 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
         width: '100%',
         zIndex: '0',
         margin: '8px 0',
-        height: getCardHeight(),
+        minHeight: '250px',
+        // height: getCardHeight(),
+        height: '250px',
       }}
       data-testid="basic-card"
     >
