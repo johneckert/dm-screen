@@ -33,7 +33,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '100%',
-    marginBottom: theme.spacing(3),
     padding: theme.spacing(3),
   },
   row: {
@@ -195,11 +194,12 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         <>
           <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
           <Box className={classes.body}>
-            <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 0, alignItems: 'space-between' }} className={classes.row}>
               <DisplayField label="Size" value={size} />
               <DisplayField label="Type" value={type} />
+              <DisplayField label="CR" value={challengeRating} />
             </Box>
-            <Box sx={{ mb: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 1 }} className={classes.row}>
               <StatField label="STR" value={strength} cardType={CardType.Monster} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Monster} />
               <StatField label="CON" value={constitution} cardType={CardType.Monster} />
@@ -210,7 +210,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
             <Box sx={{ mb: 3 }} className={classes.row}>
               <IconField label="HP" value={hp} cardType={CardType.Monster} />
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
-              <IconField label="Speed" value={speed} cardType={CardType.Monster} />
             </Box>
             <Box className={classes.row}>
               <Box className={classes.group}>
@@ -223,7 +222,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
                 <DisplayField label="Proficiencies" value={proficiencies} />
                 <DisplayField label="Senses" value={senses} />
                 <DisplayField label="Languages" value={languages} />
-                <DisplayField label="CR" value={challengeRating} />
+                <DisplayField label="Speed" value={speed} />
               </Box>
             </Box>
             <Box className={classes.group}>
