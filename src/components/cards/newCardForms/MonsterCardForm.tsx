@@ -101,14 +101,6 @@ const MonsterCardForm: React.FC<{
             onChange={(e) => setContent({ ...content, type: e.target.value })}
           />
           <TextField
-            id="alignment"
-            label="Alignment"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.alignment}
-            onChange={(e) => setContent({ ...content, alignment: e.target.value })}
-          />
-          <TextField
             id="strength"
             label="STR"
             sx={{ paddingBottom: 2 }}

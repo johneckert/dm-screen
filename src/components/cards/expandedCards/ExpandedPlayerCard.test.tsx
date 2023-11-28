@@ -147,12 +147,6 @@ describe('<ExpandedPlayerCard />', () => {
         });
       });
 
-      it('renders alignment', () => {
-        waitFor(() => {
-          expect(screen.queryByText(content.alignment)).toBeInTheDocument();
-        });
-      });
-
       it('renders size', () => {
         waitFor(() => {
           expect(screen.queryByText(content.size)).toBeInTheDocument();

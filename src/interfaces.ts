@@ -81,7 +81,6 @@ export interface MonsterCardContent extends GenericCardContent {
   speed?: string; // for players & monsters
   link?: string; // for players & monsters
   languages?: string; // for players & monsters
-  alignment?: string; // for players & monsters
   size?: string; // for monsters
   type?: string; // for monsters
   hitDice?: string; // for monsters

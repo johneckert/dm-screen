@@ -70,7 +70,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [title, setTitle] = useState(cardContent.title);
   const [size, setSize] = useState(cardContent.size);
   const [type, setType] = useState(cardContent.type);
-  const [alignment, setAlignment] = useState(cardContent.alignment);
   const [hitDice, setHitDice] = useState(cardContent.hitDice);
   const [hitPointsRoll, setHitPointsRoll] = useState(cardContent.hitPointsRoll);
   const [hp, setHp] = useState(cardContent.hp);
@@ -103,7 +102,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     title,
     size,
     type,
-    alignment,
     hitDice,
     hitPointsRoll,
     hp,
@@ -135,7 +133,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     setTitle(content.title);
     setSize(content.size);
     setType(content.type);
-    setAlignment(content.alignment);
     setHitDice(content.hitDice);
     setHitPointsRoll(content.hitPointsRoll);
     setHp(content.hp);
@@ -202,7 +199,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
               <DisplayField label="Size" value={size} />
               <DisplayField label="Type" value={type} />
-              <DisplayField label="Alignment" value={alignment} />
             </Box>
             <Box sx={{ mb: 3 }} className={classes.row}>
               <StatField label="STR" value={strength} cardType={CardType.Monster} />
