@@ -1,8 +1,7 @@
 import React from 'react';
 import { NoteCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
+import { Box, Typography } from '@mui/material';
 import { SMALL_TABLE_RULES } from '../../../ruleData';
-import Typography from '@mui/material/Typography';
 
 const RuleCardSmall: React.FC<{ content: NoteCardContent }> = ({ content }) => {
   const { title } = content ?? {};

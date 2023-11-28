@@ -1,7 +1,6 @@
 import React from 'react';
 import { PlayerCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { RED } from '../../../colors';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 

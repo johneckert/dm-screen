@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import { Modal, Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Button from '@mui/material/Button';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@mui/material/styles';

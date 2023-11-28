@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Typography, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';

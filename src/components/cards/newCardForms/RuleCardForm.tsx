@@ -1,8 +1,5 @@
 import { SelectChangeEvent } from '@mui/material';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
+import { Box, Select, InputLabel, MenuItem } from '@mui/material';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';

@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { AppBar, Toolbar, Typography, IconButton, Drawer } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
 import { WHITE } from '../../colors';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';

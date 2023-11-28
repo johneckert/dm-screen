@@ -3,11 +3,9 @@ import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../..
 import { RULES, RULE_DATA } from '../../../ruleData';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import TabSelect from '../cardFields/TabSelect';
-import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
+import { Box, Select, Typography } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import { AMBER } from '../../../colors';
 import { splitAndTitleCase } from '../../../utils';

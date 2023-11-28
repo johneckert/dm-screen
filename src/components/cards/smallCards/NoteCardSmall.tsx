@@ -1,7 +1,6 @@
 import React from 'react';
 import { NoteCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
 
 const NoteCardSmall: React.FC<{ content: NoteCardContent }> = ({ content }) => {

@@ -1,8 +1,7 @@
 import React from 'react';
 import { MapCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
 import ReactMarkdown from 'react-markdown';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { PURPLE } from '../../../colors';
 
 const MapCardSmall: React.FC<{ content: MapCardContent }> = ({ content }) => {

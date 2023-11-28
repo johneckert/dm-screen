@@ -1,11 +1,7 @@
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
+import { Card, CardHeader, CardContent, Avatar, Typography } from '@mui/material';
 import { CardType, MapCardContent } from '../../interfaces';
-import Avatar from '@mui/material/Avatar';
-import Typography from '@mui/material/Typography';
 import { SmallCardProps } from '../../interfaces';
-import { getScreenSize, avatarColor } from '../../utils';
+import { avatarColor } from '../../utils';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
