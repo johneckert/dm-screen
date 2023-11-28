@@ -18,8 +18,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
   body: {
     display: 'flex',
@@ -106,7 +104,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           <Box className={classes.header}>
             <Avatar
               aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60, marginBottom: 2, marginRight: 2 }}
               data-testid="room-number-view"
             >
               {roomNumber || 'X'}

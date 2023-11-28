@@ -102,9 +102,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} />
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit} />
           <Box className={classes.body}>
             <BlockField label="Notes" value={notes} />
           </Box>

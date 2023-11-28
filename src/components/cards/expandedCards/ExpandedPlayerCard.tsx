@@ -14,14 +14,6 @@ import StatField from '../cardFields/StatField';
 import CardHeader from '../cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
   editView: {
     display: 'flex',
     flexDirection: 'column',
@@ -219,9 +211,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} />
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit} />
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
               <DisplayField label="Race" value={charRace} />

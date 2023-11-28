@@ -14,14 +14,6 @@ import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
   editView: {
     display: 'flex',
     flexDirection: 'column',
@@ -205,9 +197,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
           <Box className={classes.body}>
             <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
               <DisplayField label="Size" value={size} />
