@@ -2,9 +2,9 @@ import React from 'react';
 import Box from '@mui/material/Box';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import ShieldIcon from '@mui/icons-material/Shield';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CircleIcon from '@mui/icons-material/Circle';
+import ShieldTwoToneIcon from '@mui/icons-material/ShieldTwoTone';
+import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
+import RectangleTwoToneIcon from '@mui/icons-material/RectangleTwoTone';
 import { CardType } from '../../../interfaces';
 import { BLUE, PURPLE, TEAL, AMBER, RED, GREY } from '../../../colors';
 
@@ -14,9 +14,9 @@ const useStyles = makeStyles<Theme>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    paddingTop: theme.spacing(3),
-    width: theme.spacing(12),
-    height: theme.spacing(12),
+    paddingTop: theme.spacing(5),
+    width: theme.spacing(16),
+    height: theme.spacing(16),
   },
   horizontalField: {
     display: 'flex',
@@ -70,9 +70,9 @@ const IconField: React.FC<{ label: 'HP' | 'AC' | 'Speed'; value: string | undefi
     <Box className={classes.verticalField}>
       <span className={classes.label}>{label}</span>
       <span className={classes.value}>{value}</span>
-      {label === 'HP' && <FavoriteIcon style={badgeStyles} />}
-      {label === 'AC' && <ShieldIcon style={badgeStyles} />}
-      {label === 'Speed' && <CircleIcon style={{ ...badgeStyles }} />}
+      {label === 'HP' && <FavoriteTwoToneIcon style={badgeStyles} />}
+      {label === 'AC' && <ShieldTwoToneIcon style={badgeStyles} />}
+      {label === 'Speed' && <RectangleTwoToneIcon style={badgeStyles} />}
     </Box>
   );
 };

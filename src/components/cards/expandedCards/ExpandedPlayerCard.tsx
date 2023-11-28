@@ -40,7 +40,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '100%',
-    marginBottom: theme.spacing(3),
     padding: theme.spacing(3),
   },
   row: {
@@ -80,7 +79,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [charRace, setCharRace] = useState(cardContent.charRace);
   const [charBackground, setCharBackground] = useState(cardContent.charBackground);
   const [size, setSize] = useState(cardContent.size);
-  const [alignment, setAlignment] = useState(cardContent.alignment);
   const [hp, setHp] = useState(cardContent.hp);
   const [ac, setAc] = useState(cardContent.ac);
   const [strength, setStrength] = useState(cardContent.strength);
@@ -107,7 +105,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     hp,
     ac,
     size,
-    alignment,
     strength,
     dexterity,
     constitution,
@@ -139,7 +136,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     setCharRace(content.charRace);
     setCharBackground(content.charBackground);
     setSize(content.size);
-    setAlignment(content.alignment);
     setHp(content.hp);
     setAc(content.ac);
     setStrength(content.strength);
@@ -213,15 +209,14 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
           <Box className={classes.body}>
-            <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 0, alignItems: 'space-between' }} className={classes.row}>
               <DisplayField label="Race" value={charRace} />
               <DisplayField label="Class" value={charClass} />
               <DisplayField label="Level" value={charLevel} />
               <DisplayField label="Background" value={charBackground} />
-              <DisplayField label="Size" value={size} />
-              <DisplayField label="Alignment" value={alignment} />
+              <DisplayField label="Size" value={size || 'M'} />
             </Box>
-            <Box sx={{ mb: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 1 }} className={classes.row}>
               <StatField label="STR" value={strength} cardType={CardType.Player} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Player} />
               <StatField label="CON" value={constitution} cardType={CardType.Player} />
@@ -232,7 +227,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
             <Box sx={{ mb: 3 }} className={classes.row}>
               <IconField label="HP" value={hp} cardType={CardType.Player} />
               <IconField label="AC" value={ac} cardType={CardType.Player} />
-              <IconField label="Speed" value={speed} cardType={CardType.Player} />
             </Box>
             <Box className={classes.row}>
               <Box className={classes.group}>
@@ -249,6 +243,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
               </Box>
             </Box>
             <Box className={classes.group}>
+              <DisplayField label="Speed" value={speed} />
               <DisplayField label="Languages" value={languages} />
               <DisplayField label="Character Sheet" value={link} />
             </Box>

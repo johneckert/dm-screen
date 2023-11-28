@@ -63,7 +63,6 @@ export interface PlayerCardContent extends GenericCardContent {
   spellAttackBonus?: string; // for players
   link?: string; // for players & monsters
   languages?: string; // for players & monsters
-  alignment?: string; // for players & monsters
 }
 
 export interface RuleCardContent extends GenericCardContent {}
