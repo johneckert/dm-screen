@@ -13,6 +13,8 @@ jest.mock('react-beautiful-dnd', () => ({
   ),
 }));
 
+jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
+
 describe('<DraggableCard />', () => {
   it('renders', () => {
     render(
