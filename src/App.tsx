@@ -42,7 +42,6 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleTabChange = (_, newValue: string) => {
     let nextTab = newValue;
-    console.log('newValue: ', newValue);
     if (newValue === 'newTab') {
       nextTab = createNewTab();
       setTabs([...tabs, nextTab]);
