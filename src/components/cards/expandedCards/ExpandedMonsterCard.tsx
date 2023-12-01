@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MonsterCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import Box from '@mui/material/Box';
+import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import TabSelect from '../cardFields/TabSelect';
 import MonsterCardForm from '../newCardForms/MonsterCardForm';
@@ -14,14 +13,6 @@ import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 
 const useStyles = makeStyles<Theme>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
   editView: {
     display: 'flex',
     flexDirection: 'column',
@@ -42,7 +33,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'column',
     justifyContent: 'space-around',
     width: '100%',
-    marginBottom: theme.spacing(3),
     padding: theme.spacing(3),
   },
   row: {
@@ -78,7 +68,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [title, setTitle] = useState(cardContent.title);
   const [size, setSize] = useState(cardContent.size);
   const [type, setType] = useState(cardContent.type);
-  const [alignment, setAlignment] = useState(cardContent.alignment);
   const [hitDice, setHitDice] = useState(cardContent.hitDice);
   const [hitPointsRoll, setHitPointsRoll] = useState(cardContent.hitPointsRoll);
   const [hp, setHp] = useState(cardContent.hp);
@@ -111,7 +100,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     title,
     size,
     type,
-    alignment,
     hitDice,
     hitPointsRoll,
     hp,
@@ -143,7 +131,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     setTitle(content.title);
     setSize(content.size);
     setType(content.type);
-    setAlignment(content.alignment);
     setHitDice(content.hitDice);
     setHitPointsRoll(content.hitPointsRoll);
     setHp(content.hp);
@@ -205,16 +192,14 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
           <Box className={classes.body}>
-            <Box sx={{ mb: 3, px: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 0, alignItems: 'space-between' }} className={classes.row}>
               <DisplayField label="Size" value={size} />
               <DisplayField label="Type" value={type} />
-              <DisplayField label="Alignment" value={alignment} />
+              <DisplayField label="CR" value={challengeRating} />
             </Box>
-            <Box sx={{ mb: 3 }} className={classes.row}>
+            <Box sx={{ mb: 2, px: 1 }} className={classes.row}>
               <StatField label="STR" value={strength} cardType={CardType.Monster} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Monster} />
               <StatField label="CON" value={constitution} cardType={CardType.Monster} />
@@ -225,7 +210,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
             <Box sx={{ mb: 3 }} className={classes.row}>
               <IconField label="HP" value={hp} cardType={CardType.Monster} />
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
-              <IconField label="Speed" value={speed} cardType={CardType.Monster} />
             </Box>
             <Box className={classes.row}>
               <Box className={classes.group}>
@@ -238,7 +222,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
                 <DisplayField label="Proficiencies" value={proficiencies} />
                 <DisplayField label="Senses" value={senses} />
                 <DisplayField label="Languages" value={languages} />
-                <DisplayField label="CR" value={challengeRating} />
+                <DisplayField label="Speed" value={speed} />
               </Box>
             </Box>
             <Box className={classes.group}>

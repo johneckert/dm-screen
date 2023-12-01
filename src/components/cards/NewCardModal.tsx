@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import { Modal, Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
 import TabSelect from './cardFields/TabSelect';

@@ -20,7 +20,6 @@ const mockExpandedMonsterCardData = {
     title: 'Owlbear',
     type: 'monstrosity',
     size: 'Large',
-    alignment: 'Unaligned',
     hitpointsRoll: '4d10 + 12',
     ac: '13',
     hp: '59',
@@ -135,12 +134,6 @@ describe('<ExpandedMonsterCard />', () => {
             />
           </ThemeProvider>,
         );
-      });
-
-      it('renders alignment', () => {
-        waitFor(() => {
-          expect(screen.queryByText(content.alignment)).toBeInTheDocument();
-        });
       });
 
       it('renders size', () => {

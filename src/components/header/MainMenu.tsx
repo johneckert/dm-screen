@@ -1,9 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { generateSlug, RandomWordOptions } from 'random-word-slugs';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
+import { Typography, List, ListItem, Divider, IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,7 +13,6 @@ import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes, CardData } from '../../interfaces';
 import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
-import IconButton from '@mui/material/IconButton';
 import useCardStorage from '../../hooks/useCardStorage';
 import { flattenCards, mapCards } from '../../utils';
 

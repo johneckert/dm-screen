@@ -21,7 +21,8 @@ interface StyleProps {
 const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
   screenArea: {
     width: ({ screenSize }) => screenSize.width,
-    height: ({ screenSize }) => screenSize.height,
+    minHeight: ({ screenSize }) => screenSize.height,
+    height: '100%',
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
     display: 'flex',

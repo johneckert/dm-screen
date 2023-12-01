@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { CardData, NoteCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import Box from '@mui/material/Box';
+import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
 import { Theme } from '@mui/material/styles';
 import TabSelect from '../cardFields/TabSelect';
 import BlockField from '../cardFields/BlockField';
@@ -102,9 +101,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <CardHeader title={title} handleEdit={handleEdit} />
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit} />
           <Box className={classes.body}>
             <BlockField label="Notes" value={notes} />
           </Box>

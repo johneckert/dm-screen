@@ -5,6 +5,7 @@ import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import makeStyles from '@mui/styles/makeStyles';
 import { getScreenSize, getBreakPoint } from '../../utils';
 import { Theme } from '@mui/material/styles';
+import { GREY } from '../../colors';
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -18,6 +19,9 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
     paddingRight: theme.spacing(1),
     [theme.breakpoints.up(BREAKPOINTS.lg)]: {
       height: '100%',
+    },
+    [theme.breakpoints.down(BREAKPOINTS.lg)]: {
+      borderBottom: `2px dashed ${GREY[300]}`,
     },
   },
 }));

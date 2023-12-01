@@ -1,8 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import { Box, Typography, Button } from '@mui/material';
 import NatOne from './assets/images/nat-one.svg';
-import { Button } from '@mui/material';
 
 interface Props {
   children?: ReactNode;
