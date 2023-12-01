@@ -2,7 +2,8 @@ import { SelectChangeEvent } from '@mui/material';
 import { Box, Select, InputLabel, MenuItem } from '@mui/material';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
-import { RuleCardContent } from '../../../interfaces';
+import { RuleCardContent, CardType } from '../../../interfaces';
+import FormDivider from '../cardFields/FormDivider';
 
 const RuleCardForm: React.FC<{
   content: RuleCardContent;
@@ -13,6 +14,7 @@ const RuleCardForm: React.FC<{
   };
   return (
     <div data-testid="rule-form">
+      <FormDivider type={CardType.Rule} />
       <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
         <InputLabel id="rule-select-label">Rule*</InputLabel>
         <Select

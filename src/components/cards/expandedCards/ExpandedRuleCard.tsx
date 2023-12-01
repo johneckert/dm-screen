@@ -11,6 +11,7 @@ import { AMBER } from '../../../colors';
 import { splitAndTitleCase } from '../../../utils';
 import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import CardHeader from '../cardFields/CardHeader';
+import RuleCardForm from '../newCardForms/RuleCardForm';
 
 interface StyleProps {
   isEditing: boolean;
@@ -235,22 +236,8 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               Choose Rule
             </Typography>
           </Box>
-          <Select
-            labelId="rule-select-label"
-            sx={{ marginBottom: 2, width: '100%' }}
-            id="rule-select"
-            value={title}
-            label="Rule"
-            data-testid="rule-select"
-            onChange={(e) => setTitle(e.target.value)}
-          >
-            {RULES.map((value) => (
-              <MenuItem key={value} value={value} data-testid="select-option">
-                {splitAndTitleCase(value)}
-              </MenuItem>
-            ))}
-          </Select>
           <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+          <RuleCardForm content={{ title: title }} setContent={(content: RuleCardContent) => setTitle(content.title)} />
         </>
       ) : (
         <>

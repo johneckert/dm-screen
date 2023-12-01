@@ -1,12 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
-import { Box, InputLabel, TextField } from '@mui/material';
+import { Box, InputLabel, TextField, CircularProgress, Select, MenuItem } from '@mui/material';
 import { MonsterCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import CircularProgress from '@mui/material/CircularProgress';
+import FormDivider from '../cardFields/FormDivider';
+import { CardType } from '../../../interfaces';
 
 const MonsterCardForm: React.FC<{
   content: MonsterCardContent;
@@ -40,6 +39,8 @@ const MonsterCardForm: React.FC<{
     }
     setIsLoading(false);
   }, []);
+
+  const statFieldStyles = { paddingBottom: 2, maxWidth: 70 };
 
   useEffect(() => {
     fetchMonsters();
@@ -75,6 +76,7 @@ const MonsterCardForm: React.FC<{
       </Box>
       {selectedMonster.name === 'custom' ? (
         <>
+          <FormDivider type={CardType.Monster} />
           <TextField
             id="title"
             label="Monster Name"
@@ -84,160 +86,175 @@ const MonsterCardForm: React.FC<{
             value={content.title}
             onChange={(e) => setContent({ ...content, title: e.target.value })}
           />
-          <TextField
-            id="size"
-            label="Size"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.size}
-            onChange={(e) => setContent({ ...content, size: e.target.value })}
-          />
-          <TextField
-            id="type"
-            label="Type"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.type}
-            onChange={(e) => setContent({ ...content, type: e.target.value })}
-          />
-          <TextField
-            id="strength"
-            label="STR"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.strength}
-            onChange={(e) => setContent({ ...content, strength: e.target.value })}
-          />
-          <TextField
-            id="dexterity"
-            label="DEX"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.dexterity}
-            onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
-          />
-          <TextField
-            id="strength"
-            label="CON"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.constitution}
-            onChange={(e) => setContent({ ...content, constitution: e.target.value })}
-          />
-          <TextField
-            id="intelligence"
-            label="INT"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.intelligence}
-            onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
-          />
-          <TextField
-            id="wisdom"
-            label="WIS"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.wisdom}
-            onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
-          />
-          <TextField
-            id="charisma"
-            label="CHA"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.charisma}
-            onChange={(e) => setContent({ ...content, charisma: e.target.value })}
-          />
-          <TextField
-            id="hp"
-            label="HP"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.hp}
-            onChange={(e) => setContent({ ...content, hp: e.target.value })}
-          />
-          <TextField
-            id="ac"
-            label="AC"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.ac}
-            onChange={(e) => setContent({ ...content, ac: e.target.value })}
-          />
-          <TextField
-            id="speed"
-            label="Speed"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.speed}
-            onChange={(e) => setContent({ ...content, speed: e.target.value })}
-          />
-          <TextField
-            id="vulnerabilities"
-            label="Vulnerabilties"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.vulnerabilities}
-            onChange={(e) => setContent({ ...content, vulnerabilities: e.target.value })}
-          />
-          <TextField
-            id="resistances"
-            label="Resistances"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.resistances}
-            onChange={(e) => setContent({ ...content, resistances: e.target.value })}
-          />
-          <TextField
-            id="damage-immunities"
-            label="Damage Immunities"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.damageImmunities}
-            onChange={(e) => setContent({ ...content, damageImmunities: e.target.value })}
-          />
-          <TextField
-            id="condition-immmunities"
-            label="Condition Immunities"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.conditionImmunities}
-            onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
-          />
-          <TextField
-            id="proficincies"
-            label="Proficincies"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.proficiencies}
-            onChange={(e) => setContent({ ...content, proficiencies: e.target.value })}
-          />
-          <TextField
-            id="senses"
-            label="Senses"
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.senses}
-            onChange={(e) => setContent({ ...content, senses: e.target.value })}
-          />
-          <TextField
-            id="languages"
-            label="Languages"
-            fullWidth
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.languages}
-            onChange={(e) => setContent({ ...content, languages: e.target.value })}
-          />
-          <TextField
-            id="challenge-rating"
-            label="Challenge Rating"
-            fullWidth
-            sx={{ paddingBottom: 2 }}
-            variant="outlined"
-            value={content.challengeRating}
-            onChange={(e) => setContent({ ...content, challengeRating: e.target.value })}
-          />
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <TextField
+              id="size"
+              label="Size"
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.size}
+              onChange={(e) => setContent({ ...content, size: e.target.value })}
+            />
+            <TextField
+              id="type"
+              label="Type"
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.type}
+              onChange={(e) => setContent({ ...content, type: e.target.value })}
+            />
+            <TextField
+              id="challenge-rating"
+              label="Challenge Rating"
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.challengeRating}
+              onChange={(e) => setContent({ ...content, challengeRating: e.target.value })}
+            />
+          </Box>
+          <FormDivider type={CardType.Monster} />
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+            <TextField
+              id="strength"
+              label="STR"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.strength}
+              onChange={(e) => setContent({ ...content, strength: e.target.value })}
+            />
+            <TextField
+              id="dexterity"
+              label="DEX"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.dexterity}
+              onChange={(e) => setContent({ ...content, dexterity: e.target.value })}
+            />
+            <TextField
+              id="constitution"
+              label="CON"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.constitution}
+              onChange={(e) => setContent({ ...content, constitution: e.target.value })}
+            />
+            <TextField
+              id="intelligence"
+              label="INT"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.intelligence}
+              onChange={(e) => setContent({ ...content, intelligence: e.target.value })}
+            />
+            <TextField
+              id="wisdom"
+              label="WIS"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.wisdom}
+              onChange={(e) => setContent({ ...content, wisdom: e.target.value })}
+            />
+            <TextField
+              id="charisma"
+              label="CHA"
+              sx={statFieldStyles}
+              variant="outlined"
+              value={content.charisma}
+              onChange={(e) => setContent({ ...content, charisma: e.target.value })}
+            />
+          </Box>
+          <FormDivider type={CardType.Monster} />
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+            <TextField
+              id="hp"
+              label="HP"
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.hp}
+              onChange={(e) => setContent({ ...content, hp: e.target.value })}
+            />
+            <TextField
+              id="ac"
+              label="AC"
+              sx={{ paddingBottom: 2 }}
+              variant="outlined"
+              value={content.ac}
+              onChange={(e) => setContent({ ...content, ac: e.target.value })}
+            />
+          </Box>
+          <FormDivider type={CardType.Monster} />
+          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+              <TextField
+                id="vulnerabilities"
+                label="Vulnerabilties"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.vulnerabilities}
+                onChange={(e) => setContent({ ...content, vulnerabilities: e.target.value })}
+              />
+              <TextField
+                id="resistances"
+                label="Resistances"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.resistances}
+                onChange={(e) => setContent({ ...content, resistances: e.target.value })}
+              />
+              <TextField
+                id="damage-immunities"
+                label="Damage Immunities"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.damageImmunities}
+                onChange={(e) => setContent({ ...content, damageImmunities: e.target.value })}
+              />
+              <TextField
+                id="condition-immmunities"
+                label="Condition Immunities"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.conditionImmunities}
+                onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
+              />
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+              <TextField
+                id="proficincies"
+                label="Proficincies"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.proficiencies}
+                onChange={(e) => setContent({ ...content, proficiencies: e.target.value })}
+              />
+              <TextField
+                id="senses"
+                label="Senses"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.senses}
+                onChange={(e) => setContent({ ...content, senses: e.target.value })}
+              />
+              <TextField
+                id="languages"
+                label="Languages"
+                fullWidth
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.languages}
+                onChange={(e) => setContent({ ...content, languages: e.target.value })}
+              />
+              <TextField
+                id="speed"
+                label="Speed"
+                sx={{ paddingBottom: 2 }}
+                variant="outlined"
+                value={content.speed}
+                onChange={(e) => setContent({ ...content, speed: e.target.value })}
+              />
+            </Box>
+          </Box>
+          <FormDivider type={CardType.Monster} />
           <TextField
             id="special-abilities"
             label="Special Abilties"

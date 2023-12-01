@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
-import { NoteCardContent } from '../../../interfaces';
+import { NoteCardContent, CardType } from '../../../interfaces';
+import FormDivider from '../cardFields/FormDivider';
 
 const NoteCardForm: React.FC<{
   content: NoteCardContent;
@@ -7,6 +8,7 @@ const NoteCardForm: React.FC<{
 }> = ({ content, setContent }) => {
   return (
     <div data-testid="note-form">
+      <FormDivider type={CardType.Note} />
       <TextField
         id="title"
         label="Title"
@@ -17,6 +19,7 @@ const NoteCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, title: e.target.value })}
         data-testid="title-input"
       />
+      <FormDivider type={CardType.Note} />
       <TextField
         id="notes"
         label="Notes"
