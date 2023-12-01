@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../../interfaces';
-import { RULES, RULE_DATA } from '../../../ruleData';
+import { RULE_DATA } from '../../../ruleData';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import TabSelect from '../cardFields/TabSelect';
-import { Box, Select, Typography } from '@mui/material';
-import MenuItem from '@mui/material/MenuItem';
+import { Box, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { AMBER } from '../../../colors';
 import { splitAndTitleCase } from '../../../utils';
-import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import CardHeader from '../cardFields/CardHeader';
 import RuleCardForm from '../newCardForms/RuleCardForm';
 

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { PURPLE, RED, TEAL, WHITE, GREY } from './colors';
+import { PURPLE, RED, TEAL, WHITE } from './colors';
 import { BREAKPOINTS } from './constants';
 
 // A custom theme for this app
