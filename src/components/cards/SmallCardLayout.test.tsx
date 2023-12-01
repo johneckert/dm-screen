@@ -4,6 +4,8 @@ import { CardType } from '../../interfaces';
 
 const mockCardData = { id: 'ABC-123', content: { title: 'Pikachu', content: 'I am Pikachu' } };
 
+jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
+
 describe('<SmallCardLayout />', () => {
   it('renders', () => {
     render(<SmallCardLayout content={mockCardData.content} type={CardType.Note} />);

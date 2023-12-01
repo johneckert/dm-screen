@@ -1,7 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Box, Typography, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NatOne from '../../assets/images/nat-one.svg';
 

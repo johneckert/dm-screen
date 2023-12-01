@@ -17,6 +17,8 @@ const mockNoteCardContentWithLongText = {
     'Player crits, dealing massive damage to the dragon. Tension rises as the party narrowly escapes a collapsing dungeon. NPC betrayal hints at a larger conspiracy. Mysterious artifact reveals a cryptic prophecy. Intense roleplay during negotiations with a rival faction. Tension builds as the party uncovers a hidden cult within the city.',
 };
 
+jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.children}</div>);
+
 describe('<NoteCardSmall />', () => {
   it('renders with no text if notes is undefined', () => {
     render(<NoteCardSmall content={mockNoteCardContentNoText} />);

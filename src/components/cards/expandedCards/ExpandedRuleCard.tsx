@@ -1,32 +1,21 @@
 import React, { useState } from 'react';
 import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../../interfaces';
-import { RULES, RULE_DATA } from '../../../ruleData';
+import { RULE_DATA } from '../../../ruleData';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import TabSelect from '../cardFields/TabSelect';
-import Box from '@mui/material/Box';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { Box, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import { Theme } from '@mui/material/styles';
-import EditIcon from '@mui/icons-material/Edit';
 import { AMBER } from '../../../colors';
 import { splitAndTitleCase } from '../../../utils';
-import { Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import CardHeader from '../cardFields/CardHeader';
+import RuleCardForm from '../newCardForms/RuleCardForm';
 
 interface StyleProps {
   isEditing: boolean;
 }
 
 const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-  },
   body: {
     display: 'flex',
     flexDirection: 'column',
@@ -245,44 +234,12 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               Choose Rule
             </Typography>
           </Box>
-          <Select
-            labelId="rule-select-label"
-            sx={{ marginBottom: 2, width: '100%' }}
-            id="rule-select"
-            value={title}
-            label="Rule"
-            data-testid="rule-select"
-            onChange={(e) => setTitle(e.target.value)}
-          >
-            {RULES.map((value) => (
-              <MenuItem key={value} value={value} data-testid="select-option">
-                {splitAndTitleCase(value)}
-              </MenuItem>
-            ))}
-          </Select>
           <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
+          <RuleCardForm content={{ title: title }} setContent={(content: RuleCardContent) => setTitle(content.title)} />
         </>
       ) : (
         <>
-          <Box className={classes.header}>
-            <Typography
-              id="rule-card-title"
-              className={classes.modalTitle}
-              variant="h3"
-              component="h3"
-              data-testid="title-view"
-            >
-              {splitAndTitleCase(title)}
-            </Typography>
-            <IconButton
-              className={classes.editButton}
-              aria-label="edit-save-button"
-              data-testid="edit-button"
-              onClick={handleEdit}
-            >
-              <EditIcon />
-            </IconButton>
-          </Box>
+          <CardHeader title={splitAndTitleCase(title)} handleEdit={handleEdit} />
           <Box className={classes.cardBody}>
             {subRules.map((subRule) => (
               <TableSection subRule={subRule} tableData={ruleData[subRule]} key={subRule} />

@@ -5,6 +5,7 @@ import { BREAKPOINTS } from './constants';
 // A custom theme for this app
 const theme = createTheme({
   palette: {
+    contrastThreshold: 4.5,
     primary: {
       main: PURPLE[500],
       light: PURPLE[200],

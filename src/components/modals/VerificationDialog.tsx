@@ -1,11 +1,8 @@
 import React from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import { Modal, Box, Button, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Button from '@mui/material/Button';
 import CheckIcon from '@mui/icons-material/Check';
 import { Theme } from '@mui/material/styles';
-import { Typography } from '@mui/material';
 
 const useStyles = makeStyles<Theme, { confirmOnly: boolean }>((theme) => ({
   modal: {

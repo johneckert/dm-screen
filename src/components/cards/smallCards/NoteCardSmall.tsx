@@ -1,13 +1,15 @@
 import React from 'react';
 import { NoteCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
 
 const NoteCardSmall: React.FC<{ content: NoteCardContent }> = ({ content }) => {
   const { notes = '' } = content ?? '';
   return (
-    <Box sx={{ py: 2, px: 1 }} data-testid="small-note-card">
-      <Typography>{notes.length > 300 ? `${notes.substring(0, 300)}...` : notes}</Typography>
+    <Box sx={{ px: 1, height: '100%', overflow: 'hidden' }} data-testid="small-note-card">
+      <Box sx={{ fontSize: 14, maxHeight: '100%', overflow: 'hidden' }}>
+        <ReactMarkdown>{notes.length > 300 ? `${notes.substring(0, 300)}...` : notes}</ReactMarkdown>
+      </Box>
     </Box>
   );
 };

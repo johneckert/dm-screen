@@ -1,7 +1,6 @@
 import React from 'react';
 import { MonsterCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { BLUE } from '../../../colors';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MapCardContent } from '../../../interfaces';
-import Box from '@mui/material/Box';
+import { Box, Typography, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Typography from '@mui/material/Typography';
 import TabSelect from '../cardFields/TabSelect';
 import { Theme } from '@mui/material/styles';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import { Avatar } from '@mui/material';
 import { avatarColor } from '../../../utils';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
@@ -18,8 +16,6 @@ const useStyles = makeStyles<Theme>((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
   },
   body: {
     display: 'flex',
@@ -106,7 +102,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           <Box className={classes.header}>
             <Avatar
               aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60, marginBottom: 2, marginRight: 2 }}
               data-testid="room-number-view"
             >
               {roomNumber || 'X'}

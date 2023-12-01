@@ -1,8 +1,6 @@
 import React, { ReactNode } from 'react';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
+import { Modal, Box, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import Button from '@mui/material/Button';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Theme } from '@mui/material/styles';
@@ -17,8 +15,9 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
     transform: 'translate(-50%, -50%)',
     width: '50%',
     height: '80%',
-    backgroundColor: '#ffffff',
+    backgroundColor: theme.palette.background.paper,
     border: 'none',
+    outline: 'none',
     borderRadius: theme.spacing(1.5),
     boxShadow: '24px',
     padding: theme.spacing(2),
@@ -28,9 +27,8 @@ const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
   body: {
     display: 'flex',
     flexDirection: 'column',
-    paddingBottom: theme.spacing(4),
     width: '100%',
-    height: ({ isEditing }) => (isEditing ? '92%' : '100%'),
+    overflowY: 'scroll',
   },
   buttonArea: {
     width: '100%',
