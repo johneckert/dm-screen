@@ -5,13 +5,6 @@ import theme from './theme';
 
 jest.mock('./components/header/Header', () => () => <div data-testid="header" />);
 jest.mock('./components/layout/ScreenArea', () => () => <div data-testid="screen-area" />);
-jest.mock('random-word-slugs', () => ({
-  generateSlug: jest.fn().mockReturnValue('tab-3'),
-  RandomWordOptions: {
-    Adjectives: ['tab'],
-    Nouns: ['tab'],
-  },
-}));
 
 const mockSetActiveTab = jest.fn();
 const mockSetTabs = jest.fn();
@@ -82,7 +75,7 @@ describe('App', () => {
     expect(mockSetActiveTab).toHaveBeenCalledWith('tab-2');
   });
 
-  it('creates a new tab and makes it active when new tab button is clicked', () => {
+  it('opens new tab dialog when "+ Tab" button is clicked', () => {
     render(
       <ThemeProvider theme={theme}>
         <App />
@@ -94,7 +87,6 @@ describe('App', () => {
     act(() => {
       newTab.click();
     });
-    expect(mockSetTabs).toHaveBeenCalledWith(['tab-1', 'tab-2', 'tab-3']);
-    expect(mockSetActiveTab).toHaveBeenCalledWith('tab-2');
+    expect(screen.getByText(/Create New Tab/i)).toBeInTheDocument();
   });
 });

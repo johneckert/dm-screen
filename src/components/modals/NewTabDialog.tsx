@@ -22,7 +22,7 @@ const NewTabDialog: React.FC<NewTabDialogProps> = ({ showNewTabDialog, setshowNe
 
   return (
     <Dialog open={showNewTabDialog} onClose={handleClose}>
-      <DialogTitle>Create Tab</DialogTitle>
+      <DialogTitle>Create New Tab</DialogTitle>
       <DialogContent>
         <DialogContentText>Please enter a name for your new tab.</DialogContentText>
         <TextField
@@ -39,8 +39,8 @@ const NewTabDialog: React.FC<NewTabDialogProps> = ({ showNewTabDialog, setshowNe
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button disabled={tabs.includes(name) || name === ''} onClick={handleCreate}>
-          Create New Tab
+        <Button disabled={tabs.includes(name) || name === ''} data-testid="create-tab-btn" onClick={handleCreate}>
+          Create Tab
         </Button>
       </DialogActions>
     </Dialog>
