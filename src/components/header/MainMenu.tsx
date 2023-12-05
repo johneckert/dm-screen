@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { generateSlug, RandomWordOptions } from 'random-word-slugs';
-import { Typography, List, ListItem, Divider, IconButton } from '@mui/material';
+import { Typography, List, ListItem, Divider } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -14,7 +13,7 @@ import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes, CardData } from '../../interfaces';
 import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
 import useCardStorage from '../../hooks/useCardStorage';
-import { flattenCards, mapCards } from '../../utils';
+import { mapCards } from '../../utils';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   menuButton: {
@@ -130,28 +129,6 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
     setDialogType(null);
   };
 
-  const createNewTab = () => {
-    const options: RandomWordOptions<2> = {
-      format: 'kebab',
-      partsOfSpeech: ['adjective', 'noun'],
-      categories: {
-        adjective: ['personality'],
-        noun: ['animals'],
-      },
-    };
-    const tabName = generateSlug(2, options);
-    setTabs([...tabs, tabName]);
-  };
-
-  const deleteTab = (tab: string) => {
-    const newTabs = tabs.filter((savedTab) => savedTab !== tab);
-    setTabs(newTabs);
-    const flatCards = flattenCards(cards);
-    const updatedCards = flatCards.filter((card) => card.tab !== tab);
-    setCards(mapCards(updatedCards));
-    setActiveTab(tabs[0]);
-  };
-
   return (
     <>
       <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
@@ -174,33 +151,6 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
         >
           <DeleteIcon sx={{ pr: 1, width: 40 }} />
           <Typography variant="body2">Reset cards</Typography>
-        </ListItem>
-      </List>
-      <Divider />
-      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
-        Tabs
-      </Typography>
-      <List className={classes.menuList}>
-        {tabs.map((tab) => (
-          <ListItem
-            key={tab}
-            sx={{ justifyContent: 'space-between' }}
-            className={`${classes.menuOption} ${activeTab === tab ? classes.isActive : classes.notActive}`}
-          >
-            <Typography
-              variant="body2"
-              data-testid="tab-button"
-              onClick={() => setActiveTab(tabs.find((savedTab) => tab === savedTab) || tab[0])}
-            >
-              {tab}
-            </Typography>
-            <IconButton aria-label="delete" onClick={() => deleteTab(tab)}>
-              <DeleteIcon />
-            </IconButton>
-          </ListItem>
-        ))}
-        <ListItem className={classes.menuOption} onClick={createNewTab} data-testid="add-tab-button">
-          <Typography variant="body2">Create new tab</Typography>
         </ListItem>
       </List>
       <Divider />
