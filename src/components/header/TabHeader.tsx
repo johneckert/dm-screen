@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Tabs, Tab } from '@mui/material';
+import { Box, Divider, Tabs, Tab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NewTabDialog from '../modals/NewTabDialog';
 
@@ -38,9 +38,12 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
   };
 
   const stickyStyles = {
-    position: 'fixed',
+    position: isSticky ? 'fixed' : 'static',
+    display: 'flex',
+    justifyContent: 'space-between',
     top: 0,
     left: 0,
+    right: 0,
     width: '100%',
     zIndex: 999,
   };
@@ -59,18 +62,14 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
   }, []);
 
   return (
-    <>
-      <Tabs
-        variant="scrollable"
-        scrollButtons="auto"
-        value={activeTab}
-        onChange={handleTabChange}
-        sx={isSticky ? stickyStyles : {}}
-        data-testid="tab-header"
-      >
+    <Box sx={stickyStyles} data-testid="tab-header">
+      <Tabs variant="scrollable" scrollButtons="auto" value={activeTab} onChange={handleTabChange}>
         {tabs.map((tab: string) => (
           <Tab key={tab} label={tab} value={tab} />
         ))}
+      </Tabs>
+      <Tabs value={activeTab} onChange={handleTabChange}>
+        <Divider orientation="vertical" variant="middle" flexItem />
         <Tab key="newTab" label="+ Tab" value="newTab" />
         <Tab key="deleteTab" icon={<DeleteIcon />} value="deleteTab" />
       </Tabs>
@@ -80,7 +79,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
         createNewTab={createNewTab}
         tabs={tabs}
       />
-    </>
+    </Box>
   );
 };
 
