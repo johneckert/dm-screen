@@ -3,7 +3,6 @@ import { Typography, List, ListItem, Divider } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import { WHITE, GREY } from '../../colors';
@@ -70,14 +69,12 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 interface MainMenuProps {
-  tabs: string[];
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  setShowNewCardModal: (showNewCardModal: boolean) => void;
 }
 
-const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
+const MainMenu: React.FC<MainMenuProps> = ({ setTabs, activeTab, setActiveTab }) => {
   const classes = useStyles();
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
   const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
@@ -154,19 +151,6 @@ const MainMenu: React.FC<MainMenuProps> = ({ tabs, setTabs, activeTab, setActive
         </ListItem>
       </List>
       <Divider />
-      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
-        New Card
-      </Typography>
-      <List className={classes.menuList}>
-        <ListItem
-          onClick={() => setShowNewCardModal(true)}
-          className={classes.menuOption}
-          data-testid="new-card-button"
-        >
-          <AddBoxIcon sx={{ pr: 1, width: 40 }} />
-          <Typography variant="body2">New Card</Typography>
-        </ListItem>
-      </List>
       {dialogType && (
         <VerificationDialog
           dialogOpen={!!dialogType}

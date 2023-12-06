@@ -10,11 +10,9 @@ const mockSetCards = jest.fn();
 jest.mock('../../hooks/useCardStorage', () => () => [mockCardDataMap, mockSetCards]);
 
 const mockProps = {
-  tabs: ['tab-1', 'tab-2', 'tab-3'],
   setTabs: jest.fn(),
   activeTab: 'tab-1',
   setActiveTab: jest.fn(),
-  setShowNewCardModal: jest.fn(),
 };
 
 const blob = new Blob([JSON.stringify(mockSaveData)]);
@@ -121,21 +119,6 @@ describe('<MainMenu />', () => {
         screen.getByTestId('confirm-button').click();
       });
       expect(mockSetCards).toHaveBeenCalledWith(EMPTY_CARD_MAP);
-    });
-  });
-
-  describe('new card', () => {
-    it('opens new card modal when new card button is clicked', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
-        </ThemeProvider>,
-      );
-
-      act(() => {
-        screen.getByTestId('new-card-button').click();
-      });
-      expect(mockProps.setShowNewCardModal).toHaveBeenCalledWith(true);
     });
   });
 });

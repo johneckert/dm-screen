@@ -6,11 +6,9 @@ import theme from '../../theme';
 jest.mock('./MainMenu', () => () => <div data-testid="menu" />);
 
 const mockHeaderProps: HeaderProps = {
-  tabs: ['tab-1', 'tab-2'],
   setTabs: jest.fn(),
   activeTab: 'tab-1,',
   setActiveTab: jest.fn(),
-  setShowNewCardModal: jest.fn(),
 };
 
 describe('<Header />', () => {

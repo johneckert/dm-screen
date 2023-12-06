@@ -18,13 +18,7 @@ function App() {
 
   return (
     <ErrorBoundary>
-      <Header
-        tabs={tabs}
-        setTabs={setTabs}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        setShowNewCardModal={setShowNewCardModal}
-      />
+      <Header setTabs={setTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
       <TabHeader
         tabs={tabs}
         setTabs={setTabs}
