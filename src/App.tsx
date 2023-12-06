@@ -25,7 +25,13 @@ function App() {
         setActiveTab={setActiveTab}
         setShowNewCardModal={setShowNewCardModal}
       />
-      <TabHeader tabs={tabs} setTabs={setTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <TabHeader
+        tabs={tabs}
+        setTabs={setTabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        setShowNewCardModal={setShowNewCardModal}
+      />
       <ErrorBoundary>
         <ScreenArea
           activeTab={activeTab}

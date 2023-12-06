@@ -2,34 +2,36 @@ import React, { useEffect, useState } from 'react';
 import { Box, Divider, Tabs, Tab } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NewTabDialog from '../modals/NewTabDialog';
+import { RED, WHITE } from '../../colors';
 
 interface TabHeaderProps {
   tabs: string[];
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (activeTab: string) => void;
+  setShowNewCardModal: (show: boolean) => void;
 }
 
-const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab }) => {
+const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
   const [isSticky, setSticky] = useState<boolean>(false);
   const [showNewTabDialog, setshowNewTabDialog] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore-next-line
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const handleTabChange = (_, newValue: string) => {
-    console.log(newValue);
-    if (newValue === 'newTab') {
-      setshowNewTabDialog(true);
-      return;
-    }
-    if (newValue === 'deleteTab') {
-      console.log('delete tab');
-      const remainingTabs = tabs.filter((tab) => tab !== activeTab);
-      setTabs(remainingTabs);
-      setActiveTab(remainingTabs[0]);
-      return;
-    }
+
+  const handleTabChange = (_: React.SyntheticEvent, newValue: string) => {
     setActiveTab(newValue);
+  };
+
+  const openNewTabDialog = () => {
+    setshowNewTabDialog(true);
+  };
+
+  const handleDeleteActiveTab = () => {
+    const remainingTabs = tabs.filter((tab) => tab !== activeTab);
+    setTabs(remainingTabs);
+    setActiveTab(remainingTabs[0]);
+  };
+
+  const openNewCardDialog = () => {
+    setShowNewCardModal(true);
   };
 
   const createNewTab = (name: string) => {
@@ -63,16 +65,22 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
 
   return (
     <Box sx={stickyStyles} data-testid="tab-header">
-      <Tabs variant="scrollable" scrollButtons="auto" value={activeTab} onChange={handleTabChange}>
+      <Tabs variant="scrollable" scrollButtons="auto" value={activeTab} sx={{ flexGrow: 1 }} onChange={handleTabChange}>
         {tabs.map((tab: string) => (
-          <Tab key={tab} label={tab} value={tab} />
+          <Tab key={tab} label={tab} value={tab} sx={{ mt: 1 }} />
         ))}
       </Tabs>
-      <Tabs value={activeTab} onChange={handleTabChange}>
-        <Divider orientation="vertical" variant="middle" flexItem />
-        <Tab key="newTab" label="+ Tab" value="newTab" />
-        <Tab key="deleteTab" icon={<DeleteIcon />} value="deleteTab" />
-      </Tabs>
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <Tab key="newTab" label="+ Tab" value="newTab" onClick={openNewTabDialog} />
+      <Tab key="deleteTab" icon={<DeleteIcon />} value="deleteTab" onClick={handleDeleteActiveTab} />
+      <Divider orientation="vertical" variant="middle" flexItem />
+      <Tab
+        key="newCard"
+        label="+ Card"
+        value="newCard"
+        sx={{ color: WHITE, background: RED[500], my: 1, mx: 2 }}
+        onClick={openNewCardDialog}
+      />
       <NewTabDialog
         showNewTabDialog={showNewTabDialog}
         setshowNewTabDialog={setshowNewTabDialog}
