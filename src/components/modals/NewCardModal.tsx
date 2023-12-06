@@ -4,7 +4,7 @@ import { Modal, Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
-import TabSelect from './cardFields/TabSelect';
+import TabSelect from '../cards/cardFields/TabSelect';
 import {
   GenericCardContent,
   MapCardContent,
@@ -16,14 +16,14 @@ import {
   RuleCardContent,
 } from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
-import MapCardform from './newCardForms/MapCardForm';
-import NoteCardForm from './newCardForms/NoteCardForm';
-import RuleCardForm from './newCardForms/RuleCardForm';
-import PlayerCardForm from './newCardForms/PlayerCardForm';
-import MonsterCardForm from './newCardForms/MonsterCardForm';
+import MapCardform from '../cards/newCardForms/MapCardForm';
+import NoteCardForm from '../cards/newCardForms/NoteCardForm';
+import RuleCardForm from '../cards/newCardForms/RuleCardForm';
+import PlayerCardForm from '../cards/newCardForms/PlayerCardForm';
+import MonsterCardForm from '../cards/newCardForms/MonsterCardForm';
 import { DEFAULT_TAB } from '../../constants';
-import CardTypeSelect from './cardFields/CardTypeSelect';
-import CardColumnSelect from './cardFields/CardColumnSelect';
+import CardTypeSelect from '../cards/cardFields/CardTypeSelect';
+import CardColumnSelect from '../cards/cardFields/CardColumnSelect';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {

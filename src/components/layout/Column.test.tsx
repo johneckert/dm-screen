@@ -19,7 +19,7 @@ jest.mock('react-beautiful-dnd', () => ({
 
 jest.mock('./DraggableCard.tsx', () => () => <div data-testid="draggable-card" />);
 
-describe('Column', () => {
+describe('<Column />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

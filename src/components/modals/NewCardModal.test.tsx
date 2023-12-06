@@ -8,7 +8,7 @@ const mockCreateNewCard = jest.fn();
 
 // TODO: Add tests for all card types - how to manipulate select field?
 
-describe('NewCardModal', () => {
+describe('<NewCardModal />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>

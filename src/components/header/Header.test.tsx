@@ -13,7 +13,7 @@ const mockHeaderProps: HeaderProps = {
   setShowNewCardModal: jest.fn(),
 };
 
-describe('ScreenArea', () => {
+describe('<Header />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
