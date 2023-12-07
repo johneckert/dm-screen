@@ -48,6 +48,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
     right: 0,
     width: '100%',
     zIndex: 999,
+    background: (theme) => theme.palette.background.default,
   };
 
   useEffect(() => {
