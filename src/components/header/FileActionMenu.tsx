@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DeleteIcon from '@mui/icons-material/Delete';
+import WarningIcon from '@mui/icons-material/Warning';
 import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
@@ -94,7 +94,7 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
         <CloudUploadIcon />
       </IconButton>
       <IconButton onClick={handleResetClick} sx={{ mr: 2, color: WHITE }} data-testid="reset-button">
-        <DeleteIcon />
+        <WarningIcon />
       </IconButton>
       {dialogType && (
         <VerificationDialog
