@@ -2,13 +2,13 @@ import React, { useRef, useState } from 'react';
 import { IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DeleteIcon from '@mui/icons-material/Delete';
+import WarningIcon from '@mui/icons-material/Warning';
 import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
 import { DialogTypes, CardData } from '../../interfaces';
-import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
+import { DIALOG_MESSAGES, DEFAULT_TABS } from '../../constants';
 import useCardStorage from '../../hooks/useCardStorage';
 import { mapCards } from '../../utils';
 
@@ -56,7 +56,7 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
     reader.onload = (event) => {
       if (file && validateFileType(file)) {
         const cards = JSON.parse(JSON.parse(event.target?.result as string)) as CardData[];
-        const tabs = cards.map((card: CardData) => card.tab) ?? [DEFAULT_TAB];
+        const tabs = cards.map((card: CardData) => card.tab) ?? DEFAULT_TABS;
         setTabs([...new Set(tabs)]);
         setCards(mapCards(cards));
         setActiveTab(tabs[0]);
@@ -94,7 +94,7 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
         <CloudUploadIcon />
       </IconButton>
       <IconButton onClick={handleResetClick} sx={{ mr: 2, color: WHITE }} data-testid="reset-button">
-        <DeleteIcon />
+        <WarningIcon />
       </IconButton>
       {dialogType && (
         <VerificationDialog
