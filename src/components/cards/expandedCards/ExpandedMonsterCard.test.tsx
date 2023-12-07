@@ -44,7 +44,7 @@ const mockExpandedMonsterCardData = {
     description: 'An owlbear is a large magical beast that looks like a cross between an owl and a bear.',
     notes: 'They are fluffy!',
   },
-  tab: DEFAULT_TABS,
+  tab: DEFAULT_TABS[0],
 };
 
 describe('<ExpandedMonsterCard />', () => {

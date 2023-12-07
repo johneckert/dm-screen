@@ -15,7 +15,7 @@ const expandedMapCardData = {
   id: '1',
   type: CardType.Map,
   column: 'column-1',
-  tab: DEFAULT_TABS,
+  tab: DEFAULT_TABS[0],
   content: {
     title: 'Charazard',
     roomNumber: 'C1',
