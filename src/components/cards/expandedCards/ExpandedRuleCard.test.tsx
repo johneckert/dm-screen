@@ -14,7 +14,7 @@ const expandedRuleCardData = {
   type: CardType.Rule,
   column: 'column-1',
   content: { title: 'strength' },
-  tab: DEFAULT_TABS,
+  tab: DEFAULT_TABS[0],
 };
 
 describe('<ExpandedRuleCard />', () => {

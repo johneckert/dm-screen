@@ -16,7 +16,7 @@ const expandedNoteCardData = {
   type: CardType.Note,
   column: 'column-1',
   content: { title: 'Pikachu', notes: 'I am Pikachu' },
-  tab: DEFAULT_TABS,
+  tab: DEFAULT_TABS[0],
 };
 
 describe('<ExpandedNoteCard />', () => {
