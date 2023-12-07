@@ -3,7 +3,7 @@ import ExpandedRuleCard, { DescriptionSection, TableSection } from './ExpandedRu
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
-import { DEFAULT_TAB } from '../../../constants';
+import { DEFAULT_TABS } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
@@ -14,7 +14,7 @@ const expandedRuleCardData = {
   type: CardType.Rule,
   column: 'column-1',
   content: { title: 'strength' },
-  tab: DEFAULT_TAB,
+  tab: DEFAULT_TABS,
 };
 
 describe('<ExpandedRuleCard />', () => {

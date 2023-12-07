@@ -20,7 +20,7 @@ import NoteCardForm from '../cards/newCardForms/NoteCardForm';
 import RuleCardForm from '../cards/newCardForms/RuleCardForm';
 import PlayerCardForm from '../cards/newCardForms/PlayerCardForm';
 import MonsterCardForm from '../cards/newCardForms/MonsterCardForm';
-import { DEFAULT_TAB } from '../../constants';
+import { DEFAULT_TABS } from '../../constants';
 import CardTypeSelect from '../cards/cardFields/CardTypeSelect';
 import CardColumnSelect from '../cards/cardFields/CardColumnSelect';
 
@@ -88,7 +88,7 @@ const NewCardModal: React.FC<{
 }> = ({ isVisible, createCard, closeNewCardModal }) => {
   const classes = useStyles();
   const id = uuidv4();
-  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TAB;
+  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TABS;
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = useState<CardType>(CardType.Note);
   const [cardColumn, setCardColumn] = useState<string>('droppable-1');
