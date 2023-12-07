@@ -1,11 +1,9 @@
 import React, { useRef, useState } from 'react';
-import { Typography, List, ListItem, Divider } from '@mui/material';
+import { IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
-import { WHITE, GREY } from '../../colors';
+import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
 import VerificationDialog from '../modals/VerificationDialog';
@@ -13,48 +11,6 @@ import { DialogTypes, CardData } from '../../interfaces';
 import { DIALOG_MESSAGES, DEFAULT_TAB } from '../../constants';
 import useCardStorage from '../../hooks/useCardStorage';
 import { mapCards } from '../../utils';
-
-const useStyles = makeStyles<Theme>((theme) => ({
-  menuButton: {
-    marginRight: theme.spacing(2),
-    '& svg': {
-      fill: WHITE,
-    },
-  },
-  menuList: {
-    width: 300,
-    '&:first-child': {
-      marginTop: theme.spacing(6),
-    },
-  },
-  menuSectionHeader: {
-    padding: theme.spacing(2),
-    alignSelf: 'center',
-  },
-  menuOption: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    paddingX: theme.spacing(4),
-    paddingY: theme.spacing(1),
-    '&:hover': {
-      cursor: 'pointer',
-      backgroundColor: theme.palette.primary.light,
-    },
-  },
-  tab: {
-    justifyContent: 'space-between',
-  },
-  destructive: {
-    color: theme.palette.error.light,
-  },
-  isActive: {
-    fontWeight: 'bold',
-  },
-  notActive: {
-    color: GREY[500],
-  },
-}));
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
@@ -68,14 +24,13 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-interface MainMenuProps {
+interface FileActionMenuProps {
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (tab: string) => void;
 }
 
-const MainMenu: React.FC<MainMenuProps> = ({ setTabs, activeTab, setActiveTab }) => {
-  const classes = useStyles();
+const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, setActiveTab }) => {
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
   const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
   const passClickToInput = () => {
@@ -126,31 +81,21 @@ const MainMenu: React.FC<MainMenuProps> = ({ setTabs, activeTab, setActiveTab })
     setDialogType(null);
   };
 
+  const handleUploadClick = () => setDialogType(DialogTypes.Upload);
+  const handleResetClick = () => setDialogType(DialogTypes.Reset);
+
   return (
     <>
-      <Typography variant="h6" component="div" className={classes.menuSectionHeader}>
-        Menu
-      </Typography>
-      <List className={classes.menuList}>
-        <ListItem onClick={downloadCards} className={classes.menuOption} data-testid="download-button">
-          <SaveAltIcon sx={{ pr: 1, width: 40 }} />
-          <Typography variant="body2">Download file</Typography>
-        </ListItem>
-        <ListItem onClick={() => setDialogType(DialogTypes.Upload)} className={classes.menuOption}>
-          <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
-          <CloudUploadIcon sx={{ pr: 1, width: 40 }} />
-          <Typography variant="body2">Upload file</Typography>
-        </ListItem>
-        <ListItem
-          onClick={() => setDialogType(DialogTypes.Reset)}
-          className={`${classes.menuOption} ${classes.destructive}`}
-          data-testid="reset-button"
-        >
-          <DeleteIcon sx={{ pr: 1, width: 40 }} />
-          <Typography variant="body2">Reset cards</Typography>
-        </ListItem>
-      </List>
-      <Divider />
+      <IconButton onClick={downloadCards} sx={{ mr: 2, color: WHITE }} data-testid="download-button">
+        <SaveAltIcon />
+      </IconButton>
+      <IconButton onClick={handleUploadClick} sx={{ mr: 2, color: WHITE }} data-testid="upload-button">
+        <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
+        <CloudUploadIcon />
+      </IconButton>
+      <IconButton onClick={handleResetClick} sx={{ mr: 2, color: WHITE }} data-testid="reset-button">
+        <DeleteIcon />
+      </IconButton>
       {dialogType && (
         <VerificationDialog
           dialogOpen={!!dialogType}
@@ -164,4 +109,4 @@ const MainMenu: React.FC<MainMenuProps> = ({ setTabs, activeTab, setActiveTab })
   );
 };
 
-export default MainMenu;
+export default FileActionMenu;

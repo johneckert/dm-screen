@@ -1,9 +1,9 @@
-import { render, screen, act } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Header, { HeaderProps } from './Header';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 
-jest.mock('./MainMenu', () => () => <div data-testid="menu" />);
+jest.mock('./FileActionMenu', () => () => <div data-testid="menu" />);
 
 const mockHeaderProps: HeaderProps = {
   setTabs: jest.fn(),
@@ -30,25 +30,12 @@ describe('<Header />', () => {
     expect(screen.getByText(/dm screen/i)).toBeInTheDocument();
   });
 
-  it('renders menu button', () => {
+  it('renders FileActionMenu button', () => {
     render(
       <ThemeProvider theme={theme}>
         <Header {...mockHeaderProps} />
       </ThemeProvider>,
     );
-    expect(screen.getByTestId('menu-button')).toBeInTheDocument();
-  });
-
-  it('opens menu when menu button is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Header {...mockHeaderProps} />
-      </ThemeProvider>,
-    );
-
-    act(() => {
-      screen.getByTestId('menu-button').click();
-    });
     expect(screen.getByTestId('menu')).toBeInTheDocument();
   });
 });
