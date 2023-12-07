@@ -4,7 +4,7 @@ import { useReadLocalStorage } from 'usehooks-ts';
 import { MenuItem, Select, InputLabel } from '@mui/material';
 
 const TabSelect: React.FC<{ cardTab: string; setCardTab: (tab: string) => void }> = ({ cardTab, setCardTab }) => {
-  const tabs = useReadLocalStorage<string[]>('tabs') ?? [DEFAULT_TABS];
+  const tabs = useReadLocalStorage<string[]>('tabs') ?? DEFAULT_TABS;
 
   return (
     <>

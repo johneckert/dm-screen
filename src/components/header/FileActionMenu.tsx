@@ -56,7 +56,7 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
     reader.onload = (event) => {
       if (file && validateFileType(file)) {
         const cards = JSON.parse(JSON.parse(event.target?.result as string)) as CardData[];
-        const tabs = cards.map((card: CardData) => card.tab) ?? [DEFAULT_TABS];
+        const tabs = cards.map((card: CardData) => card.tab) ?? DEFAULT_TABS;
         setTabs([...new Set(tabs)]);
         setCards(mapCards(cards));
         setActiveTab(tabs[0]);
