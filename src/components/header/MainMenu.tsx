@@ -81,7 +81,7 @@ const MainMenu: React.FC<MainMenuProps> = ({ setTabs, activeTab, setActiveTab })
   const passClickToInput = () => {
     fileUploadRef.current?.click();
   };
-  const [cards, setCards] = useCardStorage();
+  const [_, setCards] = useCardStorage();
 
   const downloadCards = () => {
     const saveData = localStorage.getItem('cards');
