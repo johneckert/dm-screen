@@ -88,7 +88,7 @@ const NewCardModal: React.FC<{
 }> = ({ isVisible, createCard, closeNewCardModal }) => {
   const classes = useStyles();
   const id = uuidv4();
-  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TABS;
+  const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TABS[0];
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = useState<CardType>(CardType.Note);
   const [cardColumn, setCardColumn] = useState<string>('droppable-1');

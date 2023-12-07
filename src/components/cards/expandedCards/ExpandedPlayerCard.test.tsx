@@ -43,7 +43,7 @@ const mockExpandedPlayerCardData = {
     languages: 'Common, Giant Space Hamster',
     notes: 'Minsc is a ranger who travels with his hamster Boo.',
   },
-  tab: DEFAULT_TABS,
+  tab: DEFAULT_TABS[0],
 };
 
 describe('<ExpandedPlayerCard />', () => {
