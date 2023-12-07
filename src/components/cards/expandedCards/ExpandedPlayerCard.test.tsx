@@ -3,7 +3,7 @@ import ExpandedPlayerCard from './ExpandedPlayerCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
-import { DEFAULT_TAB } from '../../../constants';
+import { DEFAULT_TABS } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
@@ -43,7 +43,7 @@ const mockExpandedPlayerCardData = {
     languages: 'Common, Giant Space Hamster',
     notes: 'Minsc is a ranger who travels with his hamster Boo.',
   },
-  tab: DEFAULT_TAB,
+  tab: DEFAULT_TABS,
 };
 
 describe('<ExpandedPlayerCard />', () => {

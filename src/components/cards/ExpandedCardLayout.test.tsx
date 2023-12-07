@@ -3,7 +3,7 @@ import ExpandedCardLayout from './ExpandedCardLayout';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { CardType } from '../../interfaces';
-import { DEFAULT_TAB } from '../../constants';
+import { DEFAULT_TABS } from '../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockHandleEdit = jest.fn();
@@ -15,7 +15,7 @@ const expandedMapCardData = {
   id: '1',
   type: CardType.Map,
   column: 'column-1',
-  tab: DEFAULT_TAB,
+  tab: DEFAULT_TABS,
   content: {
     title: 'Charazard',
     roomNumber: 'C1',

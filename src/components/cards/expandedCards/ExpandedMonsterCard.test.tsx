@@ -3,7 +3,7 @@ import ExpandedMonsterCard from './ExpandedMonsterCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
-import { DEFAULT_TAB } from '../../../constants';
+import { DEFAULT_TABS } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
@@ -44,7 +44,7 @@ const mockExpandedMonsterCardData = {
     description: 'An owlbear is a large magical beast that looks like a cross between an owl and a bear.',
     notes: 'They are fluffy!',
   },
-  tab: DEFAULT_TAB,
+  tab: DEFAULT_TABS,
 };
 
 describe('<ExpandedMonsterCard />', () => {

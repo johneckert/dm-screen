@@ -3,7 +3,7 @@ import ExpandedNoteCard from './ExpandedNoteCard';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
-import { DEFAULT_TAB } from '../../../constants';
+import { DEFAULT_TABS } from '../../../constants';
 
 const mockCloseExpandedCard = jest.fn();
 const mockUpdateCard = jest.fn();
@@ -16,7 +16,7 @@ const expandedNoteCardData = {
   type: CardType.Note,
   column: 'column-1',
   content: { title: 'Pikachu', notes: 'I am Pikachu' },
-  tab: DEFAULT_TAB,
+  tab: DEFAULT_TABS,
 };
 
 describe('<ExpandedNoteCard />', () => {
