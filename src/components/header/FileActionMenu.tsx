@@ -1,9 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { Box, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
 import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
@@ -33,7 +32,6 @@ interface FileActionMenuProps {
 
 const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, setActiveTab }) => {
   const fileUploadRef = useRef<null | HTMLInputElement>(null);
-  const [showFileActions, setShowFileActions] = useState<boolean>(false);
   const [dialogType, setDialogType] = useState<DialogTypes | null>(null);
   const passClickToInput = () => {
     fileUploadRef.current?.click();
@@ -85,32 +83,19 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
 
   const handleUploadClick = () => setDialogType(DialogTypes.Upload);
   const handleResetClick = () => setDialogType(DialogTypes.Reset);
-  const handleShowFileActions = () => setShowFileActions(true);
-  const handleHideFileActions = () => setShowFileActions(false);
-  const toggleFileActions = () => setShowFileActions(!showFileActions);
 
   return (
-    <Box onMouseEnter={handleShowFileActions} onMouseLeave={handleHideFileActions} data-testid="file-actions">
-      {showFileActions ? (
-        <Box sx={{ transition: 'all 1s' }}>
-          <IconButton onClick={downloadCards} sx={{ mr: 2, color: WHITE }} data-testid="download-button">
-            <SaveAltIcon />
-          </IconButton>
-          <IconButton onClick={handleUploadClick} sx={{ mr: 2, color: WHITE }} data-testid="upload-button">
-            <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
-            <CloudUploadIcon />
-          </IconButton>
-          <IconButton onClick={handleResetClick} sx={{ mr: 2, color: WHITE }} data-testid="reset-button">
-            <DeleteIcon />
-          </IconButton>
-        </Box>
-      ) : (
-        <Box sx={{ transition: 'all 1s' }}>
-          <IconButton onClick={toggleFileActions} sx={{ mr: 2, color: WHITE }} data-testid="upload-button">
-            <SaveIcon />
-          </IconButton>
-        </Box>
-      )}
+    <>
+      <IconButton onClick={downloadCards} sx={{ mr: 2, color: WHITE }} data-testid="download-button">
+        <SaveAltIcon />
+      </IconButton>
+      <IconButton onClick={handleUploadClick} sx={{ mr: 2, color: WHITE }} data-testid="upload-button">
+        <VisuallyHiddenInput ref={fileUploadRef} type="file" onChange={uploadCards} data-testid="file-input" />
+        <CloudUploadIcon />
+      </IconButton>
+      <IconButton onClick={handleResetClick} sx={{ mr: 2, color: WHITE }} data-testid="reset-button">
+        <DeleteIcon />
+      </IconButton>
       {dialogType && (
         <VerificationDialog
           dialogOpen={!!dialogType}
@@ -120,7 +105,7 @@ const FileActionMenu: React.FC<FileActionMenuProps> = ({ setTabs, activeTab, set
           confirmOnly={dialogType === DialogTypes.FileType}
         />
       )}
-    </Box>
+    </>
   );
 };
 

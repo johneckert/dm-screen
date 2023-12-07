@@ -40,9 +40,6 @@ describe('<FileActionMenu />', () => {
         </ThemeProvider>,
       );
 
-      const fileMenu = screen.getByTestId('file-actions');
-      fireEvent.mouseOver(fileMenu);
-
       act(() => {
         screen.getByTestId('download-button').click();
       });
@@ -55,9 +52,6 @@ describe('<FileActionMenu />', () => {
           <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
-
-      const fileMenu = screen.getByTestId('file-actions');
-      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
       Object.defineProperty(inputEl, 'files', {
@@ -80,8 +74,6 @@ describe('<FileActionMenu />', () => {
           <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
-      const fileMenu = screen.getByTestId('file-actions');
-      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -100,8 +92,6 @@ describe('<FileActionMenu />', () => {
           <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
-      const fileMenu = screen.getByTestId('file-actions');
-      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -120,9 +110,6 @@ describe('<FileActionMenu />', () => {
           <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
-
-      const fileMenu = screen.getByTestId('file-actions');
-      fireEvent.mouseOver(fileMenu);
 
       act(() => {
         screen.getByTestId('reset-button').click();
