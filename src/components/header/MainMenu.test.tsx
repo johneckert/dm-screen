@@ -8,20 +8,11 @@ import { EMPTY_CARD_MAP } from '../../constants';
 
 const mockSetCards = jest.fn();
 jest.mock('../../hooks/useCardStorage', () => () => [mockCardDataMap, mockSetCards]);
-jest.mock('random-word-slugs', () => ({
-  generateSlug: jest.fn().mockReturnValue('tab-4'),
-  RandomWordOptions: {
-    Adjectives: ['tab'],
-    Nouns: ['tab'],
-  },
-}));
 
 const mockProps = {
-  tabs: ['tab-1', 'tab-2', 'tab-3'],
   setTabs: jest.fn(),
   activeTab: 'tab-1',
   setActiveTab: jest.fn(),
-  setShowNewCardModal: jest.fn(),
 };
 
 const blob = new Blob([JSON.stringify(mockSaveData)]);
@@ -128,59 +119,6 @@ describe('<MainMenu />', () => {
         screen.getByTestId('confirm-button').click();
       });
       expect(mockSetCards).toHaveBeenCalledWith(EMPTY_CARD_MAP);
-    });
-  });
-
-  describe('tabs', () => {
-    it('adds a new tab when add tab button is clicked', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
-        </ThemeProvider>,
-      );
-
-      act(() => {
-        screen.getByTestId('add-tab-button').click();
-      });
-      expect(mockProps.setTabs).toHaveBeenCalledWith(['tab-1', 'tab-2', 'tab-3', 'tab-4']);
-    });
-
-    it('renders a button for each tab', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
-        </ThemeProvider>,
-      );
-
-      expect(screen.getAllByTestId('tab-button')).toHaveLength(3);
-    });
-
-    it('sets the active tab when a tab button is clicked', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
-        </ThemeProvider>,
-      );
-
-      act(() => {
-        screen.queryAllByTestId('tab-button')[1].click();
-      });
-      expect(mockProps.setActiveTab).toHaveBeenCalledWith('tab-2');
-    });
-  });
-
-  describe('new card', () => {
-    it('opens new card modal when new card button is clicked', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
-        </ThemeProvider>,
-      );
-
-      act(() => {
-        screen.getByTestId('new-card-button').click();
-      });
-      expect(mockProps.setShowNewCardModal).toHaveBeenCalledWith(true);
     });
   });
 });

@@ -11,7 +11,7 @@ import ExpandedMapCard from '../cards/expandedCards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
 import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
 import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
-import NewCardModal from '../cards/NewCardModal';
+import NewCardModal from '../modals/NewCardModal';
 import { GREY } from '../../colors';
 
 interface StyleProps {

@@ -4,7 +4,6 @@ import { Modal, Box, Typography, Button } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
 import CheckIcon from '@mui/icons-material/Check';
-import TabSelect from './cardFields/TabSelect';
 import {
   GenericCardContent,
   MapCardContent,
@@ -16,14 +15,14 @@ import {
   RuleCardContent,
 } from '../../interfaces';
 import { v4 as uuidv4 } from 'uuid';
-import MapCardform from './newCardForms/MapCardForm';
-import NoteCardForm from './newCardForms/NoteCardForm';
-import RuleCardForm from './newCardForms/RuleCardForm';
-import PlayerCardForm from './newCardForms/PlayerCardForm';
-import MonsterCardForm from './newCardForms/MonsterCardForm';
+import MapCardform from '../cards/newCardForms/MapCardForm';
+import NoteCardForm from '../cards/newCardForms/NoteCardForm';
+import RuleCardForm from '../cards/newCardForms/RuleCardForm';
+import PlayerCardForm from '../cards/newCardForms/PlayerCardForm';
+import MonsterCardForm from '../cards/newCardForms/MonsterCardForm';
 import { DEFAULT_TAB } from '../../constants';
-import CardTypeSelect from './cardFields/CardTypeSelect';
-import CardColumnSelect from './cardFields/CardColumnSelect';
+import CardTypeSelect from '../cards/cardFields/CardTypeSelect';
+import CardColumnSelect from '../cards/cardFields/CardColumnSelect';
 
 const useStyles = makeStyles<Theme>((theme) => ({
   modal: {
@@ -92,11 +91,10 @@ const NewCardModal: React.FC<{
   const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TAB;
   const [content, setContent] = useState({} as GenericCardContent);
   const [cardType, setCardType] = useState<CardType>(CardType.Note);
-  const [cardTab, setCardTab] = useState<string>(activeTab);
   const [cardColumn, setCardColumn] = useState<string>('droppable-1');
 
   const handleSave = () => {
-    createCard({ id, content, type: cardType, column: cardColumn, tab: cardTab });
+    createCard({ id, content, type: cardType, column: cardColumn, tab: activeTab });
     setContent({} as GenericCardContent);
   };
 
@@ -148,7 +146,6 @@ const NewCardModal: React.FC<{
           <Box className={classes.form}>
             <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
               <CardTypeSelect cardType={cardType} setCardType={setCardType} />
-              <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
               <CardColumnSelect cardColumn={cardColumn} setCardColumn={setCardColumn} />
             </Box>
             <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderCardForm()}</Box>

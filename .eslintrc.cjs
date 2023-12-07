@@ -13,13 +13,18 @@ module.exports = {
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
-  plugins: ['react-refresh', 'react-hooks', '@typescript-eslint'],
+  plugins: ['react-refresh', 'react-hooks', '@typescript-eslint', 'unused-imports'],
   extends: ['plugin:@typescript-eslint/recommended'],
   rules: {
     'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     '@typescript-eslint/no-unused-vars': 'warn',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' },
+    ],
   },
   parserOptions: {
     ecmaVersion: 'latest',
