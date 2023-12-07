@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider, Tabs, Tab } from '@mui/material';
+import { Box, Divider, Tabs, Tab, Theme } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NewTabDialog from '../modals/NewTabDialog';
 import { RED, WHITE } from '../../colors';
@@ -48,7 +48,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
     right: 0,
     width: '100%',
     zIndex: 999,
-    background: (theme) => theme.palette.background.default,
+    background: (theme: Theme) => theme.palette.background.default,
   };
 
   useEffect(() => {
