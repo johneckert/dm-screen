@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import MainMenu from './MainMenu';
+import FileActionMenu from './FileActionMenu';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 import { act } from 'react-dom/test-utils';
@@ -24,7 +24,7 @@ const fileWithWrongType = new File([blob], 'dmscreen.json', {
   type: 'image/jpeg',
 });
 
-describe('<MainMenu />', () => {
+describe('<FileActionMenu />', () => {
   describe('file actions', () => {
     beforeEach(() => {
       localStorage.clear();
@@ -36,9 +36,12 @@ describe('<MainMenu />', () => {
 
       render(
         <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
+          <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
+
+      const fileMenu = screen.getByTestId('file-actions');
+      fireEvent.mouseOver(fileMenu);
 
       act(() => {
         screen.getByTestId('download-button').click();
@@ -49,9 +52,12 @@ describe('<MainMenu />', () => {
     it('uploads file and saves to localStorage', async () => {
       render(
         <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
+          <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
+
+      const fileMenu = screen.getByTestId('file-actions');
+      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
       Object.defineProperty(inputEl, 'files', {
@@ -71,9 +77,11 @@ describe('<MainMenu />', () => {
     it('does not save file if file type is invalid', async () => {
       render(
         <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
+          <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
+      const fileMenu = screen.getByTestId('file-actions');
+      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -89,9 +97,11 @@ describe('<MainMenu />', () => {
     it('shows feedback modal if file type is invalid', async () => {
       render(
         <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
+          <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
+      const fileMenu = screen.getByTestId('file-actions');
+      fireEvent.mouseOver(fileMenu);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -107,9 +117,12 @@ describe('<MainMenu />', () => {
     it('clears localStorage when reset button is clicked and choice is verified', () => {
       render(
         <ThemeProvider theme={theme}>
-          <MainMenu {...mockProps} />
+          <FileActionMenu {...mockProps} />
         </ThemeProvider>,
       );
+
+      const fileMenu = screen.getByTestId('file-actions');
+      fireEvent.mouseOver(fileMenu);
 
       act(() => {
         screen.getByTestId('reset-button').click();
