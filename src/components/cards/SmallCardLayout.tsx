@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, CardHeader, CardContent, Avatar, Typography } from '@mui/material';
 import { CardType, MapCardContent } from '../../interfaces';
 import { SmallCardProps } from '../../interfaces';
@@ -13,7 +14,7 @@ import PlayerCardSmall from './smallCards/PlayerCardSmall';
 import MonsterCardSmall from './smallCards/MonsterCardSmall';
 import RuleCardSmall from './smallCards/RuleCardSmall';
 
-const SmallCardLayout = ({ content, type }: SmallCardProps) => {
+const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleContextMenuOpen }) => {
   const avatar = () => {
     switch (type) {
       case CardType.Map:
@@ -57,6 +58,10 @@ const SmallCardLayout = ({ content, type }: SmallCardProps) => {
         margin: '8px 0',
         minHeight: '250px',
         height: '250px',
+      }}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        handleContextMenuOpen(e, id);
       }}
       data-testid="basic-card"
     >

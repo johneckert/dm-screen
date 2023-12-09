@@ -1,6 +1,15 @@
 export interface SmallCardProps {
+  id: string;
   type: CardType;
   content: NoteCardContent | PlayerCardContent | RuleCardContent | MapCardContent | MonsterCardContent;
+  handleContextMenuOpen: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+}
+
+export enum ContextMenuAction {
+  Open = 'Open',
+  Edit = 'Edit',
+  Delete = 'Delete',
+  Move = 'Move',
 }
 
 export enum CardType {

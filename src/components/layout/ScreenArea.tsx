@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CardData, CardType, ScreenSize } from '../../interfaces';
+import { CardData, CardType, ContextMenuAction, ScreenSize } from '../../interfaces';
 import Column from './Column';
 import makeStyles from '@mui/styles/makeStyles';
 import { Theme } from '@mui/material/styles';
@@ -13,6 +13,7 @@ import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
 import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
 import NewCardModal from '../modals/NewCardModal';
 import { GREY } from '../../colors';
+import SmallCardContextMenu from '../cards/smallCards/SmallCardContextMenu';
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -43,10 +44,12 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
   const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
+  const [contextMenu, setContextMenu] = useState<string | false>(false);
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
+  const allCards = Object.values(cards).flat();
 
   useEffect(() => {
     if (expandedCardId) {
-      const allCards = Object.values(cards).flat();
       const expandedCard = allCards.find((card) => card.id === expandedCardId) ?? null;
       setExpandedCardData(expandedCard);
     }
@@ -55,6 +58,54 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
   const closeExpandedCard = () => {
     setExpandedCardId(null);
     setExpandedCardData(null);
+  };
+
+  const handleContextMenuOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+    event.preventDefault();
+    console.log(id);
+    setMenuPosition({ top: event.clientY, left: event.clientX });
+    setContextMenu(id);
+  };
+
+  const handleContextMenuClose = () => {
+    setContextMenu(false);
+  };
+
+  const findCardColumn = (cardId: string) => {
+    const card = allCards.find((card) => card.id === cardId);
+    if (!card) {
+      console.error('card not found');
+      return '';
+    }
+    return card.column;
+  };
+
+  const handleContextClick = (action: string, tab: string | undefined) => {
+    console.log(action, tab);
+    if (!contextMenu) {
+      console.error('Card ID not found.');
+      return;
+    }
+    const targetColumn = findCardColumn(contextMenu);
+    const updatedCards = Object.assign({}, cards);
+    switch (action) {
+      case ContextMenuAction.Move:
+        updatedCards[targetColumn].map((card) => {
+          if (card.id === contextMenu) {
+            card.tab = tab ?? '';
+          }
+        });
+        setCards(updatedCards);
+        setContextMenu(false);
+        break;
+      case ContextMenuAction.Delete:
+        updatedCards[targetColumn] = updatedCards[targetColumn].filter((card) => card.id !== contextMenu);
+        setCards(updatedCards);
+        setContextMenu(false);
+        break;
+      default:
+        break;
+    }
   };
 
   const reorder = (
@@ -210,14 +261,42 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
     <>
       <DragDropContext onDragEnd={onDragEnd}>
         <div className={classes.screenArea} data-testid="screen-area">
-          <Column columnId={1} cards={activeTabCards(cards['droppable-1'])} expandCard={setExpandedCardId} />
-          <Column columnId={2} cards={activeTabCards(cards['droppable-2'])} expandCard={setExpandedCardId} />
-          <Column columnId={3} cards={activeTabCards(cards['droppable-3'])} expandCard={setExpandedCardId} />
-          <Column columnId={4} cards={activeTabCards(cards['droppable-4'])} expandCard={setExpandedCardId} />
+          <Column
+            columnId={1}
+            cards={activeTabCards(cards['droppable-1'])}
+            expandCard={setExpandedCardId}
+            handleContextMenuOpen={handleContextMenuOpen}
+          />
+          <Column
+            columnId={2}
+            cards={activeTabCards(cards['droppable-2'])}
+            expandCard={setExpandedCardId}
+            handleContextMenuOpen={handleContextMenuOpen}
+          />
+          <Column
+            columnId={3}
+            cards={activeTabCards(cards['droppable-3'])}
+            expandCard={setExpandedCardId}
+            handleContextMenuOpen={handleContextMenuOpen}
+          />
+          <Column
+            columnId={4}
+            cards={activeTabCards(cards['droppable-4'])}
+            expandCard={setExpandedCardId}
+            handleContextMenuOpen={handleContextMenuOpen}
+          />
         </div>
       </DragDropContext>
       {renderCard()}
       {<NewCardModal isVisible={showNewCardModal} createCard={createCard} closeNewCardModal={closeNewCardModal} />}
+      {contextMenu && (
+        <SmallCardContextMenu
+          cardId={contextMenu}
+          handleContextMenuClose={handleContextMenuClose}
+          handleContextClick={handleContextClick}
+          menuPosition={menuPosition}
+        />
+      )}
     </>
   );
 };
