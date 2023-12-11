@@ -294,7 +294,6 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
       {<NewCardModal isVisible={showNewCardModal} createCard={createCard} closeNewCardModal={closeNewCardModal} />}
       {contextId && (
         <SmallCardContextMenu
-          cardId={contextId}
           handleContextMenuClose={handleContextMenuClose}
           handleContextClick={handleContextClick}
           menuPosition={menuPosition}

@@ -7,14 +7,12 @@ import { ContextMenuAction } from '../../interfaces';
 import { toUpper } from 'lodash';
 
 interface SmallCardContextMenuProps {
-  cardId: string;
   handleContextMenuClose: () => void;
   handleContextClick: (action: ContextMenuAction, tab?: string) => void;
   menuPosition: { top: number; left: number };
 }
 
 const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
-  cardId,
   handleContextMenuClose,
   handleContextClick,
   menuPosition,
@@ -29,7 +27,7 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
       onClose={handleContextMenuClose}
       anchorReference="anchorPosition"
       anchorPosition={{ top, left }}
-      data-testid="custom-menu"
+      data-testid="small-card-context-menu"
     >
       <MenuList sx={{ minWidth: 200 }}>
         <MenuItem key="open" onClick={() => handleContextClick(ContextMenuAction.Open)}>
@@ -41,7 +39,7 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
         <Divider />
         <MenuItem>Move</MenuItem>
         {tabs.map((tab) => (
-          <MenuItem key={tab} onClick={() => handleContextClick(ContextMenuAction.Move, tab)}>
+          <MenuItem key={tab} onClick={() => handleContextClick(ContextMenuAction.Move, tab)} data-testid="tab-item">
             {tab === activeTab ? (
               <ListItemIcon>
                 <Check />
