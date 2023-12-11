@@ -44,7 +44,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
   const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
-  const [contextMenu, setContextMenu] = useState<string | false>(false);
+  const [contextId, setContextId] = useState<string | false>(false);
   const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
   const allCards = Object.values(cards).flat();
 
@@ -63,11 +63,11 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
   const handleContextMenuOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     event.preventDefault();
     setMenuPosition({ top: event.clientY, left: event.clientX });
-    setContextMenu(id);
+    setContextId(id);
   };
 
   const handleContextMenuClose = () => {
-    setContextMenu(false);
+    setContextId(false);
   };
 
   const findCardColumn = (cardId: string) => {
@@ -81,26 +81,30 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
 
   const handleContextClick = (action: string, tab: string | undefined) => {
     console.log(action, tab);
-    if (!contextMenu) {
+    if (!contextId) {
       console.error('Card ID not found.');
       return;
     }
-    const targetColumn = findCardColumn(contextMenu);
+    const targetColumn = findCardColumn(contextId);
     const updatedCards = Object.assign({}, cards);
     switch (action) {
+      case ContextMenuAction.Open:
+        setExpandedCardId(contextId);
+        setContextId(false);
+        break;
       case ContextMenuAction.Move:
         updatedCards[targetColumn].map((card) => {
-          if (card.id === contextMenu) {
+          if (card.id === contextId) {
             card.tab = tab ?? '';
           }
         });
         setCards(updatedCards);
-        setContextMenu(false);
+        setContextId(false);
         break;
       case ContextMenuAction.Delete:
-        updatedCards[targetColumn] = updatedCards[targetColumn].filter((card) => card.id !== contextMenu);
+        updatedCards[targetColumn] = updatedCards[targetColumn].filter((card) => card.id !== contextId);
         setCards(updatedCards);
-        setContextMenu(false);
+        setContextId(false);
         break;
       default:
         break;
@@ -288,9 +292,9 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
       </DragDropContext>
       {renderCard()}
       {<NewCardModal isVisible={showNewCardModal} createCard={createCard} closeNewCardModal={closeNewCardModal} />}
-      {contextMenu && (
+      {contextId && (
         <SmallCardContextMenu
-          cardId={contextMenu}
+          cardId={contextId}
           handleContextMenuClose={handleContextMenuClose}
           handleContextClick={handleContextClick}
           menuPosition={menuPosition}

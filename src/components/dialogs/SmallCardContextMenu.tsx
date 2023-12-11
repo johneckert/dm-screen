@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Menu, MenuItem, MenuList, ListItemText, ListItemIcon } from '@mui/material';
-import { Check } from '@mui/icons-material';
+import { Check, Delete, Launch } from '@mui/icons-material';
 import useTabStorage from '../../hooks/useTabStorage';
 import useActiveTabStorage from '../../hooks/useActiveTabStorage';
 import { ContextMenuAction } from '../../interfaces';
@@ -22,7 +22,7 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
   const { top, left } = menuPosition;
   const [tabs, _] = useTabStorage();
   const [activeTab, __] = useActiveTabStorage();
-  console.log(cardId);
+
   return (
     <Menu
       open={true}
@@ -33,7 +33,10 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
     >
       <MenuList sx={{ minWidth: 200 }}>
         <MenuItem key="open" onClick={() => handleContextClick(ContextMenuAction.Open)}>
-          Open
+          <ListItemIcon>
+            <Launch />
+          </ListItemIcon>
+          <ListItemText>Open</ListItemText>
         </MenuItem>
         <Divider />
         <MenuItem>Move</MenuItem>
@@ -46,12 +49,15 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
             ) : (
               <ListItemIcon></ListItemIcon>
             )}
-            <ListItemText sx={{ pl: 2 }}>{toUpper(tab)}</ListItemText>
+            <ListItemText>{toUpper(tab)}</ListItemText>
           </MenuItem>
         ))}
         <Divider />
         <MenuItem key="delete" onClick={() => handleContextClick(ContextMenuAction.Delete)}>
-          Delete
+          <ListItemIcon>
+            <Delete />
+          </ListItemIcon>
+          <ListItemText>Delete</ListItemText>
         </MenuItem>
       </MenuList>
     </Menu>
