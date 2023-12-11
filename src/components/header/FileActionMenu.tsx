@@ -6,7 +6,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { WHITE } from '../../colors';
 import { styled } from '@mui/material/styles';
 import { validateFileType } from '../../utils';
-import VerificationDialog from '../modals/VerificationDialog';
+import VerificationDialog from '../dialogs/VerificationDialog';
 import { DialogTypes, CardData } from '../../interfaces';
 import { DIALOG_MESSAGES, DEFAULT_TABS } from '../../constants';
 import useCardStorage from '../../hooks/useCardStorage';

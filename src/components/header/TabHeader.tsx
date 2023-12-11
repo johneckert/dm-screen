@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Divider, Tabs, Tab, Theme } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import NewTabDialog from '../modals/NewTabDialog';
+import NewTabDialog from '../dialogs/NewTabDialog';
 import { RED, WHITE } from '../../colors';
 
 interface TabHeaderProps {

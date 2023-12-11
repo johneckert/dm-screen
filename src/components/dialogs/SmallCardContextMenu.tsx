@@ -1,7 +1,10 @@
 import React from 'react';
-import { Divider, Menu, MenuItem, MenuList, ListItemText } from '@mui/material';
-import useTabStorage from '../../../hooks/useTabStorage';
-import { ContextMenuAction } from '../../../interfaces';
+import { Divider, Menu, MenuItem, MenuList, ListItemText, ListItemIcon } from '@mui/material';
+import { Check } from '@mui/icons-material';
+import useTabStorage from '../../hooks/useTabStorage';
+import useActiveTabStorage from '../../hooks/useActiveTabStorage';
+import { ContextMenuAction } from '../../interfaces';
+import { toUpper } from 'lodash';
 
 interface SmallCardContextMenuProps {
   cardId: string;
@@ -18,6 +21,7 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
 }) => {
   const { top, left } = menuPosition;
   const [tabs, _] = useTabStorage();
+  const [activeTab, __] = useActiveTabStorage();
   console.log(cardId);
   return (
     <Menu
@@ -30,10 +34,17 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
       <MenuList sx={{ minWidth: 200 }}>
         <MenuItem onClick={() => handleContextClick(ContextMenuAction.Open)}>Open</MenuItem>
         <Divider />
-        <MenuItem>Move Tab</MenuItem>
+        <MenuItem>Move</MenuItem>
         {tabs.map((tab) => (
           <MenuItem onClick={() => handleContextClick(ContextMenuAction.Move, tab)}>
-            <ListItemText sx={{ pl: 2 }}>{tab}</ListItemText>
+            {tab === activeTab ? (
+              <ListItemIcon>
+                <Check />
+              </ListItemIcon>
+            ) : (
+              <ListItemIcon></ListItemIcon>
+            )}
+            <ListItemText sx={{ pl: 2 }}>{toUpper(tab)}</ListItemText>
           </MenuItem>
         ))}
         <Divider />

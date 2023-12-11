@@ -11,9 +11,9 @@ import ExpandedMapCard from '../cards/expandedCards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
 import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
 import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
-import NewCardModal from '../modals/NewCardModal';
+import NewCardModal from '../dialogs/NewCardModal';
 import { GREY } from '../../colors';
-import SmallCardContextMenu from '../cards/smallCards/SmallCardContextMenu';
+import SmallCardContextMenu from '../dialogs/SmallCardContextMenu';
 
 interface StyleProps {
   screenSize: ScreenSize;
@@ -62,7 +62,6 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
 
   const handleContextMenuOpen = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
     event.preventDefault();
-    console.log(id);
     setMenuPosition({ top: event.clientY, left: event.clientX });
     setContextMenu(id);
   };
