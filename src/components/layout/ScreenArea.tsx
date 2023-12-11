@@ -160,8 +160,12 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
 
   const deleteCard = (cardData: CardData): void => {
     const targetColumn = cards[cardData.column];
-    targetColumn.filter((card) => card.id !== cardData.id);
-    setCards(cards);
+    const targetCard = targetColumn.find((card) => card.id === cardData.id);
+    if (targetCard) {
+      const targetIndex = targetColumn.indexOf(targetCard);
+      targetColumn.splice(targetIndex, 1);
+      setCards(cards);
+    }
   };
 
   useEffect(() => {
