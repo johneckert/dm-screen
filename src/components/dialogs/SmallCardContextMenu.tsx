@@ -32,11 +32,13 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
       data-testid="custom-menu"
     >
       <MenuList sx={{ minWidth: 200 }}>
-        <MenuItem onClick={() => handleContextClick(ContextMenuAction.Open)}>Open</MenuItem>
+        <MenuItem key="open" onClick={() => handleContextClick(ContextMenuAction.Open)}>
+          Open
+        </MenuItem>
         <Divider />
         <MenuItem>Move</MenuItem>
         {tabs.map((tab) => (
-          <MenuItem onClick={() => handleContextClick(ContextMenuAction.Move, tab)}>
+          <MenuItem key={tab} onClick={() => handleContextClick(ContextMenuAction.Move, tab)}>
             {tab === activeTab ? (
               <ListItemIcon>
                 <Check />
@@ -48,7 +50,9 @@ const SmallCardContextMenu: React.FC<SmallCardContextMenuProps> = ({
           </MenuItem>
         ))}
         <Divider />
-        <MenuItem onClick={() => handleContextClick(ContextMenuAction.Delete)}>Delete</MenuItem>
+        <MenuItem key="delete" onClick={() => handleContextClick(ContextMenuAction.Delete)}>
+          Delete
+        </MenuItem>
       </MenuList>
     </Menu>
   );
