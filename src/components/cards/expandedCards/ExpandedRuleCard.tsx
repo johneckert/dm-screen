@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../../interfaces';
 import { RULE_DATA } from '../../../ruleData';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import TabSelect from '../cardFields/TabSelect';
 import { Box, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
@@ -203,13 +202,12 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
   const cardContent = expandedCardData.content as RuleCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
-  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const ruleData = RULE_DATA[title];
   const subRules = Object.keys(ruleData);
   const classes = useStyles({ isEditing });
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, content: { title: title }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { title: title } });
     }
     setIsEditing(!isEditing);
   };
@@ -234,7 +232,6 @@ const ExpandedRuleCard: React.FC<ExpandedRuleCardProps> = ({
               Choose Rule
             </Typography>
           </Box>
-          <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
           <RuleCardForm content={{ title: title }} setContent={(content: RuleCardContent) => setTitle(content.title)} />
         </>
       ) : (

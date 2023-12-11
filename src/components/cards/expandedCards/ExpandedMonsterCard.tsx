@@ -4,7 +4,6 @@ import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import TabSelect from '../cardFields/TabSelect';
 import MonsterCardForm from '../newCardForms/MonsterCardForm';
 import DisplayField from '../cardFields/DisplayField';
 import StatField from '../cardFields/StatField';
@@ -94,7 +93,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [languages, setLanguages] = useState(cardContent.languages);
   const [description, setDescription] = useState(cardContent.description);
   const [notes, setNotes] = useState(cardContent.notes);
-  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
     title,
@@ -166,7 +164,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         content: {
           ...formContent,
         },
-        tab: cardTab,
       });
     }
     setIsEditing(!isEditing);
@@ -186,7 +183,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <MonsterCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
