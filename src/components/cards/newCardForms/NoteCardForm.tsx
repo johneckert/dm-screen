@@ -8,7 +8,6 @@ const NoteCardForm: React.FC<{
 }> = ({ content, setContent }) => {
   return (
     <div data-testid="note-form">
-      <FormDivider type={CardType.Note} />
       <TextField
         id="title"
         label="Title"

@@ -9,7 +9,6 @@ const PlayerCardForm: React.FC<{
   const statFieldStyles = { paddingBottom: 2, maxWidth: 70 };
   return (
     <div data-testid="player-form">
-      <FormDivider type={CardType.Player} />
       <TextField
         id="title"
         label="Character Name"
