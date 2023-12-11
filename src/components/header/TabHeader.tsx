@@ -9,10 +9,10 @@ interface TabHeaderProps {
   setTabs: (tabs: string[]) => void;
   activeTab: string;
   setActiveTab: (activeTab: string) => void;
-  setShowNewCardModal: (show: boolean) => void;
+  setShowNewCardDialog: (show: boolean) => void;
 }
 
-const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardModal }) => {
+const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardDialog }) => {
   const [isSticky, setSticky] = useState<boolean>(false);
   const [showNewTabDialog, setshowNewTabDialog] = useState<boolean>(false);
 
@@ -31,7 +31,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
   };
 
   const openNewCardDialog = () => {
-    setShowNewCardModal(true);
+    setShowNewCardDialog(true);
   };
 
   const createNewTab = (name: string) => {

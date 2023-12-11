@@ -1,18 +1,18 @@
 import { render, screen, act } from '@testing-library/react';
-import NewCardModal from './NewCardModal';
+import NewCardDialog from './NewCardDialog';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from '../../theme';
 
-const mockCloseNewCardModal = jest.fn();
+const mockCloseNewCardDialog = jest.fn();
 const mockCreateNewCard = jest.fn();
 
 // TODO: Add tests for all card types - how to manipulate select field?
 
-describe('<NewCardModal />', () => {
+describe('<NewCardDialog />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+        <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('expanded-card')).toBeInTheDocument();
@@ -21,7 +21,7 @@ describe('<NewCardModal />', () => {
   it('renders select field for card type', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+        <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('card-type-select')).toBeInTheDocument();
@@ -30,7 +30,7 @@ describe('<NewCardModal />', () => {
   it('renders select field for column', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+        <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('card-column-select')).toBeInTheDocument();
@@ -39,7 +39,7 @@ describe('<NewCardModal />', () => {
   it('renders correct form', () => {
     render(
       <ThemeProvider theme={theme}>
-        <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+        <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('note-form')).toBeInTheDocument();
@@ -49,29 +49,29 @@ describe('<NewCardModal />', () => {
     it('renders cancel button', () => {
       render(
         <ThemeProvider theme={theme}>
-          <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+          <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
         </ThemeProvider>,
       );
       expect(screen.getByTestId('cancel-button')).toBeInTheDocument();
     });
 
-    it('calls closeNewCardModal when cancel button is clicked', () => {
+    it('calls closeNewCardDialog when cancel button is clicked', () => {
       render(
         <ThemeProvider theme={theme}>
-          <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+          <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
         </ThemeProvider>,
       );
       const cancelButton = screen.getByTestId('cancel-button');
       act(() => {
         cancelButton.click();
       });
-      expect(mockCloseNewCardModal).toHaveBeenCalledTimes(1);
+      expect(mockCloseNewCardDialog).toHaveBeenCalledTimes(1);
     });
 
     it('renders save button', () => {
       render(
         <ThemeProvider theme={theme}>
-          <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+          <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
         </ThemeProvider>,
       );
       expect(screen.getByTestId('save-button')).toBeInTheDocument();
@@ -80,7 +80,7 @@ describe('<NewCardModal />', () => {
     it('calls handleEdit when save button is clicked', () => {
       render(
         <ThemeProvider theme={theme}>
-          <NewCardModal isVisible={true} closeNewCardModal={mockCloseNewCardModal} createCard={mockCreateNewCard} />
+          <NewCardDialog isVisible={true} closeNewCardDialog={mockCloseNewCardDialog} createCard={mockCreateNewCard} />
         </ThemeProvider>,
       );
       const saveButton = screen.getByTestId('save-button');

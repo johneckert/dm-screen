@@ -11,7 +11,7 @@ import ExpandedMapCard from '../cards/expandedCards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
 import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
 import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
-import NewCardModal from '../dialogs/NewCardModal';
+import NewCardDialog from '../dialogs/NewCardDialog';
 import { GREY } from '../../colors';
 import SmallCardContextMenu from '../dialogs/SmallCardContextMenu';
 
@@ -34,11 +34,11 @@ const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
 
 interface ScreenAreaProps {
   activeTab: string;
-  showNewCardModal: boolean;
-  setShowNewCardModal: (showNewCardModal: boolean) => void;
+  showNewCardDialog: boolean;
+  setShowNewCardDialog: (showNewCardDialog: boolean) => void;
 }
 
-const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, setShowNewCardModal }) => {
+const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, setShowNewCardDialog }) => {
   const [cards, setCards] = useCardStorage();
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
   const classes = useStyles({ screenSize: screenSize });
@@ -134,8 +134,8 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
     return updatedList;
   };
 
-  const closeNewCardModal = () => {
-    setShowNewCardModal(false);
+  const closeNewCardDialog = () => {
+    setShowNewCardDialog(false);
   };
 
   const createCard = (cardData: CardData) => {
@@ -146,7 +146,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
       ...cards,
       [`${columnKey}`]: targetColumn,
     });
-    setShowNewCardModal(false);
+    setShowNewCardDialog(false);
   };
 
   const updateCard = (cardData: CardData): void => {
@@ -291,7 +291,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardModal, se
         </div>
       </DragDropContext>
       {renderCard()}
-      {<NewCardModal isVisible={showNewCardModal} createCard={createCard} closeNewCardModal={closeNewCardModal} />}
+      {<NewCardDialog isVisible={showNewCardDialog} createCard={createCard} closeNewCardDialog={closeNewCardDialog} />}
       {contextId && (
         <SmallCardContextMenu
           handleContextMenuClose={handleContextMenuClose}
