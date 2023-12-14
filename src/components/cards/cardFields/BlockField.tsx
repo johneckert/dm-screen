@@ -5,10 +5,6 @@ import { Theme } from '@mui/material/styles';
 import { CardType } from '../../../interfaces';
 import { PURPLE, WHITE } from '../../../colors';
 
-interface StyleProps {
-  type: CardType | undefined;
-}
-
 const BlockField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean; cardType?: CardType }> = ({
   label,
   value = '',
