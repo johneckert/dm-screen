@@ -11,6 +11,7 @@ describe('<SmallCardLayout />', () => {
   it('renders', () => {
     render(
       <SmallCardLayout
+        id={mockCardData.id}
         content={mockCardData.content}
         type={CardType.Note}
         handleContextMenuOpen={mockHandleContextMenuOpen}
@@ -22,6 +23,7 @@ describe('<SmallCardLayout />', () => {
   it('renders an avatar', () => {
     render(
       <SmallCardLayout
+        id={mockCardData.id}
         content={mockCardData.content}
         type={CardType.Note}
         handleContextMenuOpen={mockHandleContextMenuOpen}
@@ -33,6 +35,7 @@ describe('<SmallCardLayout />', () => {
   it('renders the title', () => {
     render(
       <SmallCardLayout
+        id={mockCardData.id}
         content={mockCardData.content}
         type={CardType.Note}
         handleContextMenuOpen={mockHandleContextMenuOpen}
@@ -44,6 +47,7 @@ describe('<SmallCardLayout />', () => {
   it('opens a custom menu when right clicked', () => {
     render(
       <SmallCardLayout
+        id={mockCardData.id}
         content={mockCardData.content}
         type={CardType.Note}
         handleContextMenuOpen={mockHandleContextMenuOpen}
@@ -51,6 +55,6 @@ describe('<SmallCardLayout />', () => {
     );
     const card = screen.getByTestId('basic-card');
     card.dispatchEvent(new MouseEvent('contextmenu', { bubbles: true }));
-    expect(mockHandleContextMenuOpen).toHaveBeenCalled();
+    expect(mockHandleContextMenuOpen).toHaveBeenCalledWith(expect.anything(), mockCardData.id);
   });
 });
