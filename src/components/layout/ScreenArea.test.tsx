@@ -14,8 +14,8 @@ jest.mock('react-markdown', () => (props: { children: string }) => (
 const mockScreenAreaProps = {
   activeTab: 'tab-1',
   setActiveTab: jest.fn(),
-  showNewCardModal: false,
-  setShowNewCardModal: jest.fn(),
+  showNewCardDialog: false,
+  setShowNewCardDialog: jest.fn(),
 };
 
 const mockColumn = jest.fn().mockReturnValue(<div data-testid="column" />);

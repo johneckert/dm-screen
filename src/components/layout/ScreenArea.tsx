@@ -79,7 +79,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, s
     return card.column;
   };
 
-  const handleContextClick = (action: string, tab: string | undefined) => {
+  const handleContextClick = (action: ContextMenuAction, tab: string | undefined) => {
     console.log(action, tab);
     if (!contextId) {
       console.error('Card ID not found.');
