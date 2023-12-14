@@ -8,6 +8,7 @@ const mockColumnData = {
   columnId: 1,
   cards: mockCardData.filter((card) => card.column === 'droppable-1'),
   expandCard: jest.fn(),
+  handleContextMenuOpen: jest.fn(),
 };
 
 jest.mock('react-beautiful-dnd', () => ({
@@ -27,6 +28,7 @@ describe('<Column />', () => {
           cards={mockColumnData.cards}
           columnId={mockColumnData.columnId}
           expandCard={mockColumnData.expandCard}
+          handleContextMenuOpen={mockColumnData.handleContextMenuOpen}
         />
       </ThemeProvider>,
     );
@@ -40,6 +42,7 @@ describe('<Column />', () => {
           cards={mockColumnData.cards}
           columnId={mockColumnData.columnId}
           expandCard={mockColumnData.expandCard}
+          handleContextMenuOpen={mockColumnData.handleContextMenuOpen}
         />
       </ThemeProvider>,
     );

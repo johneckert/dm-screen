@@ -4,11 +4,12 @@ import { CardData } from '../../interfaces';
 import SmallCardLayout from '../cards/SmallCardLayout';
 import { Draggable } from 'react-beautiful-dnd';
 
-const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: string) => void }> = ({
-  card,
-  index,
-  expandCard,
-}) => {
+const DraggableCard: React.FC<{
+  card: CardData;
+  index: number;
+  expandCard: (id: string) => void;
+  handleContextMenuOpen: (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => void;
+}> = ({ card, index, expandCard, handleContextMenuOpen }) => {
   const handleClick = () => {
     expandCard(card.id);
   };
@@ -27,7 +28,13 @@ const DraggableCard: React.FC<{ card: CardData; index: number; expandCard: (id: 
             onClick={handleClick}
             data-testid="draggable-card"
           >
-            <SmallCardLayout key={card.id} type={card.type} content={card.content} />
+            <SmallCardLayout
+              key={card.id}
+              id={card.id}
+              type={card.type}
+              content={card.content}
+              handleContextMenuOpen={handleContextMenuOpen}
+            />
           </div>
         )
       }

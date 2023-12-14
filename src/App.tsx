@@ -14,7 +14,7 @@ import TabHeader from './components/header/TabHeader';
 function App() {
   const [tabs, setTabs] = useTabStorage();
   const [activeTab, setActiveTab] = useActiveTabStorage();
-  const [showNewCardModal, setShowNewCardModal] = useState<boolean>(false);
+  const [showNewCardDialog, setShowNewCardDialog] = useState<boolean>(false);
 
   return (
     <ErrorBoundary>
@@ -24,13 +24,13 @@ function App() {
         setTabs={setTabs}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        setShowNewCardModal={setShowNewCardModal}
+        setShowNewCardDialog={setShowNewCardDialog}
       />
       <ErrorBoundary>
         <ScreenArea
           activeTab={activeTab}
-          showNewCardModal={showNewCardModal}
-          setShowNewCardModal={setShowNewCardModal}
+          showNewCardDialog={showNewCardDialog}
+          setShowNewCardDialog={setShowNewCardDialog}
         />
       </ErrorBoundary>
     </ErrorBoundary>

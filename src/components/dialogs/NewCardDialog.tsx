@@ -81,11 +81,11 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-const NewCardModal: React.FC<{
+const NewCardDialog: React.FC<{
   isVisible: boolean;
-  closeNewCardModal: () => void;
+  closeNewCardDialog: () => void;
   createCard: (cardData: CardData) => void;
-}> = ({ isVisible, createCard, closeNewCardModal }) => {
+}> = ({ isVisible, createCard, closeNewCardDialog }) => {
   const classes = useStyles();
   const id = uuidv4();
   const activeTab = useReadLocalStorage<string>('activeTab') ?? DEFAULT_TABS[0];
@@ -100,7 +100,7 @@ const NewCardModal: React.FC<{
 
   const handleCancel = () => {
     setContent({} as GenericCardContent);
-    closeNewCardModal();
+    closeNewCardDialog();
   };
 
   const renderCardForm = () => {
@@ -178,4 +178,4 @@ const NewCardModal: React.FC<{
   );
 };
 
-export default NewCardModal;
+export default NewCardDialog;
