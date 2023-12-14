@@ -3,7 +3,7 @@ import TabHeader from './TabHeader';
 
 const mockSetActiveTab = jest.fn();
 const mockSetTabs = jest.fn();
-const mockShowNewCardModal = jest.fn();
+const mockShowNewCardDialog = jest.fn();
 
 const mockTabs = ['tab-1', 'tab-2'];
 const mockActiveTab = 'tab-1';
@@ -16,7 +16,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
     expect(screen.getByTestId('tab-header')).toBeInTheDocument();
@@ -29,7 +29,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
     expect(screen.getByText(/tab-1/i)).toBeInTheDocument();
@@ -43,7 +43,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
     expect(screen.getByText(/\+ Tab/i)).toBeInTheDocument();
@@ -56,7 +56,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
 
@@ -76,7 +76,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
 
@@ -95,7 +95,7 @@ describe('<TabHeader />', () => {
         setTabs={mockSetTabs}
         activeTab={mockActiveTab}
         setActiveTab={mockSetActiveTab}
-        setShowNewCardModal={mockShowNewCardModal}
+        setShowNewCardDialog={mockShowNewCardDialog}
       />,
     );
 
@@ -104,6 +104,6 @@ describe('<TabHeader />', () => {
     act(() => {
       newCard.click();
     });
-    expect(mockShowNewCardModal).toBeCalledWith(true);
+    expect(mockShowNewCardDialog).toBeCalledWith(true);
   });
 });

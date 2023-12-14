@@ -5,6 +5,7 @@ import theme from '../../theme';
 import { mockCardData } from '../../mockData';
 
 const mockExpandCard = jest.fn();
+const mockHandleContextMenuOpen = jest.fn();
 
 jest.mock('react-beautiful-dnd', () => ({
   Draggable: jest.fn(
@@ -19,7 +20,12 @@ describe('<DraggableCard />', () => {
   it('renders', () => {
     render(
       <ThemeProvider theme={theme}>
-        <DraggableCard card={mockCardData[0]} index={1} expandCard={mockExpandCard} />
+        <DraggableCard
+          card={mockCardData[0]}
+          index={1}
+          expandCard={mockExpandCard}
+          handleContextMenuOpen={mockHandleContextMenuOpen}
+        />
       </ThemeProvider>,
     );
     expect(screen.getByTestId('draggable-card')).toBeInTheDocument();
@@ -28,7 +34,12 @@ describe('<DraggableCard />', () => {
   it('calls expand card when clicked', () => {
     render(
       <ThemeProvider theme={theme}>
-        <DraggableCard card={mockCardData[0]} index={1} expandCard={mockExpandCard} />
+        <DraggableCard
+          card={mockCardData[0]}
+          index={1}
+          expandCard={mockExpandCard}
+          handleContextMenuOpen={mockHandleContextMenuOpen}
+        />
       </ThemeProvider>,
     );
     screen.getByTestId('draggable-card').click();

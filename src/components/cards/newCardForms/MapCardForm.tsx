@@ -8,7 +8,6 @@ const MapCardForm: React.FC<{
 }> = ({ content, setContent }) => {
   return (
     <Box sx={{ width: '100%' }} data-testid="map-form">
-      <FormDivider type={CardType.Map} />
       <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <TextField
           id="room-number"

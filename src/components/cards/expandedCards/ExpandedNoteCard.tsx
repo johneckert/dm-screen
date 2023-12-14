@@ -4,7 +4,6 @@ import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import TabSelect from '../cardFields/TabSelect';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import NoteCardForm from '../newCardForms/NoteCardForm';
@@ -63,7 +62,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.notes);
-  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles({ isEditing });
   const formContent = {
     title,
@@ -71,7 +69,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent } });
     }
     setIsEditing(!isEditing);
   };
@@ -95,7 +93,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>

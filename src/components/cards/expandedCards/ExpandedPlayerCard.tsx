@@ -4,7 +4,6 @@ import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { Theme } from '@mui/material/styles';
-import TabSelect from '../cardFields/TabSelect';
 import PlayerCardForm from '../newCardForms/PlayerCardForm';
 import DisplayField from '../cardFields/DisplayField';
 import IconField from '../cardFields/IconField';
@@ -97,7 +96,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [spellAttackBonus, setSpellAttackBonus] = useState(cardContent.spellAttackBonus);
   const [link, setLink] = useState(cardContent.link);
   const [languages, setLanguages] = useState(cardContent.languages);
-  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
     title,
@@ -180,7 +178,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
           link: link,
           notes: notes,
         },
-        tab: cardTab,
       });
     }
     setIsEditing(!isEditing);
@@ -200,7 +197,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>

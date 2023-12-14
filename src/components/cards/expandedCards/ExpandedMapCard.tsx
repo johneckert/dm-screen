@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { CardData, CardType, MapCardContent } from '../../../interfaces';
 import { Box, Typography, Avatar } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import TabSelect from '../cardFields/TabSelect';
 import { Theme } from '@mui/material/styles';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { avatarColor } from '../../../utils';
@@ -58,7 +57,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   const [notes, setNotes] = useState(cardContent.notes);
   const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
   const [readOutLoudText, setReadOutLoudText] = useState(cardContent.readOutLoudText);
-  const [cardTab, setCardTab] = useState(expandedCardData.tab);
   const classes = useStyles();
   const formContent = {
     title,
@@ -74,7 +72,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   };
   const handleEdit = () => {
     if (isEditing) {
-      updateCard({ ...expandedCardData, content: { ...formContent }, tab: cardTab });
+      updateCard({ ...expandedCardData, content: { ...formContent } });
     }
     setIsEditing(!isEditing);
   };
@@ -93,7 +91,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             Editing
           </Typography>
           <Box className={classes.editView}>
-            <TabSelect cardTab={cardTab} setCardTab={setCardTab} />
             <MapCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
