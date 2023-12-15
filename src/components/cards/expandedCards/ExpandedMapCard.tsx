@@ -1,42 +1,12 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MapCardContent } from '../../../interfaces';
 import { Box, Typography, Avatar } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { avatarColor } from '../../../utils';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import MapCardForm from '../newCardForms/MapCardForm';
-
-const useStyles = makeStyles<Theme>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  editView: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: theme.spacing(2),
-    overflowY: 'scroll',
-    fontSize: theme.spacing(6),
-    fontWeight: 400,
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-  modalTitle: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(1.5),
-  },
-}));
+import CardBodyLayout from '../../layout/CardBodyLayout';
 
 interface ExpandedMapCardProps {
   closeExpandedCard: () => void;
@@ -57,7 +27,6 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   const [notes, setNotes] = useState(cardContent.notes);
   const [roomNumber, setRoomNumber] = useState(cardContent.roomNumber);
   const [readOutLoudText, setReadOutLoudText] = useState(cardContent.readOutLoudText);
-  const classes = useStyles();
   const formContent = {
     title,
     roomNumber,
@@ -87,16 +56,44 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="map-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography
+            id="map-card-title"
+            component="h3"
+            sx={(theme) => {
+              return {
+                alignSelf: 'center',
+                margin: theme.spacing(4),
+                paddingX: theme.spacing(2),
+                paddingTop: theme.spacing(1.5),
+              };
+            }}
+          >
             Editing
           </Typography>
-          <Box className={classes.editView}>
+          <CardBodyLayout
+            sxOverrides={(theme) => {
+              return {
+                padding: theme.spacing(2),
+                fontSize: theme.spacing(6),
+                fontWeight: 400,
+                alignItems: 'flex-start',
+                justifyContent: 'space-between',
+              };
+            }}
+          >
             <MapCardForm content={formContent} setContent={handleContentUpdate} />
-          </Box>
+          </CardBodyLayout>
         </>
       ) : (
         <>
-          <Box className={classes.header}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
             <Avatar
               aria-label="avatar"
               sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60, marginBottom: 2, marginRight: 2 }}
@@ -106,10 +103,10 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
             </Avatar>
             <CardHeader title={title} handleEdit={handleEdit} />
           </Box>
-          <Box className={classes.body}>
+          <CardBodyLayout>
             <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />
             <BlockField label="DM Notes" value={notes} />
-          </Box>
+          </CardBodyLayout>
         </>
       )}
     </ExpandedCardLayout>
