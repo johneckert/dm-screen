@@ -22,7 +22,7 @@ const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, handleCont
       data-testid="column"
       sx={(theme) => {
         return {
-          width: () => (screenSize.width - 16) / numberOfColumns,
+          width: (screenSize.width - 16) / numberOfColumns,
           paddingLeft: theme.spacing(1),
           paddingRight: theme.spacing(1),
           [theme.breakpoints.up(BREAKPOINTS.lg)]: {

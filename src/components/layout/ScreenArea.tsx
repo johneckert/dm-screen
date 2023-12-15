@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { CardData, CardType, ContextMenuAction, ScreenSize } from '../../interfaces';
 import Column from './Column';
-import makeStyles from '@mui/styles/makeStyles';
-import { Theme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 import { getScreenSize } from '../../utils';
 import useCardStorage from '../../hooks/useCardStorage';
 import ExpandedNoteCard from '../cards/expandedCards/ExpandedNoteCard';
@@ -15,23 +14,6 @@ import NewCardDialog from '../dialogs/NewCardDialog';
 import { GREY } from '../../colors';
 import SmallCardContextMenu from '../dialogs/SmallCardContextMenu';
 
-interface StyleProps {
-  screenSize: ScreenSize;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  screenArea: {
-    width: ({ screenSize }) => screenSize.width,
-    minHeight: ({ screenSize }) => screenSize.height,
-    height: '100%',
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    display: 'flex',
-    flexWrap: 'wrap',
-    backgroundColor: GREY[100],
-  },
-}));
-
 interface ScreenAreaProps {
   activeTab: string;
   showNewCardDialog: boolean;
@@ -41,7 +23,6 @@ interface ScreenAreaProps {
 const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, setShowNewCardDialog }) => {
   const [cards, setCards] = useCardStorage();
   const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
-  const classes = useStyles({ screenSize: screenSize });
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
   const [contextId, setContextId] = useState<string | false>(false);
@@ -263,7 +244,21 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, s
   return (
     <>
       <DragDropContext onDragEnd={onDragEnd}>
-        <div className={classes.screenArea} data-testid="screen-area">
+        <Box
+          sx={(theme) => {
+            return {
+              width: screenSize.width,
+              minHeight: screenSize.height,
+              height: '100%',
+              paddingLeft: theme.spacing(1),
+              paddingRight: theme.spacing(1),
+              display: 'flex',
+              flexWrap: 'wrap',
+              backgroundColor: GREY[100],
+            };
+          }}
+          data-testid="screen-area"
+        >
           <Column
             columnId={1}
             cards={activeTabCards(cards['droppable-1'])}
@@ -288,7 +283,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, s
             expandCard={setExpandedCardId}
             handleContextMenuOpen={handleContextMenuOpen}
           />
-        </div>
+        </Box>
       </DragDropContext>
       {renderCard()}
       {<NewCardDialog isVisible={showNewCardDialog} createCard={createCard} closeNewCardDialog={closeNewCardDialog} />}

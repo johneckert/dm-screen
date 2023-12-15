@@ -1,7 +1,5 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ScreenArea from './ScreenArea';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
 import { mockCardDataMap } from '../../mockData';
 import { ColumnProps } from './Column';
 
@@ -27,20 +25,12 @@ jest.mock('./Column.tsx', () => (props: ColumnProps) => {
 
 describe('<ScreenArea />', () => {
   it('renders', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ScreenArea {...mockScreenAreaProps} />
-      </ThemeProvider>,
-    );
+    render(<ScreenArea {...mockScreenAreaProps} />);
     expect(screen.getByTestId('screen-area')).toBeInTheDocument();
   });
 
   it('filters cards based on active tab before passing to child components', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ScreenArea {...mockScreenAreaProps} />
-      </ThemeProvider>,
-    );
+    render(<ScreenArea {...mockScreenAreaProps} />);
 
     const cardsFromFirstColumnProps = mockColumn.mock.calls[0][0].cards;
     const mockCardsForColumnOneTabOne = mockCardDataMap['droppable-1'].filter((card) => card.tab === 'tab-1');
@@ -49,11 +39,7 @@ describe('<ScreenArea />', () => {
   });
 
   it('resizes the screen area when the window is resized', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <ScreenArea {...mockScreenAreaProps} />
-      </ThemeProvider>,
-    );
+    render(<ScreenArea {...mockScreenAreaProps} />);
     const screenArea = screen.getByTestId('screen-area');
 
     act(() => {
