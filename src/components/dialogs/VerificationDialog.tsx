@@ -32,7 +32,7 @@ const VerificationDialog: React.FC<VerificationDialogProps> = ({
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            backgroundColor: '#ffffff',
+            backgroundColor: theme.palette.background.paper,
             border: 'none',
             borderRadius: theme.spacing(1.5),
             boxShadow: '24px',

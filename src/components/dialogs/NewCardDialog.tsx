@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
-import { Modal, Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import {
   GenericCardContent,
@@ -23,6 +23,7 @@ import CardTypeSelect from '../cards/cardFields/CardTypeSelect';
 import CardColumnSelect from '../cards/cardFields/CardColumnSelect';
 import CardBodyLayout from '../layout/CardBodyLayout';
 import RowLayout from '../layout/RowLayout';
+import ModalLayout from '../layout/ModalLayout';
 
 const NewCardDialog: React.FC<{
   isVisible: boolean;
@@ -67,114 +68,50 @@ const NewCardDialog: React.FC<{
   };
 
   return (
-    <Modal
-      open={!!isVisible}
-      onClose={handleCancel}
-      aria-labelledby="modal-title"
-      aria-describedby="modal-description"
-      data-testid="expanded-card"
-    >
-      <Box
+    <ModalLayout isVisible={!!isVisible} close={handleCancel}>
+      <Typography
+        id="modal-title"
+        variant="h3"
+        component="h3"
         sx={(theme) => {
           return {
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: '50%',
-            height: '80%',
-            backgroundColor: '#ffffff',
-            border: 'none',
-            borderRadius: theme.spacing(1.5),
-            boxShadow: '24px',
-            padding: theme.spacing(2),
-            display: 'flex',
-            flexDirection: 'column',
+            margin: theme.spacing(4),
+            paddingX: theme.spacing(2),
+            paddingTop: theme.spacing(1.5),
+            alignSelf: 'center',
           };
         }}
       >
-        <Typography
-          id="modal-title"
-          variant="h3"
-          component="h3"
-          sx={(theme) => {
-            return {
-              margin: theme.spacing(4),
-              paddingX: theme.spacing(2),
-              paddingTop: theme.spacing(1.5),
-              alignSelf: 'center',
-            };
-          }}
-        >
-          Create Card
-        </Typography>
-        <Box
-          sx={(theme) => {
-            return {
-              display: 'flex',
-              flexDirection: 'column',
-              padding: theme.spacing(2),
-              overflowY: 'scroll',
-              fontSize: theme.spacing(6),
-              fontWeight: 400,
-              alignItems: 'flex-start',
-              justifyContent: 'space-between',
-            };
-          }}
-        >
-          <CardBodyLayout
-            sxOverrides={{
-              justifyContent: 'space-between',
-              width: '100%',
-            }}
-          >
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
-              <CardTypeSelect cardType={cardType} setCardType={setCardType} />
-              <CardColumnSelect cardColumn={cardColumn} setCardColumn={setCardColumn} />
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderCardForm()}</Box>
-          </CardBodyLayout>
-          <RowLayout sxOverrides={{ justifyContent: 'space-between' }}>
-            <Button
-              variant="outlined"
-              aria-label="cancel-button"
-              data-testid="cancel-button"
-              onClick={handleCancel}
-              sx={(theme) => {
-                return {
-                  alignSelf: 'center',
-                  justifyContent: 'center',
-                  width: 'fit-content',
-                  padding: theme.spacing(1),
-                  marginLeft: 'auto',
-                };
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              variant="contained"
-              disabled={cardType === CardType.Rule && !content?.title}
-              aria-label="save-button"
-              data-testid="save-button"
-              onClick={handleSave}
-              sx={(theme) => {
-                return {
-                  alignSelf: 'center',
-                  justifyContent: 'center',
-                  width: 'fit-content',
-                  padding: theme.spacing(1),
-                  marginLeft: 'auto',
-                };
-              }}
-            >
-              <CheckIcon />
-              Save
-            </Button>
-          </RowLayout>
+        Create Card
+      </Typography>
+      <CardBodyLayout
+        sxOverrides={{
+          justifyContent: 'space-between',
+          width: '100%',
+        }}
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+          <CardTypeSelect cardType={cardType} setCardType={setCardType} />
+          <CardColumnSelect cardColumn={cardColumn} setCardColumn={setCardColumn} />
         </Box>
-      </Box>
-    </Modal>
+        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderCardForm()}</Box>
+      </CardBodyLayout>
+      <RowLayout sxOverrides={{ justifyContent: 'space-between' }}>
+        <Button variant="outlined" aria-label="cancel-button" data-testid="cancel-button" onClick={handleCancel}>
+          Cancel
+        </Button>
+        <Button
+          variant="contained"
+          disabled={cardType === CardType.Rule && !content?.title}
+          aria-label="save-button"
+          data-testid="save-button"
+          onClick={handleSave}
+        >
+          <CheckIcon />
+          Save
+        </Button>
+      </RowLayout>
+    </ModalLayout>
   );
 };
 
