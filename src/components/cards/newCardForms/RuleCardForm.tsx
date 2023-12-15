@@ -1,8 +1,9 @@
 import { SelectChangeEvent } from '@mui/material';
-import { Box, Select, InputLabel, MenuItem } from '@mui/material';
+import { Select, InputLabel, MenuItem } from '@mui/material';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';
+import GroupLayout from '../../layout/GroupLayout';
 
 const RuleCardForm: React.FC<{
   content: RuleCardContent;
@@ -13,7 +14,7 @@ const RuleCardForm: React.FC<{
   };
   return (
     <div data-testid="rule-form">
-      <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
+      <GroupLayout sxOverrides={{ p: 0 }}>
         <InputLabel id="rule-select-label">Rule*</InputLabel>
         <Select
           labelId="rule-select-label"
@@ -31,7 +32,7 @@ const RuleCardForm: React.FC<{
             </MenuItem>
           ))}
         </Select>
-      </Box>
+      </GroupLayout>
     </div>
   );
 };

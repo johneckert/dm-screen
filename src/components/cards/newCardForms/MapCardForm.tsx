@@ -1,14 +1,15 @@
-import { Box, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import { MapCardContent, CardType } from '../../../interfaces';
 import FormDivider from '../cardFields/FormDivider';
+import RowLayout from '../../layout/RowLayout';
 
 const MapCardForm: React.FC<{
   content: MapCardContent;
   setContent: React.Dispatch<React.SetStateAction<MapCardContent>> | ((content: MapCardContent) => void);
 }> = ({ content, setContent }) => {
   return (
-    <Box sx={{ width: '100%' }} data-testid="map-form">
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+    <div data-testid="map-form">
+      <RowLayout>
         <TextField
           id="room-number"
           label="Room Number"
@@ -28,7 +29,7 @@ const MapCardForm: React.FC<{
           onChange={(e) => setContent({ ...content, title: e.target.value })}
           data-testid="title-input"
         />
-      </Box>
+      </RowLayout>
       <FormDivider type={CardType.Map} />
       <TextField
         id="read-out-loud-text"
@@ -55,7 +56,7 @@ const MapCardForm: React.FC<{
         onChange={(e) => setContent({ ...content, notes: e.target.value })}
         data-testid="notes-input"
       />
-    </Box>
+    </div>
   );
 };
 

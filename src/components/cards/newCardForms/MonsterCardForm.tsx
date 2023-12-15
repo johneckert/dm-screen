@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { APIMonsterData } from '../../../interfaces';
 import { CUSTOM_MONSTER } from '../../../constants';
-import { Box, InputLabel, TextField, CircularProgress, Select, MenuItem } from '@mui/material';
+import { InputLabel, TextField, CircularProgress, Select, MenuItem } from '@mui/material';
 import { MonsterCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import FormDivider from '../cardFields/FormDivider';
 import { CardType } from '../../../interfaces';
+import GroupLayout from '../../layout/GroupLayout';
+import RowLayout from '../../layout/RowLayout';
 
 const MonsterCardForm: React.FC<{
   content: MonsterCardContent;
@@ -55,13 +57,13 @@ const MonsterCardForm: React.FC<{
 
   return (
     <div data-testid="monster-form">
-      <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>
+      <GroupLayout sxOverrides={{ p: 0 }}>
         <InputLabel id="monster-preset-label">Monster Preset</InputLabel>
-        <span style={{ display: 'flex', width: '100%' }}>
+        <RowLayout sxOverrides={{ padding: 0 }}>
           <Select
             labelId="monster-preset-label"
-            sx={{ mr: 2, width: '90%' }}
             id="monster-preset"
+            fullWidth
             value={selectedMonster.name}
             onChange={(e) => setSelectedMonsterFromList(e.target.value)}
           >
@@ -71,11 +73,11 @@ const MonsterCardForm: React.FC<{
               </MenuItem>
             ))}
           </Select>
-          {isLoading ? <CircularProgress sx={{ alignSelf: 'center' }} /> : null}
-        </span>
-      </Box>
+          {isLoading ? <CircularProgress sx={{ alignSelf: 'center', ml: 2 }} /> : null}
+        </RowLayout>
+      </GroupLayout>
       {selectedMonster.name === 'custom' ? (
-        <>
+        <GroupLayout sxOverrides={{ p: 0 }}>
           <FormDivider type={CardType.Monster} />
           <TextField
             id="title"
@@ -86,7 +88,7 @@ const MonsterCardForm: React.FC<{
             value={content.title}
             onChange={(e) => setContent({ ...content, title: e.target.value })}
           />
-          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          <RowLayout>
             <TextField
               id="size"
               label="Size"
@@ -111,9 +113,9 @@ const MonsterCardForm: React.FC<{
               value={content.challengeRating}
               onChange={(e) => setContent({ ...content, challengeRating: e.target.value })}
             />
-          </Box>
+          </RowLayout>
           <FormDivider type={CardType.Monster} />
-          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+          <RowLayout>
             <TextField
               id="strength"
               label="STR"
@@ -162,9 +164,9 @@ const MonsterCardForm: React.FC<{
               value={content.charisma}
               onChange={(e) => setContent({ ...content, charisma: e.target.value })}
             />
-          </Box>
+          </RowLayout>
           <FormDivider type={CardType.Monster} />
-          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+          <RowLayout>
             <TextField
               id="hp"
               label="HP"
@@ -181,10 +183,10 @@ const MonsterCardForm: React.FC<{
               value={content.ac}
               onChange={(e) => setContent({ ...content, ac: e.target.value })}
             />
-          </Box>
+          </RowLayout>
           <FormDivider type={CardType.Monster} />
-          <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+          <RowLayout>
+            <GroupLayout sxOverrides={{ width: '45%' }}>
               <TextField
                 id="vulnerabilities"
                 label="Vulnerabilties"
@@ -217,8 +219,8 @@ const MonsterCardForm: React.FC<{
                 value={content.conditionImmunities}
                 onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
               />
-            </Box>
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+            </GroupLayout>
+            <GroupLayout sxOverrides={{ width: '45%' }}>
               <TextField
                 id="proficincies"
                 label="Proficincies"
@@ -252,74 +254,76 @@ const MonsterCardForm: React.FC<{
                 value={content.speed}
                 onChange={(e) => setContent({ ...content, speed: e.target.value })}
               />
-            </Box>
-          </Box>
+            </GroupLayout>
+          </RowLayout>
           <FormDivider type={CardType.Monster} />
-          <TextField
-            id="special-abilities"
-            label="Special Abilties"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.specialAbilities}
-            onChange={(e) => setContent({ ...content, specialAbilities: e.target.value })}
-          />
-          <TextField
-            id="actions"
-            label="Actions"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.actions}
-            onChange={(e) => setContent({ ...content, actions: e.target.value })}
-          />
-          <TextField
-            id="legendary-actions"
-            label="Legendary Actions"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.legendaryActions}
-            onChange={(e) => setContent({ ...content, legendaryActions: e.target.value })}
-          />
-          <TextField
-            id="description"
-            label="Decription"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.description}
-            onChange={(e) => setContent({ ...content, description: e.target.value })}
-          />
-          <TextField
-            id="notes"
-            label="Notes"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2 }}
-            multiline
-            rows={18}
-            value={content.notes}
-            onChange={(e) => setContent({ ...content, notes: e.target.value })}
-          />
-          <TextField
-            id="image-url"
-            label="Image URL"
-            fullWidth
-            variant="outlined"
-            sx={{ paddingBottom: 2, display: 'none' }}
-            value={content.image}
-            onChange={(e) => setContent({ ...content, image: e.target.value })}
-          />
-        </>
+          <GroupLayout>
+            <TextField
+              id="special-abilities"
+              label="Special Abilties"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.specialAbilities}
+              onChange={(e) => setContent({ ...content, specialAbilities: e.target.value })}
+            />
+            <TextField
+              id="actions"
+              label="Actions"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.actions}
+              onChange={(e) => setContent({ ...content, actions: e.target.value })}
+            />
+            <TextField
+              id="legendary-actions"
+              label="Legendary Actions"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.legendaryActions}
+              onChange={(e) => setContent({ ...content, legendaryActions: e.target.value })}
+            />
+            <TextField
+              id="description"
+              label="Decription"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.description}
+              onChange={(e) => setContent({ ...content, description: e.target.value })}
+            />
+            <TextField
+              id="notes"
+              label="Notes"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2 }}
+              multiline
+              rows={18}
+              value={content.notes}
+              onChange={(e) => setContent({ ...content, notes: e.target.value })}
+            />
+            <TextField
+              id="image-url"
+              label="Image URL"
+              fullWidth
+              variant="outlined"
+              sx={{ paddingBottom: 2, display: 'none' }}
+              value={content.image}
+              onChange={(e) => setContent({ ...content, image: e.target.value })}
+            />
+          </GroupLayout>
+        </GroupLayout>
       ) : null}
     </div>
   );
