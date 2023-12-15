@@ -1,6 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../../theme';
 import PlayerCardSmall from './PlayerCardSmall';
 
 const mockPlayerCardContentNoValues = {
@@ -26,30 +24,18 @@ const mockPlayerCardContent = {
 
 describe('<PlayerCardSmall />', () => {
   it('renders ok with no content', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContentNoValues} />
-      </ThemeProvider>,
-    );
+    render(<PlayerCardSmall content={mockPlayerCardContentNoValues} />);
     expect(screen.getByTestId('small-player-card')).toBeInTheDocument();
   });
 
   it('renders correct data in character info row', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
-      </ThemeProvider>,
-    );
+    render(<PlayerCardSmall content={mockPlayerCardContent} />);
     expect(screen.getByText('Level 1 Human Wizard')).toBeInTheDocument();
     expect(screen.getByText('Sage')).toBeInTheDocument();
   });
 
   it('renders SmallCardStatTable', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <PlayerCardSmall content={mockPlayerCardContent} />
-      </ThemeProvider>,
-    );
+    render(<PlayerCardSmall content={mockPlayerCardContent} />);
     expect(screen.getByTestId('stat-table')).toBeInTheDocument();
   });
 });

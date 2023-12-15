@@ -1,7 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import FileActionMenu from './FileActionMenu';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
 import { act } from 'react-dom/test-utils';
 import { mockCardDataMap, mockSaveData } from '../../mockData';
 import { EMPTY_CARD_MAP } from '../../constants';
@@ -34,11 +32,7 @@ describe('<FileActionMenu />', () => {
     it('downloads cards when download button is clicked', () => {
       jest.spyOn(document, 'createElement');
 
-      render(
-        <ThemeProvider theme={theme}>
-          <FileActionMenu {...mockProps} />
-        </ThemeProvider>,
-      );
+      render(<FileActionMenu {...mockProps} />);
 
       act(() => {
         screen.getByTestId('download-button').click();
@@ -47,11 +41,7 @@ describe('<FileActionMenu />', () => {
     });
 
     it('uploads file and saves to localStorage', async () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <FileActionMenu {...mockProps} />
-        </ThemeProvider>,
-      );
+      render(<FileActionMenu {...mockProps} />);
 
       const inputEl = screen.getByTestId('file-input');
       Object.defineProperty(inputEl, 'files', {
@@ -69,11 +59,7 @@ describe('<FileActionMenu />', () => {
     });
 
     it('does not save file if file type is invalid', async () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <FileActionMenu {...mockProps} />
-        </ThemeProvider>,
-      );
+      render(<FileActionMenu {...mockProps} />);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -87,11 +73,7 @@ describe('<FileActionMenu />', () => {
     });
 
     it('shows feedback modal if file type is invalid', async () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <FileActionMenu {...mockProps} />
-        </ThemeProvider>,
-      );
+      render(<FileActionMenu {...mockProps} />);
 
       const inputEl = screen.getByTestId('file-input');
 
@@ -105,11 +87,7 @@ describe('<FileActionMenu />', () => {
     });
 
     it('clears localStorage when reset button is clicked and choice is verified', () => {
-      render(
-        <ThemeProvider theme={theme}>
-          <FileActionMenu {...mockProps} />
-        </ThemeProvider>,
-      );
+      render(<FileActionMenu {...mockProps} />);
 
       act(() => {
         screen.getByTestId('reset-button').click();
