@@ -2,48 +2,10 @@ import React, { useState } from 'react';
 import { CardData, NoteCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import NoteCardForm from '../newCardForms/NoteCardForm';
-
-interface StyleProps {
-  isEditing: boolean;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  modalTitle: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(1.5),
-  },
-  modalContent: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(3),
-  },
-  editButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    padding: theme.spacing(1),
-    marginLeft: 'auto',
-  },
-}));
+import CardBodyLayout from '../../layout/CardBodyLayout';
 
 interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
@@ -62,7 +24,6 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
   const [notes, setNotes] = useState(cardContent.notes);
-  const classes = useStyles({ isEditing });
   const formContent = {
     title,
     notes,
@@ -89,19 +50,30 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="note-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography
+            id="note-card-title"
+            sx={(theme) => {
+              return {
+                alignSelf: 'center',
+                margin: theme.spacing(4),
+                paddingX: theme.spacing(2),
+                paddingTop: theme.spacing(1.5),
+              };
+            }}
+            component="h3"
+          >
             Editing
           </Typography>
-          <Box className={classes.editView}>
+          <Box>
             <NoteCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
-          <Box className={classes.body}>
+          <CardBodyLayout>
             <BlockField label="Notes" value={notes} />
-          </Box>
+          </CardBodyLayout>
         </>
       )}
     </ExpandedCardLayout>
