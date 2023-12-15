@@ -1,53 +1,10 @@
 import React, { ReactNode } from 'react';
 import { Modal, Box, Button } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Theme } from '@mui/material/styles';
 import { CardData } from '../../interfaces';
 import CardErrorBoundry from './CardErrorBoundry';
-
-const useStyles = makeStyles<Theme, { isEditing: boolean }>((theme) => ({
-  modal: {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '50%',
-    height: '80%',
-    backgroundColor: theme.palette.background.paper,
-    border: 'none',
-    outline: 'none',
-    borderRadius: theme.spacing(1.5),
-    boxShadow: '24px',
-    padding: theme.spacing(2),
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    overflowY: 'scroll',
-  },
-  buttonArea: {
-    width: '100%',
-    display: 'flex',
-    alignSelf: 'flex-end',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: theme.spacing(2),
-  },
-  editButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: theme.spacing(15),
-    marginLeft: 'auto',
-    '& svg': {
-      marginLeft: theme.spacing(1),
-    },
-  },
-}));
+import CardBodyLayout from '../layout/CardBodyLayout';
 
 const ExpandedCardLayout: React.FC<{
   cardData: CardData;
@@ -57,7 +14,6 @@ const ExpandedCardLayout: React.FC<{
   saveCard: () => void;
   children: ReactNode;
 }> = ({ cardData, closeExpandedCard, deleteCard, isEditing, saveCard, children }) => {
-  const classes = useStyles({ isEditing: isEditing });
   const handleDelete = () => {
     deleteCard(cardData);
     closeExpandedCard();
@@ -74,15 +30,56 @@ const ExpandedCardLayout: React.FC<{
       aria-describedby="card-data"
       data-testid="expanded-card"
     >
-      <Box className={classes.modal}>
-        <Box id="card-data" className={classes.body}>
+      <Box
+        sx={(theme) => {
+          return {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '50%',
+            height: '80%',
+            backgroundColor: theme.palette.background.paper,
+            border: 'none',
+            outline: 'none',
+            borderRadius: theme.spacing(1.5),
+            boxShadow: '24px',
+            padding: theme.spacing(2),
+            display: 'flex',
+            flexDirection: 'column',
+          };
+        }}
+      >
+        <CardBodyLayout sxOverrides={{ width: '100%' }}>
           <CardErrorBoundry deleteCard={handleDelete}>{children}</CardErrorBoundry>
-        </Box>
+        </CardBodyLayout>
         {isEditing && (
-          <Box id="card-actions" className={classes.buttonArea}>
+          <Box
+            id="card-actions"
+            sx={(theme) => {
+              return {
+                width: '100%',
+                display: 'flex',
+                alignSelf: 'flex-end',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                padding: theme.spacing(2),
+              };
+            }}
+          >
             <Button
               variant="outlined"
-              className={classes.editButton}
+              sx={(theme) => {
+                return {
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  width: theme.spacing(15),
+                  marginLeft: 'auto',
+                  '& svg': {
+                    marginLeft: theme.spacing(1),
+                  },
+                };
+              }}
               aria-label="delete-button"
               onClick={handleDelete}
               data-testid="delete-button"
@@ -92,7 +89,17 @@ const ExpandedCardLayout: React.FC<{
             </Button>
             <Button
               variant="contained"
-              className={classes.editButton}
+              sx={(theme) => {
+                return {
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  width: theme.spacing(15),
+                  marginLeft: 'auto',
+                  '& svg': {
+                    marginLeft: theme.spacing(1),
+                  },
+                };
+              }}
               aria-label="edit-save-button"
               onClick={saveCard}
               data-testid="save-button"
