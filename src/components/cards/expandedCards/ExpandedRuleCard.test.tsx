@@ -1,7 +1,5 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ExpandedRuleCard, { DescriptionSection, TableSection } from './ExpandedRuleCard';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
 import { DEFAULT_TABS } from '../../../constants';
 
@@ -20,14 +18,12 @@ const expandedRuleCardData = {
 describe('<ExpandedRuleCard />', () => {
   it('renders', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <ExpandedRuleCard
-          closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={expandedRuleCardData}
-          deleteCard={mockDeleteCard}
-          updateCard={mockUpdateCard}
-        />
-      </ThemeProvider>,
+      <ExpandedRuleCard
+        closeExpandedCard={mockCloseExpandedCard}
+        expandedCardData={expandedRuleCardData}
+        deleteCard={mockDeleteCard}
+        updateCard={mockUpdateCard}
+      />,
     );
     expect(screen.getByTestId('expanded-card')).toBeInTheDocument();
   });
@@ -35,14 +31,12 @@ describe('<ExpandedRuleCard />', () => {
   describe('Edit Mode', () => {
     it('renders rule select input', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedRuleCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedRuleCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedRuleCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedRuleCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       const editButton = screen.getByTestId('edit-button');
@@ -57,14 +51,12 @@ describe('<ExpandedRuleCard />', () => {
   describe('View Mode', () => {
     it('renders edit button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedRuleCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedRuleCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedRuleCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedRuleCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -75,14 +67,12 @@ describe('<ExpandedRuleCard />', () => {
 
     it('renders title', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedRuleCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedRuleCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedRuleCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedRuleCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -93,14 +83,12 @@ describe('<ExpandedRuleCard />', () => {
 
     it('renders a tableSection for each key in rule object.', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedRuleCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedRuleCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedRuleCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedRuleCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -114,11 +102,7 @@ describe('<ExpandedRuleCard />', () => {
     it('renders a single description row if the description is a string', () => {
       const description = 'This is a description';
 
-      render(
-        <ThemeProvider theme={theme}>
-          <DescriptionSection description={description} />
-        </ThemeProvider>,
-      );
+      render(<DescriptionSection description={description} />);
 
       waitFor(() => {
         expect(screen.getByTestId('desc-sentence')).toBeInTheDocument();
@@ -131,11 +115,7 @@ describe('<ExpandedRuleCard />', () => {
         description2: 'This is a second description',
       };
 
-      render(
-        <ThemeProvider theme={theme}>
-          <DescriptionSection description={description} />
-        </ThemeProvider>,
-      );
+      render(<DescriptionSection description={description} />);
 
       waitFor(() => {
         expect(screen.queryByTestId('desc-row')).toHaveLength(2);
@@ -156,9 +136,7 @@ describe('<ExpandedRuleCard />', () => {
     };
 
     it('renders a table section', () => {
-      <ThemeProvider theme={theme}>
-        <TableSection subRule={'subRule'} tableData={mockTableData} />
-      </ThemeProvider>;
+      render(<TableSection subRule={'subRule'} tableData={mockTableData} />);
 
       waitFor(() => {
         expect(screen.getByTestId('table-section')).toBeInTheDocument();
@@ -166,19 +144,14 @@ describe('<ExpandedRuleCard />', () => {
     });
 
     it('renders a table name', () => {
-      <ThemeProvider theme={theme}>
-        <TableSection subRule={'subRule'} tableData={mockTableData} />
-      </ThemeProvider>;
-
+      render(<TableSection subRule={'subRule'} tableData={mockTableData} />);
       waitFor(() => {
         expect(screen.getByTestId('table-name')).toBeInTheDocument();
       });
     });
 
     it('renders a description section if tableData has a description', () => {
-      <ThemeProvider theme={theme}>
-        <TableSection subRule={'subRule'} tableData={mockTableData} />
-      </ThemeProvider>;
+      render(<TableSection subRule={'subRule'} tableData={mockTableData} />);
 
       waitFor(() => {
         expect(screen.getByTestId('description-section')).toBeInTheDocument();
@@ -186,9 +159,7 @@ describe('<ExpandedRuleCard />', () => {
     });
 
     it('does not render a description section if tableData does not have a description', () => {
-      <ThemeProvider theme={theme}>
-        <TableSection subRule={'subRule'} tableData={mockTableDataWithDesc} />
-      </ThemeProvider>;
+      render(<TableSection subRule={'subRule'} tableData={mockTableDataWithDesc} />);
 
       waitFor(() => {
         expect(screen.queryByTestId('description-section')).not.toBeInTheDocument();
@@ -196,9 +167,7 @@ describe('<ExpandedRuleCard />', () => {
     });
 
     it('renders the correct number of rows', () => {
-      <ThemeProvider theme={theme}>
-        <TableSection subRule={'subRule'} tableData={mockTableData} />
-      </ThemeProvider>;
+      render(<TableSection subRule={'subRule'} tableData={mockTableData} />);
 
       waitFor(() => {
         expect(screen.queryByTestId('table-row')).toHaveLength(2);
