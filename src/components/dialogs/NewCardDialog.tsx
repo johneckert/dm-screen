@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useReadLocalStorage } from 'usehooks-ts';
-import { Box, Typography, Button } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
+import { Box, Typography } from '@mui/material';
 import {
   GenericCardContent,
   MapCardContent,
@@ -22,8 +21,8 @@ import { DEFAULT_TABS } from '../../constants';
 import CardTypeSelect from '../cards/cardFields/CardTypeSelect';
 import CardColumnSelect from '../cards/cardFields/CardColumnSelect';
 import CardBodyLayout from '../layout/CardBodyLayout';
-import RowLayout from '../layout/RowLayout';
 import ModalLayout from '../layout/ModalLayout';
+import ButtonArea from '../layout/ButtonArea';
 
 const NewCardDialog: React.FC<{
   isVisible: boolean;
@@ -96,21 +95,7 @@ const NewCardDialog: React.FC<{
         </Box>
         <Box sx={{ display: 'flex', flexDirection: 'column', mb: 2 }}>{renderCardForm()}</Box>
       </CardBodyLayout>
-      <RowLayout sxOverrides={{ justifyContent: 'space-between' }}>
-        <Button variant="outlined" aria-label="cancel-button" data-testid="cancel-button" onClick={handleCancel}>
-          Cancel
-        </Button>
-        <Button
-          variant="contained"
-          disabled={cardType === CardType.Rule && !content?.title}
-          aria-label="save-button"
-          data-testid="save-button"
-          onClick={handleSave}
-        >
-          <CheckIcon />
-          Save
-        </Button>
-      </RowLayout>
+      <ButtonArea handleLeftButton={handleCancel} handleRightButton={handleSave} data-testid="button-area" />
     </ModalLayout>
   );
 };
