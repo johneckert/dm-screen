@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import DraggableCard from './DraggableCard';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
 import { mockCardData } from '../../mockData';
 
 const mockExpandCard = jest.fn();
@@ -19,28 +17,24 @@ jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.c
 describe('<DraggableCard />', () => {
   it('renders', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <DraggableCard
-          card={mockCardData[0]}
-          index={1}
-          expandCard={mockExpandCard}
-          handleContextMenuOpen={mockHandleContextMenuOpen}
-        />
-      </ThemeProvider>,
+      <DraggableCard
+        card={mockCardData[0]}
+        index={1}
+        expandCard={mockExpandCard}
+        handleContextMenuOpen={mockHandleContextMenuOpen}
+      />,
     );
     expect(screen.getByTestId('draggable-card')).toBeInTheDocument();
   });
 
   it('calls expand card when clicked', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <DraggableCard
-          card={mockCardData[0]}
-          index={1}
-          expandCard={mockExpandCard}
-          handleContextMenuOpen={mockHandleContextMenuOpen}
-        />
-      </ThemeProvider>,
+      <DraggableCard
+        card={mockCardData[0]}
+        index={1}
+        expandCard={mockExpandCard}
+        handleContextMenuOpen={mockHandleContextMenuOpen}
+      />,
     );
     screen.getByTestId('draggable-card').click();
     expect(mockExpandCard).toHaveBeenCalledWith(mockCardData[0].id);

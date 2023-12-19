@@ -1,30 +1,7 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
 import { CardType } from '../../../interfaces';
 import { BLUE, PURPLE, TEAL, AMBER, RED, GREY } from '../../../colors';
-
-interface StyleProps {
-  color: string;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  verticalField: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    paddingTop: theme.spacing(3),
-    width: theme.spacing(12),
-    height: theme.spacing(12),
-    border: ({ color }) => `1px solid ${color}`,
-    borderRadius: theme.spacing(1),
-  },
-  label: {
-    fontWeight: 900,
-  },
-}));
 
 const StatField: React.FC<{ label: string; value: string | undefined; cardType: CardType }> = ({
   label,
@@ -47,16 +24,31 @@ const StatField: React.FC<{ label: string; value: string | undefined; cardType: 
         return GREY[200];
     }
   };
-  const classes = useStyles({ color: color() });
   const modifier = value ? Math.floor((parseInt(value) - 10) / 2) : 0;
 
   return (
-    <Box className={classes.verticalField}>
-      <span className={classes.label}>{label}</span>
-      <span>
+    <Box
+      sx={(theme) => {
+        return {
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          paddingTop: theme.spacing(3),
+          width: theme.spacing(12),
+          height: theme.spacing(12),
+          border: `1px solid ${color()}`,
+          borderRadius: theme.spacing(1),
+        };
+      }}
+    >
+      <Box component="span" sx={{ fontWeight: 900 }}>
+        {label}
+      </Box>
+      <Box component="span">
         {value} ({modifier >= 0 ? '+' : ''}
         {modifier})
-      </span>
+      </Box>
     </Box>
   );
 };
