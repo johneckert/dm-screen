@@ -1,53 +1,16 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MonsterCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import { Box, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
+import { Typography } from '@mui/material';
 import MonsterCardForm from '../newCardForms/MonsterCardForm';
 import DisplayField from '../cardFields/DisplayField';
 import StatField from '../cardFields/StatField';
 import IconField from '../cardFields/IconField';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
-
-const useStyles = makeStyles<Theme>((theme) => ({
-  editView: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  modalTitle: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(1.5),
-  },
-  group: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    width: '100%',
-    padding: theme.spacing(3),
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  editButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    padding: theme.spacing(1),
-    marginLeft: 'auto',
-  },
-}));
+import CardBodyLayout from '../../layout/CardBodyLayout';
+import RowLayout from '../../layout/RowLayout';
+import GroupLayout from '../../layout/GroupLayout';
 
 interface ExpandedMonsterCardProps {
   closeExpandedCard: () => void;
@@ -93,7 +56,6 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
   const [languages, setLanguages] = useState(cardContent.languages);
   const [description, setDescription] = useState(cardContent.description);
   const [notes, setNotes] = useState(cardContent.notes);
-  const classes = useStyles();
   const formContent = {
     title,
     size,
@@ -179,71 +141,82 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="editing-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography
+            id="editing-title"
+            sx={(theme) => {
+              return {
+                margin: theme.spacing(4),
+                paddingX: theme.spacing(2),
+                paddingTop: theme.spacing(1.5),
+                alignSelf: 'center',
+              };
+            }}
+            component="h3"
+          >
             Editing
           </Typography>
-          <Box className={classes.editView}>
+          <CardBodyLayout>
             <MonsterCardForm content={formContent} setContent={handleContentUpdate} />
-          </Box>
+          </CardBodyLayout>
         </>
       ) : (
         <>
           <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
-          <Box className={classes.body}>
-            <Box sx={{ mb: 2, px: 0, alignItems: 'space-between' }} className={classes.row}>
+          <CardBodyLayout>
+            <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
               <DisplayField label="Size" value={size} />
               <DisplayField label="Type" value={type} />
               <DisplayField label="CR" value={challengeRating} />
-            </Box>
-            <Box sx={{ mb: 2, px: 1 }} className={classes.row}>
+            </RowLayout>
+            <RowLayout sxOverrides={{ mb: 2, px: 1 }}>
               <StatField label="STR" value={strength} cardType={CardType.Monster} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Monster} />
               <StatField label="CON" value={constitution} cardType={CardType.Monster} />
               <StatField label="INT" value={intelligence} cardType={CardType.Monster} />
               <StatField label="WIS" value={wisdom} cardType={CardType.Monster} />
               <StatField label="CHA" value={charisma} cardType={CardType.Monster} />
-            </Box>
-            <Box sx={{ mb: 3 }} className={classes.row}>
+            </RowLayout>
+            <RowLayout sxOverrides={{ mb: 3 }}>
               <IconField label="HP" value={hp} cardType={CardType.Monster} />
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
-            </Box>
-            <Box className={classes.row}>
-              <Box className={classes.group}>
+            </RowLayout>
+            <RowLayout>
+              <GroupLayout>
                 <DisplayField label="Vulnerabilities" value={vulnerabilities} />
                 <DisplayField label="Resistances" value={resistances} />
                 <DisplayField label="Dammage Immunities" value={damageImmunities} />
                 <DisplayField label="Condition Immunitiest" value={conditionImmunities} />
-              </Box>
-              <Box className={classes.group}>
+              </GroupLayout>
+              <GroupLayout>
                 <DisplayField label="Proficiencies" value={proficiencies} />
                 <DisplayField label="Senses" value={senses} />
                 <DisplayField label="Languages" value={languages} />
                 <DisplayField label="Speed" value={speed} />
-              </Box>
-            </Box>
-            <Box className={classes.group}>
+              </GroupLayout>
+            </RowLayout>
+            <GroupLayout>
               <BlockField label="Special Abilities" value={specialAbilities} cardType={CardType.Monster} />
-            </Box>
-            <Box className={classes.group}>
+            </GroupLayout>
+            <GroupLayout>
               <BlockField label="Actions" value={actions} cardType={CardType.Monster} />
-            </Box>
+            </GroupLayout>
             {legendaryActions && (
-              <Box className={classes.group}>
+              <GroupLayout>
                 <BlockField label="Legendary Actions" value={legendaryActions} cardType={CardType.Monster} />
-              </Box>
+              </GroupLayout>
             )}
-            <Box className={classes.group}>
+            <GroupLayout>
               <BlockField label="Description" value={description} cardType={CardType.Monster} />
-            </Box>
-            <Box className={classes.group}>
+            </GroupLayout>
+            <GroupLayout>
               <BlockField label="Notes" value={notes} cardType={CardType.Monster} />
-            </Box>
+            </GroupLayout>
             {image && (
-              <Box className={classes.group}>
+              <GroupLayout>
                 <img src={image} alt={`image of ${title}`} />
-              </Box>
+              </GroupLayout>
             )}
-          </Box>
+          </CardBodyLayout>
         </>
       )}
     </ExpandedCardLayout>

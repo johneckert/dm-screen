@@ -1,7 +1,5 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ExpandedMonsterCard from './ExpandedMonsterCard';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
 import { DEFAULT_TABS } from '../../../constants';
 
@@ -50,14 +48,12 @@ const mockExpandedMonsterCardData = {
 describe('<ExpandedMonsterCard />', () => {
   it('renders', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <ExpandedMonsterCard
-          closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={mockExpandedMonsterCardData}
-          deleteCard={mockDeleteCard}
-          updateCard={mockUpdateCard}
-        />
-      </ThemeProvider>,
+      <ExpandedMonsterCard
+        closeExpandedCard={mockCloseExpandedCard}
+        expandedCardData={mockExpandedMonsterCardData}
+        deleteCard={mockDeleteCard}
+        updateCard={mockUpdateCard}
+      />,
     );
     expect(screen.getByTestId('expanded-card')).toBeInTheDocument();
   });
@@ -65,14 +61,12 @@ describe('<ExpandedMonsterCard />', () => {
   describe('Edit Mode', () => {
     it('renders <MonsterCardForm>', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedMonsterCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedMonsterCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedMonsterCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={mockExpandedMonsterCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       const editButton = screen.getByTestId('edit-button');
@@ -87,14 +81,12 @@ describe('<ExpandedMonsterCard />', () => {
   describe('View Mode', () => {
     it('renders edit button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedMonsterCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedMonsterCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedMonsterCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={mockExpandedMonsterCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -105,14 +97,12 @@ describe('<ExpandedMonsterCard />', () => {
 
     it('renders title', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedMonsterCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={mockExpandedMonsterCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedMonsterCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={mockExpandedMonsterCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -125,14 +115,12 @@ describe('<ExpandedMonsterCard />', () => {
 
       beforeAll(() => {
         render(
-          <ThemeProvider theme={theme}>
-            <ExpandedMonsterCard
-              closeExpandedCard={mockCloseExpandedCard}
-              expandedCardData={mockExpandedMonsterCardData}
-              updateCard={mockUpdateCard}
-              deleteCard={mockDeleteCard}
-            />
-          </ThemeProvider>,
+          <ExpandedMonsterCard
+            closeExpandedCard={mockCloseExpandedCard}
+            expandedCardData={mockExpandedMonsterCardData}
+            updateCard={mockUpdateCard}
+            deleteCard={mockDeleteCard}
+          />,
         );
       });
 

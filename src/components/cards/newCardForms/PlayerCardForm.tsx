@@ -1,6 +1,8 @@
-import { TextField, Box } from '@mui/material';
+import { TextField } from '@mui/material';
 import { PlayerCardContent, CardType } from '../../../interfaces';
 import FormDivider from '../cardFields/FormDivider';
+import RowLayout from '../../layout/RowLayout';
+import GroupLayout from '../../layout/GroupLayout';
 
 const PlayerCardForm: React.FC<{
   content: PlayerCardContent;
@@ -18,7 +20,7 @@ const PlayerCardForm: React.FC<{
         value={content.title}
         onChange={(e) => setContent({ ...content, title: e.target.value })}
       />
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+      <RowLayout>
         <TextField
           id="race"
           label="Race"
@@ -59,9 +61,9 @@ const PlayerCardForm: React.FC<{
           value={content.size}
           onChange={(e) => setContent({ ...content, size: e.target.value })}
         />
-      </Box>
+      </RowLayout>
       <FormDivider type={CardType.Player} />
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+      <RowLayout>
         <TextField
           id="strength"
           label="STR"
@@ -110,9 +112,9 @@ const PlayerCardForm: React.FC<{
           value={content.charisma}
           onChange={(e) => setContent({ ...content, charisma: e.target.value })}
         />
-      </Box>
+      </RowLayout>
       <FormDivider type={CardType.Player} />
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
+      <RowLayout>
         <TextField
           id="hitpoints"
           label="HP"
@@ -129,10 +131,10 @@ const PlayerCardForm: React.FC<{
           value={content.ac}
           onChange={(e) => setContent({ ...content, ac: e.target.value })}
         />
-      </Box>
+      </RowLayout>
       <FormDivider type={CardType.Player} />
-      <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-around' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+      <RowLayout>
+        <GroupLayout>
           <TextField
             id="passive-perception"
             label="Passive Perception"
@@ -165,8 +167,8 @@ const PlayerCardForm: React.FC<{
             value={content.passiveInsight}
             onChange={(e) => setContent({ ...content, passiveInsight: e.target.value })}
           />
-        </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: '45%' }}>
+        </GroupLayout>
+        <GroupLayout>
           <TextField
             id="spell-casting-ability"
             label="Spell Casting Ability"
@@ -199,10 +201,10 @@ const PlayerCardForm: React.FC<{
             value={content.spellAttackBonus}
             onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
           />
-        </Box>
-      </Box>
+        </GroupLayout>
+      </RowLayout>
       <FormDivider type={CardType.Player} />
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-around' }}>
+      <GroupLayout>
         <TextField
           id="speed"
           label="Speed"
@@ -229,7 +231,7 @@ const PlayerCardForm: React.FC<{
           value={content.link}
           onChange={(e) => setContent({ ...content, link: e.target.value })}
         />
-      </Box>
+      </GroupLayout>
       <FormDivider type={CardType.Player} />
       <TextField
         id="notes"

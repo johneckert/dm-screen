@@ -1,7 +1,5 @@
 import { render, screen, waitFor, act } from '@testing-library/react';
 import ExpandedNoteCard from './ExpandedNoteCard';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../../theme';
 import { CardType } from '../../../interfaces';
 import { DEFAULT_TABS } from '../../../constants';
 
@@ -22,14 +20,12 @@ const expandedNoteCardData = {
 describe('<ExpandedNoteCard />', () => {
   it('renders', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <ExpandedNoteCard
-          closeExpandedCard={mockCloseExpandedCard}
-          expandedCardData={expandedNoteCardData}
-          deleteCard={mockDeleteCard}
-          updateCard={mockUpdateCard}
-        />
-      </ThemeProvider>,
+      <ExpandedNoteCard
+        closeExpandedCard={mockCloseExpandedCard}
+        expandedCardData={expandedNoteCardData}
+        deleteCard={mockDeleteCard}
+        updateCard={mockUpdateCard}
+      />,
     );
     expect(screen.getByTestId('expanded-card')).toBeInTheDocument();
   });
@@ -37,14 +33,12 @@ describe('<ExpandedNoteCard />', () => {
   describe('Edit Mode', () => {
     it('renders input for title', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedNoteCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedNoteCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       const editButton = screen.getByTestId('edit-button');
@@ -57,14 +51,12 @@ describe('<ExpandedNoteCard />', () => {
 
     it('renders input for notes', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedNoteCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedNoteCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       const editButton = screen.getByTestId('edit-button');
@@ -79,14 +71,12 @@ describe('<ExpandedNoteCard />', () => {
   describe('View Mode', () => {
     it('renders edit button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedNoteCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedNoteCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -97,14 +87,12 @@ describe('<ExpandedNoteCard />', () => {
 
     it('renders title', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedNoteCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedNoteCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {
@@ -114,14 +102,12 @@ describe('<ExpandedNoteCard />', () => {
     });
     it('renders notes', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedNoteCard
-            closeExpandedCard={mockCloseExpandedCard}
-            expandedCardData={expandedNoteCardData}
-            updateCard={mockUpdateCard}
-            deleteCard={mockDeleteCard}
-          />
-        </ThemeProvider>,
+        <ExpandedNoteCard
+          closeExpandedCard={mockCloseExpandedCard}
+          expandedCardData={expandedNoteCardData}
+          updateCard={mockUpdateCard}
+          deleteCard={mockDeleteCard}
+        />,
       );
 
       waitFor(() => {

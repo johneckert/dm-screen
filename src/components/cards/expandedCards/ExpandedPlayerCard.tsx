@@ -2,58 +2,15 @@ import React, { useState } from 'react';
 import { CardData, CardType, PlayerCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-import { Theme } from '@mui/material/styles';
 import PlayerCardForm from '../newCardForms/PlayerCardForm';
 import DisplayField from '../cardFields/DisplayField';
 import IconField from '../cardFields/IconField';
 import BlockField from '../cardFields/BlockField';
 import StatField from '../cardFields/StatField';
 import CardHeader from '../cardFields/CardHeader';
-
-const useStyles = makeStyles<Theme>((theme) => ({
-  editView: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  body: {
-    display: 'flex',
-    flexDirection: 'column',
-    overflowY: 'scroll',
-  },
-  modalTitle: {
-    margin: theme.spacing(4),
-    paddingX: theme.spacing(2),
-    paddingTop: theme.spacing(1.5),
-  },
-  titleInput: {
-    '& input': {
-      fontSize: theme.spacing(6),
-      fontWeight: 400,
-    },
-  },
-  group: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    width: '100%',
-    padding: theme.spacing(3),
-  },
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  editButton: {
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: 'fit-content',
-    padding: theme.spacing(1),
-    marginLeft: 'auto',
-  },
-}));
+import CardBodyLayout from '../../layout/CardBodyLayout';
+import GroupLayout from '../../layout/GroupLayout';
+import RowLayout from '../../layout/RowLayout';
 
 interface ExpandedPlayerCardProps {
   closeExpandedCard: () => void;
@@ -96,7 +53,6 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
   const [spellAttackBonus, setSpellAttackBonus] = useState(cardContent.spellAttackBonus);
   const [link, setLink] = useState(cardContent.link);
   const [languages, setLanguages] = useState(cardContent.languages);
-  const classes = useStyles();
   const formContent = {
     title,
     hp,
@@ -193,59 +149,80 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography id="player-card-title" sx={{ alignSelf: 'center' }} className={classes.modalTitle} component="h3">
+          <Typography
+            id="player-card-title"
+            sx={(theme) => {
+              return {
+                alignSelf: 'center',
+                margin: theme.spacing(4),
+                paddingX: theme.spacing(2),
+                paddingTop: theme.spacing(1.5),
+              };
+            }}
+            component="h3"
+          >
             Editing
           </Typography>
-          <Box className={classes.editView}>
+          <Box
+            sx={(theme) => {
+              return {
+                alignSelf: 'center',
+                justifyContent: 'center',
+                width: 'fit-content',
+                padding: theme.spacing(1),
+                marginLeft: 'auto',
+              };
+            }}
+          >
             <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
           </Box>
         </>
       ) : (
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
-          <Box className={classes.body}>
-            <Box sx={{ mb: 2, px: 0, alignItems: 'space-between' }} className={classes.row}>
+          <CardBodyLayout>
+            <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
               <DisplayField label="Race" value={charRace} />
               <DisplayField label="Class" value={charClass} />
               <DisplayField label="Level" value={charLevel} />
               <DisplayField label="Background" value={charBackground} />
               <DisplayField label="Size" value={size || 'M'} />
-            </Box>
-            <Box sx={{ mb: 2, px: 1 }} className={classes.row}>
+            </RowLayout>
+            <RowLayout sxOverrides={{ mb: 2, px: 1, alignItems: 'space-between' }}>
               <StatField label="STR" value={strength} cardType={CardType.Player} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Player} />
               <StatField label="CON" value={constitution} cardType={CardType.Player} />
               <StatField label="INT" value={intelligence} cardType={CardType.Player} />
               <StatField label="WIS" value={wisdom} cardType={CardType.Player} />
               <StatField label="CHA" value={charisma} cardType={CardType.Player} />
-            </Box>
-            <Box sx={{ mb: 3 }} className={classes.row}>
+            </RowLayout>
+            <RowLayout sxOverrides={{ mb: 3 }}>
               <IconField label="HP" value={hp} cardType={CardType.Player} />
               <IconField label="AC" value={ac} cardType={CardType.Player} />
-            </Box>
-            <Box className={classes.row}>
-              <Box className={classes.group}>
+            </RowLayout>
+            <RowLayout sxOverrides={{ flexDirection: 'row' }}>
+              <GroupLayout sxOverrides={{ width: '100%' }}>
                 <DisplayField label="Passive Perception" value={passivePerception} />
                 <DisplayField label="Passive Investigation" value={passiveInvestigation} />
                 <DisplayField label="Passive Stealth" value={passiveStealth} />
                 <DisplayField label="Passive Insight" value={passiveInsight} />
-              </Box>
-              <Box className={classes.group}>
+              </GroupLayout>
+              <GroupLayout sxOverrides={{ width: '100%' }}>
                 <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
                 <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
                 <DisplayField label="Spell Save DC" value={spellSaveDC} />
                 <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
-              </Box>
-            </Box>
-            <Box className={classes.group}>
+              </GroupLayout>
+            </RowLayout>
+            <GroupLayout sxOverrides={{ width: '100%' }}>
               <DisplayField label="Speed" value={speed} />
               <DisplayField label="Languages" value={languages} />
               <DisplayField label="Character Sheet" value={link} />
-            </Box>
-            <Box className={classes.group}>
+            </GroupLayout>
+            <GroupLayout>
               <BlockField label="Notes" value={notes} cardType={CardType.Player} />
-            </Box>
-          </Box>
+            </GroupLayout>
+          </CardBodyLayout>
         </>
       )}
     </ExpandedCardLayout>

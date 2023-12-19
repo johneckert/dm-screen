@@ -1,30 +1,10 @@
 import { Droppable } from 'react-beautiful-dnd';
-import { CardData, ScreenSize } from '../../interfaces';
+import Box from '@mui/material/Box';
+import { CardData } from '../../interfaces';
 import DraggableCard from './DraggableCard';
 import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
-import makeStyles from '@mui/styles/makeStyles';
 import { getScreenSize, getBreakPoint } from '../../utils';
-import { Theme } from '@mui/material/styles';
 import { GREY } from '../../colors';
-
-interface StyleProps {
-  screenSize: ScreenSize;
-  numberOfColumns: number;
-}
-
-const useStyles = makeStyles<Theme, StyleProps>((theme) => ({
-  column: {
-    width: ({ screenSize, numberOfColumns }) => (screenSize.width - 16) / numberOfColumns,
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-    [theme.breakpoints.up(BREAKPOINTS.lg)]: {
-      height: '100%',
-    },
-    [theme.breakpoints.down(BREAKPOINTS.lg)]: {
-      borderBottom: `2px dashed ${GREY[300]}`,
-    },
-  },
-}));
 
 export interface ColumnProps {
   cards: CardData[];
@@ -37,32 +17,40 @@ const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, handleCont
   const screenSize = getScreenSize();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
-  const styleProps: StyleProps = { screenSize, numberOfColumns };
-  const classes = useStyles(styleProps);
   return (
-    <div className={classes.column} data-testid="column">
+    <Box
+      data-testid="column"
+      sx={(theme) => {
+        return {
+          width: (screenSize.width - 16) / numberOfColumns,
+          paddingLeft: theme.spacing(1),
+          paddingRight: theme.spacing(1),
+          [theme.breakpoints.up(BREAKPOINTS.lg)]: {
+            height: '100%',
+          },
+          [theme.breakpoints.down(BREAKPOINTS.lg)]: {
+            borderBottom: `2px dashed ${GREY[300]}`,
+          },
+        };
+      }}
+    >
       <Droppable droppableId={`droppable-${columnId}`}>
-        {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore-next-line
-          // eslint-disable-next-line @typescript-eslint/no-unused-vars
-          (provided, snapshot) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {cards.map((card, index) => (
-                <DraggableCard
-                  key={card.id}
-                  card={card}
-                  index={index}
-                  expandCard={expandCard}
-                  handleContextMenuOpen={handleContextMenuOpen}
-                />
-              ))}
-              {provided.placeholder}
-            </div>
-          )
-        }
+        {(provided, _) => (
+          <div {...provided.droppableProps} ref={provided.innerRef}>
+            {cards.map((card, index) => (
+              <DraggableCard
+                key={card.id}
+                card={card}
+                index={index}
+                expandCard={expandCard}
+                handleContextMenuOpen={handleContextMenuOpen}
+              />
+            ))}
+            {provided.placeholder}
+          </div>
+        )}
       </Droppable>
-    </div>
+    </Box>
   );
 };
 

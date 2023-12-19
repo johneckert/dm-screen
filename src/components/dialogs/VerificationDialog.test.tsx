@@ -1,8 +1,5 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import VerificationDialog from './VerificationDialog';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
-import { act } from 'react-dom/test-utils';
 
 const mockHandleCancel = jest.fn();
 const mockHandleConfirm = jest.fn();
@@ -12,28 +9,24 @@ const dialogMessage = 'This is a test message';
 describe('<VerificationDialog />', () => {
   it('renders the correct text', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <VerificationDialog
-          dialogMessage={dialogMessage}
-          dialogOpen={showDialog}
-          handleCancel={mockHandleCancel}
-          handleConfirm={mockHandleConfirm}
-        />
-      </ThemeProvider>,
+      <VerificationDialog
+        dialogMessage={dialogMessage}
+        dialogOpen={showDialog}
+        handleCancel={mockHandleCancel}
+        handleConfirm={mockHandleConfirm}
+      />,
     );
     expect(screen.getByText(/This is a test message/i)).toBeInTheDocument();
   });
 
   it('calls handleCancel when cancel button is clicked', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <VerificationDialog
-          dialogMessage={dialogMessage}
-          dialogOpen={showDialog}
-          handleCancel={mockHandleCancel}
-          handleConfirm={mockHandleConfirm}
-        />
-      </ThemeProvider>,
+      <VerificationDialog
+        dialogMessage={dialogMessage}
+        dialogOpen={showDialog}
+        handleCancel={mockHandleCancel}
+        handleConfirm={mockHandleConfirm}
+      />,
     );
 
     act(() => {
@@ -44,14 +37,12 @@ describe('<VerificationDialog />', () => {
 
   it('calls handleConfirm when confirm button is clicked', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <VerificationDialog
-          dialogMessage={dialogMessage}
-          dialogOpen={showDialog}
-          handleCancel={mockHandleCancel}
-          handleConfirm={mockHandleConfirm}
-        />
-      </ThemeProvider>,
+      <VerificationDialog
+        dialogMessage={dialogMessage}
+        dialogOpen={showDialog}
+        handleCancel={mockHandleCancel}
+        handleConfirm={mockHandleConfirm}
+      />,
     );
 
     act(() => {
@@ -62,14 +53,12 @@ describe('<VerificationDialog />', () => {
 
   it('calls handleCancel when modal is closed', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <VerificationDialog
-          dialogMessage={dialogMessage}
-          dialogOpen={showDialog}
-          handleCancel={mockHandleCancel}
-          handleConfirm={mockHandleConfirm}
-        />
-      </ThemeProvider>,
+      <VerificationDialog
+        dialogMessage={dialogMessage}
+        dialogOpen={showDialog}
+        handleCancel={mockHandleCancel}
+        handleConfirm={mockHandleConfirm}
+      />,
     );
 
     act(() => {

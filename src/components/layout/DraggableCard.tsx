@@ -16,28 +16,23 @@ const DraggableCard: React.FC<{
 
   return (
     <Draggable key={card.id} draggableId={card.id} index={index}>
-      {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore-next-line
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        (provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            onClick={handleClick}
-            data-testid="draggable-card"
-          >
-            <SmallCardLayout
-              key={card.id}
-              id={card.id}
-              type={card.type}
-              content={card.content}
-              handleContextMenuOpen={handleContextMenuOpen}
-            />
-          </div>
-        )
-      }
+      {(provided, _) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          onClick={handleClick}
+          data-testid="draggable-card"
+        >
+          <SmallCardLayout
+            key={card.id}
+            id={card.id}
+            type={card.type}
+            content={card.content}
+            handleContextMenuOpen={handleContextMenuOpen}
+          />
+        </div>
+      )}
     </Draggable>
   );
 };

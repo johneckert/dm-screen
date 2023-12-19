@@ -1,7 +1,5 @@
 import { render, screen } from '@testing-library/react';
 import Header, { HeaderProps } from './Header';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
 
 jest.mock('./FileActionMenu', () => () => <div data-testid="menu" />);
 
@@ -13,29 +11,17 @@ const mockHeaderProps: HeaderProps = {
 
 describe('<Header />', () => {
   it('renders', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Header {...mockHeaderProps} />
-      </ThemeProvider>,
-    );
+    render(<Header {...mockHeaderProps} />);
     expect(screen.getByTestId('header')).toBeInTheDocument();
   });
 
   it('renders title', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Header {...mockHeaderProps} />
-      </ThemeProvider>,
-    );
+    render(<Header {...mockHeaderProps} />);
     expect(screen.getByText(/dm screen/i)).toBeInTheDocument();
   });
 
   it('renders FileActionMenu button', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <Header {...mockHeaderProps} />
-      </ThemeProvider>,
-    );
+    render(<Header {...mockHeaderProps} />);
     expect(screen.getByTestId('menu')).toBeInTheDocument();
   });
 });

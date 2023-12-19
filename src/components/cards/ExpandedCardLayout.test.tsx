@@ -1,7 +1,5 @@
 import { render, screen, act } from '@testing-library/react';
 import ExpandedCardLayout from './ExpandedCardLayout';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from '../../theme';
 import { CardType } from '../../interfaces';
 import { DEFAULT_TABS } from '../../constants';
 
@@ -27,32 +25,28 @@ const expandedMapCardData = {
 describe('<ExpandedCardLayout />', () => {
   it('renders', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <ExpandedCardLayout
-          cardData={expandedMapCardData}
-          closeExpandedCard={mockCloseExpandedCard}
-          deleteCard={mockDeleteCard}
-          isEditing={true}
-          saveCard={mockHandleEdit}
-          children={children}
-        />
-      </ThemeProvider>,
+      <ExpandedCardLayout
+        cardData={expandedMapCardData}
+        closeExpandedCard={mockCloseExpandedCard}
+        deleteCard={mockDeleteCard}
+        isEditing={true}
+        saveCard={mockHandleEdit}
+        children={children}
+      />,
     );
     expect(screen.getByTestId('expanded-card')).toBeInTheDocument();
   });
 
   it('renders child components', () => {
     render(
-      <ThemeProvider theme={theme}>
-        <ExpandedCardLayout
-          cardData={expandedMapCardData}
-          closeExpandedCard={mockCloseExpandedCard}
-          deleteCard={mockDeleteCard}
-          isEditing={true}
-          saveCard={mockHandleEdit}
-          children={children}
-        />
-      </ThemeProvider>,
+      <ExpandedCardLayout
+        cardData={expandedMapCardData}
+        closeExpandedCard={mockCloseExpandedCard}
+        deleteCard={mockDeleteCard}
+        isEditing={true}
+        saveCard={mockHandleEdit}
+        children={children}
+      />,
     );
     expect(screen.getByTestId('mock-children')).toBeInTheDocument();
   });
@@ -60,32 +54,28 @@ describe('<ExpandedCardLayout />', () => {
   describe('when not in editing mode', () => {
     it('does not render delete button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={false}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={false}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       expect(screen.queryByTestId('delete-button')).not.toBeInTheDocument();
     });
 
     it('does not render save button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={false}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={false}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       expect(screen.queryByTestId('save-button')).not.toBeInTheDocument();
     });
@@ -94,32 +84,28 @@ describe('<ExpandedCardLayout />', () => {
   describe('when in editing mode', () => {
     it('renders delete button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={true}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={true}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       expect(screen.getByTestId('delete-button')).toBeInTheDocument();
     });
 
     it('calls deleteCard when delete button is clicked', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={true}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={true}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       const deleteButton = screen.getByTestId('delete-button');
       act(() => {
@@ -130,32 +116,28 @@ describe('<ExpandedCardLayout />', () => {
 
     it('renders save button', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={true}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={true}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       expect(screen.getByTestId('save-button')).toBeInTheDocument();
     });
 
     it('calls handleEdit when save button is clicked', () => {
       render(
-        <ThemeProvider theme={theme}>
-          <ExpandedCardLayout
-            cardData={expandedMapCardData}
-            closeExpandedCard={mockCloseExpandedCard}
-            deleteCard={mockDeleteCard}
-            isEditing={true}
-            saveCard={mockHandleEdit}
-            children={children}
-          />
-        </ThemeProvider>,
+        <ExpandedCardLayout
+          cardData={expandedMapCardData}
+          closeExpandedCard={mockCloseExpandedCard}
+          deleteCard={mockDeleteCard}
+          isEditing={true}
+          saveCard={mockHandleEdit}
+          children={children}
+        />,
       );
       const saveButton = screen.getByTestId('save-button');
       act(() => {
