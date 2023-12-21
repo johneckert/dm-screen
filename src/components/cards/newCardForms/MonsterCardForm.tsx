@@ -6,7 +6,7 @@ import { MonsterCardContent } from '../../../interfaces';
 import { formatMonsterData } from '../../../utils';
 import FormDivider from '../cardFields/FormDivider';
 import { CardType } from '../../../interfaces';
-import GroupLayout from '../../layout/GroupLayout';
+import ColumnLayout from '../../layout/ColumnLayout';
 import RowLayout from '../../layout/RowLayout';
 
 const MonsterCardForm: React.FC<{
@@ -57,7 +57,7 @@ const MonsterCardForm: React.FC<{
 
   return (
     <div data-testid="monster-form">
-      <GroupLayout sxOverrides={{ p: 0 }}>
+      <ColumnLayout sxOverrides={{ p: 0 }}>
         <InputLabel id="monster-preset-label">Monster Preset</InputLabel>
         <RowLayout sxOverrides={{ padding: 0 }}>
           <Select
@@ -75,9 +75,9 @@ const MonsterCardForm: React.FC<{
           </Select>
           {isLoading ? <CircularProgress sx={{ alignSelf: 'center', ml: 2 }} /> : null}
         </RowLayout>
-      </GroupLayout>
+      </ColumnLayout>
       {selectedMonster.name === 'custom' ? (
-        <GroupLayout sxOverrides={{ p: 0 }}>
+        <ColumnLayout sxOverrides={{ p: 0 }}>
           <FormDivider type={CardType.Monster} />
           <TextField
             id="title"
@@ -186,7 +186,7 @@ const MonsterCardForm: React.FC<{
           </RowLayout>
           <FormDivider type={CardType.Monster} />
           <RowLayout>
-            <GroupLayout sxOverrides={{ width: '45%' }}>
+            <ColumnLayout sxOverrides={{ width: '45%' }}>
               <TextField
                 id="vulnerabilities"
                 label="Vulnerabilties"
@@ -219,8 +219,8 @@ const MonsterCardForm: React.FC<{
                 value={content.conditionImmunities}
                 onChange={(e) => setContent({ ...content, conditionImmunities: e.target.value })}
               />
-            </GroupLayout>
-            <GroupLayout sxOverrides={{ width: '45%' }}>
+            </ColumnLayout>
+            <ColumnLayout sxOverrides={{ width: '45%' }}>
               <TextField
                 id="proficincies"
                 label="Proficincies"
@@ -254,10 +254,10 @@ const MonsterCardForm: React.FC<{
                 value={content.speed}
                 onChange={(e) => setContent({ ...content, speed: e.target.value })}
               />
-            </GroupLayout>
+            </ColumnLayout>
           </RowLayout>
           <FormDivider type={CardType.Monster} />
-          <GroupLayout>
+          <ColumnLayout>
             <TextField
               id="special-abilities"
               label="Special Abilties"
@@ -322,8 +322,8 @@ const MonsterCardForm: React.FC<{
               value={content.image}
               onChange={(e) => setContent({ ...content, image: e.target.value })}
             />
-          </GroupLayout>
-        </GroupLayout>
+          </ColumnLayout>
+        </ColumnLayout>
       ) : null}
     </div>
   );

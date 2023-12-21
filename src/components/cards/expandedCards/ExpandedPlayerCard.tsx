@@ -9,7 +9,7 @@ import BlockField from '../cardFields/BlockField';
 import StatField from '../cardFields/StatField';
 import CardHeader from '../cardFields/CardHeader';
 import CardBodyLayout from '../../layout/CardBodyLayout';
-import GroupLayout from '../../layout/GroupLayout';
+import ColumnLayout from '../../layout/ColumnLayout';
 import RowLayout from '../../layout/RowLayout';
 
 interface ExpandedPlayerCardProps {
@@ -201,27 +201,27 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
               <IconField label="AC" value={ac} cardType={CardType.Player} />
             </RowLayout>
             <RowLayout sxOverrides={{ flexDirection: 'row' }}>
-              <GroupLayout sxOverrides={{ width: '100%' }}>
+              <ColumnLayout sxOverrides={{ width: '100%' }}>
                 <DisplayField label="Passive Perception" value={passivePerception} />
                 <DisplayField label="Passive Investigation" value={passiveInvestigation} />
                 <DisplayField label="Passive Stealth" value={passiveStealth} />
                 <DisplayField label="Passive Insight" value={passiveInsight} />
-              </GroupLayout>
-              <GroupLayout sxOverrides={{ width: '100%' }}>
+              </ColumnLayout>
+              <ColumnLayout sxOverrides={{ width: '100%' }}>
                 <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
                 <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
                 <DisplayField label="Spell Save DC" value={spellSaveDC} />
                 <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
-              </GroupLayout>
+              </ColumnLayout>
             </RowLayout>
-            <GroupLayout sxOverrides={{ width: '100%' }}>
+            <ColumnLayout sxOverrides={{ width: '100%' }}>
               <DisplayField label="Speed" value={speed} />
               <DisplayField label="Languages" value={languages} />
               <DisplayField label="Character Sheet" value={link} />
-            </GroupLayout>
-            <GroupLayout>
+            </ColumnLayout>
+            <ColumnLayout>
               <BlockField label="Notes" value={notes} cardType={CardType.Player} />
-            </GroupLayout>
+            </ColumnLayout>
           </CardBodyLayout>
         </>
       )}

@@ -10,7 +10,7 @@ import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import CardBodyLayout from '../../layout/CardBodyLayout';
 import RowLayout from '../../layout/RowLayout';
-import GroupLayout from '../../layout/GroupLayout';
+import ColumnLayout from '../../layout/ColumnLayout';
 
 interface ExpandedMonsterCardProps {
   closeExpandedCard: () => void;
@@ -161,7 +161,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         </>
       ) : (
         <>
-          <CardHeader title={title} handleEdit={handleEdit} cardType={expandedCardData.type} />
+          <CardHeader title={title} handleEdit={handleEdit} />
           <CardBodyLayout>
             <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
               <DisplayField label="Size" value={size} />
@@ -181,40 +181,40 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
             </RowLayout>
             <RowLayout>
-              <GroupLayout>
+              <ColumnLayout>
                 <DisplayField label="Vulnerabilities" value={vulnerabilities} />
                 <DisplayField label="Resistances" value={resistances} />
                 <DisplayField label="Dammage Immunities" value={damageImmunities} />
                 <DisplayField label="Condition Immunitiest" value={conditionImmunities} />
-              </GroupLayout>
-              <GroupLayout>
+              </ColumnLayout>
+              <ColumnLayout>
                 <DisplayField label="Proficiencies" value={proficiencies} />
                 <DisplayField label="Senses" value={senses} />
                 <DisplayField label="Languages" value={languages} />
                 <DisplayField label="Speed" value={speed} />
-              </GroupLayout>
+              </ColumnLayout>
             </RowLayout>
-            <GroupLayout>
+            <ColumnLayout>
               <BlockField label="Special Abilities" value={specialAbilities} cardType={CardType.Monster} />
-            </GroupLayout>
-            <GroupLayout>
+            </ColumnLayout>
+            <ColumnLayout>
               <BlockField label="Actions" value={actions} cardType={CardType.Monster} />
-            </GroupLayout>
+            </ColumnLayout>
             {legendaryActions && (
-              <GroupLayout>
+              <ColumnLayout>
                 <BlockField label="Legendary Actions" value={legendaryActions} cardType={CardType.Monster} />
-              </GroupLayout>
+              </ColumnLayout>
             )}
-            <GroupLayout>
+            <ColumnLayout>
               <BlockField label="Description" value={description} cardType={CardType.Monster} />
-            </GroupLayout>
-            <GroupLayout>
+            </ColumnLayout>
+            <ColumnLayout>
               <BlockField label="Notes" value={notes} cardType={CardType.Monster} />
-            </GroupLayout>
+            </ColumnLayout>
             {image && (
-              <GroupLayout>
+              <ColumnLayout>
                 <img src={image} alt={`image of ${title}`} />
-              </GroupLayout>
+              </ColumnLayout>
             )}
           </CardBodyLayout>
         </>
