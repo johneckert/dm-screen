@@ -2,7 +2,7 @@ import { TextField } from '@mui/material';
 import { PlayerCardContent, CardType } from '../../../interfaces';
 import FormDivider from '../cardFields/FormDivider';
 import RowLayout from '../../layout/RowLayout';
-import GroupLayout from '../../layout/GroupLayout';
+import ColumnLayout from '../../layout/ColumnLayout';
 
 const PlayerCardForm: React.FC<{
   content: PlayerCardContent;
@@ -134,7 +134,7 @@ const PlayerCardForm: React.FC<{
       </RowLayout>
       <FormDivider type={CardType.Player} />
       <RowLayout>
-        <GroupLayout>
+        <ColumnLayout>
           <TextField
             id="passive-perception"
             label="Passive Perception"
@@ -167,8 +167,8 @@ const PlayerCardForm: React.FC<{
             value={content.passiveInsight}
             onChange={(e) => setContent({ ...content, passiveInsight: e.target.value })}
           />
-        </GroupLayout>
-        <GroupLayout>
+        </ColumnLayout>
+        <ColumnLayout>
           <TextField
             id="spell-casting-ability"
             label="Spell Casting Ability"
@@ -201,10 +201,10 @@ const PlayerCardForm: React.FC<{
             value={content.spellAttackBonus}
             onChange={(e) => setContent({ ...content, spellAttackBonus: e.target.value })}
           />
-        </GroupLayout>
+        </ColumnLayout>
       </RowLayout>
       <FormDivider type={CardType.Player} />
-      <GroupLayout>
+      <ColumnLayout>
         <TextField
           id="speed"
           label="Speed"
@@ -231,7 +231,7 @@ const PlayerCardForm: React.FC<{
           value={content.link}
           onChange={(e) => setContent({ ...content, link: e.target.value })}
         />
-      </GroupLayout>
+      </ColumnLayout>
       <FormDivider type={CardType.Player} />
       <TextField
         id="notes"

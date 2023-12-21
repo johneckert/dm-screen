@@ -3,7 +3,7 @@ import { Select, InputLabel, MenuItem } from '@mui/material';
 import { RULES } from '../../../ruleData';
 import { splitAndTitleCase } from '../../../utils';
 import { RuleCardContent } from '../../../interfaces';
-import GroupLayout from '../../layout/GroupLayout';
+import ColumnLayout from '../../layout/ColumnLayout';
 
 const RuleCardForm: React.FC<{
   content: RuleCardContent;
@@ -14,7 +14,7 @@ const RuleCardForm: React.FC<{
   };
   return (
     <div data-testid="rule-form">
-      <GroupLayout sxOverrides={{ p: 0 }}>
+      <ColumnLayout sxOverrides={{ p: 0 }}>
         <InputLabel id="rule-select-label">Rule*</InputLabel>
         <Select
           labelId="rule-select-label"
@@ -32,7 +32,7 @@ const RuleCardForm: React.FC<{
             </MenuItem>
           ))}
         </Select>
-      </GroupLayout>
+      </ColumnLayout>
     </div>
   );
 };
