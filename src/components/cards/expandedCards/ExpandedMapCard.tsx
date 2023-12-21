@@ -96,7 +96,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           >
             <Avatar
               aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60, marginBottom: 2, marginRight: 2 }}
+              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
               data-testid="room-number-view"
             >
               {roomNumber || 'X'}
