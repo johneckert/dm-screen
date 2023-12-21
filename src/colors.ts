@@ -15,8 +15,8 @@ export const TEAL = {
 
 export const PURPLE = {
   100: '#f5dff3',
-  200: '#dfc8dd',
-  300: '#c9b1c4',
+  300: '#dfc8dd',
+  400: '#c9b1c4',
   500: '#856798',
 };
 

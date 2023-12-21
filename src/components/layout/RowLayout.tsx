@@ -11,9 +11,8 @@ const RowLayout: React.FC<{ id?: string; sxOverrides?: SxProps<Theme>; children:
   const styles: SxProps<Theme> = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
-    padding: theme.spacing(3),
   };
   return (
     <Box id={id} sx={{ ...styles, ...sxOverrides }}>

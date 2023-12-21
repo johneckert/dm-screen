@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MapCardContent } from '../../../interfaces';
-import { Box, Typography, Avatar } from '@mui/material';
+import { Typography, Avatar } from '@mui/material';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { avatarColor } from '../../../utils';
 import BlockField from '../cardFields/BlockField';
@@ -56,57 +56,27 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="map-card-title"
-            component="h3"
-            sx={(theme) => {
-              return {
-                alignSelf: 'center',
-                margin: theme.spacing(4),
-                paddingX: theme.spacing(2),
-                paddingTop: theme.spacing(1.5),
-              };
-            }}
-          >
+          <Typography id="map-card-title" variant="cardHeader">
             Editing
           </Typography>
-          <CardBodyLayout
-            sxOverrides={(theme) => {
-              return {
-                padding: theme.spacing(2),
-                fontSize: theme.spacing(6),
-                fontWeight: 400,
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-              };
-            }}
-          >
+          <CardBodyLayout>
             <MapCardForm content={formContent} setContent={handleContentUpdate} />
           </CardBodyLayout>
         </>
       ) : (
         <>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <CardHeader title={title} handleEdit={handleEdit}>
-              <Avatar
-                aria-label="avatar"
-                sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
-                data-testid="room-number-view"
-              >
-                {roomNumber || 'X'}
-              </Avatar>
-            </CardHeader>
-          </Box>
+          <CardHeader title={title} handleEdit={handleEdit}>
+            <Avatar
+              aria-label="avatar"
+              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+              data-testid="room-number-view"
+            >
+              {roomNumber || 'X'}
+            </Avatar>
+          </CardHeader>
           <CardBodyLayout>
-            <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />
-            <BlockField label="DM Notes" value={notes} />
+            <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} bgFill />
+            <BlockField label="DM Notes" value={notes} cardType={CardType.Map} />
           </CardBodyLayout>
         </>
       )}

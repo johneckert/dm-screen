@@ -1,15 +1,17 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import { Box, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { Theme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { CardType } from '../../../interfaces';
-import { PURPLE, WHITE } from '../../../colors';
+import { BLACK } from '../../../colors';
 
-const BlockField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean; cardType?: CardType }> = ({
+const BlockField: React.FC<{ label: string; value: string | undefined; cardType: CardType; bgFill?: boolean }> = ({
   label,
   value = '',
   cardType,
+  bgFill,
 }) => {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -18,27 +20,19 @@ const BlockField: React.FC<{ label: string; value: string | undefined; isVertica
         alignItems: 'center',
       }}
     >
-      <Box
-        sx={(theme: Theme) => {
-          return {
-            alignSelf: 'flex-start',
-            fontWeight: 900,
-            marginRight: theme.spacing(1),
-          };
-        }}
-      >
+      <Typography variant="cardSectionLabel" sx={{ color: cardType ? theme.palette[cardType].main : BLACK }}>
         {label}:
-      </Box>
+      </Typography>
       <Box
-        sx={(theme: Theme) => {
-          return {
-            paddingLeft: theme.spacing(1),
-            paddingRight: theme.spacing(1),
-            backgroundColor: cardType === CardType.Map ? PURPLE[200] : WHITE,
-            width: '100%',
-            height: '100%',
-            minHeight: cardType === CardType.Map ? theme.spacing(40) : theme.spacing(0),
-          };
+        sx={{
+          paddingLeft: theme.spacing(1),
+          paddingRight: theme.spacing(1),
+          width: '100%',
+          height: '100%',
+          minHeight: theme.spacing(40),
+          border: `1px solid ${theme.palette[cardType].main}`,
+          backgroundColor: bgFill ? theme.palette[cardType].light : theme.palette.background.paper,
+          borderRadius: theme.spacing(1),
         }}
       >
         <ReactMarkdown>{value}</ReactMarkdown>
@@ -46,5 +40,6 @@ const BlockField: React.FC<{ label: string; value: string | undefined; isVertica
     </Box>
   );
 };
+//sx={{ alignSelf: 'flex-start', fontWeight: 900, marginRight: theme.spacing(1) }}
 
 export default BlockField;
