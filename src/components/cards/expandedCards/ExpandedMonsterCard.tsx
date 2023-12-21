@@ -141,18 +141,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="editing-title"
-            sx={(theme) => {
-              return {
-                margin: theme.spacing(4),
-                paddingX: theme.spacing(2),
-                paddingTop: theme.spacing(1.5),
-                alignSelf: 'center',
-              };
-            }}
-            component="h3"
-          >
+          <Typography id="editing-title" variant="cardHeader">
             Editing
           </Typography>
           <CardBodyLayout>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { PlayerCardContent } from '../../../interfaces';
 import { Box, Typography } from '@mui/material';
-import { RED } from '../../../colors';
+import { useTheme } from '@mui/material/styles';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) => {
+  const theme = useTheme();
   const {
     charClass = '',
     charRace = '',
@@ -34,14 +35,14 @@ const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) 
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          borderBottom: `solid 1px ${RED[500]}`,
+          borderBottom: `solid 1px ${theme.palette.Player.dark}`,
           mb: 1,
         }}
       >
-        <Typography component="span" sx={{ color: RED[600] }}>
+        <Typography component="span" sx={{ color: theme.palette.Player.dark }}>
           Level {charLevel} {charRace} {charClass}
         </Typography>
-        <Typography component="span" sx={{ color: RED[600] }}>
+        <Typography component="span" sx={{ color: theme.palette.Player.dark }}>
           {charBackground}
         </Typography>
       </Box>

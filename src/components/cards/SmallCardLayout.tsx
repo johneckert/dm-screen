@@ -1,8 +1,7 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Avatar, Typography } from '@mui/material';
+import { Card, CardHeader, CardContent, Avatar, Typography, useTheme } from '@mui/material';
 import { CardType, MapCardContent } from '../../interfaces';
 import { SmallCardProps } from '../../interfaces';
-import { avatarColor } from '../../utils';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
@@ -15,6 +14,7 @@ import MonsterCardSmall from './smallCards/MonsterCardSmall';
 import RuleCardSmall from './smallCards/RuleCardSmall';
 
 const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleContextMenuOpen }) => {
+  const theme = useTheme();
   const avatar = () => {
     switch (type) {
       case CardType.Map:
@@ -67,7 +67,7 @@ const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleCo
     >
       <CardHeader
         avatar={
-          <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(type), fontWeight: 'bold' }}>
+          <Avatar aria-label="avatar" sx={{ bgcolor: theme.palette[type].main, fontWeight: 'bold' }}>
             {avatar()}
           </Avatar>
         }

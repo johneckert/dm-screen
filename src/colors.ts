@@ -11,6 +11,7 @@ export const TEAL = {
   200: '#80bfbf',
   300: '#66b2b2',
   500: '#19857b',
+  600: '#19857b',
 };
 
 export const PURPLE = {
@@ -18,6 +19,7 @@ export const PURPLE = {
   300: '#dfc8dd',
   400: '#c9b1c4',
   500: '#856798',
+  600: '#6d4f8c',
 };
 
 export const GREY = {

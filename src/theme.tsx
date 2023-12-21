@@ -61,22 +61,27 @@ const theme = createTheme({
       paper: WHITE,
     },
     Note: {
+      dark: TEAL[600],
       main: TEAL[300],
       light: TEAL[200],
     },
     Map: {
+      dark: PURPLE[600],
       main: PURPLE[500],
       light: PURPLE[300],
     },
     Monster: {
+      dark: RED[600],
       main: RED[300],
       light: RED[200],
     },
     Rule: {
+      dark: AMBER[600],
       main: AMBER[400],
       light: AMBER[200],
     },
     Player: {
+      dark: BLUE[600],
       main: BLUE[300],
       light: BLUE[200],
     },
