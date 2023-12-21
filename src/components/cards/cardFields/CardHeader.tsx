@@ -3,9 +3,14 @@ import RowLayout from '../../layout/RowLayout';
 import { Typography, IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
-const CardHeader: React.FC<{ title: string; handleEdit: () => void }> = ({ title, handleEdit }) => {
+const CardHeader: React.FC<{ title: string; handleEdit: () => void; children?: React.ReactNode }> = ({
+  title,
+  handleEdit,
+  children,
+}) => {
   return (
     <RowLayout id="card-header" sxOverrides={{ padding: 0 }}>
+      {children}
       <Typography id="card-title" variant="cardHeader" data-testid="title-view">
         {title}
       </Typography>
