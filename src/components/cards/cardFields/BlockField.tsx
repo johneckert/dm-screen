@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { useTheme } from '@mui/material/styles';
 import { CardType } from '../../../interfaces';
 import { BLACK } from '../../../colors';
 

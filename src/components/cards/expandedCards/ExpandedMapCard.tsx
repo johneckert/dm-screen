@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { CardData, CardType, MapCardContent } from '../../../interfaces';
-import { Typography, Avatar } from '@mui/material';
+import { Typography, Avatar, useTheme } from '@mui/material';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import { avatarColor } from '../../../utils';
 import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import MapCardForm from '../newCardForms/MapCardForm';
@@ -21,6 +20,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
   updateCard,
   deleteCard,
 }) => {
+  const theme = useTheme();
   const cardContent = expandedCardData.content as MapCardContent;
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(cardContent.title);
@@ -68,7 +68,7 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
           <CardHeader title={title} handleEdit={handleEdit}>
             <Avatar
               aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+              sx={{ bgcolor: theme.palette.Map.light, width: 60, height: 60 }}
               data-testid="room-number-view"
             >
               {roomNumber || 'X'}

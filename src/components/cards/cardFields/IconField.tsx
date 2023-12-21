@@ -1,9 +1,8 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import { Box, useTheme } from '@mui/material';
 import ShieldIcon from '@mui/icons-material/Shield';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { CardType } from '../../../interfaces';
-import { useTheme } from '@mui/material';
 
 const IconField: React.FC<{ label: 'HP' | 'AC' | 'Speed'; value: string | undefined; cardType: CardType }> = ({
   label,

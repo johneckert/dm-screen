@@ -1,7 +1,6 @@
 import React from 'react';
 import { PlayerCardContent } from '../../../interfaces';
-import { Box, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { Box, Typography, useTheme } from '@mui/material';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const PlayerCardSmall: React.FC<{ content: PlayerCardContent }> = ({ content }) => {
