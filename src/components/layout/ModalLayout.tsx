@@ -21,7 +21,7 @@ const ModalLayout: React.FC<{ isVisible: boolean; close: () => void; children: R
             border: 'none',
             borderRadius: theme.spacing(1.5),
             boxShadow: '24px',
-            padding: theme.spacing(2),
+            padding: theme.spacing(4),
             display: 'flex',
             flexDirection: 'column',
           };

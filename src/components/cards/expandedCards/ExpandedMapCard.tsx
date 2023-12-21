@@ -94,14 +94,15 @@ const ExpandedMapCard: React.FC<ExpandedMapCardProps> = ({
               justifyContent: 'space-between',
             }}
           >
-            <Avatar
-              aria-label="avatar"
-              sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
-              data-testid="room-number-view"
-            >
-              {roomNumber || 'X'}
-            </Avatar>
-            <CardHeader title={title} handleEdit={handleEdit} />
+            <CardHeader title={title} handleEdit={handleEdit}>
+              <Avatar
+                aria-label="avatar"
+                sx={{ bgcolor: avatarColor(CardType.Map), width: 60, height: 60 }}
+                data-testid="room-number-view"
+              >
+                {roomNumber || 'X'}
+              </Avatar>
+            </CardHeader>
           </Box>
           <CardBodyLayout>
             <BlockField label="Read Out Loud" value={readOutLoudText} cardType={CardType.Map} />

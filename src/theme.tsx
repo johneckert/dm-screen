@@ -51,7 +51,6 @@ const theme = createTheme({
   },
   typography: {
     cardHeader: {
-      margin: defaultTheme.spacing(4),
       paddingLeft: defaultTheme.spacing(2),
       paddingTop: defaultTheme.spacing(0),
     },
