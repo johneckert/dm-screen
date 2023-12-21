@@ -174,7 +174,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
               <StatField label="WIS" value={wisdom} cardType={CardType.Monster} />
               <StatField label="CHA" value={charisma} cardType={CardType.Monster} />
             </RowLayout>
-            <RowLayout sxOverrides={{ justifyContent: 'space-around' }}>
+            <RowLayout>
               <IconField label="HP" value={hp} cardType={CardType.Monster} />
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
             </RowLayout>

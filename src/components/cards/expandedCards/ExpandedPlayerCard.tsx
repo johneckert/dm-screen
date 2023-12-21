@@ -160,7 +160,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
           <CardBodyLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
+            <RowLayout>
               <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
                 <strong>Race: </strong>
                 {charRace}
@@ -182,7 +182,7 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
                 {size || 'M'}
               </Typography>
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 1, alignItems: 'space-between' }}>
+            <RowLayout>
               <StatField label="STR" value={strength} cardType={CardType.Player} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Player} />
               <StatField label="CON" value={constitution} cardType={CardType.Player} />
@@ -190,25 +190,25 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
               <StatField label="WIS" value={wisdom} cardType={CardType.Player} />
               <StatField label="CHA" value={charisma} cardType={CardType.Player} />
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 3 }}>
+            <RowLayout>
               <IconField label="HP" value={hp} cardType={CardType.Player} />
               <IconField label="AC" value={ac} cardType={CardType.Player} />
             </RowLayout>
-            <RowLayout sxOverrides={{ flexDirection: 'row' }}>
-              <ColumnLayout sxOverrides={{ width: '100%' }}>
+            <RowLayout>
+              <ColumnLayout>
                 <DisplayField label="Passive Perception" value={passivePerception} />
                 <DisplayField label="Passive Investigation" value={passiveInvestigation} />
                 <DisplayField label="Passive Stealth" value={passiveStealth} />
                 <DisplayField label="Passive Insight" value={passiveInsight} />
               </ColumnLayout>
-              <ColumnLayout sxOverrides={{ width: '100%' }}>
+              <ColumnLayout>
                 <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
                 <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
                 <DisplayField label="Spell Save DC" value={spellSaveDC} />
                 <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
               </ColumnLayout>
             </RowLayout>
-            <ColumnLayout sxOverrides={{ width: '100%' }}>
+            <ColumnLayout>
               <DisplayField label="Speed" value={speed} />
               <DisplayField label="Languages" value={languages} />
               <DisplayField label="Character Sheet" value={link} />
