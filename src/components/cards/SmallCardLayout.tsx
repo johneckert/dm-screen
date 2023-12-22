@@ -7,7 +7,7 @@ import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
-import RoomCardSmall from './smallCards/MapCardSmall';
+import MapCardSmall from './smallCards/MapCardSmall';
 import NoteCardSmall from './smallCards/NoteCardSmall';
 import PlayerCardSmall from './smallCards/PlayerCardSmall';
 import MonsterCardSmall from './smallCards/MonsterCardSmall';
@@ -36,7 +36,7 @@ const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleCo
   const renderSmallCard = () => {
     switch (type) {
       case CardType.Map:
-        return <RoomCardSmall content={content} />;
+        return <MapCardSmall content={content} />;
       case CardType.Note:
         return <NoteCardSmall content={content} />;
       case CardType.Player:
@@ -72,7 +72,7 @@ const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleCo
           </Avatar>
         }
         title={content.title ? splitAndTitleCase(content.title) : ''}
-        sx={{ fontSize: 2, fontWeight: 900 }}
+        titleTypographyProps={{ fontSize: 16, fontWeight: 500 }}
       />
       <CardContent sx={{ py: 0, height: '70%' }}>{renderSmallCard()}</CardContent>
     </Card>

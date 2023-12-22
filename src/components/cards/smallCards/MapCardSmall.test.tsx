@@ -30,7 +30,7 @@ describe('<MapCardSmall />', () => {
         <MapCardSmall content={mockMapCardContentNoText} />
       </ThemeProvider>,
     );
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent('');
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent('');
   });
 
   it('renders full readOutLoudText if string is less than 500 characters', () => {
@@ -39,7 +39,7 @@ describe('<MapCardSmall />', () => {
         <MapCardSmall content={mockMapCardContentWithShortText} />
       </ThemeProvider>,
     );
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent(mockMapCardContentWithShortText.readOutLoudText);
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent(mockMapCardContentWithShortText.readOutLoudText);
   });
 
   it('renders truncated readOutLoudText if string is more than 500 characters', () => {
@@ -50,6 +50,6 @@ describe('<MapCardSmall />', () => {
         <MapCardSmall content={mockMapCardContentWithLongText} />
       </ThemeProvider>,
     );
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent(truncatedText);
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent(truncatedText);
   });
 });
