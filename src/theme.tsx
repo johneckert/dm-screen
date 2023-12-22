@@ -4,6 +4,7 @@ import { BREAKPOINTS } from './constants';
 
 declare module '@mui/material/styles' {
   interface TypographyVariants {
+    mainTitle: React.CSSProperties;
     cardHeader: React.CSSProperties;
     cardSubtitle: React.CSSProperties;
     cardSectionLabel: React.CSSProperties;
@@ -12,6 +13,7 @@ declare module '@mui/material/styles' {
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
+    mainTitle?: React.CSSProperties;
     cardHeader?: React.CSSProperties;
     cardSubtitle?: React.CSSProperties;
     cardSectionLabel?: React.CSSProperties;
@@ -38,6 +40,7 @@ declare module '@mui/material/styles' {
 // Update the Typography's variant prop options
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
+    mainTitle: true;
     cardHeader: true;
     cardSubtitle: true;
     cardSectionLabel: true;
@@ -55,7 +58,7 @@ const theme = createTheme({
       light: PURPLE[300],
     },
     secondary: {
-      main: TEAL[500],
+      main: RED[500],
     },
     error: {
       main: RED[500],
@@ -64,6 +67,7 @@ const theme = createTheme({
     background: {
       paper: WHITE,
     },
+    grey: GREY,
     Note: {
       dark: TEAL[600],
       main: TEAL[300],
@@ -101,6 +105,10 @@ const theme = createTheme({
     },
   },
   typography: {
+    mainTitle: {
+      fontSize: defaultTheme.spacing(5),
+      fontWeight: 300,
+    },
     cardHeader: {
       paddingTop: defaultTheme.spacing(0),
     },
@@ -120,9 +128,10 @@ const theme = createTheme({
     MuiTypography: {
       defaultProps: {
         variantMapping: {
-          cardHeader: 'h1',
+          mainTitle: 'h1',
+          cardHeader: 'h2',
           cardSubtitle: 'p',
-          cardSectionLabel: 'h4',
+          cardSectionLabel: 'h3',
           fieldLabel: 'span',
           fieldValue: 'span',
         },

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Divider, Tabs, Tab, Theme } from '@mui/material';
+import { Box, Divider, Tabs, Tab, useTheme } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NewTabDialog from '../dialogs/NewTabDialog';
-import { RED, WHITE } from '../../colors';
 
 interface TabHeaderProps {
   tabs: string[];
@@ -13,6 +12,7 @@ interface TabHeaderProps {
 }
 
 const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActiveTab, setShowNewCardDialog }) => {
+  const theme = useTheme();
   const [isSticky, setSticky] = useState<boolean>(false);
   const [showNewTabDialog, setshowNewTabDialog] = useState<boolean>(false);
 
@@ -48,7 +48,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
     right: 0,
     width: '100%',
     zIndex: 999,
-    background: (theme: Theme) => theme.palette.background.default,
+    background: theme.palette.background.default,
   };
 
   useEffect(() => {
@@ -79,7 +79,7 @@ const TabHeader: React.FC<TabHeaderProps> = ({ tabs, setTabs, activeTab, setActi
         key="newCard"
         label="+ Card"
         value="newCard"
-        sx={{ color: WHITE, background: RED[500], my: 1, mx: 2 }}
+        sx={{ color: theme.palette.background.paper, background: theme.palette.secondary.main, my: 1, mx: 2 }}
         onClick={openNewCardDialog}
       />
       <NewTabDialog

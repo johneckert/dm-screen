@@ -1,5 +1,6 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Typography, IconButton } from '@mui/material';
+import RowLayout from '../layout/RowLayout';
 import DeleteIcon from '@mui/icons-material/Delete';
 import NatOne from '../../assets/images/nat-one.svg';
 
@@ -30,24 +31,21 @@ class CardErrorBoundary extends Component<Props, State> {
     if (this.state.hasError) {
       return (
         <>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
+          <RowLayout
+            sxOverrides={{
               alignItems: 'center',
-              justifyContent: 'space-between',
               p: 2,
               mb: 2,
             }}
             data-testId="card-error-boundry"
           >
-            <Typography id="card-title" variant="h6" component="h6" data-testid="title-view">
+            <Typography id="card-title" variant="cardHeader" data-testid="title-view">
               You rolled a 1... Please delete this card and recreate it.
             </Typography>
             <IconButton aria-label="delete-button" data-testid="delete-button" onClick={this.props.deleteCard}>
               <DeleteIcon />
             </IconButton>
-          </Box>
+          </RowLayout>
           <Box
             sx={{
               display: 'flex',

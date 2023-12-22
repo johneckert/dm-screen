@@ -68,27 +68,10 @@ const NewCardDialog: React.FC<{
 
   return (
     <ModalLayout isVisible={!!isVisible} close={handleCancel}>
-      <Typography
-        id="modal-title"
-        variant="h3"
-        component="h3"
-        sx={(theme) => {
-          return {
-            margin: theme.spacing(4),
-            paddingX: theme.spacing(2),
-            paddingTop: theme.spacing(1.5),
-            alignSelf: 'center',
-          };
-        }}
-      >
+      <Typography id="modal-title" variant="cardHeader">
         Create Card
       </Typography>
-      <CardBodyLayout
-        sxOverrides={{
-          justifyContent: 'space-between',
-          width: '100%',
-        }}
-      >
+      <CardBodyLayout>
         <Box sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
           <CardTypeSelect cardType={cardType} setCardType={setCardType} />
           <CardColumnSelect cardColumn={cardColumn} setCardColumn={setCardColumn} />
