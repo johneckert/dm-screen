@@ -39,6 +39,5 @@ const BlockField: React.FC<{ label: string; value: string | undefined; cardType:
     </Box>
   );
 };
-//sx={{ alignSelf: 'flex-start', fontWeight: 900, marginRight: theme.spacing(1) }}
 
 export default BlockField;

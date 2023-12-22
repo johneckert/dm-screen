@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography } from '@mui/material';
+import { Typography, useTheme } from '@mui/material';
+import ColumnLayout from '../../layout/ColumnLayout';
 import { CardType } from '../../../interfaces';
 
 const StatField: React.FC<{ label: string; value: string | undefined; cardType: CardType }> = ({
@@ -7,32 +8,26 @@ const StatField: React.FC<{ label: string; value: string | undefined; cardType: 
   value,
   cardType,
 }) => {
+  const theme = useTheme();
   const modifier = value ? Math.floor((parseInt(value) - 10) / 2) : 0;
 
   return (
-    <Box
-      sx={(theme) => {
-        return {
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          paddingTop: theme.spacing(3),
-          width: theme.spacing(12),
-          height: theme.spacing(12),
-          border: `1px solid ${theme.palette[cardType].main}`,
-          borderRadius: theme.spacing(1),
-        };
+    <ColumnLayout
+      sxOverrides={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: theme.spacing(12),
+        height: theme.spacing(12),
+        border: `1px solid ${theme.palette[cardType].main}`,
+        borderRadius: theme.spacing(1),
       }}
     >
-      <Typography component="span" sx={{ fontWeight: 900 }}>
-        {label}
-      </Typography>
-      <Typography component="span">
+      <Typography variant="fieldLabel">{label}</Typography>
+      <Typography variant="fieldValue">
         {value} ({modifier >= 0 ? '+' : ''}
         {modifier})
       </Typography>
-    </Box>
+    </ColumnLayout>
   );
 };
 

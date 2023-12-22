@@ -7,6 +7,7 @@ declare module '@mui/material/styles' {
     cardHeader: React.CSSProperties;
     cardSubtitle: React.CSSProperties;
     cardSectionLabel: React.CSSProperties;
+    fieldLabel: React.CSSProperties;
   }
 
   // allow configuration using `createTheme`
@@ -14,6 +15,7 @@ declare module '@mui/material/styles' {
     cardHeader?: React.CSSProperties;
     cardSubtitle?: React.CSSProperties;
     cardSectionLabel?: React.CSSProperties;
+    fieldLabel?: React.CSSProperties;
   }
 
   interface Palette {
@@ -39,6 +41,8 @@ declare module '@mui/material/Typography' {
     cardHeader: true;
     cardSubtitle: true;
     cardSectionLabel: true;
+    fieldLabel: true;
+    fieldValue: true;
   }
 }
 
@@ -108,6 +112,9 @@ const theme = createTheme({
       fontWeight: 500,
       alignSelf: 'flex-start',
     },
+    fieldLabel: {
+      fontWeight: 900,
+    },
   },
   components: {
     MuiTypography: {
@@ -116,6 +123,8 @@ const theme = createTheme({
           cardHeader: 'h1',
           cardSubtitle: 'p',
           cardSectionLabel: 'h4',
+          fieldLabel: 'span',
+          fieldValue: 'span',
         },
       },
     },
