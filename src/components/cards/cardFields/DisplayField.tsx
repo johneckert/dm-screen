@@ -1,10 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 
-const DisplayField: React.FC<{ label: string; value: string | undefined; variant?: string; isVertical?: boolean }> = ({
+const DisplayField: React.FC<{ label: string; value: string | undefined; isVertical?: boolean }> = ({
   label,
   value,
-  variant,
   isVertical = false,
 }) => {
   return (
