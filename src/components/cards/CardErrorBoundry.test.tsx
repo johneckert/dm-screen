@@ -1,4 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../theme';
 import CardErrorBoundry from './CardErrorBoundry';
 
 const mockDeleteCard = jest.fn();
@@ -14,9 +16,11 @@ describe('<CardErrorBoundry />', () => {
 
   it('renders children when no error is thrown', () => {
     render(
-      <CardErrorBoundry deleteCard={mockDeleteCard}>
-        <div data-testid="child" />
-      </CardErrorBoundry>,
+      <ThemeProvider theme={theme}>
+        <CardErrorBoundry deleteCard={mockDeleteCard}>
+          <div data-testid="child" />
+        </CardErrorBoundry>
+      </ThemeProvider>,
     );
     expect(screen.getByTestId('child')).toBeInTheDocument();
   });
@@ -26,9 +30,11 @@ describe('<CardErrorBoundry />', () => {
       throw new Error('Test');
     };
     render(
-      <CardErrorBoundry deleteCard={mockDeleteCard}>
-        <ThrowError />
-      </CardErrorBoundry>,
+      <ThemeProvider theme={theme}>
+        <CardErrorBoundry deleteCard={mockDeleteCard}>
+          <ThrowError />
+        </CardErrorBoundry>
+      </ThemeProvider>,
     );
     expect(screen.getByTestId('card-error-boundry')).toBeInTheDocument();
   });
@@ -38,9 +44,11 @@ describe('<CardErrorBoundry />', () => {
       throw new Error('Test');
     };
     render(
-      <CardErrorBoundry deleteCard={mockDeleteCard}>
-        <ThrowError />
-      </CardErrorBoundry>,
+      <ThemeProvider theme={theme}>
+        <CardErrorBoundry deleteCard={mockDeleteCard}>
+          <ThrowError />
+        </CardErrorBoundry>
+      </ThemeProvider>,
     );
 
     screen.getByTestId('delete-button').click();

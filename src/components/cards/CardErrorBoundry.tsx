@@ -37,7 +37,6 @@ class CardErrorBoundary extends Component<Props, State> {
               p: 2,
               mb: 2,
             }}
-            data-testId="card-error-boundry"
           >
             <Typography id="card-title" variant="cardHeader" data-testid="title-view">
               You rolled a 1... Please delete this card and recreate it.
@@ -54,6 +53,7 @@ class CardErrorBoundary extends Component<Props, State> {
               m: 'auto',
               overflowY: 'hidden',
             }}
+            data-testId="card-error-boundry"
           >
             <img width="100%" src={NatOne} alt="a twenty sided die showing a one." />
           </Box>
