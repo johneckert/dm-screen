@@ -1,4 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { ThemeProvider } from '@mui/material/styles';
+import theme from '../../../theme';
 import MapCardSmall from './MapCardSmall';
 
 const mockMapCardContentNoText = {
@@ -23,19 +25,31 @@ jest.mock('react-markdown', () => (props: { children: string }) => <div>{props.c
 
 describe('<MapCardSmall />', () => {
   it('renders with no text if readOutLoudText is undefined', () => {
-    render(<MapCardSmall content={mockMapCardContentNoText} />);
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent('');
+    render(
+      <ThemeProvider theme={theme}>
+        <MapCardSmall content={mockMapCardContentNoText} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent('');
   });
 
   it('renders full readOutLoudText if string is less than 500 characters', () => {
-    render(<MapCardSmall content={mockMapCardContentWithShortText} />);
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent(mockMapCardContentWithShortText.readOutLoudText);
+    render(
+      <ThemeProvider theme={theme}>
+        <MapCardSmall content={mockMapCardContentWithShortText} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent(mockMapCardContentWithShortText.readOutLoudText);
   });
 
   it('renders truncated readOutLoudText if string is more than 500 characters', () => {
     const truncatedText = `${mockMapCardContentWithLongText.readOutLoudText.substring(0, 200)}...`;
 
-    render(<MapCardSmall content={mockMapCardContentWithLongText} />);
-    expect(screen.getByTestId('small-room-card')).toHaveTextContent(truncatedText);
+    render(
+      <ThemeProvider theme={theme}>
+        <MapCardSmall content={mockMapCardContentWithLongText} />
+      </ThemeProvider>,
+    );
+    expect(screen.getByTestId('small-map-card')).toHaveTextContent(truncatedText);
   });
 });

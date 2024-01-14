@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = ({ setTabs, activeTab, setActiveTab }) => 
   return (
     <AppBar position="static" data-testid="header">
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Typography variant="mainTitle" sx={{ flexGrow: 1 }}>
           DM Screen
         </Typography>
         <FileActionMenu setTabs={setTabs} activeTab={activeTab} setActiveTab={setActiveTab} />

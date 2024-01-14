@@ -1,19 +1,17 @@
 import React, { ReactNode } from 'react';
 import { Box } from '@mui/material';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material';
 
 const RowLayout: React.FC<{ id?: string; sxOverrides?: SxProps<Theme>; children: ReactNode }> = ({
   id,
   sxOverrides = {},
   children,
 }) => {
-  const theme = useTheme();
   const styles: SxProps<Theme> = {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     width: '100%',
-    padding: theme.spacing(3),
   };
   return (
     <Box id={id} sx={{ ...styles, ...sxOverrides }}>

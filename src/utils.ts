@@ -30,7 +30,7 @@ export const flattenCards = (cardDataMap: CardDataMap) => {
 export const avatarColor = (type: CardType) => {
   switch (type) {
     case CardType.Map:
-      return PURPLE[300];
+      return PURPLE[400];
     case CardType.Note:
       return TEAL[300];
     case CardType.Rule:

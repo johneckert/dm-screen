@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { CardData, CardType, PlayerCardContent } from '../../../interfaces';
 import ExpandedCardLayout from '../ExpandedCardLayout';
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import PlayerCardForm from '../newCardForms/PlayerCardForm';
 import DisplayField from '../cardFields/DisplayField';
 import IconField from '../cardFields/IconField';
@@ -149,46 +149,40 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="player-card-title"
-            sx={(theme) => {
-              return {
-                alignSelf: 'center',
-                margin: theme.spacing(4),
-                paddingX: theme.spacing(2),
-                paddingTop: theme.spacing(1.5),
-              };
-            }}
-            component="h3"
-          >
+          <Typography id="player-card-title" variant="cardHeader">
             Editing
           </Typography>
-          <Box
-            sx={(theme) => {
-              return {
-                alignSelf: 'center',
-                justifyContent: 'center',
-                width: 'fit-content',
-                padding: theme.spacing(1),
-                marginLeft: 'auto',
-              };
-            }}
-          >
+          <CardBodyLayout>
             <PlayerCardForm content={formContent} setContent={handleContentUpdate} />
-          </Box>
+          </CardBodyLayout>
         </>
       ) : (
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
           <CardBodyLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
-              <DisplayField label="Race" value={charRace} />
-              <DisplayField label="Class" value={charClass} />
-              <DisplayField label="Level" value={charLevel} />
-              <DisplayField label="Background" value={charBackground} />
-              <DisplayField label="Size" value={size || 'M'} />
+            <RowLayout>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Race: </strong>
+                {charRace}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Class: </strong>
+                {charClass}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Level: </strong>
+                {charLevel}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Background: </strong>
+                {charBackground}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Size: </strong>
+                {size || 'M'}
+              </Typography>
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 1, alignItems: 'space-between' }}>
+            <RowLayout>
               <StatField label="STR" value={strength} cardType={CardType.Player} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Player} />
               <StatField label="CON" value={constitution} cardType={CardType.Player} />
@@ -196,25 +190,25 @@ const ExpandedPlayerCard: React.FC<ExpandedPlayerCardProps> = ({
               <StatField label="WIS" value={wisdom} cardType={CardType.Player} />
               <StatField label="CHA" value={charisma} cardType={CardType.Player} />
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 3 }}>
+            <RowLayout>
               <IconField label="HP" value={hp} cardType={CardType.Player} />
               <IconField label="AC" value={ac} cardType={CardType.Player} />
             </RowLayout>
-            <RowLayout sxOverrides={{ flexDirection: 'row' }}>
-              <ColumnLayout sxOverrides={{ width: '100%' }}>
+            <RowLayout>
+              <ColumnLayout>
                 <DisplayField label="Passive Perception" value={passivePerception} />
                 <DisplayField label="Passive Investigation" value={passiveInvestigation} />
                 <DisplayField label="Passive Stealth" value={passiveStealth} />
                 <DisplayField label="Passive Insight" value={passiveInsight} />
               </ColumnLayout>
-              <ColumnLayout sxOverrides={{ width: '100%' }}>
+              <ColumnLayout>
                 <DisplayField label="Spell Casting Ability" value={spellCastingAbility} />
                 <DisplayField label="Spell Casting Modifier" value={spellCastingModifier} />
                 <DisplayField label="Spell Save DC" value={spellSaveDC} />
                 <DisplayField label="Spell Attack Bonus" value={spellAttackBonus} />
               </ColumnLayout>
             </RowLayout>
-            <ColumnLayout sxOverrides={{ width: '100%' }}>
+            <ColumnLayout>
               <DisplayField label="Speed" value={speed} />
               <DisplayField label="Languages" value={languages} />
               <DisplayField label="Character Sheet" value={link} />

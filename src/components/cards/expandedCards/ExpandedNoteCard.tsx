@@ -6,6 +6,7 @@ import BlockField from '../cardFields/BlockField';
 import CardHeader from '../cardFields/CardHeader';
 import NoteCardForm from '../newCardForms/NoteCardForm';
 import CardBodyLayout from '../../layout/CardBodyLayout';
+import { CardType } from '../../../interfaces';
 
 interface ExpandedNoteCardProps {
   closeExpandedCard: () => void;
@@ -50,18 +51,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="note-card-title"
-            sx={(theme) => {
-              return {
-                alignSelf: 'center',
-                margin: theme.spacing(4),
-                paddingX: theme.spacing(2),
-                paddingTop: theme.spacing(1.5),
-              };
-            }}
-            component="h3"
-          >
+          <Typography id="note-card-title" variant="cardHeader">
             Editing
           </Typography>
           <Box>
@@ -72,7 +62,7 @@ const ExpandedNoteCard: React.FC<ExpandedNoteCardProps> = ({
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
           <CardBodyLayout>
-            <BlockField label="Notes" value={notes} />
+            <BlockField label="Notes" value={notes} cardType={CardType.Note} />
           </CardBodyLayout>
         </>
       )}

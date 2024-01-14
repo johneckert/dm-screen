@@ -1,10 +1,10 @@
 import React from 'react';
 import { MonsterCardContent } from '../../../interfaces';
-import { Box, Typography } from '@mui/material';
-import { BLUE } from '../../../colors';
+import { Box, Typography, useTheme } from '@mui/material';
 import SmallCardStatTable from '../cardFields/SmallCardStatTable';
 
 const MonsterCardSmall: React.FC<{ content: MonsterCardContent }> = ({ content }) => {
+  const theme = useTheme();
   const {
     size = '',
     type = '',
@@ -23,14 +23,14 @@ const MonsterCardSmall: React.FC<{ content: MonsterCardContent }> = ({ content }
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
-          borderBottom: `solid 1px ${BLUE[600]}`,
+          borderBottom: `solid 1px ${theme.palette.Monster.dark}`,
           marginBottom: 1,
         }}
       >
-        <Typography component="span" sx={{ color: BLUE[600] }}>
+        <Typography component="span" sx={{ color: theme.palette.Monster.dark }}>
           {size} {type}
         </Typography>
-        <Typography component="span" sx={{ color: BLUE[600] }}>
+        <Typography component="span" sx={{ color: theme.palette.Monster.dark }}>
           CR {challengeRating}
         </Typography>
       </Box>

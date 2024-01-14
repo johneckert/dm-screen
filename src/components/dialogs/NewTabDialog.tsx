@@ -30,7 +30,6 @@ const NewTabDialog: React.FC<NewTabDialogProps> = ({ showNewTabDialog, setshowNe
           margin="dense"
           id="tab-name"
           label="Tab Name"
-          type="email"
           fullWidth
           variant="standard"
           onChange={handleInputChange}
