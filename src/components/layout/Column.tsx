@@ -1,10 +1,9 @@
 import { Droppable } from 'react-beautiful-dnd';
-import Box from '@mui/material/Box';
+import { Box, useTheme } from '@mui/material';
 import { CardData } from '../../interfaces';
 import DraggableCard from './DraggableCard';
 import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
 import { getScreenSize, getBreakPoint } from '../../utils';
-import { GREY } from '../../colors';
 
 export interface ColumnProps {
   cards: CardData[];
@@ -15,23 +14,22 @@ export interface ColumnProps {
 
 const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, handleContextMenuOpen }) => {
   const screenSize = getScreenSize();
+  const theme = useTheme();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];
   return (
     <Box
       data-testid="column"
-      sx={(theme) => {
-        return {
-          width: (screenSize.width - 16) / numberOfColumns,
-          paddingLeft: theme.spacing(1),
-          paddingRight: theme.spacing(1),
-          [theme.breakpoints.up(BREAKPOINTS.lg)]: {
-            height: '100%',
-          },
-          [theme.breakpoints.down(BREAKPOINTS.lg)]: {
-            borderBottom: `2px dashed ${GREY[300]}`,
-          },
-        };
+      sx={{
+        width: (screenSize.width - 16) / numberOfColumns,
+        paddingLeft: theme.spacing(1),
+        paddingRight: theme.spacing(1),
+        [theme.breakpoints.up(BREAKPOINTS.lg)]: {
+          height: '100%',
+        },
+        [theme.breakpoints.down(BREAKPOINTS.lg)]: {
+          borderBottom: `2px dashed ${theme.palette.grey[300]}`,
+        },
       }}
     >
       <Droppable droppableId={`droppable-${columnId}`}>

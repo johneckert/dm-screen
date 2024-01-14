@@ -1,20 +1,20 @@
 import React from 'react';
-import { Card, CardHeader, CardContent, Avatar, Typography } from '@mui/material';
+import { Card, CardHeader, CardContent, Avatar, Typography, useTheme } from '@mui/material';
 import { CardType, MapCardContent } from '../../interfaces';
 import { SmallCardProps } from '../../interfaces';
-import { avatarColor } from '../../utils';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import PushPinIcon from '@mui/icons-material/PushPin';
 import PersonIcon from '@mui/icons-material/Person';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import { splitAndTitleCase } from '../../utils';
-import RoomCardSmall from './smallCards/MapCardSmall';
+import MapCardSmall from './smallCards/MapCardSmall';
 import NoteCardSmall from './smallCards/NoteCardSmall';
 import PlayerCardSmall from './smallCards/PlayerCardSmall';
 import MonsterCardSmall from './smallCards/MonsterCardSmall';
 import RuleCardSmall from './smallCards/RuleCardSmall';
 
 const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleContextMenuOpen }) => {
+  const theme = useTheme();
   const avatar = () => {
     switch (type) {
       case CardType.Map:
@@ -36,7 +36,7 @@ const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleCo
   const renderSmallCard = () => {
     switch (type) {
       case CardType.Map:
-        return <RoomCardSmall content={content} />;
+        return <MapCardSmall content={content} />;
       case CardType.Note:
         return <NoteCardSmall content={content} />;
       case CardType.Player:
@@ -67,12 +67,12 @@ const SmallCardLayout: React.FC<SmallCardProps> = ({ id, content, type, handleCo
     >
       <CardHeader
         avatar={
-          <Avatar aria-label="avatar" sx={{ bgcolor: avatarColor(type), fontWeight: 'bold' }}>
+          <Avatar aria-label="avatar" sx={{ bgcolor: theme.palette[type].main, fontWeight: 'bold' }}>
             {avatar()}
           </Avatar>
         }
         title={content.title ? splitAndTitleCase(content.title) : ''}
-        sx={{ fontSize: 2, fontWeight: 900 }}
+        titleTypographyProps={{ fontSize: 16, fontWeight: 500 }}
       />
       <CardContent sx={{ py: 0, height: '70%' }}>{renderSmallCard()}</CardContent>
     </Card>

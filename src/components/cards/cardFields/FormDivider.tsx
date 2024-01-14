@@ -1,28 +1,13 @@
 import React from 'react';
-import { Divider } from '@mui/material';
-import { BLUE, RED, TEAL, AMBER, GREY } from '../../../colors';
+import { Divider, useTheme } from '@mui/material';
 import { CardType } from '../../../interfaces';
 
 const FormDivider: React.FC<{ type: CardType }> = ({ type }) => {
-  const dividerColor = () => {
-    switch (type) {
-      case CardType.Monster:
-        return BLUE[200];
-      case CardType.Player:
-        return RED[200];
-      case CardType.Note:
-        return TEAL[200];
-      case CardType.Rule:
-        return AMBER[200];
-      default:
-        return GREY[200];
-    }
-  };
-
+  const theme = useTheme();
   const dividerStyle = {
-    marginTop: 2,
-    marginBottom: 4,
-    background: dividerColor(),
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    background: theme.palette[type].dark,
   };
   return <Divider sx={dividerStyle} />;
 };

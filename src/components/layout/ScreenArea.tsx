@@ -11,7 +11,6 @@ import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
 import ExpandedPlayerCard from '../cards/expandedCards/ExpandedPlayerCard';
 import ExpandedMonsterCard from '../cards/expandedCards/ExpandedMonsterCard';
 import NewCardDialog from '../dialogs/NewCardDialog';
-import { GREY } from '../../colors';
 import SmallCardContextMenu from '../dialogs/SmallCardContextMenu';
 
 interface ScreenAreaProps {
@@ -254,7 +253,7 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, s
               paddingRight: theme.spacing(1),
               display: 'flex',
               flexWrap: 'wrap',
-              backgroundColor: GREY[100],
+              backgroundColor: theme.palette.grey[100],
             };
           }}
           data-testid="screen-area"

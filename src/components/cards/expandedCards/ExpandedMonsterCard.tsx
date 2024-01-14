@@ -141,18 +141,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
     >
       {isEditing ? (
         <>
-          <Typography
-            id="editing-title"
-            sx={(theme) => {
-              return {
-                margin: theme.spacing(4),
-                paddingX: theme.spacing(2),
-                paddingTop: theme.spacing(1.5),
-                alignSelf: 'center',
-              };
-            }}
-            component="h3"
-          >
+          <Typography id="editing-title" variant="cardHeader">
             Editing
           </Typography>
           <CardBodyLayout>
@@ -163,12 +152,21 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
         <>
           <CardHeader title={title} handleEdit={handleEdit} />
           <CardBodyLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 0, alignItems: 'space-between' }}>
-              <DisplayField label="Size" value={size} />
-              <DisplayField label="Type" value={type} />
-              <DisplayField label="CR" value={challengeRating} />
+            <RowLayout>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Size: </strong>
+                {size}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>Type: </strong>
+                {type}
+              </Typography>
+              <Typography variant="cardSubtitle" component="h4" sx={{ alignSelf: 'center', margin: 0 }}>
+                <strong>CR: </strong>
+                {challengeRating}
+              </Typography>
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 2, px: 1 }}>
+            <RowLayout>
               <StatField label="STR" value={strength} cardType={CardType.Monster} />
               <StatField label="DEX" value={dexterity} cardType={CardType.Monster} />
               <StatField label="CON" value={constitution} cardType={CardType.Monster} />
@@ -176,7 +174,7 @@ const ExpandedMonsterCard: React.FC<ExpandedMonsterCardProps> = ({
               <StatField label="WIS" value={wisdom} cardType={CardType.Monster} />
               <StatField label="CHA" value={charisma} cardType={CardType.Monster} />
             </RowLayout>
-            <RowLayout sxOverrides={{ mb: 3 }}>
+            <RowLayout>
               <IconField label="HP" value={hp} cardType={CardType.Monster} />
               <IconField label="AC" value={ac} cardType={CardType.Monster} />
             </RowLayout>
