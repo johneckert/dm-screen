@@ -3,7 +3,7 @@ import { CardData, SkillDescription, RuleTable, RuleCardContent } from '../../..
 import { RULE_DATA } from '../../../ruleData';
 import ExpandedCardLayout from '../ExpandedCardLayout';
 import { Box, Typography, Table, TableContainer, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
-import { AMBER } from '../../../colors';
+import theme from '../../../theme';
 import { splitAndTitleCase } from '../../../utils';
 import CardHeader from '../cardFields/CardHeader';
 import RuleCardForm from '../newCardForms/RuleCardForm';
@@ -11,7 +11,7 @@ import CardBodyLayout from '../../layout/CardBodyLayout';
 
 export const DescriptionSection: React.FC<{ description: SkillDescription }> = ({ description }) => {
   return (
-    <Box sx={{ width: '100%', border: `1px solid ${AMBER[800]}`, borderBottom: 'none', backgroundColor: AMBER[300] }}>
+    <Box sx={{ width: '100%', border: `solid 1px ${theme.palette.Rule.dark}`, borderBottom: 'none' }}>
       {typeof description === 'string' ? (
         <Box
           sx={{
@@ -101,11 +101,7 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
           return {
             width: '100%',
             textAlign: 'center',
-            border: `1px solid ${AMBER[800]}`,
-            borderBottom: 'none',
             marginTop: theme.spacing(1),
-            backgroundColor: AMBER[700],
-            color: AMBER[100],
           };
         }}
       >
@@ -119,10 +115,11 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
           <TableHead>
             <TableRow
               sx={{
-                border: `1px solid ${AMBER[800]}`,
+                border: `1px solid ${theme.palette.Rule.dark}`,
                 '& th': {
                   fontWeight: 'bold',
-                  backgroundColor: AMBER[200],
+                  backgroundColor: theme.palette.Rule.light,
+                  border: 'none',
                 },
               }}
             >
@@ -132,14 +129,14 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {rows.map((row, i) => (
               <TableRow
                 key={row[headers[0]]}
                 sx={{
-                  border: `1px solid ${AMBER[800]}`,
-                  '& th': {
-                    fontWeight: 'bold',
-                    backgroundColor: AMBER[200],
+                  border: `1px solid ${theme.palette.Rule.dark}`,
+                  '& td': {
+                    border: 'none',
+                    background: i % 2 === 0 ? theme.palette.background.paper : theme.palette.Rule.light,
                   },
                 }}
               >
