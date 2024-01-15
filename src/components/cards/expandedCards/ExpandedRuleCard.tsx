@@ -92,7 +92,6 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
           paddingRight: theme.spacing(2),
           marginBottom: theme.spacing(2),
           width: '100%',
-          borderRadius: '50%',
         };
       }}
       data-testid="table-section"
