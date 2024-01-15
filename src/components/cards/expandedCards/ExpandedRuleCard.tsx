@@ -116,10 +116,10 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
             <TableRow
               sx={{
                 border: `1px solid ${theme.palette.Rule.dark}`,
-                borderBottom: `1px solid ${theme.palette.Rule.dark}`,
                 '& th': {
                   fontWeight: 'bold',
                   backgroundColor: theme.palette.Rule.light,
+                  border: 'none',
                 },
               }}
             >
@@ -135,7 +135,7 @@ export const TableSection: React.FC<{ subRule: string; tableData: RuleTable }> =
                 sx={{
                   border: `1px solid ${theme.palette.Rule.dark}`,
                   '& td': {
-                    borderBottom: `1px solid ${theme.palette.Rule.dark}`,
+                    border: 'none',
                     background: i % 2 === 0 ? theme.palette.background.paper : theme.palette.Rule.light,
                   },
                 }}
