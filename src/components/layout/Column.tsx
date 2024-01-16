@@ -2,8 +2,9 @@ import { Droppable } from 'react-beautiful-dnd';
 import { Box, useTheme } from '@mui/material';
 import { CardData } from '../../interfaces';
 import DraggableCard from './DraggableCard';
+import useScreenSize from '../../hooks/useScreenSize';
 import { NUMBER_OF_COLUMNS, BREAKPOINTS } from '../../constants';
-import { getScreenSize, getBreakPoint } from '../../utils';
+import { getBreakPoint } from '../../utils';
 
 export interface ColumnProps {
   cards: CardData[];
@@ -13,7 +14,7 @@ export interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = ({ cards, columnId, expandCard, handleContextMenuOpen }) => {
-  const screenSize = getScreenSize();
+  const screenSize = useScreenSize();
   const theme = useTheme();
   const breakPoint = getBreakPoint(screenSize);
   const numberOfColumns = NUMBER_OF_COLUMNS[breakPoint];

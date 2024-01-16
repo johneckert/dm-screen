@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CardData, CardType, ContextMenuAction, ScreenSize } from '../../interfaces';
+import { CardData, CardType, ContextMenuAction } from '../../interfaces';
 import Column from './Column';
 import Box from '@mui/material/Box';
-import { getScreenSize } from '../../utils';
 import useCardStorage from '../../hooks/useCardStorage';
+import useScreenSize from '../../hooks/useScreenSize';
 import ExpandedNoteCard from '../cards/expandedCards/ExpandedNoteCard';
 import ExpandedMapCard from '../cards/expandedCards/ExpandedMapCard';
 import ExpandedRuleCard from '../cards/expandedCards/ExpandedRuleCard';
@@ -21,7 +21,7 @@ interface ScreenAreaProps {
 
 const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, setShowNewCardDialog }) => {
   const [cards, setCards] = useCardStorage();
-  const [screenSize, setScreenSize] = useState<ScreenSize>(getScreenSize());
+  const screenSize = useScreenSize();
   const [expandedCardId, setExpandedCardId] = useState<string | null>(null);
   const [expandedCardData, setExpandedCardData] = useState<CardData | null>(null);
   const [contextId, setContextId] = useState<string | false>(false);
@@ -150,18 +150,6 @@ const ScreenArea: React.FC<ScreenAreaProps> = ({ activeTab, showNewCardDialog, s
       setCards(cards);
     }
   };
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const handleResize = () => {
-        setScreenSize(getScreenSize());
-      };
-      window.addEventListener('resize', handleResize);
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }
-  }, []);
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   //@ts-ignore no-implicit-any
