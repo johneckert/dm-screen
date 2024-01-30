@@ -4,6 +4,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import { useState } from 'react';
+import { CookiesProvider, useCookies } from 'react-cookie';
 import useActiveTabStorage from './hooks/useActiveTabStorage';
 import useTabStorage from './hooks/useTabStorage';
 import Header from './components/header/Header';
@@ -16,29 +17,33 @@ function App() {
   const [tabs, setTabs] = useTabStorage();
   const [activeTab, setActiveTab] = useActiveTabStorage();
   const [showNewCardDialog, setShowNewCardDialog] = useState<boolean>(false);
-  const [showWelcomeDialog, setShowWelcomeDialog] = useState<boolean>(true);
+  const [cookies, setCookies] = useCookies(['seenWelcomeDialog']);
+
+  const setSeenWelcomeDialog = () => {
+    setCookies('seenWelcomeDialog', true, { path: '/' });
+  };
 
   return (
-    <ErrorBoundary>
-      <Header setTabs={setTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-      <TabHeader
-        tabs={tabs}
-        setTabs={setTabs}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        setShowNewCardDialog={setShowNewCardDialog}
-      />
+    <CookiesProvider>
       <ErrorBoundary>
-        <ScreenArea
+        <Header setTabs={setTabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+        <TabHeader
+          tabs={tabs}
+          setTabs={setTabs}
           activeTab={activeTab}
-          showNewCardDialog={showNewCardDialog}
+          setActiveTab={setActiveTab}
           setShowNewCardDialog={setShowNewCardDialog}
         />
+        <ErrorBoundary>
+          <ScreenArea
+            activeTab={activeTab}
+            showNewCardDialog={showNewCardDialog}
+            setShowNewCardDialog={setShowNewCardDialog}
+          />
+        </ErrorBoundary>
+        <WelcomeDialog showWelcomeDialog={!cookies.seenWelcomeDialog} setSeenWelcomeDialog={setSeenWelcomeDialog} />
       </ErrorBoundary>
-      {showWelcomeDialog && (
-        <WelcomeDialog showWelcomeDialog={showWelcomeDialog} setShowWelcomeDialog={setShowWelcomeDialog} />
-      )}
-    </ErrorBoundary>
+    </CookiesProvider>
   );
 }
 

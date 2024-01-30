@@ -4,10 +4,10 @@ import { Box, Typography } from '@mui/material';
 
 const WelcomeDialog: React.FC<{
   showWelcomeDialog: boolean;
-  setShowWelcomeDialog: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ setShowWelcomeDialog, showWelcomeDialog }) => {
+  setSeenWelcomeDialog: () => void;
+}> = ({ setSeenWelcomeDialog, showWelcomeDialog }) => {
   return (
-    <ModalLayout isVisible={showWelcomeDialog} close={() => setShowWelcomeDialog(false)}>
+    <ModalLayout isVisible={showWelcomeDialog} close={setSeenWelcomeDialog}>
       <Box id="welcome-dialog" sx={{ overflowY: 'scroll' }}>
         <Typography sx={{ mb: 1 }} variant="mainTitle">
           Welcome to DM Screen!
