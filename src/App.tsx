@@ -10,11 +10,13 @@ import Header from './components/header/Header';
 import ScreenArea from './components/layout/ScreenArea';
 import ErrorBoundary from './ErrorBoundry';
 import TabHeader from './components/header/TabHeader';
+import WelcomeDialog from './components/dialogs/WelcomeDialog';
 
 function App() {
   const [tabs, setTabs] = useTabStorage();
   const [activeTab, setActiveTab] = useActiveTabStorage();
   const [showNewCardDialog, setShowNewCardDialog] = useState<boolean>(false);
+  const [showWelcomeDialog, setShowWelcomeDialog] = useState<boolean>(true);
 
   return (
     <ErrorBoundary>
@@ -33,6 +35,9 @@ function App() {
           setShowNewCardDialog={setShowNewCardDialog}
         />
       </ErrorBoundary>
+      {showWelcomeDialog && (
+        <WelcomeDialog showWelcomeDialog={showWelcomeDialog} setShowWelcomeDialog={setShowWelcomeDialog} />
+      )}
     </ErrorBoundary>
   );
 }

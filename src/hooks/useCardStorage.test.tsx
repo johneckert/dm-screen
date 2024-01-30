@@ -1,7 +1,7 @@
 import useCardStorage from './useCardStorage';
 import { render, screen, act } from '@testing-library/react';
 import { useLocalStorage } from 'usehooks-ts';
-import { WELCOME_CARDS } from '../welcomeCard';
+import { DEFAULT_CARDS } from '../welcomeCard';
 import { mockCardData, mockCardDataMap } from '../mockData';
 import { CardDataMap } from '../interfaces';
 import React, { useEffect } from 'react';
@@ -26,7 +26,7 @@ describe('useCardStorage hook', () => {
   it('it creates welcome cards if the user has no stored data', async () => {
     render(<MockComponent />);
     act(() => {
-      expect(useLocalStorage).toHaveBeenCalledWith('cards', WELCOME_CARDS);
+      expect(useLocalStorage).toHaveBeenCalledWith('cards', DEFAULT_CARDS);
     });
   });
 

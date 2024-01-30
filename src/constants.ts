@@ -56,7 +56,7 @@ export const DIALOG_MESSAGES = {
   fileType: 'Please upload a JSON file.',
 };
 
-export const DEFAULT_TABS = ['welcome!', 'rules'];
+export const DEFAULT_TABS = ['rules'];
 
 export const EMPTY_CARD_MAP = {
   'droppable-1': [],
