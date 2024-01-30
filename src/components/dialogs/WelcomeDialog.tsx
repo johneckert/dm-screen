@@ -13,14 +13,10 @@ const WelcomeDialog: React.FC<{
           Welcome to DM Screen!
         </Typography>
         <Typography sx={{ mb: 4 }} variant="cardSectionLabel">
-          Where storytelling meets seamless organization.
+          Your ultimate companion for running 5e Dungeons and Dragons online!
         </Typography>
         <Typography sx={{ mb: 2 }} component="p">
-          Get ready to up your game with DM Screen – your ultimate companion for for running 5e Dungeons and Dragons
-          online!
-        </Typography>
-        <Typography sx={{ mb: 2 }} component="p">
-          DM Screen is a digital canvas designed to help you get organized, so you can focus on what matters, telling
+          DM Screen is a digital canvas designed to help you get organized so you can focus on what matters, telling
           your story. In addition to cards for quickly referencing rules, DM Screen allows you to create custom cards to
           track info about your players, monsters, map locations, and generic notes. You can even use mardown to format
           your cards so they are easy to read!
@@ -36,14 +32,16 @@ const WelcomeDialog: React.FC<{
           export feature so that you can save your campaign data locally and ensure that your data is not lost when you
           clear your browser cache.
         </Typography>
-        <Typography sx={{ mb: 2 }} component="p">
+        <Typography sx={{ mb: 4 }} component="p">
           Embrace the boundless possibilities that DM Screen brings to your digital tabletop. Unleash your creativity,
           streamline your campaign management, and embark on unforgettable journeys with the click of a button.
         </Typography>
         <Typography sx={{ mb: 2 }} component="p">
           Best regards,
         </Typography>
-        <Typography component="p">John</Typography>
+        <Typography sx={{ mb: 4 }} component="p">
+          John
+        </Typography>
       </Box>
     </ModalLayout>
   );
