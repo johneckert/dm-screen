@@ -1,4 +1,5 @@
 # DM Screen
+<img width="1706" alt="demo-dashboard" src="https://github.com/johneckert/dm-screen/assets/14866241/3cb9dccd-39af-4ea3-b15f-b454693ddec7">
 
 This is an online tool for running 5th Edition Dungeons & Dragons games.
 
